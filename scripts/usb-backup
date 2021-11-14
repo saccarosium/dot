@@ -1,0 +1,28 @@
+#!/bin/bash
+
+DRIVE="/Volumes/UNTITLED"
+
+rsync -av --dry-run /Users/lucasaccarola/.gnupg/ $DRIVE/gnupg/ 
+rsync -av --dry-run /Users/lucasaccarola/.ssh/ $DRIVE/ssh\ key/
+rsync -av --dry-run /Users/lucasaccarola/Library/Keychains/ $DRIVE/Keychain/
+rsync -av --dry-run /Users/lucasaccarola/.dot/ $DRIVE/dotfiles/
+rsync -av --dry-run /Users/lucasaccarola/Documents/backups $DRIVE/backups/
+rsync -av --dry-run /Users/lucasaccarola/Documents/school/ $DRIVE/school/
+rsync -av --dry-run /Users/lucasaccarola/.local/share/vdirsyncer/calendars/ $$DRIVE/calendars
+rsync -av --dry-run /Users/lucasaccarola/Nextcloud/notes/ $DRIVE/notes/
+
+printf "Do you wanna go over? [y|n]: "; read -r ANSWER 
+case "$ANSWER" in
+     [yY])
+	    rsync -av /Users/lucasaccarola/.gnupg/ $DRIVE/gnupg/
+	    rsync -av /Users/lucasaccarola/.ssh/ $DRIVE/ssh\ key/
+	    rsync -av /Users/lucasaccarola/Library/Keychains/ $DRIVE/Keychain/
+	    rsync -av /Users/lucasaccarola/.dot/ $DRIVE/dotfiles/
+	    rsync -av /Users/lucasaccarola/Documents/backups $DRIVE/backups/
+	    rsync -av /Users/lucasaccarola/.local/share/vdirsyncer/calendars/ $DRIVE/calendars
+	    rsync -av /Users/lucasaccarola/Nextcloud/notes/ $DRIVE/notes/
+	    ;;
+     [nN])
+         printf "Stoping...\n"
+         ;;
+esac

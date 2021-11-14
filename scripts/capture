@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#printf "* %s \n" "$*" >> "$TODO"/scratchpad.md
+task add +inbox "$*"

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd $DOTFILES/ || exit
+select=$(find . | fzf) || exit
+$EDITOR $select

@@ -1,0 +1,18 @@
+[calendars]
+
+[[personal]]
+path = ~/.local/share/vdirsyncer/calendars/personal/
+
+[[school]]
+path = ~/.local/share/vdirsyncer/calendars/school/
+
+#[[khal_todoist]]
+#path = ~/.local/share/vdirsyncer/calendars/khal_todoist/
+#readonly = True
+
+[locale]
+timeformat = %H:%M
+dateformat = %d/%m/%Y
+longdateformat = %d/%m/%Y
+datetimeformat = %d/%m/%Y %H:%M
+longdatetimeformat = %d/%m/%Y %H:%M

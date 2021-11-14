@@ -1,0 +1,27 @@
+#!/bin/sh
+
+rsync -av --dry-run $DOCUMENTS/ /Volumes/backup2/documents \
+rsync -av --dry-run $SYNC/ /Volumes/backup2/Nextcloud \
+rsync -av --dry-run $DOTFILES/ /Volumes/backup2/dot \
+rsync -av --dry-run $HOME/.gnupg/ /Volumes/backup2/gnupg/ \
+rsync -av --dry-run $HOME/.ssh/ /Volumes/backup2/ssh_key/ \
+rsync -av --dry-run $HOME/Library/Keychains/ /Volumes/backup2/keychain/ \
+rsync -av --dry-run $PROJECTS/ /Volumes/backup2/projects/ | less
+
+
+printf '%b\n' "\033[1m""Do you wanna go over? [y|n]: ""\033[0m"; read -r ANSWER
+case "$ANSWER" in
+     [yY])
+          
+          rsync -av $DOCUMENTS/ /Volumes/backup2/documents
+          rsync -av $SYNC/ /Volumes/backup2/Nextcloud
+          rsync -av $DOTFILES/ /Volumes/backup2/dot
+          rsync -av $HOME/.gnupg/ /Volumes/backup2/gnupg/
+          rsync -av $HOME/.ssh/ /Volumes/backup2/ssh_key/
+          rsync -av $HOME/Library/Keychains/ /Volumes/backup2/keychain/
+          rsync -av $PROJECTS/ /Volumes/backup2/projects/
+          ;;
+     [nN])
+         printf "Stoping...\n"
+         ;;
+esac

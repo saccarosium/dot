@@ -1,0 +1,34 @@
+#!/bin/sh
+
+cd "$NOTES" || exit
+
+search_note(){
+    note=$(find . | fzf) || exit
+    $EDITOR "$note" 
+}
+
+new_note(){
+    printf "Title: " &&  read -r TITLE || exit
+    TITLE_FILE=$( printf '%s' "$TITLE" | tr '[:upper:]' '[:lower:]' | sed "s/ /-/g")
+    printf "# %s\n" "$TITLE" >> "$NOTES"/"$TITLE_FILE".md
+    $EDITOR "$NOTES"/"$TITLE_FILE".md || rm "$NOTES"/"$TITLE_FILE".md
+}
+
+grep_note(){
+    QUERY=' ' 
+    file_grep=$(grep "$QUERY" -R -I * | fzf | sed "s/:.*//g") 
+    $EDITOR "$file_grep"
+}
+
+if [ $# = 0 ]; then
+    search_note && exit;
+else
+  while getopts "gnf" opt; do
+    case "$opt" in
+      g) grep_note && exit;;
+      n) new_note && exit;;
+      f) nnn && exit;;
+      *) exit
+    esac
+  done
+fi

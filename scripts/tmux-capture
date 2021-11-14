@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# vi + ~/Nextcloud/todolist/scratchpad.md 
+printf " ﮅ: " && read -r task || exit
+todo.sh add "$task" +inbox

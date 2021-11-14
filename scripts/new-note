@@ -1,0 +1,6 @@
+#!/bin/sh
+
+TITLE=$( printf '%s' "$*" )
+TITLE_FILE=$( printf '%s' "$TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+printf "# %s\n" "$TITLE" >> "$NOTES"/"$TITLE_FILE".md
+vi "$NOTES"/"$TITLE_FILE".md

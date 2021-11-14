@@ -1,0 +1,3 @@
+#!/bin/sh 
+
+sel=$( ls /Applications/ | choose ) && open -a  $sel

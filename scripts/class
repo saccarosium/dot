@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cd "$SCHOOL"/cafoscari_informatica || exit 
+SELECT=$( ls | fzf )
+cd "$SELECT" || exit
+
+

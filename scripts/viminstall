@@ -1,0 +1,5 @@
+#!/bin/sh
+
+vim -c "PlugInstall | PlugClean | q! | q!" 
+
+
