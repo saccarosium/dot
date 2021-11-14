@@ -6,7 +6,7 @@
 
 # Also have a look at https://github.com/rwxrob/lynx for more.
 
-mkdir ~/$XDG_CONFIG_HOME/ 2>/dev/null
-rm -rf ~/.config/lynx 2>/dev/null
-ln -s "$PWD" "$HOME/.config/lynx"
-ls -l ~/.config/lynx
+mkdir "$XDG_CONFIG_HOME"/ 2>/dev/null
+rm -rf "$XDG_CONFIG_HOME"/lynx 2>/dev/null
+ln -s "$PWD" "$XDG_CONFIG_HOME/lynx"
+ls -l "$XDG_CONFIG_HOME"/lynx

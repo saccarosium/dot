@@ -1,0 +1,4 @@
+#!/bin/sh
+
+ln -s $PWD/.bashrc $HOME/.bashrc
+ln -s $PWD/.profile $HOME/.profile

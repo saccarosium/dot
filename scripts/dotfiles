@@ -1,0 +1,34 @@
+#!/bin/sh
+
+list_sym(){
+    ls -al "$XDG_CONFIG_HOME" | grep ">" | grep ".dot" | awk '{print $9}'
+    ls -al "$HOME" | grep ">" | grep ".dot" | awk '{print $9}'
+}
+
+sym_home(){
+    target="$HOME/$(basename "$PWD")"
+    if [ -f $target ] || [ -d $target ]; then
+        rm -rf "$target"
+    fi
+    ln -s "$PWD/" "$target"
+}
+
+sym_config(){
+    target="$XDG_CONFIG_HOME/$(basename "$PWD")"
+    if [ -f $target ]|| [ -d $target ]; then
+        rm -rf "$target"
+    fi
+    ln -s "$PWD/" "$target"
+}
+
+if [ $# = 0 ]; then
+    list_sym && exit;
+else
+  while getopts "ch" opt; do
+    case "$opt" in
+      c) sym_config && exit;;
+      h) sym_home && exit;;
+      *) exit
+    esac
+  done
+fi

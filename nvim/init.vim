@@ -5,6 +5,7 @@
     set wildmenu wildignorecase 
     set number relativenumber
     set laststatus=0 noshowcmd guicursor=
+    set viminfo+=n$XDG_DATA_HOME/nvim/viminfo
     set clipboard+=unnamed "set the vim's clipboard to the system's clipboard
     let loaded_netrwPlugin = 1 "disabling netrw
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -23,14 +24,14 @@
     nnoremap <C-s> :!
     nnoremap <leader>p :bn<CR>
     nnoremap <leader>n :bp<CR>
-    nnoremap <leader>fe :e ~/.config/nvim/init.vim<CR>
+    nnoremap <leader>fe :e $XDG_CONFIG_HOME/nvim/init.vim<CR>
     nnoremap <leader>al Vgq
     nnoremap <leader>P :!open -a Typora %<CR>
     "fix indetation command in visual mode
     vmap < <gv
     vmap > >gv
 
-call plug#begin('~/.local/share/nvim/plugins')
+call plug#begin('$XDG_DATA_HOME/nvim/plugins')
 
     Plug 'dracula/vim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
