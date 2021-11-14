@@ -38,6 +38,7 @@ call plug#begin('$XDG_DATA_HOME/nvim/plugins')
     Plug 'ap/vim-css-color'
     Plug 'vim-pandoc/vim-pandoc-syntax'
     Plug 'vim-pandoc/vim-pandoc'
+    Plug 'tpope/vim-fugitive'
     " Native Lsp
     Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/nvim-cmp'

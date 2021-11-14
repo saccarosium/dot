@@ -48,7 +48,6 @@ HISTFILE="$XDG_CACHE_HOME/bash_history"
 
 PS1='\[\e[0;1;32m\]\u\[\e[0;1;32m\]@\[\e[0;1;32m\]\h\[\e[0m\]:\[\e[0;34m\]\W\[\e[0;97m\]\$ \[\e[0m\]'
 
-
 # ------------------------------ aliases -----------------------------
 
 alias grep='grep --color=auto'
@@ -58,7 +57,6 @@ alias projects='source $SCRIPTS/projects'
 alias scratch='vi $SYNC/scratchpad.md'
 alias ls='ls -a'
 alias vi='nvim'
-alias nnn='n'
 alias '?'='duck'
 
 # ----------------------------- autostart ----------------------------
