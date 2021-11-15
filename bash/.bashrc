@@ -3,6 +3,8 @@ case $- in
       *) return ;;
 esac
 
+_have()      { type "$1" &>/dev/null; }
+
 # ----------------------- environment variables ----------------------
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -33,10 +35,13 @@ export LSCOLORS=excxfxdxfxexDxDxDxDx
 export LESSHISTFILE=-
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export BAT_THEME="Dracula"
+
+set -o vi
 
 # ------------------------------ cdpath ------------------------------
 
-export CDPATH=".:$HOME:$DOTFILES:$PROJECTS:$SYNC:$NOTES"
+export CDPATH=".:$HOME:$DOTFILES:$PROJECTS:$SYNC:$NOTES:$PROJECTS/IaP"
 
 # ------------------------------ history -----------------------------
 
@@ -57,6 +62,8 @@ alias projects='source $SCRIPTS/projects'
 alias scratch='vi $SYNC/scratchpad.md'
 alias ls='ls -a'
 alias vi='nvim'
+alias rm='trash'
+alias rss='newsboat'
 alias '?'='duck'
 
 # ----------------------------- autostart ----------------------------
@@ -69,25 +76,11 @@ alias '?'='duck'
 
 # -------------------------------- nnn -------------------------------
 
-n ()
-{
-    # Block nesting of nnn in subshells
-    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
-        echo "nnn is already running"
-        return
-    fi
-    nnn "$@"
-    if [ -f "$NNN_TMPFILE" ]; then
-        . "$NNN_TMPFILE"
-        rm -f "$NNN_TMPFILE" > /dev/null
-    fi
-}
-
 export NNN_PLUG='p:preview-tui;o:fzopen'
 export NNN_FIFO='/tmp/nnn/nnn.fifo'
-export NNN_TMPFILE='/tmp/nnn/lastd'
 export NNN_OPTS="QHed"
 export NNN_BMS="D:$HOME/Downloads;d:$DOCUMENTS;S:$SYNC;p:$PROJECTS;.:$DOTFILES;l:~/.local/share/"
 BLK="04" CHR="04" DIR="04" EXE="05" REG="00" HARDLINK="02" SYMLINK="02" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"

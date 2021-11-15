@@ -12,34 +12,34 @@
 #
 # The next line (beginning with "em") means:  use bold if mono, otherwise
 # brightblue on <defaultbackground>
-em:					bold:			white
+em:				bold:			white
 strong:			bold:			white
-b:					bold:			red
-i:					bold:			red
-a:					bold:		  green
-img:				normal:		magenta
-fig:				normal:		white
+b:				bold:			red
+i:				bold:			red
+a:				bold:		  green
+img:			normal:		magenta
+fig:			normal:		white
 caption:		reverse:	white
-hr:					normal:		white
+hr:				normal:		white
 blockquote:	normal:		cyan
-ul:					normal:		green
+ul:				normal:		green
 address:		normal:		white
 title:			bold:			gray
-tt:					dim:			white
-h1:					bold:			black: blue
+tt:				dim:			white
+h1:				bold:			yellow: blue
 label:			normal:		white
-q:					normal:		white
+q:				normal:		white
 small:			dim:			default
-big:				bold:			white
-sup:				bold:			white
-sub:				dim:			white
-li:					normal:		white
-code:				normal:		yellow
-cite:				normal:		white
+big:			bold:			white
+sup:			bold:			white
+sub:			dim:			white
+li:				normal:		white
+code:			normal:		yellow
+cite:			normal:		white
 table:			normal:		white
-tr:					bold:			white
-td:					normal:		default
-br:					normal:		default
+tr:				bold:			white
+td:				normal:		default
+br:				normal:		default
 
 # Special styles - not corresponding directly to HTML tags
 #	alert	- status bar, when message begins "Alert".

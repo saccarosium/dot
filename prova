@@ -1,7 +1,0 @@
-#!/bin/sh
-VAR=$(git branch --show-current 2>/dev/null)
-if [[ $VAR ]]; then
-    echo bruh
-else
-    echo not good
-fi

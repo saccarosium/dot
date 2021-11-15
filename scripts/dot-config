@@ -1,8 +1,0 @@
-#!/bin/sh
-target="$XDG_CONFIG_HOME/$(basename "$PWD")"
-
-if [[ -f $target || -d $target ]]; then
-    rm -rf "$target"
-fi
-
-ln -s "$PWD/" "$target"

@@ -1,8 +1,0 @@
-#!/bin/sh
-target="$HOME/$(basename "$PWD")"
-
-if [ -f $target || -d $target ]; then
-    rm -rf "$target"
-fi
-
-ln -s "$PWD/" "$target"

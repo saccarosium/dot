@@ -41,7 +41,7 @@
 let g:polyglot_disabled = ['markdown']
 
 "PLUGINS
-call plug#begin('~/.local/share/vim/plugins')
+call plug#begin('$XDG_DATA_HOME/vim/plugins')
 
     Plug 'dracula/vim'
     Plug 'sheerun/vim-polyglot'
@@ -53,7 +53,6 @@ call plug#end()
 
 "COLORS
     syntax on
-    colorscheme dracula
     set background=dark
     set termguicolors t_Co=256
 

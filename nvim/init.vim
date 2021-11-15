@@ -1,22 +1,18 @@
-"GENERAL SETTINGS set path+=**
+"GENERAL SETTINGS 
+    set path+=**
     set nobackup noswapfile autowriteall
     set conceallevel=2
     set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent
     set wildmenu wildignorecase 
     set number relativenumber
     set laststatus=0 noshowcmd guicursor=
-    set viminfo+=n$XDG_DATA_HOME/nvim/viminfo
+    set viminfo+=n"$XDG_DATA_HOME/nvim/viminfo"
     set clipboard+=unnamed "set the vim's clipboard to the system's clipboard
-    let loaded_netrwPlugin = 1 "disabling netrw
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 "KEYBINDINGS
     let mapleader=" "
     let maplocalleader=" "
-    nnoremap Y y$
-    inoremap <C-c> <nop>
-    nnoremap <C-c> <C-W>c
+    nnoremap Y y$ inoremap <C-c> <nop> nnoremap <C-c> <C-W>c
     nnoremap <C-h> <C-W>h
     nnoremap <C-j> <C-W>j
     nnoremap <C-k> <C-W>k
@@ -33,12 +29,10 @@
 
 call plug#begin('$XDG_DATA_HOME/nvim/plugins')
 
-    Plug 'dracula/vim'
+    Plug 'projekt0n/github-nvim-theme'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'ap/vim-css-color'
     Plug 'vim-pandoc/vim-pandoc-syntax'
     Plug 'vim-pandoc/vim-pandoc'
-    Plug 'tpope/vim-fugitive'
     " Native Lsp
     Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/nvim-cmp'
@@ -48,9 +42,10 @@ call plug#begin('$XDG_DATA_HOME/nvim/plugins')
 call plug#end()
 
 "COLORS
-    colorscheme dracula
+    colorscheme github_dark_default
     set termguicolors t_Co=256
-
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 "VIM-PANDOC
     augroup pandoc_syntax
@@ -84,5 +79,7 @@ require'lspconfig'.clangd.setup{
       debounce_text_changes = 100,
     }
 }
+
+require('github-theme').setup()
 
 EOF

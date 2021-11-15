@@ -1,4 +1,0 @@
-#!/bin/sh
-
-VAR1=$(find . | fzf)
-vim -c "e $VAR1"

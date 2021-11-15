@@ -99,7 +99,7 @@
 ]
 
 # open terminal, blazingly fast compared to iTerm/Hyper
-cmd + ctrl - return : open -a /Applications/iTerm.app
-cmd + ctrl - b : open -a /Applications/Brave\ Browser.app
+cmd + ctrl - return : open -a "iTerm.app"
+cmd + ctrl - b : open -a "Brave\ Browser.app"
 cmd + ctrl - p : open -a /Applications/KeePassXC.app
 cmd + ctrl - t : open -a /Applications/Todoist.app

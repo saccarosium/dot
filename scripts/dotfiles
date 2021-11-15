@@ -6,17 +6,19 @@ list_sym(){
 }
 
 sym_home(){
-    target="$HOME/$(basename "$PWD")"
-    if [ -f $target ] || [ -d $target ]; then
-        rm -rf "$target"
+    target1="$HOME/$(basename "$PWD")"
+
+    if [ -f "$target1" ] || [ -d "$target1" ]; then
+        rm -rf "$target1" 
     fi
-    ln -s "$PWD/" "$target"
+    ln -s "$PWD/" "$target1"
 }
 
 sym_config(){
     target="$XDG_CONFIG_HOME/$(basename "$PWD")"
-    if [ -f $target ]|| [ -d $target ]; then
-        rm -rf "$target"
+
+    if [ -f "$target" ]|| [ -d "$target" ]; then
+        rm -rf "$target" 
     fi
     ln -s "$PWD/" "$target"
 }
@@ -24,10 +26,11 @@ sym_config(){
 if [ $# = 0 ]; then
     list_sym && exit;
 else
-  while getopts "ch" opt; do
+  while getopts "chf" opt; do
     case "$opt" in
       c) sym_config && exit;;
       h) sym_home && exit;;
+      f) nnn "$XDG_CONFIG_HOME" && exit;;
       *) exit
     esac
   done

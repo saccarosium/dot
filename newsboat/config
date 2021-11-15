@@ -4,8 +4,10 @@ bind-key l open
 bind-key h quit
 bind-key j down
 bind-key k up
+bind-key U show-urls
 
 color info black black invis
+color listnormal_unread white black bold
 highlight article "(^Feed:.*|^Title:.*|^Author:.*|^Link:.*|^Date:.*)" cyan default bold
 highlight article "\\[image\\ [0-9]+\\]" magenta default bold
 highlight article ":.*\\(link\\)$" green default
@@ -15,9 +17,3 @@ browser lynx
 macro , open-in-browser
 macro v set browser "mpv -fs %u" ; open-in-browser ; set browser lynx
 macro b set browser "open" ; open-in-browser ; set browser lynx
-
-urls-source "ocnews"
-ocnews-url "https://cloud.saccarosium.com"
-
-ocnews-login "antonio"
-ocnews-passwordeval "keyring get newsboat antonio"

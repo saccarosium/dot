@@ -1,6 +1,0 @@
-#!/bin/sh
-
-open "$PROJECTS/ofa_matematica/displensa.pdf" && open "$PROJECTS/ofa_matematica/LaTeX-Math-Symbols.pdf/"
-open -a "Anki"
-open -a "Brave Browser"
-open -a "Todoist"

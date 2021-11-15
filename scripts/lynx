@@ -1,16 +1,20 @@
-#!/bin/sh
+#!/bin/bash
 
-# see ../lynx/README.md for configs
-
-lynxpath=/usr/local/bin/lynx
-useragent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.79 Safari/537.1 Lynx"
-
-if [ -e "XDG_CONFIG_HOME/lynx/lynx.cfg" ];then
-  export LYNX_CFG="$XDG_CONFIG_HOME/lynx/lynx.cfg"
+# Check the OS
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    lynxpath=/usr/bin/lynx
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    lynxpath=/usr/local/bin/lynx
 fi
 
-if [ -e "$XDG_CONFIG_HOME/lynx/lynx.lss" ];then
-  export LYNX_LSS="$XDG_CONFIG_HOME/lynx/lynx.lss"
+# Useragent string to use
+useragent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.79 Safari/537.1 Lynx"
+
+# Check if the config files exists
+if [ -e "$XDG_CONFIG_HOME/lynx/lynx.cfg" ];then
+    config="$XDG_CONFIG_HOME/lynx/lynx.cfg"
+elif [ -e "$XDG_CONFIG_HOME/lynx/lynx.lss" ];then
+    export LYNX_LSS="$XDG_CONFIG_HOME/lynx/lynx.lss"
 fi
 
 if [ ! -x "$lynxpath" ]; then
@@ -18,5 +22,4 @@ if [ ! -x "$lynxpath" ]; then
   exit 1
 fi
 
-exec "$lynxpath" --useragent="$useragent" "$@"
-
+exec "$lynxpath" --useragent="$useragent" -cfg "$config" "$@"
