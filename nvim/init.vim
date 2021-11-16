@@ -6,30 +6,24 @@
     set wildmenu wildignorecase 
     set number relativenumber
     set laststatus=0 noshowcmd guicursor=
-    set viminfo+=n"$XDG_DATA_HOME/nvim/viminfo"
     set clipboard+=unnamed "set the vim's clipboard to the system's clipboard
 
 "KEYBINDINGS
     let mapleader=" "
     let maplocalleader=" "
-    nnoremap Y y$ inoremap <C-c> <nop> nnoremap <C-c> <C-W>c
-    nnoremap <C-h> <C-W>h
-    nnoremap <C-j> <C-W>j
-    nnoremap <C-k> <C-W>k
-    nnoremap <C-l> <C-W>l
+    nnoremap Y y$ 
     nnoremap <C-s> :!
     nnoremap <leader>p :bn<CR>
     nnoremap <leader>n :bp<CR>
     nnoremap <leader>fe :e $XDG_CONFIG_HOME/nvim/init.vim<CR>
     nnoremap <leader>al Vgq
     nnoremap <leader>P :!open -a Typora %<CR>
-    "fix indetation command in visual mode
     vmap < <gv
     vmap > >gv
 
 call plug#begin('$XDG_DATA_HOME/nvim/plugins')
 
-    Plug 'projekt0n/github-nvim-theme'
+    Plug 'dracula/vim', { 'as': 'dracula' }
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'vim-pandoc/vim-pandoc-syntax'
     Plug 'vim-pandoc/vim-pandoc'
@@ -42,10 +36,9 @@ call plug#begin('$XDG_DATA_HOME/nvim/plugins')
 call plug#end()
 
 "COLORS
-    colorscheme github_dark_default
+    colorscheme dracula
     set termguicolors t_Co=256
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    hi! Normal ctermbg=NONE guibg=NONE
 
 "VIM-PANDOC
     augroup pandoc_syntax
@@ -79,7 +72,5 @@ require'lspconfig'.clangd.setup{
       debounce_text_changes = 100,
     }
 }
-
-require('github-theme').setup()
 
 EOF

@@ -18,7 +18,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     export XDG_CACHE_HOME="$HOME/Library/Caches"
     export DOCUMENTS="$HOME/Documents" #MacOS 
     export BASH_SILENCE_DEPRECATION_WARNING=1
-    export PATH="/Users/sacca/.dot/scripts:/usr/local/bin:/opt/local/bin:/opt/local/sbin:$PATH:" 
+    export PATH="/Users/sacca/.dot/scripts:/Users/sacca/Library/cargo/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:$PATH:" 
 fi
 
 export PROJECTS="$HOME/Projects"
@@ -33,7 +33,7 @@ export MANPAGER="less"
 export CLICOLOR=1
 export LSCOLORS=excxfxdxfxexDxDxDxDx
 export LESSHISTFILE=-
-export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export BAT_THEME="Dracula"
 
@@ -77,7 +77,7 @@ alias '?'='duck'
 # -------------------------------- nnn -------------------------------
 
 export NNN_PLUG='p:preview-tui;o:fzopen'
-export NNN_FIFO='/tmp/nnn/nnn.fifo'
+export NNN_FIFO='/tmp/nnn.fifo'
 export NNN_OPTS="QHed"
 export NNN_BMS="D:$HOME/Downloads;d:$DOCUMENTS;S:$SYNC;p:$PROJECTS;.:$DOTFILES;l:~/.local/share/"
 BLK="04" CHR="04" DIR="04" EXE="05" REG="00" HARDLINK="02" SYMLINK="02" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
