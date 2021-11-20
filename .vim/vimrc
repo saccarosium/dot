@@ -10,25 +10,16 @@
     set viminfo+=n$XDG_DATA_HOME/vim/viminfo
 "    set backspace=0
     let loaded_netrwPlugin = 1 "disabling netrw
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 "KEYBINDINGS
     let mapleader=" "
     let maplocalleader=" "
     nnoremap Y y$
-    nnoremap <C-c> <C-W>c
-    nnoremap <C-h> <C-W>h
-    nnoremap <C-j> <C-W>j
-    nnoremap <C-k> <C-W>k
-    nnoremap <C-l> <C-W>l
-    nnoremap <leader>s :source ~/.vim/vimrc<CR>
     nnoremap <leader>p :bn<CR>
     nnoremap <leader>n :bp<CR>
     nnoremap <leader>fe :e ~/.vim/vimrc<CR>
     nnoremap <leader>Al vipgq
     nnoremap <leader>al Vgq
-    nnoremap <leader>P :!open -a Typora %<CR>
     "move line in visual mode
     xnoremap K :move '<-2<CR>gv-gv 
     xnoremap J :move '>+2<CR>gv-gv
@@ -45,9 +36,12 @@ call plug#begin('$XDG_DATA_HOME/vim/plugins')
 
     Plug 'dracula/vim'
     Plug 'sheerun/vim-polyglot'
-    Plug 'ap/vim-css-color'
     Plug 'vim-pandoc/vim-pandoc-syntax'
     Plug 'vim-pandoc/vim-pandoc'
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'keremc/asyncomplete-clang.vim'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 call plug#end()
 
@@ -55,9 +49,8 @@ call plug#end()
     syntax on
     set background=dark
     set termguicolors t_Co=256
-
-"ULTISNIP
-    let g:UltiSnipsEditSplit="vertical"
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 "FILETYPE
     filetype plugin on
@@ -68,3 +61,11 @@ call plug#end()
     augroup END
     let g:pandoc#modules#disabled = ["folding", "formatting", "completition", "spell", "menu"]  
     let g:pandoc#syntax#conceal#blacklist = ["atx", "codeblock_start", "codeblock_delim"]
+
+autocmd User asyncomplete_setup call asyncomplete#register_source(
+    \ asyncomplete#sources#clang#get_source_options({
+    \     'config': {
+    \         'clang_path': '/usr/bin/clang',
+    \         }
+    \     }
+    \ }))

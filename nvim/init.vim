@@ -24,6 +24,7 @@
 call plug#begin('$XDG_DATA_HOME/nvim/plugins')
 
     Plug 'dracula/vim', { 'as': 'dracula' }
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'vim-pandoc/vim-pandoc-syntax'
     Plug 'vim-pandoc/vim-pandoc'
@@ -68,9 +69,10 @@ vim.lsp.set_log_level("debug")
 
 require'lspconfig'.clangd.setup{
     on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 100,
-    }
+}
+
+require'lspconfig'.bashls.setup{
+    on_attach = on_attach,
 }
 
 EOF

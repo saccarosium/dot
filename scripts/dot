@@ -1,0 +1,51 @@
+#!/bin/sh
+
+list_sym(){
+    find "$XDG_CONFIG_HOME" -ls -maxdepth 1 | grep ">" | grep ".dot" | awk '{print $11}'
+    find "$HOME/.config" -ls -maxdepth 1 | grep ">" | grep ".dot" | awk '{print $11}'
+    find "$HOME" -ls -maxdepth 1 | grep ">" | grep ".dot" | awk '{print $11}'
+}
+
+sym_home(){
+    local target
+    target="$HOME/$(basename "$PWD")"
+    if [ -f "$target" ] || [ -d "$target" ]; then
+        rm -rf "$target" 
+    fi
+    ln -s "$PWD/" "$target"
+}
+
+edit_dot(){
+    local target
+    target=$(find "$DOTFILES" | fzf) || exit 
+    "$EDITOR" "$target"
+}
+
+sym_config(){
+    local target
+    target="$XDG_CONFIG_HOME/$(basename "$PWD")"
+    if [ -f "$target" ] || [ -d "$target" ]; then
+        rm -rf "$target" 
+    fi
+    ln -s "$PWD/" "$target"
+}
+
+remove_dot(){
+    local target
+    target=$(find "$XDG_CONFIG_HOME" -ls -maxdepth 1 | grep ">" | grep ".dot" | awk '{print $11}' | fzf) || exit
+    rm -rf "$target"
+}
+
+if [ $# = 0 ]; then
+    list_sym && exit;
+else
+  while getopts "cher" opt; do
+    case "$opt" in
+      c) sym_config && exit;;
+      h) sym_home && exit;;
+      e) edit_dot && exit;;
+      r) remove_dot && exit;;
+      *) exit
+    esac
+  done
+fi

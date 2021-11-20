@@ -3,8 +3,6 @@ case $- in
       *) return ;;
 esac
 
-_have()      { type "$1" &>/dev/null; }
-
 # ----------------------- environment variables ----------------------
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -16,6 +14,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     export XDG_CONFIG_HOME="$HOME/Library/Preferences"
     export XDG_DATA_HOME="$HOME/Library"
     export XDG_CACHE_HOME="$HOME/Library/Caches"
+    export XDG_RUNTIME_DIR="/tmp"
     export DOCUMENTS="$HOME/Documents" #MacOS 
     export BASH_SILENCE_DEPRECATION_WARNING=1
     export PATH="/Users/sacca/.dot/scripts:/Users/sacca/Library/cargo/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:$PATH:" 
@@ -36,6 +35,7 @@ export LESSHISTFILE=-
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export BAT_THEME="Dracula"
+export FILE_MANAGER="nnn"
 
 set -o vi
 

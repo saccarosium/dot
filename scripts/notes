@@ -20,14 +20,20 @@ grep_note(){
     $EDITOR "$file_grep"
 }
 
+view_note(){
+    note=$(find . | fzf) || exit
+    nvim -c "MarkdownPreview" "$note" 
+}
+
 if [ $# = 0 ]; then
     search_note && exit;
 else
-  while getopts "gnf" opt; do
+  while getopts "gnfv" opt; do
     case "$opt" in
       g) grep_note && exit;;
       n) new_note && exit;;
       f) nnn && exit;;
+      v) view_note && exit;;
       *) exit
     esac
   done

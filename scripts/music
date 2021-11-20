@@ -1,0 +1,18 @@
+#!/bin/sh
+
+cd "$HOME/media/music" || exit
+
+choose_song(){
+    song=$(find . | fzf) || exit
+    mpv "$song"
+}
+
+if [ $# = 0 ]; then
+    choose_song && exit;
+else
+  while getopts "" opt; do
+    case "$opt" in
+      *) exit
+    esac
+  done
+fi
