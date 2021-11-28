@@ -1,49 +1,39 @@
 #!/bin/sh
 
 list_sym(){
-    find "$XDG_CONFIG_HOME" -ls -maxdepth 1 | grep ">" | grep ".dot" | awk '{print $11}'
-    find "$HOME/.config" -ls -maxdepth 1 | grep ">" | grep ".dot" | awk '{print $11}'
-    find "$HOME" -ls -maxdepth 1 | grep ">" | grep ".dot" | awk '{print $11}'
+    find "$XDG_CONFIG_HOME" "$HOME/.config" "$HOME" -ls -maxdepth 1 | grep ">" | grep ".dot" | awk '{print $11}'
 }
 
 sym_home(){
-    local target
-    target="$HOME/$(basename "$PWD")"
-    if [ -f "$target" ] || [ -d "$target" ]; then
-        rm -rf "$target" 
-    fi
-    ln -s "$PWD/" "$target"
-}
-
-edit_dot(){
-    local target
-    target=$(find "$DOTFILES" | fzf) || exit 
-    "$EDITOR" "$target"
+    find "$DOTFILES" -maxdepth 1 | fzf -m | xargs -I {} basename {} | xargs -I {} ln -sf "$DOTFILES/{}" "$HOME/{}"
 }
 
 sym_config(){
-    local target
-    target="$XDG_CONFIG_HOME/$(basename "$PWD")"
-    if [ -f "$target" ] || [ -d "$target" ]; then
-        rm -rf "$target" 
-    fi
-    ln -s "$PWD/" "$target"
+    find "$DOTFILES" -maxdepth 1 | fzf -m | xargs -I {} basename {} | xargs -I {} ln -sf "$DOTFILES/{}" "$XDG_CONFIG_HOME/{}"
+}
+
+edit_dot(){
+    target=$(find "$DOTFILES" | fzf)
+    $EDITOR $target && printf "%s" "$target" > /tmp/lastdotedit
+}
+
+edit_last(){
+    cat "/tmp/lastdotedit" | xargs $EDITOR
 }
 
 remove_dot(){
-    local target
-    target=$(find "$XDG_CONFIG_HOME" -ls -maxdepth 1 | grep ">" | grep ".dot" | awk '{print $11}' | fzf) || exit
-    rm -rf "$target"
+    list_sym | fzf -m | xargs -I {} rm -rf {}
 }
 
 if [ $# = 0 ]; then
     list_sym && exit;
 else
-  while getopts "cher" opt; do
+  while getopts "cheEr" opt; do
     case "$opt" in
       c) sym_config && exit;;
       h) sym_home && exit;;
       e) edit_dot && exit;;
+      E) edit_last && exit;;
       r) remove_dot && exit;;
       *) exit
     esac

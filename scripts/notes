@@ -3,36 +3,30 @@
 cd "$NOTES" || exit
 
 search_note(){
-    note=$(find . | fzf) || exit
-    $EDITOR "$note" 
+    find . -name "*.md" | fzf | xargs -r "$EDITOR" -c "cd $NOTES"
 }
 
 new_note(){
     printf "Title: " &&  read -r TITLE || exit
     TITLE_FILE=$( printf '%s' "$TITLE" | tr '[:upper:]' '[:lower:]' | sed "s/ /-/g")
-    printf "# %s\n" "$TITLE" >> "$NOTES"/"$TITLE_FILE".md
-    $EDITOR "$NOTES"/"$TITLE_FILE".md || rm "$NOTES"/"$TITLE_FILE".md
+    "$EDITOR" -c ":.!echo '\# $TITLE'" "$TITLE_FILE.md"
 }
 
 grep_note(){
-    QUERY=' ' 
-    file_grep=$(grep "$QUERY" -R -I * | fzf | sed "s/:.*//g") 
-    $EDITOR "$file_grep"
+    grep " " -R -I * | fzf | sed "s/:.*//g" | xargs -r "$EDITOR" -c "cd $NOTES"
 }
 
 view_note(){
-    note=$(find . | fzf) || exit
-    nvim -c "MarkdownPreview" "$note" 
+    find . "$NOTES/pdfs" -name "*.pdf" | fzf |  xargs -r zathura
 }
 
 if [ $# = 0 ]; then
     search_note && exit;
 else
-  while getopts "gnfv" opt; do
+  while getopts "gnv" opt; do
     case "$opt" in
       g) grep_note && exit;;
       n) new_note && exit;;
-      f) nnn && exit;;
       v) view_note && exit;;
       *) exit
     esac

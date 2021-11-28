@@ -2,4 +2,4 @@
 
 # vi + ~/Nextcloud/todolist/scratchpad.md 
 printf " ﮅ: " && read -r task || exit
-todo.sh add "$task" +inbox
+printf "* TODO $task\n" >> "$SYNC/todolist/Inbox.dotoo"

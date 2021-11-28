@@ -2,29 +2,27 @@ case $- in
     *i*) ;;
       *) return ;;
 esac
-
 # ----------------------- environment variables ----------------------
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     export XDG_CONFIG_HOME="$HOME/.config"
     export XDG_DATA_HOME="$HOME/.local/share"
     export XDG_CACHE_HOME="$HOME/.cache"
-    export DOCUMENTS="$HOME/docs/" #Linux 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     export XDG_CONFIG_HOME="$HOME/Library/Preferences"
     export XDG_DATA_HOME="$HOME/Library"
     export XDG_CACHE_HOME="$HOME/Library/Caches"
     export XDG_RUNTIME_DIR="/tmp"
-    export DOCUMENTS="$HOME/Documents" #MacOS 
     export BASH_SILENCE_DEPRECATION_WARNING=1
-    export PATH="/Users/sacca/.dot/scripts:/Users/sacca/Library/cargo/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:$PATH:" 
+    export PATH="/Users/sacca/.dot/scripts:/Users/sacca/Library/cargo/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:$GOPATH/bin:$PATH:" 
 fi
-
+export DOCUMENTS="$HOME/Documents"
 export PROJECTS="$HOME/Projects"
 export DOTFILES="$HOME/.dot"
 export SCRIPTS="$DOTFILES/scripts"
 export SYNC="$DOCUMENTS/nextcloud"
 export NOTES="$SYNC/notes"
+export MEDIA="$HOME/media"
 export SNIPPETS="$DOTFILES/snippets"
 export EDITOR=nvim
 export CLI_BROWSER=lynx
@@ -32,10 +30,11 @@ export MANPAGER="less"
 export CLICOLOR=1
 export LSCOLORS=excxfxdxfxexDxDxDxDx
 export LESSHISTFILE=-
+export FILE_MANAGER="nnn"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export BAT_THEME="Dracula"
-export FILE_MANAGER="nnn"
+export GOPATH="$XDG_DATA_HOME"/go
+export LANG="en_US.UTF-8"
 
 set -o vi
 
@@ -51,7 +50,47 @@ HISTFILE="$XDG_CACHE_HOME/bash_history"
 
 # ------------------------------- prompt -----------------------------
 
-PS1='\[\e[0;1;32m\]\u\[\e[0;1;32m\]@\[\e[0;1;32m\]\h\[\e[0m\]:\[\e[0;34m\]\W\[\e[0;97m\]\$ \[\e[0m\]'
+PROMPT_LONG=40
+
+__ps1() {
+  b='\[\e[30m\]' 
+  r='\[\e[31m\]' 
+  gr='\[\e[0;32m\]' 
+  y='\[\e[33m\]' 
+  bl='\[\e[34m\]' 
+  p='\[\e[35m\]'
+  c='\[\e[36m\]' 
+  g='\[\e[0;90m\]' 
+  w='\[\e[0m\]'
+
+  #T=$(todoist l | sed "/#Habbits/ d; /#Projects/ d" | wc -l | awk '{print $1}' 2>/dev/null)  
+
+  B=$(git branch --show-current 2>/dev/null)
+  DIR=$(basename $PWD)
+
+  countme="$USER@$(hostname):$DIR($B)\$ "
+
+  [[ $B = master || $B = main ]] 
+  [[ -n "$B" ]] && B="$r($r$B)"
+
+  if [ 0 = 0 ]; then
+    short="$gr\u@\h$w:$bl\W$B$w\$$w "
+    long="$gr\u@\h$w:$bl\W$B\n $w\$$w "
+  else
+    short="$w[$T] $gr\u@\h$w:$bl\W$B$w\$$w "
+    long="$w[$T] $gr\u@\h$w:$bl\W$B\n $w\$$w "
+  fi
+
+  if (( ${#countme} > PROMPT_LONG )); then
+    PS1="$long"
+  else
+    PS1="$short"
+  fi
+}
+
+PROMPT_COMMAND="__ps1"
+
+#PS1='\[\e[0;1;32m\]\u\[\e[0;1;32m\]@\[\e[0;1;32m\]\h\[\e[0m\]:\[\e[0;34m\]\W\[\e[0;97m\]\$ \[\e[0m\]'
 
 # ------------------------------ aliases -----------------------------
 
@@ -63,6 +102,7 @@ alias scratch='vi $SYNC/scratchpad.md'
 alias ls='ls -a'
 alias vi='nvim'
 alias rm='trash'
+alias t='todoist'
 alias rss='newsboat'
 alias '?'='duck'
 
@@ -84,3 +124,15 @@ BLK="04" CHR="04" DIR="04" EXE="05" REG="00" HARDLINK="02" SYMLINK="02" MISSING=
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+
+t_c() {
+    todoist l | fzf -m | awk '{print $1}' | xargs todoist close
+}
+
+t_s() {
+    todoist l | fzf -m | awk '{print $1}' | xargs todoist show
+}
+
+t_d() {
+    todoist l | fzf -m | awk '{print $1}' | xargs todoist delete
+}

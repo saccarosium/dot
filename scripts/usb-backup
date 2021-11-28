@@ -1,28 +1,44 @@
-#!/bin/bash
+#!/bin/sh
 
-DRIVE="/Volumes/UNTITLED"
+USB_DRIVE="/Volumes/UNTITLED"
+DRIVE="/Volumes/backup2"
+automation=no
 
-rsync -av --dry-run /Users/lucasaccarola/.gnupg/ $DRIVE/gnupg/ 
-rsync -av --dry-run /Users/lucasaccarola/.ssh/ $DRIVE/ssh\ key/
-rsync -av --dry-run /Users/lucasaccarola/Library/Keychains/ $DRIVE/Keychain/
-rsync -av --dry-run /Users/lucasaccarola/.dot/ $DRIVE/dotfiles/
-rsync -av --dry-run /Users/lucasaccarola/Documents/backups $DRIVE/backups/
-rsync -av --dry-run /Users/lucasaccarola/Documents/school/ $DRIVE/school/
-rsync -av --dry-run /Users/lucasaccarola/.local/share/vdirsyncer/calendars/ $$DRIVE/calendars
-rsync -av --dry-run /Users/lucasaccarola/Nextcloud/notes/ $DRIVE/notes/
+check(){
+    rsync -av --dry-run "$HOME/.ssh/" "$DRIVE/Ssh Key/" | less
+    rsync -av --dry-run "$HOME/Library/Keychains/" "$DRIVE/Keychain/" | less
+    rsync -av --dry-run "$DOTFILES/" "$DRIVE/Dotfiles/" | less
+    rsync -av --dry-run "$DOCUMENTS/" "$DRIVE/" | less
+    rsync -av --progress "$PROJECTS/" "$DRIVE/Projects" | less
+    rsync -av --progress "$MEDIA/" "$DRIVE/Media" | less
+}
 
-printf "Do you wanna go over? [y|n]: "; read -r ANSWER 
-case "$ANSWER" in
-     [yY])
-	    rsync -av /Users/lucasaccarola/.gnupg/ $DRIVE/gnupg/
-	    rsync -av /Users/lucasaccarola/.ssh/ $DRIVE/ssh\ key/
-	    rsync -av /Users/lucasaccarola/Library/Keychains/ $DRIVE/Keychain/
-	    rsync -av /Users/lucasaccarola/.dot/ $DRIVE/dotfiles/
-	    rsync -av /Users/lucasaccarola/Documents/backups $DRIVE/backups/
-	    rsync -av /Users/lucasaccarola/.local/share/vdirsyncer/calendars/ $DRIVE/calendars
-	    rsync -av /Users/lucasaccarola/Nextcloud/notes/ $DRIVE/notes/
-	    ;;
-     [nN])
-         printf "Stoping...\n"
-         ;;
-esac
+backup_to_disk(){
+    printf '%b\n' "\033[1m""Do you wanna go over? [y|n]: ""\033[0m"; read -r ANSWER
+    case "$ANSWER" in
+         [yY])
+            rsync -av --progress "$HOME/.ssh/" "$DRIVE/Ssh Key/"
+            rsync -av --progress "$HOME/Library/Keychains/" "$DRIVE/Keychain/"
+            rsync -av --progress "$DOTFILES/" "$DRIVE/Dotfiles/"
+            rsync -av --progress "$DOCUMENTS/" "$DRIVE/Documents/"
+            rsync -av --progress "$PROJECTS/" "$DRIVE/Projects"
+            rsync -av --progress "$MEDIA/" "$DRIVE/Media" 
+            ;;
+         [nN])
+            printf "Stoping...\n"
+            exit
+            ;;
+    esac
+}
+
+if [ $# = 0 ]; then
+    check_usb && exit;
+else
+  while getopts "adu" opt; do
+    case "$opt" in
+        a) automation=yes;;
+        d) backup_to_disk;;
+        u) backup_to_usb;;
+    esac
+  done
+fi

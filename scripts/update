@@ -13,10 +13,14 @@ brew autoremove
 brew cleanup
 
 printf '%b\n' "\033[1m""updating vim...""\033[0m"
-nvim -c "PlugUpdate | PlugUpgrade | PlugClean | q! | q! | q!"
+update-vim-plugins
 
 printf '%b\n' "\033[1m""updating TeX...""\033[0m"
 open -a "TeX Live Utility"
+
+# cleanup the trash
+printf '%b\n' "\033[1m""cleaning up trash...""\035[0m"
+trash -e
 
 # npm
 printf '%b\n' "\033[1m""updating npm""\033[0m"

@@ -1,0 +1,4 @@
+documentclass: article
+header-includes: |
+  \usepackage{fontspec}
+  \setmainfont{SF Pro Text}
