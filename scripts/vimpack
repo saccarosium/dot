@@ -1,0 +1,36 @@
+#!/bin/sh
+
+cd "$XDG_DATA_HOME/nvim/pack/plugins" || exit
+
+list_plugings(){
+    find . -maxdepth 2 -type d
+}
+
+update(){
+    find . -maxdepth 3 -name .git -type d | rev | cut -c 6- | rev | xargs -I {} git -C {} pull
+    nvim -c ":TSUpdate | TSUpdateSync | q!"
+}
+
+install(){
+    printf "Where install the plugin, opt or start? " && read -r LOC    
+    cd "$LOC" || exit
+    git clone "$1"
+    $VIMVER -c ":helptags ALL | q!"
+}
+
+remove(){
+    list_plugings | fzf -m | xargs rm -rf
+}
+
+if [ $# = 0 ]; then
+    list_plugings && exit;
+else
+    while getopts "i:ru" opt; do
+        case "$opt" in
+          i) install "$2" && exit;;
+          r) remove && exit;;
+          u) update && exit;;
+          *) exit
+        esac
+    done
+fi

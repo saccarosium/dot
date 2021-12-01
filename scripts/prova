@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -d /Volumes/backup2/ ]; then
+    printf "hello"
+else
+    printf "fuck"
+fi

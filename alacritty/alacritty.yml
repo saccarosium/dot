@@ -48,9 +48,9 @@ font:
   use_thin_strokes: true
  
 schemes:
-  dracula: &dracula-dark
+  dracula: &dracula
     primary:
-      background: '#1d1f26'
+      background: '#191622'
       foreground: '#f8f8f2'
       bright_foreground: '#ffffff'
     cursor:
@@ -83,7 +83,7 @@ schemes:
       text: CellForeground
       background: '#44475a'
     normal:
-      black: '#1d1f26'
+      black: '#191622'
       red: '#ff5555'
       green: '#50fa7b'
       yellow: '#f1fa8c'
@@ -101,30 +101,46 @@ schemes:
       cyan: '#a4ffff'
       white: '#ffffff'
 
-  gruvbox-dark: &gruvbox-dark
+  omni: &omni
       primary:
-        background: '#1d2021'
-        foreground: '#ebdbb2'
-      normal:
-        black:   '#1d2021'
-        red:     '#cc241d'
-        green:   '#98971a'
-        yellow:  '#d79921'
-        blue:    '#458588'
-        magenta: '#b16286'
-        cyan:    '#689d6a'
-        white:   '#a89984'
-      bright:
-        black:   '#928374'
-        red:     '#fb4934'
-        green:   '#b8bb26'
-        yellow:  '#fabd2f'
-        blue:    '#83a598'
-        magenta: '#d3869b'
-        cyan:    '#8ec07c'
-        white:   '#ebdbb2'
+        background: '#191622'
+        foreground: '#e1e1e6'
 
-colors: *dracula-dark
+      cursor:
+        text: '0x191622'
+        cursor: '0xf8f8f2'
+
+      normal:
+        black: '0x191622'
+        red: '0xff5555'
+        green: '0x50fa7b'
+        yellow: '0xeffa78'
+        blue: '0xbd93f9'
+        magenta: '0xff79c6'
+        cyan: '0x8d79ba'
+        white: '0xbfbfbf'
+
+      bright:
+        black: '0x4d4d4d'
+        red: '0xff6e67'
+        green: '0x5af78e'
+        yellow: '0xeaf08d'
+        blue: '0xcaa9fa'
+        magenta: '0xff92d0'
+        cyan: '0xaa91e3'
+        white: '0xe6e6e6'
+
+      dim:
+        black: '0x000000'
+        red: '0xa90000'
+        green: '0x049f2b'
+        yellow: '0xa3b106'
+        blue: '0x530aba'
+        magenta: '0xbb006b'
+        cyan: '0x433364'
+        white: '0x5f5f5f'
+
+colors: *dracula
 
 bell:
 # Visual Bell Animation

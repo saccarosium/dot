@@ -12,32 +12,32 @@
 #
 # The next line (beginning with "em") means:  use bold if mono, otherwise
 # brightblue on <defaultbackground>
-em:				bold:			white
-strong:			bold:			white
+em:				bold:		default
+strong:			bold:		default
 b:				bold:			red
 i:				bold:			red
 a:				bold:		  green
 img:			normal:		magenta
-fig:			normal:		white
-caption:		reverse:	white
-hr:				normal:		white
-blockquote:	normal:		cyan
+fig:			normal:		default
+caption:		reverse:	default
+hr:				normal:		default
+blockquote:	    normal:		cyan
 ul:				normal:		green
 address:		normal:		white
-title:			bold:			gray
-tt:				dim:			white
-h1:				bold:			yellow: blue
+title:			bold:		gray
+tt:				dim:		white
+h1:				bold:		yellow: blue
 label:			normal:		white
 q:				normal:		white
-small:			dim:			default
-big:			bold:			white
-sup:			bold:			white
-sub:			dim:			white
+small:			dim:		default
+big:			bold:		white
+sup:			bold:		white
+sub:			dim:		white
 li:				normal:		white
 code:			normal:		yellow
 cite:			normal:		white
 table:			normal:		white
-tr:				bold:			white
+tr:				bold:		white
 td:				normal:		default
 br:				normal:		default
 

@@ -26,6 +26,7 @@ export MEDIA="$HOME/media"
 export SNIPPETS="$DOTFILES/snippets"
 export EDITOR=nvim
 export CLI_BROWSER=lynx
+export VIMVER="nvim"
 export MANPAGER="less"
 export CLICOLOR=1
 export LSCOLORS=excxfxdxfxexDxDxDxDx
@@ -50,47 +51,30 @@ HISTFILE="$XDG_CACHE_HOME/bash_history"
 
 # ------------------------------- prompt -----------------------------
 
-PROMPT_LONG=40
+PROMPT_LONG=20
 
 __ps1() {
-  b='\[\e[30m\]' 
-  r='\[\e[31m\]' 
-  gr='\[\e[0;32m\]' 
-  y='\[\e[33m\]' 
-  bl='\[\e[34m\]' 
-  p='\[\e[35m\]'
-  c='\[\e[36m\]' 
-  g='\[\e[0;90m\]' 
-  w='\[\e[0m\]'
+    b='\[\e[30m\]' 
+    r='\[\e[31m\]' 
+    gr='\[\e[0;32m\]' 
+    y='\[\e[33m\]' 
+    bl='\[\e[34m\]' 
+    p='\[\e[35m\]'
+    c='\[\e[36m\]' 
+    g='\[\e[0;90m\]' 
+    x='\[\e[0m\]'
 
-  #T=$(todoist l | sed "/#Habbits/ d; /#Projects/ d" | wc -l | awk '{print $1}' 2>/dev/null)  
+    G=$(git branch --show-current 2>/dev/null)
+    local P='$'
+    [[ $EUID == 0 ]] && P='#'
+    [[ $G = master || $G = main ]] 
+    [[ -n "$G" ]] && G="($G)"
 
-  B=$(git branch --show-current 2>/dev/null)
-  DIR=$(basename $PWD)
+    PS1="$gr\u$x:$bl\W$x$r$G$x$x$P$x "
 
-  countme="$USER@$(hostname):$DIR($B)\$ "
-
-  [[ $B = master || $B = main ]] 
-  [[ -n "$B" ]] && B="$r($r$B)"
-
-  if [ 0 = 0 ]; then
-    short="$gr\u@\h$w:$bl\W$B$w\$$w "
-    long="$gr\u@\h$w:$bl\W$B\n $w\$$w "
-  else
-    short="$w[$T] $gr\u@\h$w:$bl\W$B$w\$$w "
-    long="$w[$T] $gr\u@\h$w:$bl\W$B\n $w\$$w "
-  fi
-
-  if (( ${#countme} > PROMPT_LONG )); then
-    PS1="$long"
-  else
-    PS1="$short"
-  fi
 }
 
 PROMPT_COMMAND="__ps1"
-
-#PS1='\[\e[0;1;32m\]\u\[\e[0;1;32m\]@\[\e[0;1;32m\]\h\[\e[0m\]:\[\e[0;34m\]\W\[\e[0;97m\]\$ \[\e[0m\]'
 
 # ------------------------------ aliases -----------------------------
 
@@ -102,7 +86,7 @@ alias scratch='vi $SYNC/scratchpad.md'
 alias ls='ls -a'
 alias vi='nvim'
 alias rm='trash'
-alias t='todoist'
+alias t='todoist --indent'
 alias rss='newsboat'
 alias '?'='duck'
 

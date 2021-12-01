@@ -1,6 +1,5 @@
 "######################### set settings ##############################
 
-    "execute pathogen#infect('$XDG_DATA_HOME/nvim/plugins/{}')
     set packpath^=$XDG_DATA_HOME/nvim/
     set path+=**
     set rtp+=/usr/local/opt/fzf
@@ -10,6 +9,7 @@
     set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent
     set wildmenu wildignorecase wildignore+=**/.git/*
     set number relativenumber
+    set clipboard+=unnamedplus
     set laststatus=0 noshowcmd guicursor=
 
 "############################# keybings ##############################
@@ -37,14 +37,17 @@
 
 "############################### plug ################################
 
+    syntax enable
     colorscheme dracula
     set termguicolors t_Co=256
-    au! VimEnter * hi! Normal ctermbg=NONE guibg=NONE
-    hi! Normal ctermbg=NONE guibg=NONE
+    hi! Normal ctermbg=NONE guibg=NONE 
+    hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
+
     augroup pandoc_syntax
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
     augroup END
     let g:pandoc#syntax#conceal#blacklist = ["atx", "codeblock_start", "codeblock_delim"]
+
 
     let g:fzf_layout = { 'down': '40%' }
 

@@ -1,27 +1,63 @@
 #!/bin/sh
 
-rsync -av --dry-run $DOCUMENTS/ /Volumes/backup2/documents \
-rsync -av --dry-run $SYNC/ /Volumes/backup2/Nextcloud \
-rsync -av --dry-run $DOTFILES/ /Volumes/backup2/dot \
-rsync -av --dry-run $HOME/.gnupg/ /Volumes/backup2/gnupg/ \
-rsync -av --dry-run $HOME/.ssh/ /Volumes/backup2/ssh_key/ \
-rsync -av --dry-run $HOME/Library/Keychains/ /Volumes/backup2/keychain/ \
-rsync -av --dry-run $PROJECTS/ /Volumes/backup2/projects/ | less
+USB_DRIVE="/Volumes/UNTITLED"
+HDD="/Volumes/backup2"
 
+check(){
+    local DRIVE
 
-printf '%b\n' "\033[1m""Do you wanna go over? [y|n]: ""\033[0m"; read -r ANSWER
-case "$ANSWER" in
-     [yY])
-          
-          rsync -av $DOCUMENTS/ /Volumes/backup2/documents
-          rsync -av $SYNC/ /Volumes/backup2/Nextcloud
-          rsync -av $DOTFILES/ /Volumes/backup2/dot
-          rsync -av $HOME/.gnupg/ /Volumes/backup2/gnupg/
-          rsync -av $HOME/.ssh/ /Volumes/backup2/ssh_key/
-          rsync -av $HOME/Library/Keychains/ /Volumes/backup2/keychain/
-          rsync -av $PROJECTS/ /Volumes/backup2/projects/
-          ;;
-     [nN])
-         printf "Stoping...\n"
-         ;;
-esac
+    [ "$1" = "usb" ] && DRIVE="$USB_DRIVE" || DRIVE="$HDD"
+    
+    rsync -av --dry-run "$HOME/.ssh/" "$DRIVE/Ssh Key/" | less
+    rsync -av --dry-run "$HOME/Library/Keychains/" "$DRIVE/Keychain/" | less
+    rsync -av --dry-run "$DOTFILES/" "$DRIVE/Dotfiles/" | less
+    rsync -av --dry-run "$DOCUMENTS/" "$DRIVE/Documents" | less
+    rsync -av --dry-run "$PROJECTS/" "$DRIVE/Projects" | less
+    rsync -av --dry-run "$MEDIA/" "$DRIVE/Media" | less
+}
+
+backup_to_disk(){
+    check "hdd"
+    printf '%b\n' "\033[1m""Do you wanna go over? [y|n]: ""\033[0m"; read -r ANSWER
+    case "$ANSWER" in
+         [yY])
+            rsync -av --progress "$HOME/.ssh/" "$HDD/Ssh Key/"
+            rsync -av --progress "$HOME/Library/Keychains/" "$HDD/Keychain/"
+            rsync -av --progress "$DOTFILES/" "$HDD/Dotfiles/"
+            rsync -av --progress "$DOCUMENTS/" "$HDD/Documents/"
+            rsync -av --progress "$PROJECTS/" "$HDD/Projects"
+            rsync -av --progress "$MEDIA/" "$HDD/Media" 
+            ;;
+         [nN])
+            printf "Stoping...\n"
+            exit
+            ;;
+    esac
+}
+
+backup_to_usb(){
+    check "usb"
+    printf '%b\n' "\033[1m""Do you wanna go over? [y|n]: ""\033[0m"; read -r ANSWER
+    case "$ANSWER" in
+         [yY])
+            rsync -av --progress "$HOME/.ssh/" "$USB_DRIVE/Ssh Key/"
+            rsync -av --progress "$HOME/Library/Keychains/" "$USB_DRIVE/Keychain/"
+            rsync -av --progress "$DOTFILES/" "$USB_DRIVE/Dotfiles/"
+            rsync -av --progress "$DOCUMENTS/" "$USB_DRIVE/Documents/"
+            rsync -av --progress "$PROJECTS/" "$USB_DRIVE/Projects"
+            rsync -av --progress "$MEDIA/" "$USB_DRIVE/Media" 
+            ;;
+         [nN])
+            printf "Stoping...\n"
+            exit
+            ;;
+    esac
+}
+
+while getopts "du" opt; do
+    case "$opt" in
+        d) backup_to_disk && exit;;
+        u) backup_to_usb && exit;;
+        *) exit;;
+    esac
+done

@@ -1,2 +1,3 @@
 #!/bin/sh
-lynx "https://lite.duckduckgo.com/lite?q=$*"
+w3m "https://lite.duckduckgo.com/lite?q=$*"
+

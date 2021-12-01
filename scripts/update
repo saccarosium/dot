@@ -13,7 +13,7 @@ brew autoremove
 brew cleanup
 
 printf '%b\n' "\033[1m""updating vim...""\033[0m"
-update-vim-plugins
+vimpack -u
 
 printf '%b\n' "\033[1m""updating TeX...""\033[0m"
 open -a "TeX Live Utility"
@@ -24,4 +24,4 @@ trash -e
 
 # npm
 printf '%b\n' "\033[1m""updating npm""\033[0m"
-npm update
+npm update && rm "$HOME/package-lock.json"
