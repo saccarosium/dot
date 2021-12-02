@@ -41,7 +41,6 @@
     colorscheme dracula
     set termguicolors t_Co=256
     hi! Normal ctermbg=NONE guibg=NONE 
-    hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
 
     augroup pandoc_syntax
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc

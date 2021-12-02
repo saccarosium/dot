@@ -1,24 +1,28 @@
 #!/bin/sh
 
+alias target='find "$DOTFILES" -maxdepth 1 | fzf -m'
+alias choose='find "$DOTFILES" | sed "/.git.*/ d" | fzf -m'
+
 list_sym(){
-    find "$XDG_CONFIG_HOME" "$HOME/.config" "$HOME" -ls -maxdepth 1 | grep ">" | grep ".dot" | awk '{print $11}'
+    find "$XDG_CONFIG_HOME" "$HOME/.config" "$HOME" -ls -maxdepth 1 | grep ">.*dot" | awk '{print $11}'
 }
 
 sym_home(){
-    find "$DOTFILES" -maxdepth 1 | fzf -m | xargs -I {} basename {} | xargs -I {} ln -sf "$DOTFILES/{}" "$HOME/{}"
+    target | xargs -I {} basename {} | xargs -I {} ln -sf "$DOTFILES/{}" "$HOME/{}"
 }
 
 sym_config(){
-    find "$DOTFILES" -maxdepth 1 | fzf -m | xargs -I {} basename {} | xargs -I {} ln -sf "$DOTFILES/{}" "$XDG_CONFIG_HOME/{}"
+	target | xargs -I {} basename {} | xargs -I {} ln -sf "$DOTFILES/{}" "$XDG_CONFIG_HOME/{}"
 }
 
 edit_dot(){
-    target=$(find "$DOTFILES" | fzf)
-    $EDITOR $target && printf "%s" "$target" > /tmp/lastdotedit
+    # Il comando tee duplica lo standard input non rompendo il resto 
+ 	choose | tee /tmp/lastdotedit | xargs $EDITOR 
 }
 
 edit_last(){
-    cat "/tmp/lastdotedit" | xargs $EDITOR
+    # Standard output to $EDITOR
+    < /tmp/lastdotedit xargs $EDITOR 
 }
 
 remove_dot(){

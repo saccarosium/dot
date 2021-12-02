@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [ -d /Volumes/backup2/ ]; then
-    printf "hello"
-else
-    printf "fuck"
-fi
+echo_quello_che_dico() {
+     echo "$1" | sed "s/-$opt//g"
+}
+
+read -r | $EDITOR

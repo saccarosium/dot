@@ -16,6 +16,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     export BASH_SILENCE_DEPRECATION_WARNING=1
     export PATH="/Users/sacca/.dot/scripts:/Users/sacca/Library/cargo/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:$GOPATH/bin:$PATH:" 
 fi
+
 export DOCUMENTS="$HOME/Documents"
 export PROJECTS="$HOME/Projects"
 export DOTFILES="$HOME/.dot"
@@ -24,7 +25,7 @@ export SYNC="$DOCUMENTS/nextcloud"
 export NOTES="$SYNC/notes"
 export MEDIA="$HOME/media"
 export SNIPPETS="$DOTFILES/snippets"
-export EDITOR=nvim
+export EDITOR="nvim"
 export CLI_BROWSER=lynx
 export VIMVER="nvim"
 export MANPAGER="less"
