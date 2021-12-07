@@ -168,12 +168,8 @@
 			completion-category-defaults nil
 			completion-category-overrides '((file (styles . (partial-completion))))))
 
-;;(straight-use-package 'doom-modeline)
-;;(doom-modeline-mode 1)
-
 (use-package deft
-	:bind
-	("C-u" . deft-find-file)
+	:bind ("C-u" . deft-find-file)
 	:commands (deft)
 	:config (setq deft-directory "~/Documents/nextcloud/notes/"
 					deft-extensions '("md" "org")))
@@ -193,8 +189,7 @@
          ("C-M-`" . popper-toggle-type))
   :init
   (setq popper-reference-buffers
-        '("\\*Messages\\*"
-          "Output\\*$"
+        '("Output\\*$"
           "\\*Async Shell Command\\*"
           "^\\*vterm.*\\*$"  vterm-mode
           compilation-mode))

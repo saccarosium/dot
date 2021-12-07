@@ -1,0 +1,11 @@
+.DS_STORE
+.DS*
+**/straight/
+*.jar
+*.war
+*.nar
+*.ear
+*.json
+*.log
+*.tar.gz
+*.rar
