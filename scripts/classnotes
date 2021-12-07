@@ -1,0 +1,17 @@
+#!/bin/sh
+
+today=$(date +%y-%m-%d)
+location="$SYNC/classnotes"
+new_file="$EDITOR $today.md "
+list="find . | fzf | xargs $EDITOR"
+
+[ "$1" = "iap" ] && cd "$location"/IaP || exit 
+[ "$1" = "arc" ] && cd "$location"/architettura || exit
+
+while getopts "l" opt; do
+    case "$opt" in
+        n) "new_file" || exit;;
+        l) "$list" || exit;;
+        *) exit
+    esac
+done

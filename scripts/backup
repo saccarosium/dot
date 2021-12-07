@@ -5,9 +5,8 @@ HDD="/Volumes/backup2"
 
 check(){
     local DRIVE
-
-    [ "$1" = "usb" ] && DRIVE="$USB_DRIVE" || DRIVE="$HDD"
-    
+    [ "$1" = "usb" ] && DRIVE="$USB_DRIVE" 
+    [ "$1" = "usb" ] && DRIVE="$HDD"
     rsync -av --dry-run "$HOME/.ssh/" "$DRIVE/Ssh Key/" | less
     rsync -av --dry-run "$HOME/Library/Keychains/" "$DRIVE/Keychain/" | less
     rsync -av --dry-run "$DOTFILES/" "$DRIVE/Dotfiles/" | less

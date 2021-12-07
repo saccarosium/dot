@@ -35,8 +35,6 @@
     vmap < <gv 
     vmap > >gv
 
-"############################### plug ################################
-
     syntax enable
     colorscheme dracula
     set termguicolors t_Co=256
@@ -46,6 +44,7 @@
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
     augroup END
     let g:pandoc#syntax#conceal#blacklist = ["atx", "codeblock_start", "codeblock_delim"]
+    let g:pandoc#syntax#conceal#urls = 1
 
 
     let g:fzf_layout = { 'down': '40%' }

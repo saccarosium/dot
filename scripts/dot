@@ -4,7 +4,7 @@ alias target='find "$DOTFILES" -maxdepth 1 | fzf -m'
 alias choose='find "$DOTFILES" | sed "/.git.*/ d" | fzf -m'
 
 list_sym(){
-    find "$XDG_CONFIG_HOME" "$HOME/.config" "$HOME" -ls -maxdepth 1 | grep ">.*dot" | awk '{print $11}'
+    find "$XDG_CONFIG_HOME" "$HOME" -ls -maxdepth 1 | grep ">.*dot" | awk '{print $11 $12}' | sed "s/->//g"
 }
 
 sym_home(){

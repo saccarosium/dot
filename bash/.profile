@@ -7,12 +7,3 @@ if [ -n "$BASH_VERSION" ]; then
         . "$HOME/.bashrc"
     fi
 fi
-
-##
-# Your previous /Users/sacca/.profile file was backed up as /Users/sacca/.profile.macports-saved_2021-11-23_at_22:13:33
-##
-
-# MacPorts Installer addition on 2021-11-23_at_22:13:33: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
-
