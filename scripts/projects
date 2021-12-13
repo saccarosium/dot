@@ -1,5 +1,0 @@
-#!/bin/sh
-
-cd "$PROJECTS" || exit 
-SELECT=$( ls | fzf )
-cd "$SELECT" || exit

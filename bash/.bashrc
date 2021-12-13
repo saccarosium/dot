@@ -2,31 +2,33 @@ case $- in
     *i*) ;;
       *) return ;;
 esac
+
 # ----------------------- environment variables ----------------------
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    export XDG_CONFIG_HOME="$HOME/.config"
     export XDG_DATA_HOME="$HOME/.local/share"
     export XDG_CACHE_HOME="$HOME/.cache"
+    export XDG_STATE_HOME="$HOME/.local/state"
+    export XDG_DATA_DIRS="/usr/local/share:/usr/share"
+    export XDG_CONFIG_DIRS="/etc/xdg"
+    export XDG_RUNTIME_DIR="/run/user/$UID"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    export XDG_CONFIG_HOME="$HOME/Library/Preferences"
-    export XDG_DATA_HOME="$HOME/Library"
+    export XDG_DATA_HOME="$HOME/Library/Application Support"
     export XDG_CACHE_HOME="$HOME/Library/Caches"
+    export XDG_STATE_HOME="$HOME/Library/Application Support"
     export XDG_RUNTIME_DIR="/tmp"
     export BASH_SILENCE_DEPRECATION_WARNING=1
-    export PATH="/Users/sacca/.dot/scripts:/Users/sacca/Library/cargo/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:$GOPATH/bin:$PATH:" 
 fi
 
+export XDG_CONFIG_HOME="$HOME/.config"
 export DOCUMENTS="$HOME/Documents"
 export PROJECTS="$HOME/Projects"
 export DOTFILES="$HOME/.dot"
 export SCRIPTS="$DOTFILES/scripts"
 export SYNC="$DOCUMENTS/nextcloud"
 export NOTES="$SYNC/notes"
-export MEDIA="$HOME/media"
-export SNIPPETS="$DOTFILES/snippets"
 export EDITOR="nvim"
-export CLI_BROWSER=lynx
+export CLI_BROWSER="w3m"
 export VIMVER="nvim"
 export MANPAGER="less"
 export CLICOLOR=1
@@ -35,8 +37,10 @@ export LESSHISTFILE=-
 export FILE_MANAGER="nnn"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export GOPATH="$XDG_DATA_HOME"/go
+export GOPATH="$XDG_DATA_HOME/go"
 export LANG="en_US.UTF-8"
+export PATH="$SCRIPTS:/usr/local/bin:/usr/local/opt:/usr/local/opt/llvm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/opt/emacs-plus@28/bin:$PATH" 
+
 
 set -o vi
 
@@ -48,6 +52,7 @@ export CDPATH=".:$HOME:$DOTFILES:$PROJECTS:$SYNC:$NOTES:$PROJECTS/IaP"
 
 HISTCONTROL=ignorebot
 HISTSIZE=50
+
 HISTFILE="$XDG_CACHE_HOME/bash_history"
 
 # ------------------------------- prompt -----------------------------
@@ -72,7 +77,6 @@ __ps1() {
     [[ -n "$G" ]] && G="($G)"
 
     PS1="$gr\u$x:$bl\W$x$r$G$x$x$P$x "
-
 }
 
 PROMPT_COMMAND="__ps1"
@@ -82,12 +86,9 @@ PROMPT_COMMAND="__ps1"
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias projects='source $SCRIPTS/projects'
 alias scratch='vi $SYNC/scratchpad.md'
-alias ls='ls -a'
 alias vi='nvim'
 alias rm='trash'
-alias t='todoist --indent'
 alias rss='newsboat'
 alias '?'='duck'
 
@@ -95,9 +96,9 @@ alias '?'='duck'
 
 # if tmux is executable and not inside a tmux session, then try to attach.
 # if attachment fails, start a new session
-[ -x "$(command -v tmux)" ] \
-  && [ -z "${TMUX}" ] \
-  && { tmux attach || tmux; } >/dev/null 2>&1
+#[ -x "$(command -v tmux)" ] \
+#  && [ -z "${TMUX}" ] \
+#  && { tmux attach || tmux; } >/dev/null 2>&1
 
 # -------------------------------- nnn -------------------------------
 
@@ -109,15 +110,3 @@ BLK="04" CHR="04" DIR="04" EXE="05" REG="00" HARDLINK="02" SYMLINK="02" MISSING=
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-
-t_c() {
-    todoist l | fzf -m | awk '{print $1}' | xargs todoist close
-}
-
-t_s() {
-    todoist l | fzf -m | awk '{print $1}' | xargs todoist show
-}
-
-t_d() {
-    todoist l | fzf -m | awk '{print $1}' | xargs todoist delete
-}

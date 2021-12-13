@@ -1,4 +1,0 @@
-#!/bin/sh
-
-todoist l | sed "/#Habbits/ d; /#Projects/ d" | wc -l | awk '{print $1}'
-
