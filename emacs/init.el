@@ -1,4 +1,5 @@
 ;;; -*- lexical-binding: t -*-
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (setq gc-cons-threshold 100000000)
 (setq file-name-handler-alist nil)
 
@@ -10,16 +11,9 @@
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
 
-(setq package-user-dir (expand-file-name "elpa" user-emacs-directory)
-      package-archives
-      '(("gnu"   . "https://elpa.gnu.org/packages/")
-        ("elpa" . "https://elpa.gnu.org/packages/")
-        ("melpa-stable" . "https://stable.melpa.org/packages/")
-        ("org" . "https://orgmode.org/elpa/")
-        ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+(setq custom-file (locate-user-emacs-file "custom.el"))
 
-;; Bootstrap for Straight.el
-(defvar bootstrap-version)
+;; Bootstrap for Straight.el (defvar bootstrap-version)
 (let ((bootstrap-file (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 5))
   (unless (file-exists-p bootstrap-file)
@@ -31,40 +25,29 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 (unless (bound-and-true-p package--initialized)
-  (setq package-enable-at-startup nil) ; To prevent initializing twice.
-  (package-initialize))
+  (setq package-enable-at-startup nil)) ; To prevent initializing twice.
 
-;; Use Straight with use-package syntax
-(straight-use-package 'use-package)
-(setq straight-use-package-by-default t)
+;; Make Tabs behave sanely
+(setq-default tab-width 4
+              tab-always-indent nil
+              evil-shift-width tab-width
+              indent-tabs-mode nil 
+              electric-indent-inhibit t)
 
-;; Make Tabs behave normaly
-(setq-default tab-width 4)
-(setq-default tab-always-indent nil)
-(setq-default evil-shift-width tab-width)
-(setq-default indent-tabs-mode nil)
-(setq c-basic-offset 4)
-(setq tabify-regexp "^\t* [ \t]+")
-
-;;(setq-default word-wrap t)
-;;(setq-default truncate-lines t)
-(setq sentence-end-double-space nil)
-(setq require-final-newline t)
-(setq backward-delete-char-untabify-method 'nil)
-(setq-default electric-indent-inhibit t)
-
-;; OSX specific life improvments
-(setq mac-option-key-is-meta nil)
-(setq mac-command-key-is-meta t)
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier nil)
+(setq c-basic-offset 4
+      tabify-regexp "^\t* [ \t]+"
+      sentence-end-double-space nil
+      require-final-newline t
+      backward-delete-char-untabify-method 'nil)
 
 ;; Keep more clean
 (setq create-lockfiles nil)
 (setq make-backup-file nil)
+(require 'osx)
 
 ;; Try to respect XDG convention on OSX
 (straight-use-package 'no-littering)
+
 ;; Defining XDG_DATA_CONFIG on OSX
 (setq no-littering-etc-directory
       (expand-file-name "~/Library/Application Support/emacs"))
@@ -88,136 +71,171 @@
       use-dialog-box            nil
       mark-even-if-inactive     nil
       kill-whole-line           t
+      frame-resize-pixelwise    t
       case-fold-search          nil)
 
 (setq-default cursor-type 'box)
+(setq-default mode-line-format nil)
+(setq-default vc-follow-symlinks t)
 
-;; Configuring Font 
+;; Configuring Font
 (dolist (face '(default fixed-pitch))
 	(set-face-attribute `,face nil :font "JetBrainsMono Nerd Font 12"))
 
-;; Colorscheme
+;;(straight-use-package 'solaire-mode)
+;;(solaire-global-mode +1)
+
+;; More integrated themes
+(straight-use-package 'doom-themes)
 (straight-use-package 'dracula-theme)
-(load-theme 'dracula t)
-(set-background-color "#191622")
-(set-face-attribute 'line-number nil :italic nil :background "#191622")
-(set-face-attribute 'fringe nil :background "#191622")
-(set-face-attribute 'mode-line nil :background "#191622" :box nil);"#21222b" #191622
+    (load-theme 'doom-dracula t)
+    (setq doom-dracula-colorful-headers t)
+    (set-background-color "#191622")
+    (set-face-attribute 'line-number nil :italic nil :background nil)
+    (set-face-attribute 'fringe nil :background nil);;"#191622")
+    (set-face-attribute 'mode-line nil :background "#191622" :box nil);"#21222b" #191622
 
-
+;; Make UI more usefull
 (show-paren-mode t)         ;; Show matching parenthesis.
 (global-so-long-mode)       ;; Handle long lines better.
 (global-font-lock-mode 1)   ;; Always highlight code.
 (global-auto-revert-mode 1) ;; Refresh a buffer if changed on disk.
-(setq frame-resize-pixelwise t)
+(savehist-mode 1)           ;; Save history
 
 (defalias 'yes-or-no-p 'y-or-n-p) ;; Accept 'y' in lieu of 'yes'.
 
-(use-package linum-relative
-	:hook (prog-mode . linum-relative-mode)
-	:custom
-	(linum-relative-backend 'display-line-numbers-mode)
-	(linum-relative-current-symbol ""))
-
-(use-package tree-sitter-langs)
-(use-package tree-sitter
-	:defer 3
-	:config
-	(require 'tree-sitter-langs)
-	(global-tree-sitter-mode)
-	(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
-
-
-(use-package evil
-	:demand t
-	:bind (("<escape>" . keyboard-escape-quit)
-			("M-c" . evil-yank)
-			("M-v" . evil-paste-after))
-	:init
-	;; allows for using cgn
-	(setq evil-search-module 'evil-search)
-	(setq evil-want-keybinding nil)
-	:config
-	(evil-mode 1))
-
-;;; Vim Bindings Everywhere else
-(use-package evil-collection
-	:after evil
-	:config
-	(setq evil-want-integration t)
-	(evil-collection-init))
-
-(use-package vertico
-	:straight '(vertico :host github
-						:repo "minad/vertico"
-						:branch "main")
-	:bind (:map vertico-map
-			("C-j" . vertico-next)
-			("C-k" . vertico-previous)
-			("C-f" . vertico-exit))
-	:custom
-	(vertico-cycle t)
-	:custom-face
-	(vertico-current ((t (:background "#3a3f5a"))))
-	:init
-	(vertico-mode))
-
-(use-package orderless
-    :init
-	(setq completion-styles '(orderless)
-			completion-category-defaults nil
-			completion-category-overrides '((file (styles . (partial-completion))))))
-
-(use-package deft
-	:bind ("C-u" . deft-find-file)
-	:commands (deft)
-	:config (setq deft-directory "~/Documents/nextcloud/notes/"
-					deft-extensions '("md" "org")))
-    (setq deft-recursive t)
-
-(straight-use-package 'markdown-mode)
-(setq markdown-command "Pandoc")
-
+;; Make PATH on OSX work correctly
 (straight-use-package 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
 
-(straight-use-package 'vterm)
+;; Relative number like in Vim
+(straight-use-package 'linum-relative)
+	(add-hook 'prog-mode-hook 'linum-relative-mode)
+	(setq linum-relative-backend 'display-line-numbers-mode)
 
-(use-package popper
-  :bind (("C-,"   . popper-toggle-latest)
-         ("M-`"   . popper-cycle)
-         ("C-M-`" . popper-toggle-type))
-  :init
+(straight-use-package 'hl-todo)
+    (add-hook 'prog-mode-hook 'hl-todo-mode)
+    (setq hl-todo-keyword-faces
+        '(("TODO"   . "#FF0000")
+          ("FIXME"  . "#FF0000")
+          ("DEBUG"  . "#A020F0")
+          ("GOTCHA" . "#FF4500")
+          ("STUB"   . "#1E90FF")))
+
+(straight-use-package 'popper)
   (setq popper-reference-buffers
-        '("Output\\*$"
-          "\\*Async Shell Command\\*"
-          "^\\*vterm.*\\*$"  vterm-mode
-          compilation-mode))
+        '("^\\*vterm.*\\*$" vterm-mode
+          xref-mode
+          xref--xref-buffer-mode))
   (popper-mode +1)
-  (popper-echo-mode +1))          
+  (popper-echo-mode +1)
 
-(straight-use-package 'pdf-tools)
-(straight-use-package 'olivetti)
+;; Sweat Tree sitter
+(straight-use-package 'tree-sitter-langs)
+(straight-use-package 'tree-sitter)
+    (add-hook 'tree-sitter-after-on-hook 'tree-sitter-hl-mode)
+    (global-tree-sitter-mode)
 
-(evil-define-key 'normal dired-mode-map "h" 'dired-up-directory)
-(evil-define-key 'normal dired-mode-map "l" 'dired-find-alternate-file)
-(evil-define-key 'normal dired-mode-map " " 'dired-mark)
-(evil-define-key 'normal dired-mode-map "q" 'kill-this-buffer)
+;; Key Bind
+(straight-use-package 'evil)
+    (setq evil-search-module 'evil-search)
+    (setq evil-undo-system 'undo-redo)
+    (setq evil-want-keybinding nil)
+    (evil-mode 1)
+
+
+(straight-use-package 'evil-collection)
+	(setq evil-want-integration t)
+	(evil-collection-init)
+
+(require 'keymaps)
+
 (put 'dired-find-alternate-file 'disabled nil)
 
-(straight-use-package 'which-key)
-    (which-key-mode)
-    (setq which-key-idle-delay 0.9)
+(straight-use-package 'marginalia)
+    (marginalia-mode)
 
-(use-package mini-modeline
-    :straight '(mini-modeline :host github
-    					      :repo "kiennq/emacs-mini-modeline"
-    					      :branch "main")
-    :config
-    (mini-modeline-mode t)
-    (set-face-attribute 'mode-line nil :box nil)
-    (set-face-attribute 'mini-modeline-mode-line nil :background "#ee82c3" :height 0.2)
-    (set-face-attribute 'mini-modeline-mode-line-inactive nil :background "#191622" :height 0.2)
-    (setq mini-modeline-l-format "")
-    (setq mini-modeline-r-format "%f")
-    (setq mini-modeline-display-gui-line 1))
+;; Better completition
+(straight-use-package
+	'(vertico :host github :repo "minad/vertico" :branch "main"))
+     (setq vertico-cycle t)
+     (vertico-mode)
+
+(straight-use-package 'consult)
+
+;; Sweat Fuzzy Find
+(straight-use-package 'orderless)
+	(setq completion-styles '(orderless)
+		  completion-category-defaults nil
+		  completion-category-overrides '((file (styles . (partial-completion)))))
+
+;; Writing/Notes
+(straight-use-package 'deft)
+    (setq deft-directory "~/Documents/nextcloud/notes/"
+          deft-extensions '("md" "org")
+          deft-recursive t)
+
+(straight-use-package 'markdown-mode)
+    (setq markdown-command "Pandoc")
+
+(straight-use-package 'olivetti)
+    (add-hook 'markdown-mode-hook 'olivetti-mode)
+    (add-hook 'org-mode-hook 'olivetti-mode)
+    (add-hook 'eww-mode-hook 'olivetti-mode)
+
+(straight-use-package
+    '(vterm :host github :repo "akermu/emacs-libvterm" :branch "master"))
+
+(straight-use-package '(org :type built-in))
+    (setq org-ellipsis " ▾"
+          org-src-fontify-natively t
+          org-fontify-quote-and-verse-blocks t
+          org-src-tab-acts-natively t
+          org-edit-src-content-indentation 2
+          org-src-preserve-indentation nil
+          org-cycle-separator-lines 2)
+
+(straight-use-package 'eglot)
+    (setq eglot-server-programs '((c-mode . ("clangd" "--clang-tidy" "--log=verbose"))))
+    (setq eglot-ignored-server-capabilities '(:hoverProvider))
+    (add-hook 'c-mode-hook 'eglot-ensure)
+    (add-hook 'c++-mode-hook 'eglot-ensure)
+
+;; Completion w/company
+(straight-use-package 'company)
+    (add-hook 'after-init-hook 'global-company-mode)
+    (setq company-backends '(company-files company-capf))
+    (setq company-auto-commit-chars nil)
+    (setq company-minimum-prefix-length 1)
+    (setq company-idle-delay 0.0)
+    (setq company-auto-commit t)
+    (setq company-icon-size '(auto-scale . 15))
+
+(straight-use-package 'company-box)
+    (add-hook 'company-mode 'company-box-mode)
+
+(straight-use-package 'restart-emacs)
+
+(straight-use-package '(eww :type built-in))
+    (setq eww-desktop-remove-duplicates t
+          eww-header-line-format nil
+          eww-search-prefix "https://duckduckgo.com/html/?q="
+          url-cookie-delete-cookies nil
+          url-cookie-confirmation nil)
+
+(setq mini-modeline-right-padding 1
+        mini-modeline-enhance-visual nil)
+
+(straight-use-package
+   '(perspective :host github :repo "nex3/perspective-el" :branch "master"))
+    (persp-mode)
+
+(straight-use-package 'doom-modeline)
+    (doom-modeline-mode 1)
+    (setq doom-modeline-buffer-file-name-style 'buffer-name
+          doom-modeline-major-mode-color-icon nil
+          doom-modeline-minor-modes nil
+          doom-modeline-lsp nil
+          doom-modeline-buffer-encoding nil)
+
+(require 'custom-functions)
