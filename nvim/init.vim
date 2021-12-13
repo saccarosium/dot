@@ -28,6 +28,7 @@
     nnoremap <leader>fn :FZF $NOTES/ <CR>
     nnoremap <leader>ff :FZF<CR>
     nnoremap <leader>al Vgq
+    nnoremap <silent> <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>', opts)
     nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
     nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
     nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
@@ -45,7 +46,6 @@
     augroup END
     let g:pandoc#syntax#conceal#blacklist = ["atx", "codeblock_start", "codeblock_delim"]
     let g:pandoc#syntax#conceal#urls = 1
-
 
     let g:fzf_layout = { 'down': '40%' }
 
@@ -66,3 +66,4 @@
     let g:loaded_rrhelper           = 1
     let g:loaded_netrw              = 1
     let g:loaded_netrwPlugin        = 1
+

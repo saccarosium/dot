@@ -9,9 +9,7 @@ require'cmp'.setup{
     sources = {
         { name = "nvim_lsp" },
         { name = "buffer" },
-    },
-    formatting = {
-        format = require('lspkind').cmp_format({with_text = false, maxwidth = 50})
+        { name = "path" },
     },
 }
 

@@ -27,7 +27,7 @@ export DOTFILES="$HOME/.dot"
 export SCRIPTS="$DOTFILES/scripts"
 export SYNC="$DOCUMENTS/nextcloud"
 export NOTES="$SYNC/notes"
-export EDITOR="emacs"
+export EDITOR="nvim"
 export CLI_BROWSER="w3m"
 export VIMVER="nvim"
 export MANPAGER="less"
@@ -39,7 +39,7 @@ export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
 export LANG="en_US.UTF-8"
-export PATH="$SCRIPTS:/usr/local/bin:/usr/local/opt:/opt/local/bin:/opt/local/sbin:/usr/local/opt/emacs-plus@25/bin:$PATH" 
+export PATH="$SCRIPTS:/usr/local/bin:/usr/local/opt:/usr/local/opt/llvm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/opt/emacs-plus@28/bin:$PATH" 
 
 
 set -o vi
@@ -52,6 +52,7 @@ export CDPATH=".:$HOME:$DOTFILES:$PROJECTS:$SYNC:$NOTES:$PROJECTS/IaP"
 
 HISTCONTROL=ignorebot
 HISTSIZE=50
+
 HISTFILE="$XDG_CACHE_HOME/bash_history"
 
 # ------------------------------- prompt -----------------------------
