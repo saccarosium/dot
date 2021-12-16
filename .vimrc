@@ -36,16 +36,9 @@
     set termguicolors t_Co=256
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    hi! Normal ctermbg=NONE guibg=NONE
 
 "FILETYPE
     filetype plugin on
-
-"VIM-PANDOC
-    augroup pandoc_syntax
-        au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-    augroup END
-    let g:pandoc#syntax#conceal#blacklist = ["atx", "codeblock_start", "codeblock_delim"]
 
     let g:fzf_layout = { 'down': '40%' }
 
