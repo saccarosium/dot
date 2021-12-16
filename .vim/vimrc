@@ -1,8 +1,0 @@
-set compatible
-set nobackup nowritebackup noswapfile autowriteall 
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent
-set tabstop=8 
-set wildmenu 
-set number
-set clipboard+=unnamed "set the vim's clipboard to the system's clipboard
-set encoding=UTF-8 
