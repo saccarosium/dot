@@ -17,7 +17,7 @@ sym_config(){
 
 edit_dot(){
     # Il comando tee duplica lo standard input non rompendo il resto 
- 	choose | tee /tmp/lastdotedit | xargs $EDITOR 
+ 	choose | tee /tmp/lastdotedit | xargs $EDITOR
 }
 
 edit_last(){

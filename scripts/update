@@ -16,6 +16,9 @@ brew cleanup
 printf '%b\n' "\033[1m""updating TeX...""\033[0m"
 open -a "TeX Live Utility"
 
+printf '%b\n' "\033[1m""updating nvim...""\033[0m"
+nvim -c ":PlugUpdate | :PlugUpgrade | :q! | :q!"
+
 # cleanup the trash
 printf '%b\n' "\033[1m""cleaning up trash...""\035[0m"
 trash -e

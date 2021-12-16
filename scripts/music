@@ -1,4 +1,4 @@
 #!/bin/sh
 
-find "$HOME/Music" -maxdepth 2 | fzf | xargs -I {} mpv {}
+find "$HOME/Music" -maxdepth 3 | fzf | xargs -I {} mpv {}
 

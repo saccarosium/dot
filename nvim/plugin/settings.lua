@@ -18,7 +18,3 @@ vim.lsp.set_log_level("debug")
 require'lspconfig'.clangd.setup{
     on_attach = on_attach,
 }
-
-require'lspconfig'.bashls.setup{
-    on_attach = on_attach,
-}

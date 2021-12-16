@@ -27,7 +27,11 @@ export DOTFILES="$HOME/.dot"
 export SCRIPTS="$DOTFILES/scripts"
 export SYNC="$DOCUMENTS/nextcloud"
 export NOTES="$SYNC/notes"
+<<<<<<< HEAD
 export EDITOR="nvim"
+=======
+export EDITOR="nvi"
+>>>>>>> testing
 export CLI_BROWSER="w3m"
 export VIMVER="nvim"
 export MANPAGER="less"
@@ -40,7 +44,10 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
 export LANG="en_US.UTF-8"
 export PATH="$SCRIPTS:/usr/local/bin:/usr/local/opt:/usr/local/opt/llvm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/opt/emacs-plus@28/bin:$PATH" 
+<<<<<<< HEAD
 
+=======
+>>>>>>> testing
 
 set -o vi
 
@@ -87,7 +94,8 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias scratch='vi $SYNC/scratchpad.md'
-alias vi='nvim'
+alias vi='nvi'
+alias em='emacsclient -nw'
 alias rm='trash'
 alias rss='newsboat'
 alias '?'='duck'
@@ -96,9 +104,9 @@ alias '?'='duck'
 
 # if tmux is executable and not inside a tmux session, then try to attach.
 # if attachment fails, start a new session
-#[ -x "$(command -v tmux)" ] \
-#  && [ -z "${TMUX}" ] \
-#  && { tmux attach || tmux; } >/dev/null 2>&1
+ [ -x "$(command -v tmux)" ] \
+   && [ -z "${TMUX}" ] \
+   && { tmux attach || tmux; } >/dev/null 2>&1
 
 # -------------------------------- nnn -------------------------------
 

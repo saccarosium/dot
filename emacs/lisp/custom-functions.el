@@ -8,6 +8,10 @@
   (interactive)
   (find-file "~/.config/emacs/init.el"))
 
+;;;###autoload
+(defun ls/open-todolist ()
+  (interactive)
+  (find-file "~/.config/emacs/"))
 
 (provide 'custom-functions)
 ;;; custom-functions.el ends here

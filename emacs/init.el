@@ -1,6 +1,5 @@
 ;;; -*- lexical-binding: t -*-
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(setq gc-cons-threshold 100000000)
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory)) (setq gc-cons-threshold 100000000)
 (setq file-name-handler-alist nil)
 
 (add-hook 'emacs-startup-hook
@@ -82,18 +81,25 @@
 (dolist (face '(default fixed-pitch))
 	(set-face-attribute `,face nil :font "JetBrainsMono Nerd Font 12"))
 
-;;(straight-use-package 'solaire-mode)
-;;(solaire-global-mode +1)
-
 ;; More integrated themes
-(straight-use-package 'doom-themes)
 (straight-use-package 'dracula-theme)
+(straight-use-package 'doom-themes)
     (load-theme 'doom-dracula t)
     (setq doom-dracula-colorful-headers t)
+
+(defun ls/colors ()
     (set-background-color "#191622")
     (set-face-attribute 'line-number nil :italic nil :background nil)
-    (set-face-attribute 'fringe nil :background nil);;"#191622")
-    (set-face-attribute 'mode-line nil :background "#191622" :box nil);"#21222b" #191622
+    (set-face-attribute 'fringe nil :background nil));;"#191622")
+    ;;(set-face-attribute 'mode-line nil :background "#191622" :box nil);"#21222b" #191622
+
+(if (daemonp)
+    (add-hook 'after-make-frame-functions
+             (lambda (frame)
+                (setq doom-modeline-icon nil)
+                (with-selected-frame frame
+                  (ls/colors))))
+    (ls/colors))
 
 ;; Make UI more usefull
 (show-paren-mode t)         ;; Show matching parenthesis.
@@ -113,6 +119,7 @@
 	(add-hook 'prog-mode-hook 'linum-relative-mode)
 	(setq linum-relative-backend 'display-line-numbers-mode)
 
+
 (straight-use-package 'hl-todo)
     (add-hook 'prog-mode-hook 'hl-todo-mode)
     (setq hl-todo-keyword-faces
@@ -124,8 +131,7 @@
 
 (straight-use-package 'popper)
   (setq popper-reference-buffers
-        '("^\\*vterm.*\\*$" vterm-mode
-          xref-mode
+        '(xref-mode
           xref--xref-buffer-mode))
   (popper-mode +1)
   (popper-echo-mode +1)
@@ -143,7 +149,6 @@
     (setq evil-want-keybinding nil)
     (evil-mode 1)
 
-
 (straight-use-package 'evil-collection)
 	(setq evil-want-integration t)
 	(evil-collection-init)
@@ -155,19 +160,12 @@
 (straight-use-package 'marginalia)
     (marginalia-mode)
 
-;; Better completition
 (straight-use-package
-	'(vertico :host github :repo "minad/vertico" :branch "main"))
-     (setq vertico-cycle t)
-     (vertico-mode)
+   '(vertico :host github :repo "minad/vertico" :branch "main"))
+    (setq vertico-cycle t)
+    (vertico-mode)
 
 (straight-use-package 'consult)
-
-;; Sweat Fuzzy Find
-(straight-use-package 'orderless)
-	(setq completion-styles '(orderless)
-		  completion-category-defaults nil
-		  completion-category-overrides '((file (styles . (partial-completion)))))
 
 ;; Writing/Notes
 (straight-use-package 'deft)
@@ -183,9 +181,6 @@
     (add-hook 'org-mode-hook 'olivetti-mode)
     (add-hook 'eww-mode-hook 'olivetti-mode)
 
-(straight-use-package
-    '(vterm :host github :repo "akermu/emacs-libvterm" :branch "master"))
-
 (straight-use-package '(org :type built-in))
     (setq org-ellipsis " ▾"
           org-src-fontify-natively t
@@ -195,21 +190,45 @@
           org-src-preserve-indentation nil
           org-cycle-separator-lines 2)
 
+    (setq org-agenda-files
+          '("~/inbox.org"))
+
+    (require 'org-habit)
+    (add-to-list 'org-modules 'org-habit)
+    (setq org-habit-graph-column 60)
+
+    (setq org-capture-templates
+        `(("t" "Tasks / Projects")
+         ("c" "Task" entry (file+olp "~/inbox.org" "Inbox")
+              "* TODO %?\n " :empty-lines 1)))
+
+    (setq org-refile-targets
+        '(("Archive.org" :maxlevel . 1)
+          ("Tasks.org" :maxlevel . 1)))
+
+    ;; Save Org buffers after refiling!
+    (advice-add 'org-refile :after 'org-save-all-org-buffers)
+
 (straight-use-package 'eglot)
     (setq eglot-server-programs '((c-mode . ("clangd" "--clang-tidy" "--log=verbose"))))
     (setq eglot-ignored-server-capabilities '(:hoverProvider))
     (add-hook 'c-mode-hook 'eglot-ensure)
     (add-hook 'c++-mode-hook 'eglot-ensure)
 
+(straight-use-package
+    '(vterm :host github :repo "akermu/emacs-libvterm" :branch "master"))
+
 ;; Completion w/company
 (straight-use-package 'company)
     (add-hook 'after-init-hook 'global-company-mode)
-    (setq company-backends '(company-files company-capf))
-    (setq company-auto-commit-chars nil)
-    (setq company-minimum-prefix-length 1)
-    (setq company-idle-delay 0.0)
-    (setq company-auto-commit t)
-    (setq company-icon-size '(auto-scale . 15))
+    (setq company-backends '(company-files company-capf)
+          company-auto-commit-chars nil
+          company-minimum-prefix-length 1
+          company-idle-delay 0.0
+          company-auto-commit t
+          company-icon-size '(auto-scale . 15))
+
+(straight-use-package 'magit)
 
 (straight-use-package 'company-box)
     (add-hook 'company-mode 'company-box-mode)
@@ -223,13 +242,6 @@
           url-cookie-delete-cookies nil
           url-cookie-confirmation nil)
 
-(setq mini-modeline-right-padding 1
-        mini-modeline-enhance-visual nil)
-
-(straight-use-package
-   '(perspective :host github :repo "nex3/perspective-el" :branch "master"))
-    (persp-mode)
-
 (straight-use-package 'doom-modeline)
     (doom-modeline-mode 1)
     (setq doom-modeline-buffer-file-name-style 'buffer-name
@@ -237,5 +249,11 @@
           doom-modeline-minor-modes nil
           doom-modeline-lsp nil
           doom-modeline-buffer-encoding nil)
+
+(straight-use-package '(vc :type built-in))
+    (setq auto-revert-check-vc-info t)
+
+(straight-use-package 'orderless)
+    (setq completion-styles '(orderless))
 
 (require 'custom-functions)
