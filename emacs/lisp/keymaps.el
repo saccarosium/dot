@@ -25,7 +25,7 @@
 (global-set-key (kbd "M-,") 'popper-cycle)
 (global-set-key (kbd "C-M-,") 'popper-toggle-type)
 
-(global-set-key (kbd "C-x b") 'consult-buffer)
+;;(global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (define-key evil-normal-state-map (kbd "C-w f") 'find-file-other-window)

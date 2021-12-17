@@ -27,11 +27,8 @@ export DOTFILES="$HOME/.dot"
 export SCRIPTS="$DOTFILES/scripts"
 export SYNC="$DOCUMENTS/nextcloud"
 export NOTES="$SYNC/notes"
-<<<<<<< HEAD
 export EDITOR="nvim"
-=======
 export EDITOR="nvi"
->>>>>>> testing
 export CLI_BROWSER="w3m"
 export VIMVER="nvim"
 export MANPAGER="less"
@@ -44,10 +41,6 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
 export LANG="en_US.UTF-8"
 export PATH="$SCRIPTS:/usr/local/bin:/usr/local/opt:/usr/local/opt/llvm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/opt/emacs-plus@28/bin:$PATH" 
-<<<<<<< HEAD
-
-=======
->>>>>>> testing
 
 set -o vi
 

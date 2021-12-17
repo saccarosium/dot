@@ -1,8 +1,12 @@
 ;;; -*- lexical-binding: t -*-
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory)) (setq gc-cons-threshold 100000000)
+
+(setq gc-cons-threshold 100000000)
 (setq file-name-handler-alist nil)
 
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
 (add-hook 'emacs-startup-hook
+faksdjflajsd
           (lambda ()
             (message "*** Emacs loaded in %s with %d garbage collections."
                      (format "%.2f seconds"
@@ -26,6 +30,8 @@
 (unless (bound-and-true-p package--initialized)
   (setq package-enable-at-startup nil)) ; To prevent initializing twice.
 
+(require 'custom-functions)
+
 ;; Make Tabs behave sanely
 (setq-default tab-width 4
               tab-always-indent nil
@@ -39,21 +45,36 @@
       require-final-newline t
       backward-delete-char-untabify-method 'nil)
 
+(if (eq system-type 'darwin)
+    (require 'osx))
+
+(defvar xdg-data-home-directory (getenv "XDG_DATA_HOME"))
+(defvar xdg-cache-home-directory (getenv "XDG_CACHE_HOME"))
+
 ;; Keep more clean
-(setq create-lockfiles nil)
-(setq make-backup-file nil)
-(require 'osx)
-
-;; Try to respect XDG convention on OSX
 (straight-use-package 'no-littering)
+    ;;; Defining XDG_DATA_HOME $XDG_CACHE_HOME
+    (setq no-littering-etc-directory
+        (expand-file-name (convert-standard-filename "emacs/") xdg-cache-home-directory))
+    (setq no-littering-var-directory
+        (expand-file-name (convert-standard-filename "emacs/") xdg-data-home-directory))
 
-;; Defining XDG_DATA_CONFIG on OSX
-(setq no-littering-etc-directory
-      (expand-file-name "~/Library/Application Support/emacs"))
-(setq no-littering-var-directory
-      (expand-file-name "~/Library/Application Support/emacs"))
+
+;;; eww url history
 (setq url-history-file (no-littering-expand-etc-file-name "url/history"))
+;;; eshell history and lastdir
 (setq eshell-directory-name (no-littering-expand-etc-file-name "eshell/"))
+
+;;; Emacs autosave files ( #init.el# )
+;;;; The autosave feature doesn't create the directory
+(make-directory (no-littering-expand-etc-file-name "auto-save/") t)
+(setq auto-save-file-name-transforms
+      `((".*" ,(no-littering-expand-etc-file-name "auto-save/") t)))
+
+;;; Lockfile ( .#init.el )
+(setq create-lockfiles nil)
+;;; Backup file ( init.el~ )
+(setq make-backup-file nil)
 
 ;; Make the UI more preatty
 (dolist (mode
@@ -74,8 +95,7 @@
       case-fold-search          nil)
 
 (setq-default cursor-type 'box)
-(setq-default mode-line-format nil)
-(setq-default vc-follow-symlinks t)
+(setq-default mode-line-format " %+ %b")
 
 ;; Configuring Font
 (dolist (face '(default fixed-pitch))
@@ -96,7 +116,7 @@
 (if (daemonp)
     (add-hook 'after-make-frame-functions
              (lambda (frame)
-                (setq doom-modeline-icon nil)
+                (setq doom-modeline-icon t)
                 (with-selected-frame frame
                   (ls/colors))))
     (ls/colors))
@@ -109,10 +129,6 @@
 (savehist-mode 1)           ;; Save history
 
 (defalias 'yes-or-no-p 'y-or-n-p) ;; Accept 'y' in lieu of 'yes'.
-
-;; Make PATH on OSX work correctly
-(straight-use-package 'exec-path-from-shell)
-(exec-path-from-shell-initialize)
 
 ;; Relative number like in Vim
 (straight-use-package 'linum-relative)
@@ -165,7 +181,7 @@
     (setq vertico-cycle t)
     (vertico-mode)
 
-(straight-use-package 'consult)
+;;(straight-use-package 'consult)
 
 ;; Writing/Notes
 (straight-use-package 'deft)
@@ -215,8 +231,8 @@
     (add-hook 'c-mode-hook 'eglot-ensure)
     (add-hook 'c++-mode-hook 'eglot-ensure)
 
-(straight-use-package
-    '(vterm :host github :repo "akermu/emacs-libvterm" :branch "master"))
+;;(straight-use-package
+;;    '(vterm :host github :repo "akermu/emacs-libvterm" :branch "master"))
 
 ;; Completion w/company
 (straight-use-package 'company)
@@ -242,18 +258,22 @@
           url-cookie-delete-cookies nil
           url-cookie-confirmation nil)
 
-(straight-use-package 'doom-modeline)
-    (doom-modeline-mode 1)
-    (setq doom-modeline-buffer-file-name-style 'buffer-name
-          doom-modeline-major-mode-color-icon nil
-          doom-modeline-minor-modes nil
-          doom-modeline-lsp nil
-          doom-modeline-buffer-encoding nil)
+(straight-use-package 'which-key)
+    (setq which-key-idle-delay 1.0)
+    (which-key-mode)
+
+;;(straight-use-package 'doom-modeline)
+;;    (doom-modeline-mode 1)
+;;    (setq doom-modeline-buffer-file-name-style 'buffer-name
+;;          doom-modeline-major-mode-color-icon nil
+;;          doom-modeline-minor-modes nil
+;;          doom-modeline-lsp nil
+;;          doom-modeline-buffer-encoding nil)
 
 (straight-use-package '(vc :type built-in))
     (setq auto-revert-check-vc-info t)
+    (setq vc-follow-symlinks t)
 
 (straight-use-package 'orderless)
     (setq completion-styles '(orderless))
 
-(require 'custom-functions)
