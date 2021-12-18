@@ -1,279 +1,313 @@
 ;;; -*- lexical-binding: t -*-
 
-(setq gc-cons-threshold 100000000)
-(setq file-name-handler-alist nil)
+;;; STARTUP PERFORMANCE
 
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+    (setq gc-cons-threshold 100000000)
+    (setq file-name-handler-alist nil)
+    (add-hook 'emacs-startup-hook
+            (lambda ()
+                (message "*** Emacs loaded in %s with %d garbage collections."
+                        (format "%.2f seconds"
+                                (float-time
+                                (time-subtract after-init-time before-init-time)))
+                        gcs-done)))
 
-(add-hook 'emacs-startup-hook
-faksdjflajsd
-          (lambda ()
-            (message "*** Emacs loaded in %s with %d garbage collections."
-                     (format "%.2f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
-                     gcs-done)))
+;;; ADDING CUSTOM LISP LIBRARIES
 
-(setq custom-file (locate-user-emacs-file "custom.el"))
+    (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+    (require 'custom-functions)
 
-;; Bootstrap for Straight.el (defvar bootstrap-version)
-(let ((bootstrap-file (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-(unless (bound-and-true-p package--initialized)
-  (setq package-enable-at-startup nil)) ; To prevent initializing twice.
+;;; BOOTSTRAP FOR STRAIGHT.EL
 
-(require 'custom-functions)
+    (let ((bootstrap-file (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+        (with-current-buffer
+            (url-retrieve-synchronously
+            "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+            'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+    (unless (bound-and-true-p package--initialized)
+    (setq package-enable-at-startup nil)) ; To prevent initializing twice.
 
-;; Make Tabs behave sanely
-(setq-default tab-width 4
-              tab-always-indent nil
-              evil-shift-width tab-width
-              indent-tabs-mode nil 
-              electric-indent-inhibit t)
+;;; DEFINING XDG DIRECTORIES
 
-(setq c-basic-offset 4
-      tabify-regexp "^\t* [ \t]+"
-      sentence-end-double-space nil
-      require-final-newline t
-      backward-delete-char-untabify-method 'nil)
+    ;; Make PATH on OSX work correctly
+    (straight-use-package 'exec-path-from-shell)
+    (exec-path-from-shell-initialize)
+    ;;; Pull in other enviroment variables
+    (exec-path-from-shell-copy-envs '("XDG_CONFIG_HOME" "XDG_DATA_HOME" "XDG_CACHE_HOME"))
+    (require 'osx)
+    (defvar xdg-data-home-directory (getenv "XDG_DATA_HOME"))
+    (defvar xdg-cache-home-directory (getenv "XDG_CACHE_HOME"))
 
-(if (eq system-type 'darwin)
-    (require 'osx))
+;;; KEEP EMACS FOLDER CLEAN
 
-(defvar xdg-data-home-directory (getenv "XDG_DATA_HOME"))
-(defvar xdg-cache-home-directory (getenv "XDG_CACHE_HOME"))
+    (straight-use-package 'no-littering)
+        ;;; Defining XDG_DATA_HOME $XDG_CACHE_HOME
+        (setq no-littering-etc-directory
+            (expand-file-name (convert-standard-filename "emacs/") xdg-cache-home-directory))
+        (setq no-littering-var-directory
+            (expand-file-name (convert-standard-filename "emacs/") xdg-data-home-directory))
 
-;; Keep more clean
-(straight-use-package 'no-littering)
-    ;;; Defining XDG_DATA_HOME $XDG_CACHE_HOME
-    (setq no-littering-etc-directory
-        (expand-file-name (convert-standard-filename "emacs/") xdg-cache-home-directory))
-    (setq no-littering-var-directory
-        (expand-file-name (convert-standard-filename "emacs/") xdg-data-home-directory))
+    ;; eww url history
+    (setq url-history-file (no-littering-expand-etc-file-name "eww/history"))
+    ;; eshell history and lastdir
+    (setq eshell-directory-name (no-littering-expand-etc-file-name "eshell/"))
+    ;; Emacs autosave files ( #init.el# )
+    ;; The autosave feature doesn't create the directory
+    (make-directory (no-littering-expand-etc-file-name "auto-save/") t)
+    (setq auto-save-file-name-transforms
+        `((".*" ,(no-littering-expand-etc-file-name "auto-save/") t)))
+    ;; Lockfile ( .#init.el )
+    (setq create-lockfiles nil)
+    ;; Backup file ( init.el~ )
+    (setq make-backup-file nil)
+    ;; Use file for insering custom varables other that init.el
+    (setq custom-file (locate-user-emacs-file "custom.el"))
 
+;;; UI
+    
+    (menu-bar-mode 0)           ;; Hide the menubar
+    (tool-bar-mode 0)           ;; Hide tool bar
+    (tooltip-mode 0)            ;; Hide tooltip
+    (scroll-bar-mode 0)         ;; Hide scrollbar
+    (blink-cursor-mode 0)       ;; Prevent cursor to blink
+    (show-paren-mode t)         ;; Show matching parenthesis.
+    (global-so-long-mode)       ;; Handle long lines better.
+    (global-font-lock-mode 1)   ;; Always highlight code.
+    (global-auto-revert-mode 1) ;; Refresh a buffer if changed on disk.
+    (savehist-mode 1)           ;; Save history
 
-;;; eww url history
-(setq url-history-file (no-littering-expand-etc-file-name "url/history"))
-;;; eshell history and lastdir
-(setq eshell-directory-name (no-littering-expand-etc-file-name "eshell/"))
+    (defalias 'yes-or-no-p 'y-or-n-p) ;; Accept 'y' in lieu of 'yes'.
 
-;;; Emacs autosave files ( #init.el# )
-;;;; The autosave feature doesn't create the directory
-(make-directory (no-littering-expand-etc-file-name "auto-save/") t)
-(setq auto-save-file-name-transforms
-      `((".*" ,(no-littering-expand-etc-file-name "auto-save/") t)))
+    ;; Make Tabs behave sanely
+    (setq-default tab-width 4)
+    (setq-default tab-always-indent nil)
+    (setq-default evil-shift-width tab-width)
+    (setq-default indent-tabs-mode nil)
+    (setq-default electric-indent-inhibit t)
+    (setq-default c-basic-offset 4)
+    ;;(setq-default tabify-regexp "^\t* [ \t]+")
+    (setq-default sentence-end-double-space nil)
+    (setq-default require-final-newline t)
+    (setq-default backward-delete-char-untabify-method 'hungry)
 
-;;; Lockfile ( .#init.el )
-(setq create-lockfiles nil)
-;;; Backup file ( init.el~ )
-(setq make-backup-file nil)
+    (setq inhibit-startup-screen    t)
+    (setq initial-scratch-message   nil)
+    (setq sentence-end-double-space nil)
+    (setq use-dialog-box            nil)
+    (setq mark-even-if-inactive     nil)
+    (setq kill-whole-line           t)
+    (setq frame-resize-pixelwise    t)
+    (setq case-fold-search          nil)
 
-;; Make the UI more preatty
-(dolist (mode
-         '(menu-bar-mode
-           tool-bar-mode
-           tooltip-mode
-           scroll-bar-mode
-           blink-cursor-mode))
-  (funcall mode 0))
-
-(setq inhibit-startup-screen    t
-      initial-scratch-message   nil
-      sentence-end-double-space nil
-      use-dialog-box            nil
-      mark-even-if-inactive     nil
-      kill-whole-line           t
-      frame-resize-pixelwise    t
-      case-fold-search          nil)
-
-(setq-default cursor-type 'box)
-(setq-default mode-line-format " %+ %b")
-
-;; Configuring Font
-(dolist (face '(default fixed-pitch))
-	(set-face-attribute `,face nil :font "JetBrainsMono Nerd Font 12"))
-
-;; More integrated themes
-(straight-use-package 'dracula-theme)
-(straight-use-package 'doom-themes)
-    (load-theme 'doom-dracula t)
-    (setq doom-dracula-colorful-headers t)
-
-(defun ls/colors ()
-    (set-background-color "#191622")
-    (set-face-attribute 'line-number nil :italic nil :background nil)
-    (set-face-attribute 'fringe nil :background nil));;"#191622")
-    ;;(set-face-attribute 'mode-line nil :background "#191622" :box nil);"#21222b" #191622
-
-(if (daemonp)
-    (add-hook 'after-make-frame-functions
-             (lambda (frame)
-                (setq doom-modeline-icon t)
-                (with-selected-frame frame
-                  (ls/colors))))
-    (ls/colors))
-
-;; Make UI more usefull
-(show-paren-mode t)         ;; Show matching parenthesis.
-(global-so-long-mode)       ;; Handle long lines better.
-(global-font-lock-mode 1)   ;; Always highlight code.
-(global-auto-revert-mode 1) ;; Refresh a buffer if changed on disk.
-(savehist-mode 1)           ;; Save history
-
-(defalias 'yes-or-no-p 'y-or-n-p) ;; Accept 'y' in lieu of 'yes'.
-
-;; Relative number like in Vim
-(straight-use-package 'linum-relative)
-	(add-hook 'prog-mode-hook 'linum-relative-mode)
-	(setq linum-relative-backend 'display-line-numbers-mode)
+    ;; Configuring Font
+    (dolist (face '(default fixed-pitch))
+        (set-face-attribute `,face nil :font "JetBrainsMono Nerd Font 12"))
+    ;; Set the variable pitch face
+    (set-face-attribute 'variable-pitch nil
+                        ;; :font "Cantarell"
+                        :font "SF Pro Text"
+                        :height 160
+                        :weight 'regular)
 
 
-(straight-use-package 'hl-todo)
-    (add-hook 'prog-mode-hook 'hl-todo-mode)
-    (setq hl-todo-keyword-faces
-        '(("TODO"   . "#FF0000")
-          ("FIXME"  . "#FF0000")
-          ("DEBUG"  . "#A020F0")
-          ("GOTCHA" . "#FF4500")
-          ("STUB"   . "#1E90FF")))
+    ;; More integrated themes
+    (straight-use-package 'doom-themes)
+        (load-theme 'doom-dracula t)
+        (setq doom-dracula-colorful-headers t)
 
-(straight-use-package 'popper)
-  (setq popper-reference-buffers
-        '(xref-mode
-          xref--xref-buffer-mode))
-  (popper-mode +1)
-  (popper-echo-mode +1)
+    (defun ls/colors ()
+        (set-background-color "#191622")
+        (set-face-attribute 'line-number nil :italic nil :background nil)
+        (set-face-attribute 'fringe nil :background nil);;"#191622")
+        (set-face-attribute 'mode-line nil :background nil :box nil));"#21222b" #191622
 
-;; Sweat Tree sitter
-(straight-use-package 'tree-sitter-langs)
-(straight-use-package 'tree-sitter)
-    (add-hook 'tree-sitter-after-on-hook 'tree-sitter-hl-mode)
-    (global-tree-sitter-mode)
+;;;; Set color and icons if in daemon mode
+    (if (daemonp)
+        (add-hook 'after-make-frame-functions
+                (lambda (frame)
+                    (setq doom-modeline-icon t)
+                    (with-selected-frame frame
+                    (ls/colors))))
+        (ls/colors))
 
-;; Key Bind
-(straight-use-package 'evil)
-    (setq evil-search-module 'evil-search)
-    (setq evil-undo-system 'undo-redo)
-    (setq evil-want-keybinding nil)
-    (evil-mode 1)
+;;;; Mod-line
+    (straight-use-package 'doom-modeline)
+        (doom-modeline-mode 1)
+        (setq doom-modeline-buffer-file-name-style 'buffer-name)
+        (setq doom-modeline-major-mode-color-icon nil)
+        (setq doom-modeline-minor-modes nil)
+        (setq doom-modeline-lsp nil)
+        (setq doom-modeline-buffer-encoding nil)
 
-(straight-use-package 'evil-collection)
-	(setq evil-want-integration t)
-	(evil-collection-init)
+;;;; Relative number like in Vim
+    (straight-use-package 'linum-relative)
+        (add-hook 'prog-mode-hook 'linum-relative-mode)
+        (setq linum-relative-backend 'display-line-numbers-mode)
 
-(require 'keymaps)
+;;;; Make some windows a popup
+    (straight-use-package 'popper)
+    (setq popper-reference-buffers
+            '(xref-mode
+            "\\*Occur\\*"
+            ".*.png"
+            "\\*Flymake\\ diagnostics.*"
+            xref--xref-buffer-mode))
+    (global-set-key (kbd "C-,") 'popper-toggle-latest)
+    (global-set-key (kbd "C-S-;") 'popper-cycle)
+    (popper-mode +1)
+    (popper-echo-mode +1)
 
-(put 'dired-find-alternate-file 'disabled nil)
+;;; KEYBINDS
 
-(straight-use-package 'marginalia)
-    (marginalia-mode)
+;;;; Evil Mode
+    (straight-use-package 'evil)
+        (setq evil-search-module 'evil-search)
+        (setq evil-undo-system 'undo-redo)
+        (setq evil-want-keybinding nil)
+        (evil-mode 1)
+        (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+        (define-key evil-normal-state-map (kbd "C-w f") 'find-file-other-window)
+        ;; Leader Key
+        (evil-set-leader 'normal (kbd "SPC"))
+        (evil-define-key 'normal 'global (kbd "<leader>fe") #'ls/open-config)
+        (evil-define-key 'normal 'global (kbd "<leader>fn") #'deft-find-file)
+        (evil-define-key 'normal 'global (kbd "TAB") 'outline-cycle)
 
-(straight-use-package
-   '(vertico :host github :repo "minad/vertico" :branch "main"))
-    (setq vertico-cycle t)
-    (vertico-mode)
+    ;; Global evil keybinds
+    (straight-use-package 'evil-collection)
+        (setq evil-want-integration t)
+        (evil-collection-init)
 
-;;(straight-use-package 'consult)
+;;;; Which Key
+    (straight-use-package 'which-key)
+        (setq which-key-idle-delay 1.0)
+        (which-key-mode)
 
-;; Writing/Notes
-(straight-use-package 'deft)
-    (setq deft-directory "~/Documents/nextcloud/notes/"
-          deft-extensions '("md" "org")
-          deft-recursive t)
+;;;; General keybinds
+    (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(straight-use-package 'markdown-mode)
-    (setq markdown-command "Pandoc")
+;;; UTILITY
 
-(straight-use-package 'olivetti)
-    (add-hook 'markdown-mode-hook 'olivetti-mode)
-    (add-hook 'org-mode-hook 'olivetti-mode)
-    (add-hook 'eww-mode-hook 'olivetti-mode)
+    (straight-use-package 'restart-emacs)
 
-(straight-use-package '(org :type built-in))
-    (setq org-ellipsis " ▾"
-          org-src-fontify-natively t
-          org-fontify-quote-and-verse-blocks t
-          org-src-tab-acts-natively t
-          org-edit-src-content-indentation 2
-          org-src-preserve-indentation nil
-          org-cycle-separator-lines 2)
+;;; BUILTINGS PACKAGES
 
-    (setq org-agenda-files
-          '("~/inbox.org"))
+    (straight-use-package '(eww :type built-in))
+        (global-set-key (kbd "C-x ?") 'eww)
+        (setq eww-desktop-remove-duplicates t)
+        (setq eww-header-line-format nil)
+        (setq eww-search-prefix "https://duckduckgo.com/html/?q=")
+        (setq url-cookie-delete-cookies nil)
+        (setq url-cookie-confirmation nil)
 
-    (require 'org-habit)
-    (add-to-list 'org-modules 'org-habit)
-    (setq org-habit-graph-column 60)
+    (straight-use-package '(dired :type built-in))
+        (put 'dired-find-alternate-file 'disabled nil)
+        (evil-define-key 'normal dired-mode-map "h" 'dired-up-directory)
+        (evil-define-key 'normal dired-mode-map "l" 'dired-find-alternate-file)
+        (evil-define-key 'normal dired-mode-map " " 'dired-mark)
+        (evil-define-key 'normal dired-mode-map "q" 'kill-this-buffer)
+        (set-face-attribute 'dired-directory nil :foreground "#bd93f9")
+        (set-face-attribute 'dired-symlink nil :foreground "#50fa7b")
 
-    (setq org-capture-templates
-        `(("t" "Tasks / Projects")
-         ("c" "Task" entry (file+olp "~/inbox.org" "Inbox")
-              "* TODO %?\n " :empty-lines 1)))
+    (straight-use-package '(project :type built-in))
+        (global-set-key (kbd "C-x p s") 'project-switch-project)
 
-    (setq org-refile-targets
-        '(("Archive.org" :maxlevel . 1)
-          ("Tasks.org" :maxlevel . 1)))
+    (straight-use-package '(outline :type built-in))
+        (add-hook 'prog-mode-hook 'outline-minor-mode)
 
-    ;; Save Org buffers after refiling!
-    (advice-add 'org-refile :after 'org-save-all-org-buffers)
+;;; COMPLETION FRAMWORK
 
-(straight-use-package 'eglot)
-    (setq eglot-server-programs '((c-mode . ("clangd" "--clang-tidy" "--log=verbose"))))
-    (setq eglot-ignored-server-capabilities '(:hoverProvider))
-    (add-hook 'c-mode-hook 'eglot-ensure)
-    (add-hook 'c++-mode-hook 'eglot-ensure)
+;;;; Vertico for the vertical UI
+    (straight-use-package
+    '(vertico :host github :repo "minad/vertico" :branch "main"))
+        (setq vertico-cycle t)
+        (vertico-mode)
 
-;;(straight-use-package
-;;    '(vterm :host github :repo "akermu/emacs-libvterm" :branch "master"))
+;;;; Orderless for the sweat fuzzy-like maching
+    (straight-use-package 'orderless)
+        (setq completion-styles '(orderless))
 
-;; Completion w/company
-(straight-use-package 'company)
-    (add-hook 'after-init-hook 'global-company-mode)
-    (setq company-backends '(company-files company-capf)
-          company-auto-commit-chars nil
-          company-minimum-prefix-length 1
-          company-idle-delay 0.0
-          company-auto-commit t
-          company-icon-size '(auto-scale . 15))
+;;;; Marginalia for extra info on the margins
+    (straight-use-package 'marginalia)
+        (marginalia-mode)
 
-(straight-use-package 'magit)
+;;; WRITING/NOTES
 
-(straight-use-package 'company-box)
-    (add-hook 'company-mode 'company-box-mode)
+;;;; Notational Velocity for emacs
+    (straight-use-package 'deft)
+        (setq deft-directory "~/Documents/nextcloud/notes/"
+            deft-extensions '("md" "org")
+            deft-recursive t)
 
-(straight-use-package 'restart-emacs)
+;;;; Markdown support in emacs
+    (straight-use-package 'markdown-mode)
+        (setq markdown-command "Pandoc")
 
-(straight-use-package '(eww :type built-in))
-    (setq eww-desktop-remove-duplicates t
-          eww-header-line-format nil
-          eww-search-prefix "https://duckduckgo.com/html/?q="
-          url-cookie-delete-cookies nil
-          url-cookie-confirmation nil)
+;;;; Org Mode
+    (straight-use-package '(org :type built-in))
+        (setq org-ellipsis " ▾")
+        (setq org-src-fontify-natively t)
+        (setq org-fontify-quote-and-verse-blocks t)
+        (setq org-src-tab-acts-natively t)
+        (setq org-edit-src-content-indentation 2)
+        (setq org-src-preserve-indentation nil)
+        (setq org-cycle-separator-lines 2)
 
-(straight-use-package 'which-key)
-    (setq which-key-idle-delay 1.0)
-    (which-key-mode)
+;;;; Center the writing area
+    (straight-use-package 'olivetti)
+        (add-hook 'markdown-mode-hook 'olivetti-mode)
+        (add-hook 'org-mode-hook 'olivetti-mode)
+        (add-hook 'eww-mode-hook 'olivetti-mode)
 
-;;(straight-use-package 'doom-modeline)
-;;    (doom-modeline-mode 1)
-;;    (setq doom-modeline-buffer-file-name-style 'buffer-name
-;;          doom-modeline-major-mode-color-icon nil
-;;          doom-modeline-minor-modes nil
-;;          doom-modeline-lsp nil
-;;          doom-modeline-buffer-encoding nil)
+;;; PROGRAMMING
 
-(straight-use-package '(vc :type built-in))
-    (setq auto-revert-check-vc-info t)
-    (setq vc-follow-symlinks t)
+;;;; Sweat Tree sitter
+    (straight-use-package 'tree-sitter-langs)
+    (straight-use-package 'tree-sitter)
+        (add-hook 'tree-sitter-after-on-hook 'tree-sitter-hl-mode)
+        (global-tree-sitter-mode)
 
-(straight-use-package 'orderless)
-    (setq completion-styles '(orderless))
+;;;; Eglot for lsp support
+    (straight-use-package 'eglot)
+        (setq eglot-server-programs '((c-mode . ("clangd"))))
+        (setq eglot-ignored-server-capabilities '(:hoverProvider :documentRangeFormattingProvider :documentOnTypeFormattingProvider))
+        (add-hook 'c-mode-hook 'eglot-ensure)
+        (add-hook 'c++-mode-hook 'eglot-ensure)
+        (evil-define-key 'normal eglot-mode-map (kbd "g R") 'eglot-rename)
+        (evil-define-key 'normal eglot-mode-map (kbd "g d") 'eglot-find-declaration)
+        (evil-define-key 'normal eglot-mode-map (kbd "g D") 'flymake-show-buffer-diagnostics)
+        (evil-define-key 'normal eglot-mode-map (kbd "g r") 'xref-find-references)
+        (evil-define-key 'normal eglot-mode-map (kbd "g h") 'eldoc)
 
+;;;; Completion w/company
+    (straight-use-package 'company)
+        (add-hook 'after-init-hook 'global-company-mode)
+        (setq company-backends '(company-files company-capf))
+        (setq company-auto-commit-chars nil)
+        (setq company-minimum-prefix-length 1)
+        (setq company-idle-delay 0.0)
+        (setq company-auto-commit t)
+        (setq company-icon-size '(auto-scale . 15))
+
+;;;; Companion for company
+    (straight-use-package 'company-box)
+        (add-hook 'company-mode 'company-box-mode)
+
+;;;; VC Mode
+    (straight-use-package '(vc :type built-in))
+        (setq auto-revert-check-vc-info t)
+        (setq vc-follow-symlinks t)
+        (global-set-key (kbd "C-x v d") 'vc-dir-root)
+
+;;;; The best git interface
+    (straight-use-package 'magit)
+
+;;;; Autosave
+    (straight-use-package 'super-save)
+        (super-save-mode +1)
+        (setq super-save-auto-save-when-idle t)

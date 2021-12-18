@@ -2,7 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-
 ;;;###autoload
 (defun ls/open-config ()
   (interactive)

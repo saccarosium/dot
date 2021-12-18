@@ -1,10 +1,7 @@
 "query:Unread:unread = \"yes\""
 
-https://protonmail.com/blog/feed/
 https://inteltechniques.com/blog/feed/
-https://freedom.press/news/feed "~Fredoom Of Press Funtation"
 https://www.eff.org/rss/updates.xml
-https://keepassxc.org/blog/feed.xml
 https://edwardsnowden.substack.com/feed "~Edward Snowden Blog"
 https://www.wired.com/category/security/feed "~Wired Security"
 https://yewtu.be/feed/channel/UCSUf5_EPEfl4zlBKZHkZdmw #Gonzalez
@@ -18,3 +15,5 @@ https://yewtu.be/feed/channel/UCs6KfncB4OV6Vug4o_bzijg #Techlore
 https://yewtu.be/feed/channel/UC8Q7XEy86Q7T-3kNpNjYgwA #Incognito Mode
 https://yewtu.be/feed/channel/UC2C_jShtL725hvbm1arSV9w #CGP Grey
 https://yewtu.be/feed/channel/UC5UAwBUum7CPN5buc-_N1Fw #Linux Expirement
+https://www.reddit.com/r/emacs/.rss
+https://www.reddit.com/r/privacy/.rss

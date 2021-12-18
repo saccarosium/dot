@@ -13,7 +13,6 @@ highlight article "\\[image\\ [0-9]+\\]" magenta default bold
 highlight article ":.*\\(link\\)$" green default
 highlight article ":.*\\(image\\)$" magenta default
 
-browser w3m
+browser "open"
 macro , open-in-browser
-macro v set browser "mpv -fs %u" ; open-in-browser ; set browser w3m
-macro b set browser "open" ; open-in-browser ; set browser w3m
+macro v set browser "mpv -fs %u" ; open-in-browser ; set browser "open"

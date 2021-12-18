@@ -2,6 +2,7 @@
    "KeePassXC"
    "terminal"
    "Alacritty"
+   "Anki"
 ]
 
 cmd - return : open -a "/Applications/Alacritty.app"
