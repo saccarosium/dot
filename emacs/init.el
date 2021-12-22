@@ -11,10 +11,7 @@
                                 (time-subtract after-init-time before-init-time)))
                         gcs-done)))
 
-;;; ADDING CUSTOM LISP LIBRARIES
-
-    (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-    (require 'custom-functions)
+;;; NATIVE COMP
 
     ;; Silence compiler warnings as they can be pretty disruptive
     ;;(setq comp-async-report-warnings-errors nil)
@@ -102,7 +99,7 @@
     ;; Global evil keybinds
     (use-package evil-collection 
         :after evil
-	:init
+        :init
         (evil-collection-init))
 
 ;;;; Which Key
@@ -117,19 +114,6 @@
     (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;;; UI
-    
-    (menu-bar-mode 0)           ;; Hide the menubar
-    (tool-bar-mode 0)           ;; Hide tool bar
-    (tooltip-mode 0)            ;; Hide tooltip
-    (scroll-bar-mode 0)         ;; Hide scrollbar
-    (blink-cursor-mode 0)       ;; Prevent cursor to blink
-    (show-paren-mode t)         ;; Show matching parenthesis.
-    (global-so-long-mode)       ;; Handle long lines better.
-    (global-font-lock-mode 1)   ;; Always highlight code.
-    (global-auto-revert-mode 1) ;; Refresh a buffer if changed on disk.
-    (savehist-mode 1)           ;; Save history
-
-    (defalias 'yes-or-no-p 'y-or-n-p) ;; Accept 'y' in lieu of 'yes'.
 
     ;; Make Tabs behave sanely
     (setq-default tab-width 4)
@@ -151,16 +135,13 @@
     (setq kill-whole-line           t)
     (setq frame-resize-pixelwise    t)
     (setq case-fold-search          nil)
-
+    
     ;; Configuring Font
     (dolist (face '(default fixed-pitch))
         (set-face-attribute `,face nil :font "JetBrainsMono Nerd Font 12"))
+        (set-face-attribute 'bold nil :font "JetBrainsMonoExtraBold Nerd Font 12")
     ;; Set the variable pitch face
-    (set-face-attribute 'variable-pitch nil
-                        ;; :font "Cantarell"
-                        :font "SF Pro Text"
-                        :height 160
-                        :weight 'regular)
+    (set-face-attribute 'variable-pitch nil :font "SF Pro Text 12")
 
     ;; More integrated themes
     (use-package doom-themes
@@ -172,7 +153,9 @@
         (set-background-color "#191622")
         (set-face-attribute 'line-number nil :italic nil :background nil)
         (set-face-attribute 'fringe nil :background nil);;"#191622")
-        (set-face-attribute 'mode-line nil :background nil :box nil));"#21222b" #191622
+        (set-face-attribute 'mode-line nil :background nil :box nil)
+        (set-face-attribute 'mode-line nil :background nil :box nil)
+        );"#21222b" #191622
 
 ;;;; Set color and icons if in daemon mode
     (if (daemonp)
@@ -194,9 +177,10 @@
         (doom-modeline-buffer-encoding nil))
 
 ;;;; Relative number like in Vim
-    (straight-use-package 'linum-relative)
-        (add-hook 'prog-mode-hook 'linum-relative-mode)
-        (setq linum-relative-backend 'display-line-numbers-mode)
+    (use-package linum-relative
+        :hook (prog-mode . linum-relative-mode)
+        :config
+        (setq linum-relative-backend 'display-line-numbers-mode))
 
 ;;;; Make some windows a popup
     (use-package popper
@@ -283,10 +267,19 @@
               deft-extensions '("md" "org")
               deft-recursive t))
 
+
 ;;;; Markdown support in emacs
     (use-package markdown-mode
         :mode "\\.md\\'"
         :config
+        (set-face-attribute 'markdown-code-face nil :foreground "#f1fa8c" :background nil :box nil)
+        (set-face-attribute 'markdown-header-face nil :bold t :foreground "#50fa7b" :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font 13")
+        (set-face-attribute 'markdown-header-delimiter-face nil :bold t :foreground "#ff79c6" :background nil :box nil)
+        (set-face-attribute 'markdown-list-face nil :bold t :foreground "#a0e7fa" :background nil :box nil)
+        (set-face-attribute 'markdown-language-keyword-face nil :foreground "#6572a0" :background nil :box nil)
+        (set-face-attribute 'markdown-bold-face nil :foreground "#f8f8f3" :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font")
+        (set-face-attribute 'markdown-italic-face nil :foreground "#f8f8f3" :background nil :box nil)
+
         (setq markdown-command "Pandoc"))
 
 ;;;; Org Mode
@@ -365,3 +358,4 @@
         :config
         (super-save-mode +1)
         (setq super-save-auto-save-when-idle t))
+
