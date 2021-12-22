@@ -1,5 +1,4 @@
 "GENERAL SETTINGS
-    set packpath^=$XDG_DATA_HOME/vim/
     set path+=** 
     set rtp+=/usr/local/opt/fzf
     set nobackup nowritebackup noswapfile autowriteall 
@@ -15,24 +14,12 @@
 "KEYBINDINGS
     let mapleader=" "
     nnoremap Y y$
-    nnoremap <leader>p :bn<CR>
-    nnoremap <leader>n :bp<CR>
-    nnoremap <leader>fe :e ~/.vim/vimrc<CR>
     nnoremap <leader>al Vgq
-    nnoremap <leader>c :copen<CR>
-    nnoremap <leader>n :cn<CR>
-    nnoremap <leader>p :cp<CR>
-    nnoremap <leader>fe :FZF $DOTFILES/ <CR>
-    nnoremap <leader>fn :FZF $NOTES/ <CR>
     nnoremap <leader>ff :FZF<CR>
     vmap < <gv
     vmap > >gv
 
 "COLORS
-    packadd! dracula
-    syntax enable
-    colorscheme dracula
-    set background=dark
     set termguicolors t_Co=256
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
