@@ -1,19 +1,5 @@
 "######################### set settings ##############################
 
-    set packpath^=$XDG_DATA_HOME/nvim/
-    set path+=**
-    set rtp+=/usr/local/opt/fzf
-    set hidden
-    set nobackup noswapfile autowriteall
-    set conceallevel=2
-    set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent
-    set wildmenu wildignorecase wildignore+=**/.git/*
-    set number relativenumber
-    set clipboard+=unnamedplus
-    set laststatus=0 noshowcmd guicursor=
-
-"############################# keybings ##############################
-
     :command W w
     let mapleader=" "
     let maplocalleader=" "
