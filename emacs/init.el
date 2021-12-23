@@ -2,6 +2,7 @@
 
 ;;; STARTUP PERFORMANCE
 
+    (setq gc-cons-threshold (* 50 1000 1000))
     (setq file-name-handler-alist nil)
     (add-hook 'emacs-startup-hook
             (lambda ()
@@ -44,7 +45,7 @@
 
 ;;; DEFINING XDG DIRECTORIES
 
-    ;; Make PATH on OSX work correctly
+    ;; Make PATH on OSX work correctly 
     (use-package exec-path-from-shell
         :config
         ;;; Pull in other enviroment variables
@@ -94,7 +95,8 @@
         ;; Leader Key
         (evil-set-leader 'normal (kbd "SPC"))
         (evil-define-key 'normal 'global (kbd "<leader>fe") #'ls/open-config)
-        (evil-define-key 'normal 'global (kbd "<leader>fn") #'deft-find-file))
+        (evil-define-key 'normal 'global (kbd "<leader>fn") #'deft-find-file)
+        (evil-define-key 'normal 'global (kbd "gc") #'comment-or-uncomment-region))
 
     ;; Global evil keybinds
     (use-package evil-collection 
@@ -236,7 +238,6 @@
         :config
         (evil-define-key 'normal 'global (kbd "TAB") 'outline-cycle))
 
-
 ;;; COMPLETION FRAMWORK
 
 ;;;; Vertico for the vertical UI
@@ -279,7 +280,6 @@
         (set-face-attribute 'markdown-language-keyword-face nil :foreground "#6572a0" :background nil :box nil)
         (set-face-attribute 'markdown-bold-face nil :foreground "#f8f8f3" :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font")
         (set-face-attribute 'markdown-italic-face nil :foreground "#f8f8f3" :background nil :box nil)
-
         (setq markdown-command "Pandoc"))
 
 ;;;; Org Mode
@@ -313,17 +313,16 @@
 
 ;;;; Eglot for lsp support
     (use-package eglot
-        :hook ((c-mode . eglot-ensure)
+        :hook ((c-mode . eglot-ensure)x
                (c++-mode . eglot-ensure))
         :init
         (setq eglot-server-programs '((c-mode . ("clangd"))))
-        (setq eglot-ignored-server-capabilities '(:hoverProvider :documentRangeFormattingProvider :documentOnTypeFormattingProvider))
-        :config
+        (setq eglot-ignored-server-capabilities '(:hoverProvider :documentRangeFormattingProvider :documentOnTypeFormattingProvider)))
         (evil-define-key 'normal eglot-mode-map (kbd "g R") 'eglot-rename)
         (evil-define-key 'normal eglot-mode-map (kbd "g d") 'eglot-find-declaration)
         (evil-define-key 'normal eglot-mode-map (kbd "g D") 'flymake-show-buffer-diagnostics)
         (evil-define-key 'normal eglot-mode-map (kbd "g r") 'xref-find-references)
-        (evil-define-key 'normal eglot-mode-map (kbd "g h") 'eldoc))
+        (evil-define-key 'normal eglot-mode-map (kbd "g h") 'eldoc)
 
 ;;;; Completion w/company
     (use-package company
@@ -352,6 +351,13 @@
     (use-package magit
         :commands (magit-status magit-get-current-branch))
 
+;;;; Support for yaml
+    (use-package yaml-mode
+        :ensure t
+        ;; .yaml or .yml
+        :mode "\\(?:\\(?:\\.y\\(?:a?ml\\)\\)\\)\\'")
+   
+
 ;;;; Autosave
     (use-package super-save
         :defer 1
@@ -359,3 +365,4 @@
         (super-save-mode +1)
         (setq super-save-auto-save-when-idle t))
 
+(global-set-key (kbd "C-c o c") #'ls/open-config)

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+data="$DOTFILES/scripts"
+
+

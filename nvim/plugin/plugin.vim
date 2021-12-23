@@ -1,32 +1,5 @@
 "######################### set settings ##############################
 
-    :command W w
-    let mapleader=" "
-    let maplocalleader=" "
-    nnoremap Y y$ 
-    nnoremap <C-k> :bn<CR>
-    nnoremap <C-j> :bp<CR>
-    nnoremap <C-d> :bdelete!<CR>
-    nnoremap <leader>c :copen<CR>
-    nnoremap <leader>n :cn<CR>
-    nnoremap <leader>p :cp<CR>
-    nnoremap <leader>fe :FZF $DOTFILES/ <CR>
-    nnoremap <leader>fn :FZF $NOTES/ <CR>
-    nnoremap <leader>ff :FZF<CR>
-    nnoremap <leader>al Vgq
-    nnoremap <silent> <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-    nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-    nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-    nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-    vmap < <gv 
-    vmap > >gv
-
-    syntax enable
-    colorscheme dracula
-    set termguicolors t_Co=256
-    hi! Normal ctermbg=NONE guibg=NONE 
-
     augroup pandoc_syntax
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
     augroup END

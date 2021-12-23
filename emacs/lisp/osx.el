@@ -7,8 +7,5 @@
 (setq mac-command-key-is-meta t)
 (setq mac-command-modifier 'meta)
 
-(global-set-key (kbd "M-c") 'kill-ring-save)
-(global-set-key (kbd "M-v") 'yank)
-
 (provide 'osx)
 ;;; osx.el ends here
