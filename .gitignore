@@ -14,3 +14,4 @@
 *.log
 *.tar.gz
 *.rar
+/emacs/project-window-list
