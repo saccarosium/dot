@@ -4,10 +4,12 @@
    "Alacritty"
    "Emacs"
    "Anki"
+   "TickTick"
 ]
 
 cmd - return : open -a "/Applications/Alacritty.app"
 cmd - e : open -a "/Applications/Emacs.app"
 cmd - b : open -a "/Applications/Brave Browser.app"
 cmd - p : open -a "/Applications/KeePassXC.app"
+cmd - t : open -a "/Applications/TickTick.app"
                 
