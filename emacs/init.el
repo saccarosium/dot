@@ -85,6 +85,7 @@
     (setq make-backup-file nil)
     ;; Use file for insering custom varables other that init.el
     (setq custom-file (locate-user-emacs-file "custom.el"))
+    (setq svg-lib-icons-dir (no-littering-expand-etc-file-name "svg-lib"))
 
 ;;; KEYBINDS
 
@@ -107,8 +108,7 @@
         ;; Leader Key
         (evil-set-leader 'normal (kbd "SPC"))
         (evil-define-key 'normal 'global (kbd "<leader>fe") #'ls/open-config)
-        (evil-define-key 'normal 'global (kbd "<leader>fn") #'deft-find-file)
-        (evil-define-key 'normal 'global (kbd "gc") #'comment-or-uncomment-region))
+        (evil-define-key 'normal 'global (kbd "<leader>fn") #'deft-find-file))
 
     ;; Global evil keybinds
     (use-package evil-collection 
@@ -116,12 +116,15 @@
         :init
         (evil-collection-init))
 
-;;;; Which Key
-    ;; (use-package which-key
-    ;;     :defer t
-    ;;     :init (which-key-mode)
-    ;;     :config
-    ;;     (setq which-key-idle-delay 1.0))
+    (use-package evil-lion
+        :after evil
+        :config
+        (evil-lion-mode))
+
+    (use-package evil-commentary
+        :after evil
+        :config
+        (evil-commentary-mode 1))
 
 ;;;; General keybinds
     (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -167,32 +170,20 @@
     (setq frame-resize-pixelwise    t)
     (setq case-fold-search          nil)
 
-
     (use-package autothemer
         :defer t)
 
     ;; Configuring Font
-    (dolist (face '(default fixed-pitch))
-        (set-face-attribute `,face nil :background bg :font "JetBrainsMono Nerd Font 12"))
+    (dolist (face '(default fixed-pitch variable-pitch))
+        (set-face-attribute `,face nil :font "JetBrainsMono Nerd Font 12"))
     (set-face-attribute 'bold nil :font "JetBrainsMonoExtraBold Nerd Font 12")
-    ;; Set the variable pitch face
-    (set-face-attribute 'variable-pitch nil :font "SF Pro Text 12")
 
     ;; More integrated themes
     (use-package doom-themes)
         :config
         (load-theme 'doom-dracula t)
 
-;;;; Mod-line
-    ;; (use-package doom-modeline
-    ;;     :hook (after-init . doom-modeline-init)
-    ;;     :custom
-    ;;     (doom-modeline-major-mode-color-icon nil)
-    ;;     (doom-modeline-minor-modes nil)
-    ;;     (doom-modeline-lsp nil)
-    ;;     (doom-modeline-buffer-file-name-style 'buffer-name)
-    ;;     (doom-modeline-buffer-encoding nil))
-
+    (set-background-color bg)
     (set-face-attribute 'mode-line nil :background bg)
 
     (use-package mini-modeline
@@ -204,7 +195,6 @@
         (setq mini-modeline-l-format nil))
         (set-face-attribute 'mini-modeline-mode-line nil :background purple :height 0.2)
         (set-face-attribute 'mini-modeline-mode-line-inactive nil :background "#24252f" :height 0.1)
-
 
 ;;;; Relative number like in Vim
     (use-package linum-relative
@@ -233,6 +223,13 @@
 
 ;;; BUILTINGS PACKAGES
 
+    (use-package vc
+        :straight (:type built-in)
+        :bind ("C-x v d" . vc-dir-root)
+        :config
+        (setq auto-revert-check-vc-info t)
+        (setq vc-follow-symlinks t))
+
     (use-package eww
         :straight (:type built-in)
         :defer t
@@ -248,7 +245,10 @@
 
     (use-package dired
         :straight (:type built-in)
-        :commands (dired dired-jump)
+        :custom-face
+        (dired-directory       ((t (:foreground ,purple))))
+        (dired-header    ((t (:underline t :bold t :foreground ,purple))))
+        (dired-symlink        ((t (:foreground ,green))))
         :config
         (put 'dired-find-alternate-file 'disabled nil)
         (evil-define-key 'normal dired-mode-map
@@ -260,31 +260,6 @@
           ;; always delete and copy recursively
         (setq dired-recursive-deletes 'always)
         (setq dired-recursive-copies 'always))
-
-
-    (use-package dired+
-        :after dired
-        :custom-face
-        ;; (diredp-dir-name       ((t (:foreground purple))))
-        ;; (diredp-dir-heading    ((t (:underline t :bold t :foreground purple))))
-        (diredp-file-name      ((t (:foreground ,fg))))
-        ;; (diredp-symlink        ((t (:foreground green))))
-        (diredp-number         ((t (:foreground ,fg))))
-        (diredp-executable-tag ((t (:foreground ,fg))))
-        (diredp-no-priv        ((t (:background nil))))
-        (diredp-date-time      ((t (:foreground ,fg))))
-        (diredp-dir-priv       ((t (:foreground ,fg))))
-        (diredp-rare-priv      ((t (:foreground ,fg))))
-        (diredp-read-priv      ((t (:foreground ,fg))))
-        (diredp-link-priv      ((t (:foreground ,fg))))
-        (diredp-exec-priv      ((t (:foreground ,fg))))
-        (diredp-write-priv     ((t (:foreground ,fg))))
-        (diredp-file-suffix    ((t (:foreground ,fg))))
-        ;; (diredp-omit-file-name ((t (:strike-through nil :foreground comment))))
-        :config
-        (setq diredp-hide-details-initially-flag nil)
-        (setq diredp-hide-details-propagate-flag nil)
-        (diredp-toggle-find-file-reuse-dir 1))
 
     (use-package project
         :straight (:type built-in)
@@ -304,27 +279,13 @@
         :config
         (evil-define-key 'normal 'global (kbd "TAB") 'outline-cycle))
 
-    ;; (use-package icomplete
-    ;;     :config
-    ;;     (setq read-file-name-completion-ignore-case t)
-    ;;     (setq read-buffer-completion-ignore-case t)
-    ;;     (setq completion-ignore-case t)
-    ;;     (setq icomplete-show-matches-on-no-input t)
-    ;;     (icomplete-vertical-mode))
-
-;;;; VC Mode
-    (use-package vc
-        :straight (:type built-in)
-        :bind ("C-x v d" . vc-dir-root)
-        :config
-        (setq auto-revert-check-vc-info t)
-        (setq vc-follow-symlinks t))
-
 ;;; COMPLETION FRAMWORK
 
 ;;;; Vertico for the vertical UI
     (use-package vertico
         :straight (:host github :repo "minad/vertico" :branch "main")
+        :bind (:map vertico-map
+              ("M-c" . vertico-save))
         :custom
         (vertico-cycle t)
         :init
@@ -343,10 +304,6 @@
 ;;;; Embark for minibuffer actions
     (use-package embark
         :bind ("C-." . embark-act)) ;; pick some comfortable binding
-
-;;;; Consult
-    (use-package consult
-      :bind ("C-s" . consult-line))
 
 ;;; WRITING/NOTES
 
@@ -428,21 +385,6 @@
         (evil-define-key 'normal eglot-mode-map (kbd "g r") 'xref-find-references)
         (evil-define-key 'normal eglot-mode-map (kbd "g h") 'eldoc)
 
-;;;; Completion w/company
-    (use-package company
-        :config
-        (setq company-backends '(company-files company-capf))
-        (setq company-auto-commit-chars nil)
-        (setq company-minimum-prefix-length 1)
-        (setq company-idle-delay 0.0)
-        (setq company-auto-commit t)
-        (setq company-icon-size '(auto-scale . 15))
-        (global-company-mode))
-
-;;;; Companion for company
-    (use-package company-box
-        :hook (company-mode . company-box-mode))
-
 ;;;; The best git interface
     (use-package magit
         :commands (magit-status magit-get-current-branch))
@@ -462,10 +404,52 @@
 
 ;;;; Preview HEX color
     (use-package rainbow-mode
-        :hook (prog-mode . rainbow-mode))
+        :defer t)
 
-;;;; Autoaling
-    (use-package evil-lion
-        :commands (evil-lion-left)
-        :config
-        (evil-lion-mode))
+(use-package tab-bar
+    :straight (:type built-in)
+    :custom-face
+    (tab-bar-tab ((t (:bold t :foreground ,bg :background ,purple))))
+    (tab-bar ((t (:foreground nil :background nil))))
+    :config
+    (setq tab-bar-close-button nil)
+    (setq tab-bar-new-button nil)
+    (setq tab-bar-show 1))
+
+(evil-define-key 'normal 'global (kbd "C-w t") 'tab-bar-new-tab)
+(evil-define-key 'normal 'global (kbd "C-w C") 'tab-bar-close-tab)
+(evil-define-key 'insert 'global (kbd "C-n") nil)
+(evil-define-key 'insert 'global (kbd "C-p") nil)
+
+(use-package corfu
+    :custom
+    (corfu-cycle t)              ;; Enable cycling for `corfu-next/previous'
+    (corfu-auto t)               ;; Enable auto completion
+    (corfu-commit-predicate nil) ;; Do not commit selected candidates on next input
+    (corfu-quit-no-match t)    ;; Automatically quit if there is no match
+    (corfu-preview-current t)    ;; Disable current candidate preview
+    (corfu-preselect-first t)    ;; Disable candidate preselection
+    (corfu-auto-delay 0.0)
+    :bind (:map corfu-map
+            ("C-n" . corfu-next)
+            ("C-p" . corfu-previous))
+    :init
+    (corfu-global-mode))
+
+(use-package cape
+    :init
+    ;; Add `completion-at-point-functions', used by `completion-at-point'.
+    (add-to-list 'completion-at-point-functions #'cape-file)
+    (add-to-list 'completion-at-point-functions #'cape-tex)
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+    (add-to-list 'completion-at-point-functions #'cape-keyword))
+
+(use-package kind-icon
+    :ensure t
+    :after corfu
+    :custom
+    (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+    :config
+    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+(use-package modus-themes)
