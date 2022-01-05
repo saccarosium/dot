@@ -1,13 +1,17 @@
 .blacklist [
    "KeePassXC"
    "terminal"
-   "Alacritty"
    "Emacs"
    "Anki"
+   "TickTick"
+   "Brave"
+   "Safari"
+   "Firefox"
 ]
 
-cmd - return : open -a "/Applications/Alacritty.app"
-cmd - e : open -a "/Applications/Emacs.app"
-cmd - b : open -a "/Applications/Brave Browser.app"
-cmd - p : open -a "/Applications/KeePassXC.app"
+cmd + ctrl - return : open -a "/Applications/Alacritty.app"
+cmd + ctrl - e : open -a "/Applications/Emacs.app"
+cmd + ctrl - b : open -a "/Applications/Firefox.app"
+cmd + ctrl - p : open -a "/Applications/KeePassXC.app"
+cmd + ctrl - t : open -a "/Applications/TickTick.app"
                 

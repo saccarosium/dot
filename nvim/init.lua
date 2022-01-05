@@ -13,16 +13,16 @@ require "paq" {
 	"hrsh7th/nvim-cmp";
 	"vim-pandoc/vim-pandoc-syntax";
 	"numToStr/Comment.nvim";
+    "ishan9299/modus-theme-vim";
 	{"dracula/vim", as="dracula"};
 }
 
 g.mapleader = " "
 cmd('colorscheme dracula')
-cmd('hi! Normal ctermbg=NONE guibg=NONE')
-opt.laststatus = 0
+cmd('hi! Normal ctermbg=NONE guibg=NONE') opt.laststatus = 0
 opt.relativenumber = true
 opt.showcmd = false
--- opt.clipboard = 'unnamedplus'
+opt.clipboard = 'unnamedplus'
 opt.backup = false
 
 local function map(mode, lhs, rhs, opts)
