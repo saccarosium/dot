@@ -3,7 +3,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(tab-bar-tab-name-function 'tab-bar-tab-name-current-with-count))
+ '(custom-safe-themes
+   '("234dbb732ef054b109a9e5ee5b499632c63cc24f7c2383a849815dacc1727cb6" "835868dcd17131ba8b9619d14c67c127aa18b90a82438c8613586331129dda63" default)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -12,13 +13,8 @@
  '(dired-directory ((t (:foreground "#bd93f9"))))
  '(dired-header ((t (:underline t :bold t :foreground "#bd93f9"))))
  '(dired-symlink ((t (:foreground "#50fa7b"))))
- '(markdown-bold-face ((t (:foreground "#f8f8f2" :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font"))))
- '(markdown-code-face ((t (:foreground "#f1fa8c" :background nil :box nil))))
- '(markdown-header-delimiter-face ((t (:bold t :foreground "#ff79c6" :background nil :box nil))))
- '(markdown-header-face ((t (:bold t :foreground "#50fa7b" :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font 13"))))
- '(markdown-italic-face ((t (:foreground "#f8f8f2" :background nil :box nil))))
- '(markdown-language-keyword-face ((t (:foreground "#6272a4" :background nil :box nil))))
- '(markdown-list-face ((t (:bold t :foreground "#8be9fd" :background nil :box nil))))
+ '(tab-bar ((t (:foreground nil :background nil))))
+ '(tab-bar-tab ((t (:bold t :foreground "#191622" :background "#bd93f9"))))
  '(tree-sitter-hl-face:attribute ((t (:foreground "#50fa7b"))))
  '(tree-sitter-hl-face:constant ((t (:foreground "#bd93f9"))))
  '(tree-sitter-hl-face:constant\.builtin ((t (:foreground "#bd93f9"))))

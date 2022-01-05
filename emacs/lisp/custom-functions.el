@@ -8,9 +8,9 @@
   (find-file "~/.config/emacs/init.el"))
 
 ;;;###autoload
-(defun ls/open-todolist ()
+(defun ls/open-budget ()
   (interactive)
-  (find-file "~/.config/emacs/"))
+  (find-file "~/Documents/finaces/2021-2022.dat"))
 
 (provide 'custom-functions)
 ;;; custom-functions.el ends here
