@@ -1,15 +1,15 @@
 window:
-# dimensions:
-#   columns: 0
-#   lines: 0
+  dimensions:
+   columns: 150
+   lines: 40
   position:
     x: 0
     y: 0
   padding:
     x: 0
-    y: 0
-  dynamic_padding: false
-  decorations: none
+    y: 0 
+  dynamic_padding: true
+  decorations: buttonless
   startup_mode: Windowed
   title: Alacritty
   dynamic_title: true
