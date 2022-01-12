@@ -12,6 +12,11 @@
   (interactive)
   (find-file "~/Documents/finaces/2021-2022.dat"))
 
+;;;###autoload
+(defun ls/open-todolist ()
+  (interactive)
+  (find-file "~/Documents/nextcloud/todolist/todolist.org"))
+
 (provide 'custom-functions)
 ;;; custom-functions.el ends here
 
