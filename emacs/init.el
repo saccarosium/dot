@@ -2,6 +2,17 @@
 
 ;;; STARTUP PERFORMANCE
 
+  (setq gc-cons-threshold 20000000)
+
+  (defun my-minibuffer-setup-hook ()
+    (setq gc-cons-threshold most-positive-fixnum))
+
+  (defun my-minibuffer-exit-hook ()
+    (setq gc-cons-threshold 800000))
+
+  (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+  (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+
   (setq file-name-handler-alist nil)
   (add-hook 'emacs-startup-hook
           (lambda ()
@@ -190,14 +201,14 @@
 
 
 ;;;; Modeline config
-  (use-package doom-modeline
-      :init (doom-modeline-mode 1)
-      :config
-      (setq doom-modeline-height 5)
-      (setq doom-modeline-buffer-file-name-style 'truncate-all)
-      (setq doom-modeline-persp-icon nil)
-      (setq doom-modeline-enable-word-count t)
-      (setq doom-modeline-buffer-encoding nil))
+  ;; (use-package doom-modeline
+  ;;     :init (doom-modeline-mode 1)
+  ;;     :config
+  ;;     (setq doom-modeline-height 5)
+  ;;     (setq doom-modeline-buffer-file-name-style 'truncate-all)
+  ;;     (setq doom-modeline-persp-icon nil)
+  ;;     (setq doom-modeline-enable-word-count t)
+  ;;     (setq doom-modeline-buffer-encoding nil))
 
 ;;;; Hide Modeline
   (use-package hide-mode-line
@@ -227,6 +238,8 @@
 ;;;; Tabs
   (use-package tab-bar
     :straight (:type built-in)
+    :bind (("M-t" . tab-bar-new-tab)
+           ("M-w" . tab-bar-close-tab))
     :custom-face
     ;; (tab-bar-tab ((t (:bold t :foreground ,bg :background ,purple))))
     ;; (tab-bar ((t (:height 130 :foreground nil :background ,bg :box nil))))
@@ -236,8 +249,11 @@
     (setq tab-bar-close-button nil)
     (setq tab-bar-new-tab-choice "*scratch*")
     (setq tab-bar-show 100)
-    (evil-define-key 'normal 'global (kbd "C-w t") 'tab-bar-new-tab)
-    (evil-define-key 'normal 'global (kbd "C-w C") 'tab-bar-close-tab))
+    (setq tab-bar-position t))
+
+(use-package tab-bar-echo-area
+  :config
+  (tab-bar-echo-area-mode 1))
 
 ;;; UTILITY
 
@@ -261,6 +277,7 @@
   ;;   ([remap describe-key] . helpful-key))
 
   (use-package pdf-tools
+    :defer t
     :config
     ;; initialise
     (pdf-tools-install)
@@ -332,9 +349,8 @@
   (use-package bookmark
     :straight (:type built-in)
     :config
+    (evil-define-key 'normal 'global (kbd "<leader>RET") 'bookmark-jump)
     (setq bookmark-save-flag 1))
-
-  (use-package bookmark+)
 
 ;;; COMPLETION FRAMWORK
 
@@ -372,41 +388,43 @@
 
 ;;;; Corfu as a company mode replacement
   (use-package corfu
-      :init
-      (evil-define-key 'insert 'global (kbd "C-n") nil)
-      (evil-define-key 'insert 'global (kbd "C-p") nil)
-      :custom
-      (corfu-cycle t)              ;; Enable cycling for `corfu-next/previous'
-      (corfu-auto nil)               ;; Enable auto completion
-      (corfu-commit-predicate nil) ;; Do not commit selected candidates on next input
-      (corfu-quit-no-match t)      ;; Automatically quit if there is no match
-      (corfu-preview-current t)    ;; Disable current candidate preview
-      (corfu-preselect-first t)    ;; Disable candidate preselection
-      (corfu-auto-delay 0.0)
-      :hook ((prog-mode . corfu-mode)
-             (latex-mode . corfu-mode))
-      :bind (:map corfu-map
-              ("C-n" . corfu-next)
-              ("C-p" . corfu-previous)
-              ("TAB" . corfu-insert)))
+    :init
+    (evil-define-key 'insert 'global (kbd "C-n") nil)
+    (evil-define-key 'insert 'global (kbd "C-p") nil)
+    :custom
+    (corfu-cycle t)              ;; Enable cycling for `corfu-next/previous'
+    (corfu-auto t)               ;; Enable auto completion
+    (corfu-commit-predicate nil) ;; Do not commit selected candidates on next input
+    (corfu-quit-no-match t)      ;; Automatically quit if there is no match
+    (corfu-preview-current t)    ;; Disable current candidate preview
+    (corfu-preselect-first t)    ;; Disable candidate preselection
+    (corfu-auto-delay 0.0)
+    :hook ((prog-mode . corfu-mode)
+           (latex-mode . corfu-mode))
+    :bind (:map corfu-map
+          ("C-n" . corfu-next)
+          ("C-p" . corfu-previous)
+          ("TAB" . corfu-insert)))
 
   (use-package kind-icon
-      :ensure t
-      :after corfu
-      :custom
-      (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
-      :config
-      (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+    :after corfu
+    :custom
+    (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+    :config
+    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 ;;; WRITING/NOTES
 
 ;;;; Notational Velocity for emacs
   (use-package deft
-      :commands deft-find-file
-      :config
-      (setq deft-directory "~/Documents/nextcloud/notes/"
-            deft-extensions '("md" "org")
-            deft-recursive t))
+    :commands deft-find-file
+    :bind (:map deft-mode-map
+          ("/" . deft-filter))
+    :config
+    (setq deft-directory "~/Documents/nextcloud/notes/")
+    (setq deft-extensions '("md" "org"))
+    (setq deft-recursive t))
+
 
 ;;;; Markdown support in emacs
   (use-package markdown-mode
@@ -442,7 +460,8 @@
       (require 'org-config))
 
   (use-package org-appear
-      :hook (org-mode . org-appear-mode))
+    :after org
+    :hook (org-mode . org-appear-mode))
 
 ;;;; LaTex
   (use-package auctex
@@ -509,10 +528,12 @@
   (use-package rainbow-mode
     :defer t)
 
-  (straight-use-package
-  '(nano-emacs :type git :host github :repo "rougier/nano-emacs"))
+;; (use-package perspective
+;;   :bind
+;;   ("C-x C-b" . persp-list-buffers)   ; or use a nicer switcher, see below
+;;   :config
+;;   (persp-mode))
 
-(setq nano-font-family-monospaced "JetBrainsMono Nerd Font")
-(setq nano-font-size 12)
-
-;; (require 'nano)
+(use-package nano-modeline
+  :config
+  (nano-modeline-mode))

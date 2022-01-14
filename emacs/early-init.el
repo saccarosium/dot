@@ -10,17 +10,6 @@
 
 ;;; ADDING CUSTOM LISP LIBRARIES
 
-  (setq gc-cons-threshold 20000000)
-
-  (defun my-minibuffer-setup-hook ()
-    (setq gc-cons-threshold most-positive-fixnum))
-
-  (defun my-minibuffer-exit-hook ()
-    (setq gc-cons-threshold 800000))
-
-  (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
-  (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
-
   (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
   (require 'custom-functions)
 

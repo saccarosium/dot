@@ -3,8 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(bmkp-last-as-first-bookmark-file
-   "/Users/sacca/Library/Application Support/emacs/bmkp/current-bookmark.el"))
+ '(bmkp-last-as-first-bookmark-file "~/Library/Application Support/emacs/bookmark-default.el"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
