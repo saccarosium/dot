@@ -51,9 +51,9 @@
 ;;; BETTER GARBAGE COLLECTION
 
   (use-package gcmh
-      :config
-      (setq gcmh-verbose 't)
-      (gcmh-mode 1))
+    :config
+    (setq gcmh-verbose 't)
+    (gcmh-mode 1))
 
 ;;; DEFINING XDG DIRECTORIES
 
@@ -180,25 +180,29 @@
   (set-face-attribute 'bold nil :font "JetBrainsMonoExtraBold Nerd Font 12")
 
 ;;;; Themes
-  (use-package doom-themes
-      :config
-      (load-theme 'doom-dracula t)
-      (defvar fg        "#f8f8f2")
-      (defvar bg        "#191622")
-      (defvar comment   "#6272a4")
-      (defvar black     "#1E2029")
-      (defvar purple    "#bd93f9")
-      (defvar cyan      "#8be9fd")
-      (defvar green     "#50fa7b")
-      (defvar orange    "#ffb86c")
-      (defvar pink      "#ff79c6")
-      (defvar red       "#ff5555")
-      (defvar yellow    "#f1fa8c")
-      (defvar selection "#44475A")
-      (defvar blue      "#61bfff")
-      (defvar dark-blue "#0189cc")
-      (set-background-color bg))
+  (use-package dracula-theme
+    :config
+    (setq dracula-enlarge-headings nil)
+    (load-theme 'dracula t))
 
+  (use-package doom-themes)
+
+  (defvar fg        "#f8f8f2")
+  (defvar bg        "#282a36")
+  (defvar comment   "#6272a4")
+  (defvar black     "#1E2029")
+  (defvar purple    "#bd93f9")
+  (defvar cyan      "#8be9fd")
+  (defvar green     "#50fa7b")
+  (defvar orange    "#ffb86c")
+  (defvar pink      "#ff79c6")
+  (defvar red       "#ff5555")
+  (defvar yellow    "#f1fa8c")
+  (defvar selection "#44475A")
+  (defvar blue      "#61bfff")
+  (defvar dark-blue "#0189cc")
+  (defvar contrast  "#191a21")
+  (defvar unfocus   "#252630")
 
 ;;;; Modeline config
   ;; (use-package doom-modeline
@@ -240,11 +244,6 @@
     :straight (:type built-in)
     :bind (("M-t" . tab-bar-new-tab)
            ("M-w" . tab-bar-close-tab))
-    :custom-face
-    ;; (tab-bar-tab ((t (:bold t :foreground ,bg :background ,purple))))
-    ;; (tab-bar ((t (:height 130 :foreground nil :background ,bg :box nil))))
-    (tab-bar ((t (:foreground nil :background nil :box nil))))
-    ;; (tab-bar-tab-inactive ((t (:background nil))))
     :config
     (setq tab-bar-close-button nil)
     (setq tab-bar-new-tab-choice "*scratch*")
@@ -266,15 +265,6 @@
     :mode "\\.dat\\'"
     :init
     (setq ledger-clear-whole-transactions 1))
-
-;;;; Better help with helpful
-  ;; (use-package helpful
-  ;;   :bind
-  ;;   ([remap describe-function] . helpful-function)
-  ;;   ([remap describe-symbol] . helpful-symbol)
-  ;;   ([remap describe-variable] . helpful-variable)
-  ;;   ([remap describe-command] . helpful-command)
-  ;;   ([remap describe-key] . helpful-key))
 
   (use-package pdf-tools
     :defer t
@@ -348,9 +338,15 @@
 
   (use-package bookmark
     :straight (:type built-in)
+    :custom-face
+    ;; (bookmark-face ((t (:background nil :box nil))))
     :config
     (evil-define-key 'normal 'global (kbd "<leader>RET") 'bookmark-jump)
     (setq bookmark-save-flag 1))
+
+  (evil-define-key 'normal 'global (kbd "g r") 'xref-find-references)
+  (evil-define-key 'normal 'global (kbd "g d") 'xref-find-definitions)
+  (evil-define-key 'normal 'global (kbd "g a") 'xref-find-apropos)
 
 ;;; COMPLETION FRAMWORK
 
@@ -432,13 +428,13 @@
       :hook ((markdown-mode . olivetti-mode)
              (markdown-mode . hide-mode-line-mode))
       :custom-face
-      (markdown-code-face ((t (:foreground ,yellow  :background nil :box nil))))
-      (markdown-header-face ((t (:bold t :foreground ,green :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font 13"))))
-      (markdown-header-delimiter-face ((t (:bold t :foreground ,pink :background nil :box nil))))
-      (markdown-list-face ((t (:bold t :foreground ,cyan :background nil :box nil))))
-      (markdown-language-keyword-face ((t (:foreground ,comment :background nil :box nil))))
-      (markdown-bold-face ((t (:foreground ,fg :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font"))))
-      (markdown-italic-face ((t (:foreground ,fg :background nil   :box nil))))
+      ;; (markdown-code-face ((t (:foreground ,yellow  :background nil :box nil))))
+      ;; (markdown-header-face ((t (:bold t :foreground ,green :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font 13"))))
+      ;; (markdown-header-delimiter-face ((t (:bold t :foreground ,pink :background nil :box nil))))
+      ;; (markdown-list-face ((t (:bold t :foreground ,cyan :background nil :box nil))))
+      ;; (markdown-language-keyword-face ((t (:foreground ,comment :background nil :box nil))))
+      ;; (markdown-bold-face ((t (:foreground ,fg :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font"))))
+      ;; (markdown-italic-face ((t (:foreground ,fg :background nil   :box nil))))
       :config
       (setq markdown-hide-urls t)
       (setq markdown-command "Pandoc"))
@@ -450,7 +446,6 @@
              (org-mode . hide-mode-line-mode)
              (org-mode . olivetti-mode))
       :defer t
-      ;; :hook (org-mode . olivetti-mode)
       :bind (("C-c SPC" . org-capture)
              ("C-c o" . org-open-at-point)
              ("C-c w" . org-refile)
@@ -473,23 +468,23 @@
 
 ;;; PROGRAMMING
 
-;;;; Sweat Tree sitter
+;;; weat Tree sitter
   (use-package tree-sitter-langs
     :after tree-sitter)
   (use-package tree-sitter
     :custom-face
-    (tree-sitter-hl-face:attribute ((t (:foreground ,green))))
-    (tree-sitter-hl-face:constant ((t (:foreground ,purple))))
-    (tree-sitter-hl-face:constant.builtin ((t (:foreground ,purple))))
-    (tree-sitter-hl-face:escape ((t (:foreground ,pink))))
-    (tree-sitter-hl-face:variable ((t (:foreground ,fg))))
-    (tree-sitter-hl-face:function ((t (:foreground ,green))))
-    (tree-sitter-hl-face:function.builtin ((t (:foreground ,purple))))
-    (tree-sitter-hl-face:function.call ((t (:foreground ,green))))
-    (tree-sitter-hl-face:method ((t (:foreground ,green))))
-    (tree-sitter-hl-face:method.call ((t (:foreground ,green))))
-    (tree-sitter-hl-face:type ((t (:italic t :foreground ,cyan))))
-    (tree-sitter-hl-face:type.builtin ((t (:italic t :foreground ,cyan))))
+    ;; (tree-sitter-hl-face:attribute ((t (:foreground ,green))))
+    ;; (tree-sitter-hl-face:constant ((t (:foreground ,purple))))
+    ;; (tree-sitter-hl-face:constant.builtin ((t (:foreground ,purple))))
+    ;; (tree-sitter-hl-face:escape ((t (:foreground ,pink))))
+    ;; (tree-sitter-hl-face:variable ((t (:foreground ,fg))))
+    ;; (tree-sitter-hl-face:function ((t (:foreground ,green))))
+    ;; (tree-sitter-hl-face:function.builtin ((t (:foreground ,purple))))
+    ;; (tree-sitter-hl-face:function.call ((t (:foreground ,green))))
+    ;; (tree-sitter-hl-face:method ((t (:foreground ,green))))
+    ;; (tree-sitter-hl-face:method.call ((t (:foreground ,green))))
+    ;; (tree-sitter-hl-face:type ((t (:foreground ,cyan))))
+    ;; (tree-sitter-hl-face:type.builtin ((t (:italic t :foreground ,pink))))
     :config
     (global-tree-sitter-mode)
     (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
@@ -504,7 +499,6 @@
     (evil-define-key 'normal eglot-mode-map (kbd "g R") 'eglot-rename)
     (evil-define-key 'normal eglot-mode-map (kbd "g d") 'eglot-find-declaration)
     (evil-define-key 'normal eglot-mode-map (kbd "g D") 'flymake-show-buffer-diagnostics)
-    (evil-define-key 'normal eglot-mode-map (kbd "g r") 'xref-find-references)
     (evil-define-key 'normal eglot-mode-map (kbd "g h") 'eldoc)
 
 ;;;; The best git interface
@@ -528,12 +522,16 @@
   (use-package rainbow-mode
     :defer t)
 
-;; (use-package perspective
-;;   :bind
-;;   ("C-x C-b" . persp-list-buffers)   ; or use a nicer switcher, see below
-;;   :config
-;;   (persp-mode))
-
 (use-package nano-modeline
+  :custom-face
+  (mode-line-inactive ((t (:background ,unfocus :box nil))))
+  (nano-modeline-inactive ((t (:foreground ,comment :background nil))))
+  (nano-modeline-inactive-name ((t (:foreground ,comment :background nil))))
+  (nano-modeline-inactive-primary ((t (:background nil))))
+  (nano-modeline-inactive-secondary ((t (:foreground ,comment :background nil))))
+  (nano-modeline-inactive-status-** ((t (:foreground ,comment :background nil))))
+  (nano-modeline-inactive-status-RO ((t (:foreground ,comment :background nil))))
+  (nano-modeline-inactive-status-RW ((t (:foreground ,comment :background nil))))
   :config
+  (setq nano-modeline-position 'bottom)
   (nano-modeline-mode))

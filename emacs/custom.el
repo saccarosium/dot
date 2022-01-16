@@ -3,12 +3,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(bmkp-last-as-first-bookmark-file "~/Library/Application Support/emacs/bookmark-default.el"))
+ '(dracula-enlarge-headings nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(bookmark-face ((t (:background nil :box nil))))
  '(dired-directory ((t (:foreground "#bd93f9"))))
  '(dired-header ((t (:underline t :bold t :foreground "#bd93f9"))))
  '(dired-symlink ((t (:foreground "#50fa7b"))))
@@ -19,6 +20,15 @@
  '(markdown-italic-face ((t (:foreground "#f8f8f2" :background nil :box nil))))
  '(markdown-language-keyword-face ((t (:foreground "#6272a4" :background nil :box nil))))
  '(markdown-list-face ((t (:bold t :foreground "#8be9fd" :background nil :box nil))))
+ '(mode-line ((t (:background "#191a21" :box nil))))
+ '(mode-line-inactive ((t (:background "#252630" :box nil))))
+ '(nano-modeline-inactive ((t (:foreground "#6272a4" :background nil))))
+ '(nano-modeline-inactive-name ((t (:foreground "#6272a4" :background nil))))
+ '(nano-modeline-inactive-primary ((t (:background nil))))
+ '(nano-modeline-inactive-secondary ((t (:foreground "#6272a4" :background nil))))
+ '(nano-modeline-inactive-status-** ((t (:foreground "#6272a4" :background nil))))
+ '(nano-modeline-inactive-status-RO ((t (:foreground "#6272a4" :background nil))))
+ '(nano-modeline-inactive-status-RW ((t (:foreground "#6272a4" :background nil))))
  '(tab-bar ((t (:foreground nil :background nil :box nil))))
  '(tree-sitter-hl-face:attribute ((t (:foreground "#50fa7b"))))
  '(tree-sitter-hl-face:constant ((t (:foreground "#bd93f9"))))
@@ -30,5 +40,5 @@
  '(tree-sitter-hl-face:method ((t (:foreground "#50fa7b"))))
  '(tree-sitter-hl-face:method\.call ((t (:foreground "#50fa7b"))))
  '(tree-sitter-hl-face:type ((t (:italic t :foreground "#8be9fd"))))
- '(tree-sitter-hl-face:type\.builtin ((t (:italic t :foreground "#8be9fd"))))
+ '(tree-sitter-hl-face:type\.builtin ((t (:italic t :foreground "#ff79c6"))))
  '(tree-sitter-hl-face:variable ((t (:foreground "#f8f8f2")))))

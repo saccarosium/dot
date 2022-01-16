@@ -27,8 +27,7 @@
         '(("archive.org" :maxlevel . 1)))
 
 ;;;; Utility 
-    (advice-add 'org-refile :after 'org-save-all-org-buffers)
-
+  (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
 (provide 'org-config)
 ;;; org-config.el ends here
