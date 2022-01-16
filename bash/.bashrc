@@ -8,30 +8,26 @@ shopt -s autocd
 # ----------------------- environment variables ----------------------
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    export XDG_DATA_HOME="$HOME/.local/share"
     export XDG_CACHE_HOME="$HOME/.cache"
-    export XDG_STATE_HOME="$HOME/.local/state"
     export XDG_DATA_DIRS="/usr/local/share:/usr/share"
     export XDG_CONFIG_DIRS="/etc/xdg"
     export XDG_RUNTIME_DIR="/run/user/$UID"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    export XDG_DATA_HOME="$HOME/Library/Application Support"
     export XDG_CACHE_HOME="$HOME/Library/Caches"
-    export XDG_STATE_HOME="$HOME/Library/Application Support"
     export XDG_RUNTIME_DIR="/tmp"
     export BASH_SILENCE_DEPRECATION_WARNING=1
 fi
 
 export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 export DOCUMENTS="$HOME/Documents"
 export PROJECTS="$HOME/Projects"
 export DOTFILES="$HOME/.dot"
 export SCRIPTS="$DOTFILES/scripts"
 export SYNC="$DOCUMENTS/nextcloud"
 export NOTES="$SYNC/notes"
-export EDITOR="nvim"
-export CLI_BROWSER="w3m"
-export VIMVER="nvim"
+export EDITOR="vim"
 export MANPAGER="less"
 export CLICOLOR=1
 export LSCOLORS=excxfxdxfxexDxDxDxDx
@@ -51,7 +47,6 @@ export CDPATH=".:$HOME:$DOTFILES:$PROJECTS:$SYNC:$NOTES:$PROJECTS/IaP"
 
 HISTCONTROL=ignorebot
 HISTSIZE=50
-
 HISTFILE="$XDG_CACHE_HOME/bash_history"
 
 # ------------------------------- prompt -----------------------------
@@ -86,7 +81,6 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias scratch='vi $SYNC/scratchpad.md'
-alias vi='nvim'
 alias em='emacsclient -nw'
 alias rm='trash'
 alias rss='newsboat'
@@ -96,9 +90,20 @@ alias '?'='duck'
 
 # if tmux is executable and not inside a tmux session, then try to attach.
 # if attachment fails, start a new session
-# [ -x "$(command -v tmux)" ] \
-#   && [ -z "${TMUX}" ] \
-#   && { tmux attach || tmux; } >/dev/null 2>&1
+#[ -x "$(command -v tmux)" ] \
+#  && [ -z "${TMUX}" ] \
+#  && { tmux attach || tmux; } >/dev/null 2>&1
+
+# Setup cdg function
+# ------------------
+unalias cdg 2> /dev/null
+cdg() {
+   local dest_dir=$(cdscuts_glob_echo | fzf )
+   if [[ $dest_dir != '' ]]; then
+      cd "$dest_dir"
+   fi
+}
+export -f cdg > /dev/null
 
 # -------------------------------- nnn -------------------------------
 
