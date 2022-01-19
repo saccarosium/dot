@@ -27,7 +27,7 @@ export DOTFILES="$HOME/.dot"
 export SCRIPTS="$DOTFILES/scripts"
 export SYNC="$DOCUMENTS/nextcloud"
 export NOTES="$SYNC/notes"
-export EDITOR="vim"
+export EDITOR="nvim"
 export MANPAGER="less"
 export CLICOLOR=1
 export LSCOLORS=excxfxdxfxexDxDxDxDx
@@ -82,6 +82,7 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias scratch='vi $SYNC/scratchpad.md'
 alias em='emacsclient -nw'
+alias vi='nvim'
 alias rm='trash'
 alias rss='newsboat'
 alias '?'='duck'
@@ -99,11 +100,13 @@ alias '?'='duck'
 unalias cdg 2> /dev/null
 cdg() {
    local dest_dir=$(cdscuts_glob_echo | fzf )
-   if [[ $dest_dir != '' ]]; then
-      cd "$dest_dir"
-   fi
+   cd "$dest_dir"
 }
-export -f cdg > /dev/null
+
+cdg_add() {
+	echo $PWD | ~/.dot/bookmarks
+}
+export -f cdg_add > /dev/null
 
 # -------------------------------- nnn -------------------------------
 
