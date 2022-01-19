@@ -25,8 +25,9 @@
 ;;; NATIVE COMP
 
   ;; Silence compiler warnings as they can be pretty disruptive
-  ;;(setq comp-async-report-warnings-errors nil)
-  ;;(setq package-native-compile nil)
+  (setq comp-async-report-warnings-errors nil)
+  (setq byte-compile-warnings nil)
+  (setq package-native-compile t)
 
 ;;; BOOTSTRAP FOR STRAIGHT.let
 
@@ -42,7 +43,7 @@
           (eval-print-last-sexp)))
       (load bootstrap-file nil 'nomessage))
       (unless (bound-and-true-p package--initialized)
-          (setq package-enable-at-startup nil)) ; To prevent initializing twice.
+ (setq package-enable-at-startup nil)) ; To prevent initializing twice.
 
   (setq straight-use-package-by-default t)
   (straight-use-package 'use-package)
@@ -65,7 +66,7 @@
           (exec-path-from-shell-initialize)
           (exec-path-from-shell-copy-envs '("XDG_CONFIG_HOME" "XDG_DATA_HOME" "XDG_CACHE_HOME")))
       (set-frame-parameter (selected-frame) 'name nil)
-      (message "Loading osx specific bindings")
+      (message "Loading osx compatability layer")
       (require 'osx))
 
   (when (equal system-type 'darwin)
@@ -124,6 +125,7 @@
       (evil-define-key 'normal 'global (kbd "<leader>oc") #'ls/open-config)
       (evil-define-key 'normal 'global (kbd "<leader>ob") #'ls/open-budget)
       (evil-define-key 'normal 'global (kbd "<leader>ot") #'ls/open-todolist)
+      (evil-define-key 'normal 'global (kbd "<leader>SPC") 'find-file)
       (evil-define-key 'normal 'global (kbd "<leader>fn") #'deft-find-file))
 
   ;; Global evil keybinds
@@ -150,6 +152,7 @@
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   ;; set universal argument to a different key
   (global-set-key (kbd "C-M-u") 'universal-argument)   
+
 
 ;;; UI
 
@@ -180,15 +183,9 @@
   (set-face-attribute 'bold nil :font "JetBrainsMonoExtraBold Nerd Font 12")
 
 ;;;; Themes
-  (use-package dracula-theme
-    :config
-    (setq dracula-enlarge-headings nil)
-    (load-theme 'dracula t))
-
-  (use-package doom-themes)
 
   (defvar fg        "#f8f8f2")
-  (defvar bg        "#282a36")
+  (defvar bg        "#191622")
   (defvar comment   "#6272a4")
   (defvar black     "#1E2029")
   (defvar purple    "#bd93f9")
@@ -204,19 +201,47 @@
   (defvar contrast  "#191a21")
   (defvar unfocus   "#252630")
 
-;;;; Modeline config
-  ;; (use-package doom-modeline
-  ;;     :init (doom-modeline-mode 1)
-  ;;     :config
-  ;;     (setq doom-modeline-height 5)
-  ;;     (setq doom-modeline-buffer-file-name-style 'truncate-all)
-  ;;     (setq doom-modeline-persp-icon nil)
-  ;;     (setq doom-modeline-enable-word-count t)
-  ;;     (setq doom-modeline-buffer-encoding nil))
+  (use-package dracula-theme)
+  (setq dracula-enlarge-headings nil)
+  (load-theme 'dracula t)
+  (set-background-color "#191622")
+  (set-face-attribute 'fringe nil :background nil)
+  ;; (set-face-attribute 'line-number nil :italic nil :foreground comment :background nil) ;:background "#191622")
+
+
+  (use-package doom-themes)
 
 ;;;; Hide Modeline
   (use-package hide-mode-line
       :defer t)
+
+;;;; Bespoke Modeline
+  (use-package bespoke-modeline
+    :straight (:type git :host github :repo "mclear-tools/bespoke-modeline") 
+    :init
+    ;; Set header line
+    (setq bespoke-modeline-position 'bottom)
+    ;; Set mode-line height
+    (setq bespoke-modeline-size 3)
+    ;; Show diff lines in mode-line
+    (setq bespoke-modeline-git-diff-mode-line t)
+    ;; Set mode-line cleaner
+    (setq bespoke-modeline-cleaner t)
+    ;; Use mode-line visual bell
+    (setq bespoke-modeline-visual-bell t)
+    ;; Set vc symbol
+    (setq  bespoke-modeline-vc-symbol "  ")
+    :custom-face
+    (bespoke-modeline-inactive ((t (:foreground "#b6b6b2" :background nil))))
+    (bespoke-modeline-inactive-name ((t (:foreground "#b6b6b2" :background nil))))
+    (bespoke-modeline-inactive-primary ((t (:foreground "#b6b6b2" :background nil))))
+    (bespoke-modeline-active-primary ((t (:foreground ,fg :background nil))))
+    (bespoke-modeline-inactive-secondary ((t (:foreground "#b6b6b2" :background nil))))
+    (bespoke-modeline-inactive-status-** ((t (:foreground "#b6b6b2" :background nil))))
+    (bespoke-modeline-inactive-status-RO ((t (:foreground "#b6b6b2" :background nil))))
+    (bespoke-modeline-inactive-status-RW ((t (:foreground "#b6b6b2" :background nil))))
+    :config
+    (bespoke-modeline-mode))
 
 ;;;; Relative number like in Vim
   (use-package linum-relative
@@ -238,6 +263,21 @@
               xref--xref-buffer-mode))
       (popper-mode +1)
       (popper-echo-mode +1))                ; For echo area hints
+
+  ;; (use-package nano-modeline
+  ;;   :custom-face
+  ;;   (mode-line-inactive ((t (:foreground ,comment :background ,unfocus :box nil))))
+  ;;   (nano-modeline-inactive ((t (:foreground "#b6b6b2" :background nil))))
+  ;;   (nano-modeline-inactive-name ((t (:foreground "#b6b6b2" :background nil))))
+  ;;   (nano-modeline-inactive-primary ((t (:background nil))))
+  ;;   (nano-modeline-inactive-secondary ((t (:foreground "#b6b6b2" :background nil))))
+  ;;   (nano-modeline-inactive-status-** ((t (:foreground "#b6b6b2" :background nil))))
+  ;;   (nano-modeline-inactive-status-RO ((t (:foreground "#b6b6b2" :background nil))))
+  ;;   (nano-modeline-inactive-status-RW ((t (:foreground "#b6b6b2" :background nil))))
+  ;;   :config
+  ;;   (setq nano-modeline-position 'bottom))
+    ;; (nano-modeline-mode))
+
 
 ;;;; Tabs
   (use-package tab-bar
@@ -313,7 +353,7 @@
       (evil-define-key 'normal dired-mode-map "q" 'kill-current-buffer)
       (evil-define-key 'normal dired-mode-map "nf" 'dired-create-empty-file)
       (evil-define-key 'normal dired-mode-map "nd" 'dired-create-directory)
-      (evil-define-key 'normal dired-mode-map "SPC" 'dired-mark)
+      (evil-define-key 'normal dired-mode-map " " 'dired-mark)
       (setq dired-kill-when-opening-new-dired-buffer t)
       (put 'dired-find-alternate-file 'disabled nil)
         ;; always delete and copy recursively
@@ -322,7 +362,12 @@
 
   (use-package project
       :straight (:type built-in)
-      :bind ("C-x p s" . project-switch-project))
+      :config
+      (evil-define-key 'normal 'global (kbd "<leader>ps") 'project-switch-project)
+      (evil-define-key 'normal 'global (kbd "<leader>pb") 'project-switch-to-buffer)
+      (evil-define-key 'normal 'global (kbd "<leader>pf") 'project-find-file)
+      (evil-define-key 'normal 'global (kbd "<leader>pg") 'magit-project-status)
+      (evil-define-key 'normal 'global (kbd "<leader>pd") 'project-dired))
 
   ;;;; Extend project.el
   (use-package project-x
@@ -372,72 +417,81 @@
       (marginalia-mode))
 
 ;;;; Embark for minibuffer actions
-  ;; (use-package embark
-  ;;     :bind ("C-." . embark-act)) ;; pick some comfortable binding
+  (use-package embark
+      :bind ("C-." . embark-act)) ;; pick some comfortable binding
 
 ;;;; Cape for enhance the complete at point function
   (use-package cape
       :init
       (add-to-list 'completion-at-point-functions #'cape-file)
-      (add-to-list 'completion-at-point-functions #'cape-tex)
       (add-to-list 'completion-at-point-functions #'cape-dabbrev))
 
-;;;; Corfu as a company mode replacement
-  (use-package corfu
-    :init
-    (evil-define-key 'insert 'global (kbd "C-n") nil)
-    (evil-define-key 'insert 'global (kbd "C-p") nil)
-    :custom
-    (corfu-cycle t)              ;; Enable cycling for `corfu-next/previous'
-    (corfu-auto t)               ;; Enable auto completion
-    (corfu-commit-predicate nil) ;; Do not commit selected candidates on next input
-    (corfu-quit-no-match t)      ;; Automatically quit if there is no match
-    (corfu-preview-current t)    ;; Disable current candidate preview
-    (corfu-preselect-first t)    ;; Disable candidate preselection
-    (corfu-auto-delay 0.0)
-    :hook ((prog-mode . corfu-mode)
-           (latex-mode . corfu-mode))
-    :bind (:map corfu-map
-          ("C-n" . corfu-next)
-          ("C-p" . corfu-previous)
-          ("TAB" . corfu-insert)))
+;;; orfu as a company mode replacement
+  ;; (use-package corfu
+  ;;   :init
+  ;;   (evil-define-key 'insert 'global (kbd "C-n") nil)
+  ;;   (evil-define-key 'insert 'global (kbd "C-p") nil)
+  ;;   :custom
+  ;;   (corfu-cycle t)              ;; Enable cycling for `corfu-next/previous'
+  ;;   (corfu-auto t)               ;; Enable auto completion
+  ;;   (corfu-commit-predicate nil) ;; Do not commit selected candidates on next input
+  ;;   (corfu-quit-no-match t)      ;; Automatically quit if there is no match
+  ;;   (corfu-preview-current t)    ;; Disable current candidate preview
+  ;;   (corfu-preselect-first t)    ;; Disable candidate preselection
+  ;;   (corfu-auto-delay 0.0)
+  ;;   :hook ((prog-mode . corfu-mode)
+  ;;          (latex-mode . corfu-mode))
+  ;;   :bind (:map corfu-map
+  ;;         ("C-n" . corfu-next)
+  ;;         ("C-p" . corfu-previous)
+  ;;         ("TAB" . corfu-insert)))
 
-  (use-package kind-icon
-    :after corfu
+  ;; (use-package kind-icon
+  ;;   :after corfu
+  ;;   :custom
+  ;;   (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+  ;;   :config
+  ;;   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+  (use-package company
+    :hook ((prog-mode . company-mode))
+    :bind (:map company-active-map
+          ("<tab>" . company-complete-selection))
     :custom
-    (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
-    :config
-    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+    (company-idle-delay 0)
+    (company-echo-delay 0)
+    (company-minimum-prefix-length 1)
+    (company-box-doc-enable nil)
+    (company-insertion-triggers nil)
+    (company-backends '(company-capf))
+    (company-auto-complete t))
+
+  (use-package company-box
+    :after company
+    :hook (company-mode . company-box-mode))
 
 ;;; WRITING/NOTES
 
 ;;;; Notational Velocity for emacs
   (use-package deft
     :commands deft-find-file
-    :bind (:map deft-mode-map
-          ("/" . deft-filter))
     :config
     (setq deft-directory "~/Documents/nextcloud/notes/")
     (setq deft-extensions '("md" "org"))
     (setq deft-recursive t))
 
-
 ;;;; Markdown support in emacs
   (use-package markdown-mode
-      :mode "\\.md\\'"
-      :hook ((markdown-mode . olivetti-mode)
-             (markdown-mode . hide-mode-line-mode))
-      :custom-face
-      ;; (markdown-code-face ((t (:foreground ,yellow  :background nil :box nil))))
-      ;; (markdown-header-face ((t (:bold t :foreground ,green :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font 13"))))
-      ;; (markdown-header-delimiter-face ((t (:bold t :foreground ,pink :background nil :box nil))))
-      ;; (markdown-list-face ((t (:bold t :foreground ,cyan :background nil :box nil))))
-      ;; (markdown-language-keyword-face ((t (:foreground ,comment :background nil :box nil))))
-      ;; (markdown-bold-face ((t (:foreground ,fg :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font"))))
-      ;; (markdown-italic-face ((t (:foreground ,fg :background nil   :box nil))))
-      :config
-      (setq markdown-hide-urls t)
-      (setq markdown-command "Pandoc"))
+    :mode "\\.md\\'"
+    :hook ((markdown-mode . olivetti-mode)
+            (markdown-mode . hide-mode-line-mode))
+    :custom-face
+    (markdown-bold-face ((t (:foreground ,fg :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font"))))
+    (markdown-italic-face ((t (:slant italic :foreground ,fg :background nil :box nil))))
+    :config
+    (setq markdown-hide-urls t)
+    (setq markdown-fontify-code-blocks-natively t)
+    (setq markdown-command "Pandoc"))
 
 ;;;; Org Mode
   (use-package org
@@ -472,19 +526,6 @@
   (use-package tree-sitter-langs
     :after tree-sitter)
   (use-package tree-sitter
-    :custom-face
-    ;; (tree-sitter-hl-face:attribute ((t (:foreground ,green))))
-    ;; (tree-sitter-hl-face:constant ((t (:foreground ,purple))))
-    ;; (tree-sitter-hl-face:constant.builtin ((t (:foreground ,purple))))
-    ;; (tree-sitter-hl-face:escape ((t (:foreground ,pink))))
-    ;; (tree-sitter-hl-face:variable ((t (:foreground ,fg))))
-    ;; (tree-sitter-hl-face:function ((t (:foreground ,green))))
-    ;; (tree-sitter-hl-face:function.builtin ((t (:foreground ,purple))))
-    ;; (tree-sitter-hl-face:function.call ((t (:foreground ,green))))
-    ;; (tree-sitter-hl-face:method ((t (:foreground ,green))))
-    ;; (tree-sitter-hl-face:method.call ((t (:foreground ,green))))
-    ;; (tree-sitter-hl-face:type ((t (:foreground ,cyan))))
-    ;; (tree-sitter-hl-face:type.builtin ((t (:italic t :foreground ,pink))))
     :config
     (global-tree-sitter-mode)
     (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
@@ -493,10 +534,11 @@
   (use-package eglot
     :hook ((c-mode . eglot-ensure)
            (c++-mode . eglot-ensure))
+    :bind (("C-c r" . eglot-rename)
+           ("C-c f" . eglot-format))
     :init
     (setq eglot-server-programs '((c-mode . ("clangd"))))
     (setq eglot-ignored-server-capabilities '(:hoverProvider :documentRangeFormattingProvider :documentOnTypeFormattingProvider)))
-    (evil-define-key 'normal eglot-mode-map (kbd "g R") 'eglot-rename)
     (evil-define-key 'normal eglot-mode-map (kbd "g d") 'eglot-find-declaration)
     (evil-define-key 'normal eglot-mode-map (kbd "g D") 'flymake-show-buffer-diagnostics)
     (evil-define-key 'normal eglot-mode-map (kbd "g h") 'eldoc)
@@ -521,17 +563,3 @@
 ;;;; Preview HEX color
   (use-package rainbow-mode
     :defer t)
-
-(use-package nano-modeline
-  :custom-face
-  (mode-line-inactive ((t (:background ,unfocus :box nil))))
-  (nano-modeline-inactive ((t (:foreground ,comment :background nil))))
-  (nano-modeline-inactive-name ((t (:foreground ,comment :background nil))))
-  (nano-modeline-inactive-primary ((t (:background nil))))
-  (nano-modeline-inactive-secondary ((t (:foreground ,comment :background nil))))
-  (nano-modeline-inactive-status-** ((t (:foreground ,comment :background nil))))
-  (nano-modeline-inactive-status-RO ((t (:foreground ,comment :background nil))))
-  (nano-modeline-inactive-status-RW ((t (:foreground ,comment :background nil))))
-  :config
-  (setq nano-modeline-position 'bottom)
-  (nano-modeline-mode))

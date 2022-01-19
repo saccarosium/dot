@@ -6,8 +6,8 @@
 
   (setq frame-resize-pixelwise t)
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  ;; (add-to-list 'default-frame-alist '(selected-frame) 'name nil)
-  ;; (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
+  (add-to-list 'default-frame-alist '(selected-frame) 'name nil)
+  (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
   (setq ns-use-proxy-icon nil)
   (setq frame-title-format nil)
 

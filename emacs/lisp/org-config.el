@@ -29,5 +29,7 @@
 ;;;; Utility 
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
+  (set-face-attribute 'org-hide nil :background nil)
+
 (provide 'org-config)
 ;;; org-config.el ends here
