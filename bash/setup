@@ -1,4 +1,5 @@
 #!/bin/sh
 
-ln -s $PWD/.bashrc $HOME/.bashrc
-ln -s $PWD/.profile $HOME/.profile
+[ -f $HOME/.bashrc ] || ln -s $PWD/.bashrc $HOME/.bashrc
+[ -f $HOME/.profile ] || ln -s $PWD/.profile $HOME/.profile
+[ -f $HOME/.inputrc ] || ln -s $PWD/.inputrc $HOME/.inputrc

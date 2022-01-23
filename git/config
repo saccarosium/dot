@@ -1,0 +1,5 @@
+[user]
+	name = saccarosium
+	mail = luca.saccarola@protonmail.com
+[core]
+	excludesFile = $XDG_CONFIG_HOME/git/.gitignore
