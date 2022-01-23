@@ -5,7 +5,7 @@
 ;;;###autoload
 (defun ls/open-config ()
   (interactive)
-  (find-file "~/.dot/emacs/init.el"))
+  (find-file "~/Repos/dot/emacs/init.el"))
 
 ;;;###autoload
 (defun ls/open-budget ()

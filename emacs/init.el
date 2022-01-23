@@ -107,58 +107,60 @@
 ;;;; Evil Mode
 
   (use-package evil
-      :init
-      (setq evil-want-integration t)
-      (setq evil-search-module 'evil-search)
-      (setq evil-undo-system 'undo-redo)
-      (setq evil-want-keybinding nil)
-      (setq evil-want-C-u-scroll t)
-      (setq evil-want-C-i-jump t)
-      (setq evil-want-Y-yank-to-eol t)
-      (setq evil-want-C-w-delete nil)
-      (setq evil-want-C-w-in-emacs-state t)
-      :config
-      (evil-mode 1)
-      (define-key evil-normal-state-map (kbd "C-w f") 'find-file-other-window)
-      ;; Leader Key
-      (evil-set-leader 'normal (kbd "SPC"))
-      (evil-define-key 'normal 'global (kbd "<leader>oc") #'ls/open-config)
-      (evil-define-key 'normal 'global (kbd "<leader>ob") #'ls/open-budget)
-      (evil-define-key 'normal 'global (kbd "<leader>ot") #'ls/open-todolist)
-      (evil-define-key 'normal 'global (kbd "<leader>SPC") 'find-file)
-      (evil-define-key 'normal 'global (kbd "<leader>fn") #'deft-find-file))
+    :init
+    (setq evil-want-integration t)
+    (setq evil-search-module 'evil-search)
+    (setq evil-undo-system 'undo-redo)
+    (setq evil-want-keybinding nil)
+    (setq evil-want-C-u-scroll t)
+    (setq evil-want-C-i-jump t)
+    (setq evil-want-Y-yank-to-eol t)
+    (setq evil-want-C-w-delete nil)
+    (setq evil-want-C-w-in-emacs-state t)
+    (setq evil-want-fine-undo t)
+    :config
+    (evil-mode 1)
+    (define-key evil-normal-state-map (kbd "C-w f") 'find-file-other-window)
+    ;; Leader Key
+    (evil-set-leader 'normal (kbd "SPC"))
+    (evil-define-key 'normal 'global (kbd "<leader>oc") #'ls/open-config)
+    (evil-define-key 'normal 'global (kbd "<leader>ob") #'ls/open-budget)
+    (evil-define-key 'normal 'global (kbd "<leader>ot") #'ls/open-todolist)
+    (evil-define-key 'normal 'global (kbd "<leader>SPC") 'find-file)
+    (evil-define-key 'normal 'global (kbd "<leader>fn") #'deft-find-file))
 
   ;; Global evil keybinds
   (use-package evil-collection 
-      :after evil
-      :custom
-      (evil-collection-org-setup t)
-      (evil-collection-outline-bind-tab-p t)
-      (evil-collection-calendar-want-org-bindings t)
-      :init
-      (evil-collection-init))
+    :after evil
+    :custom
+    (evil-collection-org-setup t)
+    (evil-collection-outline-bind-tab-p t)
+    (evil-collection-calendar-want-org-bindings t)
+    :init
+    (evil-collection-init))
 
   (use-package evil-lion
-      :after evil
-      :config
-      (evil-lion-mode))
+    :after evil
+    :config
+    (evil-lion-mode))
 
   (use-package evil-commentary
-      :after evil
-      :config
-      (evil-commentary-mode 1))
+    :after evil
+    :config
+    (evil-commentary-mode 1))
 
 ;;;; General keybinds
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   ;; set universal argument to a different key
   (global-set-key (kbd "C-M-u") 'universal-argument)   
-
+  (global-set-key (kbd "<leader>e") 'display-local-help)   
 
 ;;; UI
 
   ;; Make Tabs behave sanely
   (setq-default tab-width 2)
   (setq-default c-basic-offset 2)
+  (setq-default sh-basic-offset 2)
   (setq-default tab-always-indent nil)
   (setq-default evil-shift-width tab-width)
   (setq-default indent-tabs-mode nil)
@@ -198,22 +200,24 @@
   (defvar selection "#44475A")
   (defvar blue      "#61bfff")
   (defvar dark-blue "#0189cc")
-  (defvar contrast  "#191a21")
-  (defvar unfocus   "#252630")
+  (defvar contrast  "#0c0a14")
+  (defvar contrast1 "#252630")
+  (defvar unfocus   "#b6b6b2")
 
   (use-package dracula-theme)
   (setq dracula-enlarge-headings nil)
   (load-theme 'dracula t)
   (set-background-color "#191622")
   (set-face-attribute 'fringe nil :background nil)
-  ;; (set-face-attribute 'line-number nil :italic nil :foreground comment :background nil) ;:background "#191622")
-
 
   (use-package doom-themes)
 
 ;;;; Hide Modeline
   (use-package hide-mode-line
       :defer t)
+
+(set-face-attribute 'mode-line nil :background contrast :box nil)
+
 
 ;;;; Bespoke Modeline
   (use-package bespoke-modeline
@@ -245,7 +249,8 @@
 
 ;;;; Relative number like in Vim
   (use-package linum-relative
-      :hook (prog-mode . linum-relative-mode)
+      :hook ((prog-mode . linum-relative-mode)
+             (conf-mode . linum-relative-mode))
       :config
       (setq linum-relative-backend 'display-line-numbers-mode))
 
@@ -258,6 +263,7 @@
               '(xref-mode
               "\\*Occur\\*"
               ".*.png"
+              "\\*eldoc.*"
               "\\*Flymake\\ diagnostics.*"
               "\\*Ledger\\ Report\\*"
               xref--xref-buffer-mode))
@@ -266,7 +272,6 @@
 
   ;; (use-package nano-modeline
   ;;   :custom-face
-  ;;   (mode-line-inactive ((t (:foreground ,comment :background ,unfocus :box nil))))
   ;;   (nano-modeline-inactive ((t (:foreground "#b6b6b2" :background nil))))
   ;;   (nano-modeline-inactive-name ((t (:foreground "#b6b6b2" :background nil))))
   ;;   (nano-modeline-inactive-primary ((t (:background nil))))
@@ -278,21 +283,31 @@
   ;;   (setq nano-modeline-position 'bottom))
     ;; (nano-modeline-mode))
 
-
 ;;;; Tabs
   (use-package tab-bar
     :straight (:type built-in)
     :bind (("M-t" . tab-bar-new-tab)
            ("M-w" . tab-bar-close-tab))
+    :custom-face
+    (tab-bar ((t (:height 120 :background nil))))
+    (tab-bar-tab ((t (:weight bold :foreground ,fg :background nil :box ,bg ))))
+    (tab-bar-tab-inactive ((t (:foreground ,unfocus :background nil :box nil))))
     :config
     (setq tab-bar-close-button nil)
     (setq tab-bar-new-tab-choice "*scratch*")
-    (setq tab-bar-show 100)
+    (setq tab-bar-show 1)
+    (setq tab-bar-select-tab-modifiers "meta")
+    (setq tab-bar-border "120")
+    (global-set-key (kbd "M-1") 'tab-bar-select-tab)
+    (global-set-key (kbd "M-2") 'tab-bar-select-tab)
+    (global-set-key (kbd "M-3") 'tab-bar-select-tab)
+    (global-set-key (kbd "M-4") 'tab-bar-select-tab)
+    (global-set-key (kbd "M-5") 'tab-bar-select-tab)
+    (global-set-key (kbd "M-6") 'tab-bar-select-tab)
+    (global-set-key (kbd "M-7") 'tab-bar-select-tab)
+    (global-set-key (kbd "M-8") 'tab-bar-select-tab)
+    (global-set-key (kbd "M-9") 'tab-bar-select-tab)
     (setq tab-bar-position t))
-
-(use-package tab-bar-echo-area
-  :config
-  (tab-bar-echo-area-mode 1))
 
 ;;; UTILITY
 
@@ -306,6 +321,7 @@
     :init
     (setq ledger-clear-whole-transactions 1))
 
+;;;; Pdf tools
   (use-package pdf-tools
     :defer t
     :config
@@ -319,67 +335,71 @@
 ;;; BUILTINGS PACKAGES
 
   (use-package vc
-      :straight (:type built-in)
-      :bind ("C-x v d" . vc-dir-root)
-      :config
-      (setq auto-revert-check-vc-info t)
-      (setq vc-follow-symlinks t))
+    :straight (:type built-in)
+    :bind ("C-x v d" . vc-dir-root)
+    :config
+    (setq auto-revert-check-vc-info t)
+    (setq vc-follow-symlinks t))
 
   (use-package eww
-      :straight (:type built-in)
-      :defer t
-      :hook (eww-mode . olivetti-mode)
-      :bind ("C-x ?" . eww)
-      :config
-      (setq eww-desktop-remove-duplicates t)
-      (setq eww-header-line-format nil)
-      (setq eww-search-prefix "https://duckduckgo.com/html/?q=")
-      (setq url-cookie-delete-cookies nil)
-      ;; eww url history
-      (setq url-history-file (no-littering-expand-etc-file-name "eww/history"))
-      (setq url-cookie-confirmation nil))
+    :straight (:type built-in)
+    :defer t
+    :hook (eww-mode . olivetti-mode)
+    :bind ("C-x ?" . eww)
+    :config
+    (setq eww-desktop-remove-duplicates t)
+    (setq eww-header-line-format nil)
+    (setq eww-search-prefix "https://duckduckgo.com/html/?q=")
+    (setq url-cookie-delete-cookies nil)
+    ;; eww url history
+    (setq url-history-file (no-littering-expand-etc-file-name "eww/history"))
+    (setq url-cookie-confirmation nil))
 
   (use-package dired
-      :straight (:type built-in)
-      :bind (("C-x j" . dired-jump))
-      :custom-face
-      (dired-directory ((t (:foreground ,purple))))
-      (dired-header ((t (:underline t :bold t :foreground ,purple))))
-      (dired-symlink ((t (:foreground ,green))))
-      :config
-      (evil-define-key 'normal dired-mode-map "h" 'dired-up-directory)
-      (evil-define-key 'normal dired-mode-map "H" 'dired-omit-mode)
-      (evil-define-key 'normal dired-mode-map "l" 'dired-find-alternate-file)
-      (evil-define-key 'normal dired-mode-map "q" 'kill-current-buffer)
-      (evil-define-key 'normal dired-mode-map "nf" 'dired-create-empty-file)
-      (evil-define-key 'normal dired-mode-map "nd" 'dired-create-directory)
-      (evil-define-key 'normal dired-mode-map " " 'dired-mark)
-      (setq dired-kill-when-opening-new-dired-buffer t)
-      (put 'dired-find-alternate-file 'disabled nil)
-        ;; always delete and copy recursively
-      (setq dired-recursive-deletes 'always)
-      (setq dired-recursive-copies 'always))
+    :straight (:type built-in)
+    :bind (("C-x j" . dired-jump))
+    :custom-face
+    (dired-directory ((t (:foreground ,purple))))
+    (dired-header ((t (:underline t :bold t :foreground ,purple))))
+    (dired-symlink ((t (:foreground ,green))))
+    :config
+    (evil-define-key 'normal dired-mode-map "h" 'dired-up-directory)
+    (evil-define-key 'normal dired-mode-map "H" 'dired-omit-mode)
+    (evil-define-key 'normal dired-mode-map "l" 'dired-find-alternate-file)
+    (evil-define-key 'normal dired-mode-map "q" 'kill-current-buffer)
+    (evil-define-key 'normal dired-mode-map "nf" 'dired-create-empty-file)
+    (evil-define-key 'normal dired-mode-map "nd" 'dired-create-directory)
+    (evil-define-key 'normal dired-mode-map " " 'dired-mark)
+    (setq dired-kill-when-opening-new-dired-buffer t)
+    (put 'dired-find-alternate-file 'disabled nil)
+    ;; always delete and copy recursively
+    (setq dired-recursive-deletes 'always)
+    (setq dired-recursive-copies 'always))
 
   (use-package project
-      :straight (:type built-in)
-      :config
-      (evil-define-key 'normal 'global (kbd "<leader>ps") 'project-switch-project)
-      (evil-define-key 'normal 'global (kbd "<leader>pb") 'project-switch-to-buffer)
-      (evil-define-key 'normal 'global (kbd "<leader>pf") 'project-find-file)
-      (evil-define-key 'normal 'global (kbd "<leader>pg") 'magit-project-status)
-      (evil-define-key 'normal 'global (kbd "<leader>pd") 'project-dired))
+    :straight (:type built-in)
+    :custom
+    (project-switch-commands 'project-find-file))
+
+    (evil-define-key 'normal 'global (kbd "<leader>po") 'project-other-window-command)
+    (evil-define-key 'normal 'global (kbd "<leader>ps") 'project-switch-project)
+    (evil-define-key 'normal 'global (kbd "<leader>pb") 'project-switch-to-buffer)
+    (evil-define-key 'normal 'global (kbd "<leader>pf") 'project-find-file)
+    (evil-define-key 'normal 'global (kbd "<leader>pv") 'magit-project-status)
+    (evil-define-key 'normal 'global (kbd "<leader>pd") 'project-dired)
 
   ;;;; Extend project.el
   (use-package project-x
-      :straight (:host github :repo "karthink/project-x" :branch "master")
-      :after project
-      :config
-      (setq project-x-save-interval 600)    ;Save project state every 10 min
-      (project-x-mode 1))
+    :straight (:host github :repo "karthink/project-x" :branch "master")
+    :after project
+    :config
+    (setq project-x-local-identifier ".projectile")
+    (setq project-x-save-interval 600)    ;Save project state every 10 min
+    (project-x-mode 1))
 
   (use-package outline
-      :straight (:type built-in)
-      :hook (prog-mode . outline-minor-mode))
+    :straight (:type built-in)
+    :hook (prog-mode . outline-minor-mode))
 
   (use-package bookmark
     :straight (:type built-in)
@@ -392,6 +412,7 @@
   (evil-define-key 'normal 'global (kbd "g r") 'xref-find-references)
   (evil-define-key 'normal 'global (kbd "g d") 'xref-find-definitions)
   (evil-define-key 'normal 'global (kbd "g a") 'xref-find-apropos)
+  (evil-define-key 'normal 'global (kbd "g h") 'eldoc)
 
 ;;; COMPLETION FRAMWORK
 
@@ -408,67 +429,52 @@
 
 ;;;; Orderless for the sweat fuzzy-like maching
   (use-package orderless
-      :init (setq completion-styles '(orderless)))
+    :init (setq completion-styles '(orderless)))
 
 ;;;; Marginalia for extra info on the margins
   (use-package marginalia
-      :after vertico
-      :config
-      (marginalia-mode))
+    :after vertico
+    :config
+    (marginalia-mode))
 
 ;;;; Embark for minibuffer actions
   (use-package embark
-      :bind ("C-." . embark-act)) ;; pick some comfortable binding
+    :bind ("C-." . embark-act)) ;; pick some comfortable binding
 
 ;;;; Cape for enhance the complete at point function
   (use-package cape
-      :init
-      (add-to-list 'completion-at-point-functions #'cape-file)
-      (add-to-list 'completion-at-point-functions #'cape-dabbrev))
+    :init
+    (add-to-list 'completion-at-point-functions #'cape-file)
+    (add-to-list 'completion-at-point-functions #'cape-keyword)
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev))
 
 ;;; orfu as a company mode replacement
-  ;; (use-package corfu
-  ;;   :init
-  ;;   (evil-define-key 'insert 'global (kbd "C-n") nil)
-  ;;   (evil-define-key 'insert 'global (kbd "C-p") nil)
-  ;;   :custom
-  ;;   (corfu-cycle t)              ;; Enable cycling for `corfu-next/previous'
-  ;;   (corfu-auto t)               ;; Enable auto completion
-  ;;   (corfu-commit-predicate nil) ;; Do not commit selected candidates on next input
-  ;;   (corfu-quit-no-match t)      ;; Automatically quit if there is no match
-  ;;   (corfu-preview-current t)    ;; Disable current candidate preview
-  ;;   (corfu-preselect-first t)    ;; Disable candidate preselection
-  ;;   (corfu-auto-delay 0.0)
-  ;;   :hook ((prog-mode . corfu-mode)
-  ;;          (latex-mode . corfu-mode))
-  ;;   :bind (:map corfu-map
-  ;;         ("C-n" . corfu-next)
-  ;;         ("C-p" . corfu-previous)
-  ;;         ("TAB" . corfu-insert)))
-
-  ;; (use-package kind-icon
-  ;;   :after corfu
-  ;;   :custom
-  ;;   (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
-  ;;   :config
-  ;;   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
-
-  (use-package company
-    :hook ((prog-mode . company-mode))
-    :bind (:map company-active-map
-          ("<tab>" . company-complete-selection))
+  (use-package corfu
+    :init
+    (evil-define-key 'insert 'global (kbd "C-n") nil)
+    (evil-define-key 'insert 'global (kbd "C-p") nil)
     :custom
-    (company-idle-delay 0)
-    (company-echo-delay 0)
-    (company-minimum-prefix-length 1)
-    (company-box-doc-enable nil)
-    (company-insertion-triggers nil)
-    (company-backends '(company-capf))
-    (company-auto-complete t))
+    (corfu-cycle t)              ;; Enable cycling for `corfu-next/previous'
+    (corfu-auto t)               ;; Enable auto completion
+    (corfu-commit-predicate nil) ;; Do not commit selected candidates on next input
+    (corfu-quit-no-match t)      ;; Automatically quit if there is no match
+    (corfu-preview-current t)    ;; Disable current candidate preview
+    (corfu-preselect-first t)    ;; Disable candidate preselection
+    (corfu-quit-at-boundary t)
+    (corfu-auto-delay 0.0)
+    :hook ((prog-mode . corfu-mode)
+           (latex-mode . corfu-mode))
+    :bind (:map corfu-map
+          ("C-n" . corfu-next)
+          ("C-p" . corfu-previous)
+          ("TAB" . corfu-insert)))
 
-  (use-package company-box
-    :after company
-    :hook (company-mode . company-box-mode))
+  (use-package kind-icon
+    :after corfu
+    :custom
+    (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+    :config
+    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 ;;; WRITING/NOTES
 
@@ -484,7 +490,7 @@
   (use-package markdown-mode
     :mode "\\.md\\'"
     :hook ((markdown-mode . olivetti-mode)
-            (markdown-mode . hide-mode-line-mode))
+           (markdown-mode . hide-mode-line-mode))
     :custom-face
     (markdown-bold-face ((t (:foreground ,fg :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font"))))
     (markdown-italic-face ((t (:slant italic :foreground ,fg :background nil :box nil))))
@@ -495,30 +501,26 @@
 
 ;;;; Org Mode
   (use-package org
-      :straight (:type built-in)
-      :hook ((org-mode . org-indent-mode)
-             (org-mode . hide-mode-line-mode)
-             (org-mode . olivetti-mode))
-      :defer t
-      :bind (("C-c SPC" . org-capture)
-             ("C-c o" . org-open-at-point)
-             ("C-c w" . org-refile)
-             ("C-c p" . org-priority)
-             ("C-c t" . org-todo))
-      :config
-      (require 'org-config))
-
-  (use-package org-appear
-    :after org
-    :hook (org-mode . org-appear-mode))
+    :straight (:type built-in)
+    :hook ((org-mode . org-indent-mode)
+           (org-mode . hide-mode-line-mode)
+           (org-mode . olivetti-mode))
+    :defer t
+    :bind (("C-c SPC" . org-capture)
+           ("C-c o" . org-open-at-point)
+           ("C-c w" . org-refile)
+           ("C-c p" . org-priority)
+           ("C-c t" . org-todo))
+    :config
+    (require 'org-config))
 
 ;;;; LaTex
   (use-package auctex
-      :mode ("\\.tex\\'" . latex-mode))
+    :mode ("\\.tex\\'" . latex-mode))
 
 ;;;; Center the writing area
   (use-package olivetti
-      :defer t)
+    :defer t)
 
 ;;; PROGRAMMING
 
@@ -538,10 +540,10 @@
            ("C-c f" . eglot-format))
     :init
     (setq eglot-server-programs '((c-mode . ("clangd"))))
+    (setq eglot-extend-to-xref t)
     (setq eglot-ignored-server-capabilities '(:hoverProvider :documentRangeFormattingProvider :documentOnTypeFormattingProvider)))
     (evil-define-key 'normal eglot-mode-map (kbd "g d") 'eglot-find-declaration)
     (evil-define-key 'normal eglot-mode-map (kbd "g D") 'flymake-show-buffer-diagnostics)
-    (evil-define-key 'normal eglot-mode-map (kbd "g h") 'eldoc)
 
 ;;;; The best git interface
   (use-package magit

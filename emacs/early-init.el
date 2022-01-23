@@ -26,6 +26,8 @@
 
   (defalias 'yes-or-no-p 'y-or-n-p) ;; Accept 'y' in lieu of 'yes'.
 
+  (setq warning-suppress-log-types '((use-package)))
+
   ;; So we can detect this having been loaded
   (provide 'early-init)
 
