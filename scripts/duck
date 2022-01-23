@@ -1,3 +1,0 @@
-#!/bin/sh
-w3m "https://lite.duckduckgo.com/lite?q=$*"
-
