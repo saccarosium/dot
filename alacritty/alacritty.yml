@@ -50,8 +50,8 @@ font:
 schemes:
   dracula: &dracula
     primary:
-      #background: '#191622'
-      background: '#282a36'
+      background: '#191622'
+      #background: '#282a36'
       foreground: '#f8f8f2'
       bright_foreground: '#ffffff'
     cursor:

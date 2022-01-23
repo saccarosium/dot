@@ -1,4 +1,4 @@
-lcmd - return : open -a "/Applications/Alacritty.app"
+lcmd - return : open -a "/Applications/iTerm.app/
 lcmd - e : open -a "/Applications/Emacs.app"
 lcmd - b : open -a "/Applications/Firefox.app"
 lcmd - p : open -a "/Applications/KeePassXC.app"
