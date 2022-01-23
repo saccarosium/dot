@@ -15,3 +15,4 @@
 *.tar.gz
 *.rar
 /emacs/project-window-list
+/emacs/eln-cache/
