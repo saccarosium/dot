@@ -1,5 +1,90 @@
-"\C-x":"cdg\n"
-"\C-t":"tmux-attach\n"
-
+set editing-mode vi
 set show-all-if-ambiguous on
 set completion-ignore-case on
+
+#vi mode
+$if mode=vi
+set keymap vi-command
+Control-l: clear-screen
+"#": insert-comment
+".": "i !*\r"
+"|": "A | "
+"D":kill-line
+"C": "Da"
+"dw": kill-word
+"dd": kill-whole-line
+"db": backward-kill-word
+"cc": "ddi"
+"cw": "dwi"
+"cb": "dbi"
+"daw": "lbdW"
+"yaw": "lbyW"
+"caw": "lbcW"
+"diw": "lbdw"
+"yiw": "lbyw"
+"ciw": "lbcw"
+"da\"": "lF\"df\""
+"di\"": "lF\"lmtf\"d`t"
+"ci\"": "di\"i"
+"ca\"": "da\"i"
+"da'": "lF'df'"
+"di'": "lF'lmtf'd`t"
+"ci'": "di'i"
+"ca'": "da'i"
+"da`": "lF\`df\`"
+"di`": "lF\`lmtf\`d`t"
+"ci`": "di`i"
+"ca`": "da`i"
+"da(": "lF(df)"
+"di(": "lF(lmtf)d`t"
+"ci(": "di(i"
+"ca(": "da(i"
+"da)": "lF(df)"
+"di)": "lF(lmtf)d`t"
+"ci)": "di(i"
+"ca)": "da(i"
+"da{": "lF{df}"
+"di{": "lF{lmtf}d`t"
+"ci{": "di{i"
+"ca{": "da{i"
+"da}": "lF{df}"
+"di}": "lF{lmtf}d`t"
+"ci}": "di}i"
+"ca}": "da}i"
+"da[": "lF[df]"
+"di[": "lF[lmtf]d`t"
+"ci[": "di[i"
+"ca[": "da[i"
+"da]": "lF[df]"
+"di]": "lF[lmtf]d`t"
+"ci]": "di]i"
+"ca]": "da]i"
+"da<": "lF<df>"
+"di<": "lF<lmtf>d`t"
+"ci<": "di<i"
+"ca<": "da<i"
+"da>": "lF<df>"
+"di>": "lF<lmtf>d`t"
+"ci>": "di>i"
+"ca>": "da>i"
+"da/": "lF/df/"
+"di/": "lF/lmtf/d`t"
+"ci/": "di/i"
+"ca/": "da/i"
+"da:": "lF:df:"
+"di:": "lF:lmtf:d`t"
+"ci:": "di:i"
+"ca:": "da:i"
+"gg": beginning-of-history
+"G": end-of-history
+?: reverse-search-history
+/: forward-search-history
+
+set keymap vi-insert
+Control-l: clear-screen
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+"\C-b":"cdg\n"
+"\C-t":"tmux-attach\n"
+$endif
+

@@ -44,8 +44,7 @@ nnoremap <leader><space> :Files<CR>
 nnoremap <leader>fg :Rg<CR>
 nnoremap <C-x>b :Buffers<CR>
 nnoremap <C-h> :Helptags<CR>
-
-nnoremap <leader>ps :call fzf#run({'source': 'cdscuts_glob_echo', 'sink': 'cd'})<CR>
+nnoremap <C-b> :call fzf#run({'source': 'cdscuts_glob_echo', 'sink': 'cd'})<CR>
 
 nnoremap <C-x>j :Explore<CR>
 nnoremap <C-w>t :tabnew<CR>
@@ -53,6 +52,7 @@ nnoremap <tab> za<CR>
 nnoremap <C-q> :copen<CR>
 nnoremap <C-n> :cnext<CR>
 nnoremap <C-p> :cprevious<CR>
+nnoremap <C-l> :nohlsearch<CR>
 
 nnoremap gd :lua vim.lsp.buf.declaration()<CR>
 nnoremap gi :lua vim.lsp.buf.implementation()<CR>
@@ -64,27 +64,25 @@ nnoremap <leader>e :lua vim.diagnostic.open_float()<CR>
 nnoremap <leader>q :lua vim.diagnostic.setloclist()<CR> 
 nnoremap <C-c>f :lua vim.lsp.buf.formatting()<CR>
 
+nnoremap <leader>gs :vert G<CR>
+nnoremap <leader>gd :vert G diff<CR>
+nnoremap <leader>gp :vert G push<CR>
+nnoremap <leader>gp :vert G push<CR>
+
+nnoremap q <C-w>c
+nnoremap Q q
+
 let g:fzf_layout = {'down': '30%'} 
 let g:netrw_banner = 0
 
 function! NetrwMapping()
   nmap <buffer> h -^
   nmap <buffer> l <CR>
-  nmap <buffer> nd d 
+  nmap <buffer> nd d
   nmap <buffer> nf %
-  nmap <buffer> . gh
 endfunction
-
-function! QuickfixMap()
-  nmap <buffer> q :cclose<CR>
-endfunction
-
+ 
 augroup netrw_mapping
   autocmd!
   autocmd filetype netrw call NetrwMapping()
-augroup END
-
-augroup qf_mapping
-  autocmd!
-  autocmd filetype qf call QuickfixMap()
 augroup END
