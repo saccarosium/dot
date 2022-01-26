@@ -2,11 +2,8 @@
 
 user_filelist=''
  
-if [ -r /etc/cdg_paths ]; then
-   system_wide_filelist=$(cdscuts_list_echo /etc/cdg_paths)
-fi
-if [ -r ~/.dot/bookmarks ]; then
-   user_filelist=$(cdscuts_list_echo ~/.dot/bookmarks)
+if [ -r ~/Repos/dot/data/bookmarks ]; then
+   user_filelist=$(cdscuts_list_echo ~/Repos/dot/data/bookmarks)
 fi
  
 echo "$system_wide_filelist\n$user_filelist" | sed '/^\s*$/d'

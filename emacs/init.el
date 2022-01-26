@@ -224,7 +224,7 @@
     :straight (:type git :host github :repo "mclear-tools/bespoke-modeline") 
     :init
     ;; Set header line
-    (setq bespoke-modeline-position 'bottom)
+    (setq bespoke-modeline-position 'top)
     ;; Set mode-line height
     (setq bespoke-modeline-size 3)
     ;; Show diff lines in mode-line
@@ -409,11 +409,6 @@
     (evil-define-key 'normal 'global (kbd "<leader>RET") 'bookmark-jump)
     (setq bookmark-save-flag 1))
 
-  (evil-define-key 'normal 'global (kbd "g r") 'xref-find-references)
-  (evil-define-key 'normal 'global (kbd "g d") 'xref-find-definitions)
-  (evil-define-key 'normal 'global (kbd "g a") 'xref-find-apropos)
-  (evil-define-key 'normal 'global (kbd "g h") 'eldoc)
-
 ;;; COMPLETION FRAMWORK
 
 ;;;; Vertico for the vertical UI
@@ -542,8 +537,12 @@
     (setq eglot-server-programs '((c-mode . ("clangd"))))
     (setq eglot-extend-to-xref t)
     (setq eglot-ignored-server-capabilities '(:hoverProvider :documentRangeFormattingProvider :documentOnTypeFormattingProvider)))
+
     (evil-define-key 'normal eglot-mode-map (kbd "g d") 'eglot-find-declaration)
-    (evil-define-key 'normal eglot-mode-map (kbd "g D") 'flymake-show-buffer-diagnostics)
+    (evil-define-key 'normal eglot-mode-map (kbd "C-c d") 'flymake-show-buffer-diagnostics)
+    (evil-define-key 'normal 'global (kbd "g r") 'xref-find-references)
+    (evil-define-key 'normal 'global (kbd "g d") 'xref-find-definitions)
+    (evil-define-key 'normal 'global (kbd "g h") 'eldoc)
 
 ;;;; The best git interface
   (use-package magit

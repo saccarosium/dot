@@ -1,5 +1,5 @@
 #!/bin/sh
 
 # vi + ~/Nextcloud/todolist/scratchpad.md 
-printf " ﮅ: " && read -r task || exit
-todoist q "$task"
+# printf " ﮅ: " && read -r task || exit
+nvim "$SYNC/todolist/todolist.org"

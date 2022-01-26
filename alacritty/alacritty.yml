@@ -146,7 +146,7 @@ bell:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1.0
+window.opacity: 1.0
 
 #selection:
 # This string contains all characters that are used as separators for
@@ -539,9 +539,21 @@ key_bindings:
   - { key: H, mods: Command, action: Hide }
   - { key: M, mods: Command, action: Minimize }
   - { key: Q, mods: Command, action: Quit }
-  - { key: W, mods: Command, action: Quit }
   - { key: N, mods: Command, action: SpawnNewInstance }
   - { key: F, mods: Command|Control, action: ToggleFullscreen }
   - { key: F, mods: Command, mode: ~Search, action: SearchForward }
   - { key: B, mods: Command, mode: ~Search, action: SearchBackward }
+
+  - { key: Key1,        mods: Command,     chars: "\x1b1"}
+  - { key: Key2,        mods: Command,     chars: "\x1b2"}
+  - { key: Key3,        mods: Command,     chars: "\x1b3"}
+  - { key: Key4,        mods: Command,     chars: "\x1b4"}
+  - { key: Key5,        mods: Command,     chars: "\x1b5"}
+  - { key: Key6,        mods: Command,     chars: "\x1b6"}
+  - { key: Key7,        mods: Command,     chars: "\x1b7"}
+  - { key: Key8,        mods: Command,     chars: "\x1b8"}
+  - { key: Key9,        mods: Command,     chars: "\x1b9"}
+  - { key: W,        mods: Command,     chars: "\x1bw"}
+  - { key: T,        mods: Command,     chars: "\x1bt"}
+
 

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+[ -x "$(command -v tmux)" ] \
+ && [ -z "${TMUX}" ] \
+ && { tmux attach || tmux; } >/dev/null 2>&1
