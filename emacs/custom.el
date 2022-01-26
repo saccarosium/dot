@@ -3,7 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(warning-suppress-types '((comp))))
+ '(company-backends '(company-capf)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -21,4 +21,7 @@
  '(dired-header ((t (:underline t :bold t :foreground "#bd93f9"))))
  '(dired-symlink ((t (:foreground "#50fa7b"))))
  '(markdown-bold-face ((t (:foreground "#f8f8f2" :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font"))))
- '(markdown-italic-face ((t (:slant italic :foreground "#f8f8f2" :background nil :box nil)))))
+ '(markdown-italic-face ((t (:slant italic :foreground "#f8f8f2" :background nil :box nil))))
+ '(tab-bar ((t (:height 120 :background nil))))
+ '(tab-bar-tab ((t (:weight bold :foreground "#f8f8f2" :background nil :box "#191622"))))
+ '(tab-bar-tab-inactive ((t (:foreground "#b6b6b2" :background nil :box nil)))))

@@ -38,7 +38,8 @@ let mapleader=" "
 cnoreabbrev W! w!
 cnoreabbrev W w
 
-nnoremap <leader>oc :e ~/.config/nvim/init.vim<CR>
+nnoremap <leader>oc :e $DOTFILES/nvim/init.vim<CR>
+nnoremap <leader>ot :e $SYNC/todolist/todolist.org<CR>
 
 nnoremap <leader><space> :Files<CR>
 nnoremap <leader>fg :Rg<CR>

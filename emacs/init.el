@@ -139,11 +139,6 @@
     :init
     (evil-collection-init))
 
-  (use-package evil-lion
-    :after evil
-    :config
-    (evil-lion-mode))
-
   (use-package evil-commentary
     :after evil
     :config
@@ -156,6 +151,17 @@
   (global-set-key (kbd "<leader>e") 'display-local-help)   
 
 ;;; UI
+
+  (menu-bar-mode 0)           ;; Hide the menubar
+  (tool-bar-mode 0)           ;; Hide tool bar
+  (tooltip-mode 0)            ;; Hide tooltip
+  (scroll-bar-mode 0)         ;; Hide scrollbar
+  (blink-cursor-mode 0)       ;; Prevent cursor to blink
+  (show-paren-mode t)         ;; Show matching parenthesis.
+  (global-so-long-mode)       ;; Handle long lines better.
+  (global-font-lock-mode 1)   ;; Always highlight code.
+  (global-auto-revert-mode 1) ;; Refresh a buffer if changed on disk.
+  (savehist-mode 1)           ;; Save history
 
   ;; Make Tabs behave sanely
   (setq-default tab-width 2)
@@ -210,8 +216,6 @@
   (set-background-color "#191622")
   (set-face-attribute 'fringe nil :background nil)
 
-  (use-package doom-themes)
-
 ;;;; Hide Modeline
   (use-package hide-mode-line
       :defer t)
@@ -224,7 +228,7 @@
     :straight (:type git :host github :repo "mclear-tools/bespoke-modeline") 
     :init
     ;; Set header line
-    (setq bespoke-modeline-position 'top)
+    (setq bespoke-modeline-position 'bottom)
     ;; Set mode-line height
     (setq bespoke-modeline-size 3)
     ;; Show diff lines in mode-line
@@ -270,19 +274,6 @@
       (popper-mode +1)
       (popper-echo-mode +1))                ; For echo area hints
 
-  ;; (use-package nano-modeline
-  ;;   :custom-face
-  ;;   (nano-modeline-inactive ((t (:foreground "#b6b6b2" :background nil))))
-  ;;   (nano-modeline-inactive-name ((t (:foreground "#b6b6b2" :background nil))))
-  ;;   (nano-modeline-inactive-primary ((t (:background nil))))
-  ;;   (nano-modeline-inactive-secondary ((t (:foreground "#b6b6b2" :background nil))))
-  ;;   (nano-modeline-inactive-status-** ((t (:foreground "#b6b6b2" :background nil))))
-  ;;   (nano-modeline-inactive-status-RO ((t (:foreground "#b6b6b2" :background nil))))
-  ;;   (nano-modeline-inactive-status-RW ((t (:foreground "#b6b6b2" :background nil))))
-  ;;   :config
-  ;;   (setq nano-modeline-position 'bottom))
-    ;; (nano-modeline-mode))
-
 ;;;; Tabs
   (use-package tab-bar
     :straight (:type built-in)
@@ -320,17 +311,6 @@
     :mode "\\.dat\\'"
     :init
     (setq ledger-clear-whole-transactions 1))
-
-;;;; Pdf tools
-  (use-package pdf-tools
-    :defer t
-    :config
-    ;; initialise
-    (pdf-tools-install)
-    ;; open pdfs scaled to fit page
-    (setq-default pdf-view-display-size 'fit-page)
-    ;; automatically annotate highlights
-    (setq pdf-annot-activate-created-annotations t))
 
 ;;; BUILTINGS PACKAGES
 
@@ -432,10 +412,6 @@
     :config
     (marginalia-mode))
 
-;;;; Embark for minibuffer actions
-  (use-package embark
-    :bind ("C-." . embark-act)) ;; pick some comfortable binding
-
 ;;;; Cape for enhance the complete at point function
   (use-package cape
     :init
@@ -463,13 +439,6 @@
           ("C-n" . corfu-next)
           ("C-p" . corfu-previous)
           ("TAB" . corfu-insert)))
-
-  (use-package kind-icon
-    :after corfu
-    :custom
-    (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
-    :config
-    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 ;;; WRITING/NOTES
 
@@ -523,8 +492,9 @@
   (use-package tree-sitter-langs
     :after tree-sitter)
   (use-package tree-sitter
+    :hook ((c-mode . tree-sitter-mode))
     :config
-    (global-tree-sitter-mode)
+    ;; (global-tree-sitter-mode)
     (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 
 ;;;; Eglot for lsp support
@@ -539,7 +509,7 @@
     (setq eglot-ignored-server-capabilities '(:hoverProvider :documentRangeFormattingProvider :documentOnTypeFormattingProvider)))
 
     (evil-define-key 'normal eglot-mode-map (kbd "g d") 'eglot-find-declaration)
-    (evil-define-key 'normal eglot-mode-map (kbd "C-c d") 'flymake-show-buffer-diagnostics)
+    (evil-define-key 'normal eglot-mode-map (kbd "C-q") 'flymake-show-buffer-diagnostics)
     (evil-define-key 'normal 'global (kbd "g r") 'xref-find-references)
     (evil-define-key 'normal 'global (kbd "g d") 'xref-find-definitions)
     (evil-define-key 'normal 'global (kbd "g h") 'eldoc)
@@ -553,13 +523,6 @@
     :ensure t
     ;; .yaml or .yml
     :mode "\\(?:\\(?:\\.y\\(?:a?ml\\)\\)\\)\\'")
-
-;;;; Autosave
-  (use-package super-save
-    :defer 1
-    :config
-    (super-save-mode +1)
-    (setq super-save-auto-save-when-idle t))
 
 ;;;; Preview HEX color
   (use-package rainbow-mode

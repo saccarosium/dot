@@ -83,7 +83,7 @@ PROMPT_COMMAND="__ps1"
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias em='emacsclient -nw'
+alias em='emacs -nw'
 alias vi='nvim'
 alias rm='trash'
 
