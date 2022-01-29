@@ -14,17 +14,17 @@ filetype plugin indent on
 
 call plug#begin('$XDG_DATA_HOME/nvim/plugged')
 
+  Plug 'nvim-lua/plenary.nvim' 
   Plug 'dracula/vim', { 'as': 'dracula' }
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/nvim-cmp'
-  Plug 'axvr/org.vim'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
-  Plug 'numToStr/Comment.nvim'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-commentary'
+  Plug 'ThePrimeagen/harpoon'
 
 call plug#end()
 
@@ -39,21 +39,18 @@ cnoreabbrev W! w!
 cnoreabbrev W w
 
 nnoremap <leader>oc :e $DOTFILES/nvim/init.vim<CR>
-nnoremap <leader>ot :e $SYNC/todolist/todolist.org<CR>
 
 nnoremap <leader><space> :Files<CR>
 nnoremap <leader>fg :Rg<CR>
 nnoremap <C-x>b :Buffers<CR>
 nnoremap <C-h> :Helptags<CR>
-nnoremap <C-b> :call fzf#run({'source': 'cdscuts_glob_echo', 'sink': 'cd'})<CR>
+nnoremap <C-f> :call fzf#run({'source': 'cdscuts_glob_echo', 'sink': 'cd'})<CR>
+nnoremap <M-x> :Commands<CR>
 
 nnoremap <C-x>j :Explore<CR>
 nnoremap <C-w>t :tabnew<CR>
-nnoremap <tab> za<CR>
-nnoremap <C-q> :copen<CR>
 nnoremap <C-n> :cnext<CR>
 nnoremap <C-p> :cprevious<CR>
-nnoremap <C-l> :nohlsearch<CR>
 
 nnoremap gd :lua vim.lsp.buf.declaration()<CR>
 nnoremap gi :lua vim.lsp.buf.implementation()<CR>
@@ -68,7 +65,13 @@ nnoremap <C-c>f :lua vim.lsp.buf.formatting()<CR>
 nnoremap <leader>gs :vert G<CR>
 nnoremap <leader>gd :vert G diff<CR>
 nnoremap <leader>gp :vert G push<CR>
-nnoremap <leader>gp :vert G push<CR>
+
+nnoremap <leader>hm :lua require("harpoon.mark").add_file()<CR>
+nnoremap <leader>hl :lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <leader>1 :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <leader>2 :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <leader>3 :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <leader>4 :lua require("harpoon.ui").nav_file(4)<CR>
 
 nnoremap q <C-w>c
 nnoremap Q q
