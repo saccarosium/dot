@@ -1,6 +1,3 @@
 #!/bin/sh
 
-while [ : ]
-do
-  find "$HOME/Music" -maxdepth 3 | fzf | xargs -I {} mpv {}
-done
+find "$HOME/Music/Music Library/" -maxdepth 3 | fzf | xargs -I {} mpv {}

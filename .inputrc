@@ -84,7 +84,7 @@ set keymap vi-insert
 Control-l: clear-screen
 "\C-p": history-search-backward
 "\C-n": history-search-forward
-"\C-b":"cdg\n"
+"\C-f":"cdg\n"
 "\C-t":"tmux-attach\n"
 $endif
 
