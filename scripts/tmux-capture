@@ -2,4 +2,6 @@
 
 # vi + ~/Nextcloud/todolist/scratchpad.md 
 # printf " ﮅ: " && read -r task || exit
-nvim "$SYNC/todolist/todolist.org"
+# nvim "$SYNC/todolist/todolist.org"
+
+em -e "(org-capture)"
