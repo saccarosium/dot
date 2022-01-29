@@ -51,10 +51,10 @@
 
 ;;; BETTER GARBAGE COLLECTION
 
-  (use-package gcmh
-    :config
-    (setq gcmh-verbose 't)
-    (gcmh-mode 1))
+  ;; (use-package gcmh
+  ;;   :config
+  ;;   (setq gcmh-verbose 't)
+  ;;   (gcmh-mode 1))
 
 ;;; DEFINING XDG DIRECTORIES
 
@@ -127,7 +127,9 @@
     (evil-define-key 'normal 'global (kbd "<leader>ob") #'ls/open-budget)
     (evil-define-key 'normal 'global (kbd "<leader>ot") #'ls/open-todolist)
     (evil-define-key 'normal 'global (kbd "<leader>SPC") 'find-file)
-    (evil-define-key 'normal 'global (kbd "<leader>fn") #'deft-find-file))
+    (evil-define-key 'normal 'global (kbd "<leader>fn") #'deft-find-file)
+    (evil-define-key 'normal 'global (kbd "ZZ") 'delete-frame))
+
 
   ;; Global evil keybinds
   (use-package evil-collection 
@@ -252,53 +254,53 @@
     (bespoke-modeline-mode))
 
 ;;;; Relative number like in Vim
-  (use-package linum-relative
-      :hook ((prog-mode . linum-relative-mode)
-             (conf-mode . linum-relative-mode))
-      :config
-      (setq linum-relative-backend 'display-line-numbers-mode))
+  ;; (use-package linum-relative
+  ;;     :hook ((prog-mode . linum-relative-mode)
+  ;;            (conf-mode . linum-relative-mode))
+  ;;     :config
+  ;;     (setq linum-relative-backend 'display-line-numbers-mode))
 
 ;;;; Make some windows a popup
-  (use-package popper
-      :bind (("C-,"   . popper-toggle-latest)
-             ("C-;"   . popper-cycle))
-      :init
-      (setq popper-reference-buffers
-              '(xref-mode
-              "\\*Occur\\*"
-              ".*.png"
-              "\\*eldoc.*"
-              "\\*Flymake\\ diagnostics.*"
-              "\\*Ledger\\ Report\\*"
-              xref--xref-buffer-mode))
-      (popper-mode +1)
-      (popper-echo-mode +1))                ; For echo area hints
+  ;; (use-package popper
+  ;;     :bind (("C-,"   . popper-toggle-latest)
+  ;;            ("C-;"   . popper-cycle))
+  ;;     :init
+  ;;     (setq popper-reference-buffers
+  ;;             '(xref-mode
+  ;;             "\\*Occur\\*"
+  ;;             ".*.png"
+  ;;             "\\*eldoc.*"
+  ;;             "\\*Flymake\\ diagnostics.*"
+  ;;             "\\*Ledger\\ Report\\*"
+  ;;             xref--xref-buffer-mode))
+  ;;     (popper-mode +1)
+  ;;     (popper-echo-mode +1))                ; For echo area hints
 
 ;;;; Tabs
-  (use-package tab-bar
-    :straight (:type built-in)
-    :bind (("M-t" . tab-bar-new-tab)
-           ("M-w" . tab-bar-close-tab))
-    :custom-face
-    (tab-bar ((t (:height 120 :background nil))))
-    (tab-bar-tab ((t (:weight bold :foreground ,fg :background nil :box ,bg ))))
-    (tab-bar-tab-inactive ((t (:foreground ,unfocus :background nil :box nil))))
-    :config
-    (setq tab-bar-close-button nil)
-    (setq tab-bar-new-tab-choice "*scratch*")
-    (setq tab-bar-show 1)
-    (setq tab-bar-select-tab-modifiers "meta")
-    (setq tab-bar-border "120")
-    (global-set-key (kbd "M-1") 'tab-bar-select-tab)
-    (global-set-key (kbd "M-2") 'tab-bar-select-tab)
-    (global-set-key (kbd "M-3") 'tab-bar-select-tab)
-    (global-set-key (kbd "M-4") 'tab-bar-select-tab)
-    (global-set-key (kbd "M-5") 'tab-bar-select-tab)
-    (global-set-key (kbd "M-6") 'tab-bar-select-tab)
-    (global-set-key (kbd "M-7") 'tab-bar-select-tab)
-    (global-set-key (kbd "M-8") 'tab-bar-select-tab)
-    (global-set-key (kbd "M-9") 'tab-bar-select-tab)
-    (setq tab-bar-position t))
+  ;; (use-package tab-bar
+  ;;   :straight (:type built-in)
+  ;;   :bind (("M-t" . tab-bar-new-tab)
+  ;;          ("M-w" . tab-bar-close-tab))
+  ;;   :custom-face
+  ;;   (tab-bar ((t (:height 120 :background nil))))
+  ;;   (tab-bar-tab ((t (:weight bold :foreground ,fg :background nil :box ,bg ))))
+  ;;   (tab-bar-tab-inactive ((t (:foreground ,unfocus :background nil :box nil))))
+  ;;   :config
+  ;;   (setq tab-bar-close-button nil)
+  ;;   (setq tab-bar-new-tab-choice "*scratch*")
+  ;;   (setq tab-bar-show 1)
+  ;;   (setq tab-bar-select-tab-modifiers "meta")
+  ;;   (setq tab-bar-border "120")
+  ;;   (global-set-key (kbd "M-1") 'tab-bar-select-tab)
+  ;;   (global-set-key (kbd "M-2") 'tab-bar-select-tab)
+  ;;   (global-set-key (kbd "M-3") 'tab-bar-select-tab)
+  ;;   (global-set-key (kbd "M-4") 'tab-bar-select-tab)
+  ;;   (global-set-key (kbd "M-5") 'tab-bar-select-tab)
+  ;;   (global-set-key (kbd "M-6") 'tab-bar-select-tab)
+  ;;   (global-set-key (kbd "M-7") 'tab-bar-select-tab)
+  ;;   (global-set-key (kbd "M-8") 'tab-bar-select-tab)
+  ;;   (global-set-key (kbd "M-9") 'tab-bar-select-tab)
+  ;;   (setq tab-bar-position t))
 
 ;;; UTILITY
 
@@ -356,26 +358,26 @@
     (setq dired-recursive-deletes 'always)
     (setq dired-recursive-copies 'always))
 
-  (use-package project
-    :straight (:type built-in)
-    :custom
-    (project-switch-commands 'project-find-file))
+  ;; (use-package project
+  ;;   :straight (:type built-in)
+  ;;   :custom
+  ;;   (project-switch-commands 'project-find-file))
 
-    (evil-define-key 'normal 'global (kbd "<leader>po") 'project-other-window-command)
-    (evil-define-key 'normal 'global (kbd "<leader>ps") 'project-switch-project)
-    (evil-define-key 'normal 'global (kbd "<leader>pb") 'project-switch-to-buffer)
-    (evil-define-key 'normal 'global (kbd "<leader>pf") 'project-find-file)
-    (evil-define-key 'normal 'global (kbd "<leader>pv") 'magit-project-status)
-    (evil-define-key 'normal 'global (kbd "<leader>pd") 'project-dired)
+  ;;   (evil-define-key 'normal 'global (kbd "<leader>po") 'project-other-window-command)
+  ;;   (evil-define-key 'normal 'global (kbd "<leader>ps") 'project-switch-project)
+  ;;   (evil-define-key 'normal 'global (kbd "<leader>pb") 'project-switch-to-buffer)
+  ;;   (evil-define-key 'normal 'global (kbd "<leader>pf") 'project-find-file)
+  ;;   (evil-define-key 'normal 'global (kbd "<leader>pv") 'magit-project-status)
+  ;;   (evil-define-key 'normal 'global (kbd "<leader>pd") 'project-dired)
 
   ;;;; Extend project.el
-  (use-package project-x
-    :straight (:host github :repo "karthink/project-x" :branch "master")
-    :after project
-    :config
-    (setq project-x-local-identifier ".projectile")
-    (setq project-x-save-interval 600)    ;Save project state every 10 min
-    (project-x-mode 1))
+  ;; (use-package project-x
+  ;;   :straight (:host github :repo "karthink/project-x" :branch "master")
+  ;;   :after project
+  ;;   :config
+  ;;   (setq project-x-local-identifier ".projectile")
+  ;;   (setq project-x-save-interval 600)    ;Save project state every 10 min
+  ;;   (project-x-mode 1))
 
   (use-package outline
     :straight (:type built-in)
@@ -413,36 +415,36 @@
     (marginalia-mode))
 
 ;;;; Cape for enhance the complete at point function
-  (use-package cape
-    :init
-    (add-to-list 'completion-at-point-functions #'cape-file)
-    (add-to-list 'completion-at-point-functions #'cape-keyword)
-    (add-to-list 'completion-at-point-functions #'cape-dabbrev))
+  ;; (use-package cape
+  ;;   :init
+  ;;   (add-to-list 'completion-at-point-functions #'cape-file)
+  ;;   (add-to-list 'completion-at-point-functions #'cape-keyword)
+  ;;   (add-to-list 'completion-at-point-functions #'cape-dabbrev))
 
 ;;; orfu as a company mode replacement
-  (use-package corfu
-    :init
-    (evil-define-key 'insert 'global (kbd "C-n") nil)
-    (evil-define-key 'insert 'global (kbd "C-p") nil)
-    :custom
-    (corfu-cycle t)              ;; Enable cycling for `corfu-next/previous'
-    (corfu-auto t)               ;; Enable auto completion
-    (corfu-commit-predicate nil) ;; Do not commit selected candidates on next input
-    (corfu-quit-no-match t)      ;; Automatically quit if there is no match
-    (corfu-preview-current t)    ;; Disable current candidate preview
-    (corfu-preselect-first t)    ;; Disable candidate preselection
-    (corfu-quit-at-boundary t)
-    (corfu-auto-delay 0.0)
-    :hook ((prog-mode . corfu-mode)
-           (latex-mode . corfu-mode))
-    :bind (:map corfu-map
-          ("C-n" . corfu-next)
-          ("C-p" . corfu-previous)
-          ("TAB" . corfu-insert)))
+;;   (use-package corfu
+;;     :init
+;;     (evil-define-key 'insert 'global (kbd "C-n") nil)
+;;     (evil-define-key 'insert 'global (kbd "C-p") nil)
+;;     :custom
+;;     (corfu-cycle t)              ;; Enable cycling for `corfu-next/previous'
+;;     (corfu-auto t)               ;; Enable auto completion
+;;     (corfu-commit-predicate nil) ;; Do not commit selected candidates on next input
+;;     (corfu-quit-no-match t)      ;; Automatically quit if there is no match
+;;     (corfu-preview-current t)    ;; Disable current candidate preview
+;;     (corfu-preselect-first t)    ;; Disable candidate preselection
+;;     (corfu-quit-at-boundary t)
+;;     (corfu-auto-delay 0.0)
+;;     :hook ((prog-mode . corfu-mode)
+;;            (latex-mode . corfu-mode))
+;;     :bind (:map corfu-map
+;;           ("C-n" . corfu-next)
+;;           ("C-p" . corfu-previous)
+;;           ("TAB" . corfu-insert)))
 
-;;; WRITING/NOTES
+;; ;;; WRITING/NOTES
 
-;;;; Notational Velocity for emacs
+;; ;;;; Notational Velocity for emacs
   (use-package deft
     :commands deft-find-file
     :config
@@ -489,41 +491,41 @@
 ;;; PROGRAMMING
 
 ;;; weat Tree sitter
-  (use-package tree-sitter-langs
-    :after tree-sitter)
-  (use-package tree-sitter
-    :hook ((c-mode . tree-sitter-mode))
-    :config
-    ;; (global-tree-sitter-mode)
-    (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+  ;; (use-package tree-sitter-langs
+  ;;   :after tree-sitter)
+  ;; (use-package tree-sitter
+  ;;   :hook ((c-mode . tree-sitter-mode))
+  ;;   :config
+  ;;   ;; (global-tree-sitter-mode)
+  ;;   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 
 ;;;; Eglot for lsp support
-  (use-package eglot
-    :hook ((c-mode . eglot-ensure)
-           (c++-mode . eglot-ensure))
-    :bind (("C-c r" . eglot-rename)
-           ("C-c f" . eglot-format))
-    :init
-    (setq eglot-server-programs '((c-mode . ("clangd"))))
-    (setq eglot-extend-to-xref t)
-    (setq eglot-ignored-server-capabilities '(:hoverProvider :documentRangeFormattingProvider :documentOnTypeFormattingProvider)))
+  ;; (use-package eglot
+  ;;   :hook ((c-mode . eglot-ensure)
+  ;;          (c++-mode . eglot-ensure))
+  ;;   :bind (("C-c r" . eglot-rename)
+  ;;          ("C-c f" . eglot-format))
+  ;;   :init
+  ;;   (setq eglot-server-programs '((c-mode . ("clangd"))))
+  ;;   (setq eglot-extend-to-xref t)
+  ;;   (setq eglot-ignored-server-capabilities '(:hoverProvider :documentRangeFormattingProvider :documentOnTypeFormattingProvider)))
 
-    (evil-define-key 'normal eglot-mode-map (kbd "g d") 'eglot-find-declaration)
-    (evil-define-key 'normal eglot-mode-map (kbd "C-q") 'flymake-show-buffer-diagnostics)
-    (evil-define-key 'normal 'global (kbd "g r") 'xref-find-references)
-    (evil-define-key 'normal 'global (kbd "g d") 'xref-find-definitions)
-    (evil-define-key 'normal 'global (kbd "g h") 'eldoc)
+  ;;   (evil-define-key 'normal eglot-mode-map (kbd "g d") 'eglot-find-declaration)
+  ;;   (evil-define-key 'normal eglot-mode-map (kbd "C-q") 'flymake-show-buffer-diagnostics)
+  ;;   (evil-define-key 'normal 'global (kbd "g r") 'xref-find-references)
+  ;;   (evil-define-key 'normal 'global (kbd "g d") 'xref-find-definitions)
+  ;;   (evil-define-key 'normal 'global (kbd "g h") 'eldoc)
 
 ;;;; The best git interface
   (use-package magit
     :commands (magit-status magit-get-current-branch))
 
 ;;;; Support for yaml
-  (use-package yaml-mode
-    :ensure t
-    ;; .yaml or .yml
-    :mode "\\(?:\\(?:\\.y\\(?:a?ml\\)\\)\\)\\'")
+  ;; (use-package yaml-mode
+  ;;   :ensure t
+  ;;   ;; .yaml or .yml
+  ;;   :mode "\\(?:\\(?:\\.y\\(?:a?ml\\)\\)\\)\\'")
 
 ;;;; Preview HEX color
-  (use-package rainbow-mode
-    :defer t)
+  ;; (use-package rainbow-mode
+  ;;   :defer t)

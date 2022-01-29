@@ -4,12 +4,12 @@
 
 ;;;; TITLEBAR
 
-  (setq frame-resize-pixelwise t)
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist '(selected-frame) 'name nil)
-  (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
-  (setq ns-use-proxy-icon nil)
-  (setq frame-title-format nil)
+  ;; (setq frame-resize-pixelwise t)
+  ;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  ;; (add-to-list 'default-frame-alist '(selected-frame) 'name nil)
+  ;; (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
+  ;; (setq ns-use-proxy-icon nil)
+  ;; (setq frame-title-format nil)
 
 ;;;; LEADER-KEY
 
@@ -25,21 +25,21 @@
   (global-set-key (kbd "M-a") 'mark-whole-buffer) ; ⌘-a = Select all
   (global-set-key (kbd "M-z") 'undo) ; ⌘-z = Undo
 
-  (when (featurep 'ns)
-    (defun ns-raise-emacs ()
-      "Raise Emacs."
-      (ns-do-applescript "tell application \"Emacs\" to activate"))
+  ;; (when (featurep 'ns)
+  ;;   (defun ns-raise-emacs ()
+  ;;     "Raise Emacs."
+  ;;     (ns-do-applescript "tell application \"Emacs\" to activate"))
 
-    (defun ns-raise-emacs-with-frame (frame)
-      "Raise Emacs and select the provided frame."
-      (with-selected-frame frame
-        (when (display-graphic-p)
-          (ns-raise-emacs))))
+  ;;   (defun ns-raise-emacs-with-frame (frame)
+  ;;     "Raise Emacs and select the provided frame."
+  ;;     (with-selected-frame frame
+  ;;       (when (display-graphic-p)
+  ;;         (ns-raise-emacs))))
 
-    (add-hook 'after-make-frame-functions 'ns-raise-emacs-with-frame)
+  ;;   (add-hook 'after-make-frame-functions 'ns-raise-emacs-with-frame)
 
-    (when (display-graphic-p)
-      (ns-raise-emacs)))
+  ;;   (when (display-graphic-p)
+  ;;     (ns-raise-emacs)))
 
 (provide 'osx)
 ;;; osx.el ends here
