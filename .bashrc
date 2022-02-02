@@ -99,6 +99,18 @@ cdg-edit() {
   $EDITOR "$DOTFILES/data/bookmarks"
 }
 
+cdg-add() {
+  echo $(pwd | sed "s|$HOME|~|") >> "$DOTFILES/data/bookmarks"
+}
+
+export NNN_PLUG='p:preview-tui;o:fzopen'
+export NNN_FIFO='/tmp/nnn.fifo'
+export NNN_OPTS="oQHed"
+export NNN_BMS="D:$HOME/Downloads;d:$DOCUMENTS;S:$SYNC;p:$PROJECTS;.:$DOTFILES;l:~/.local/share/"
+BLK="04" CHR="04" DIR="04" EXE="05" REG="00" HARDLINK="02" SYMLINK="02" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
+export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
+
 # -------------------------------- completion ------------------------
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+

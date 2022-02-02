@@ -1,0 +1,47 @@
+#!/bin/sh
+
+[ -x "$(which rg)" ] && GREP=rg || GREP=grep
+[ -x "$(which fd)" ] && FIND=fd || FIND=find
+
+todo_list(){
+  $GREP "\- \[ \]" ./*
+}
+
+todo_edit(){
+  [ "$FIND" = "fd" ] && FIND="fd --max-depth 1"
+  $FIND TODO.md | xargs $EDITOR
+}
+
+scheduled(){
+  todo_list | $GREP "<.*>"
+}
+
+scheduled_today(){
+  scheduled | $GREP "<$(date +%d-%m-%Y)>"
+}
+
+scheduled_tommorow(){
+  scheduled | $GREP "<$(date -v +1d +%d-%m-%Y)>"
+}
+
+to_agenda(){
+  scheduled_tommorow | sed "s|\.\/.*:||" >> ~/Projects/prova.md
+}
+
+tag_search(){
+  todo_list | $GREP "#$1" ./*
+}
+
+tag_list(){
+  todo_list | $GREP "^#\S*[a-z]" ./*
+}
+
+[ "$#" = 0 ] && todo_list
+[ "$1" = t ] && tag_search "$2"
+[ "$1" = tl ] && tag_list
+[ "$1" = e ] && todo_edit
+[ "$1" = s ] && scheduled
+[ "$1" = today ] && scheduled_today
+[ "$1" = tommorow ] && scheduled_tommorow
+[ "$1" = automation ] && to_agenda
+
