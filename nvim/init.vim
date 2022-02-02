@@ -24,8 +24,9 @@ call plug#begin('$XDG_DATA_HOME/nvim/plugged')
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
-  " Plug 'tpope/vim-fugitive'
+  Plug 'stsewd/fzf-checkout.vim'
   Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-surround'
   Plug 'norcalli/nvim-colorizer.lua'
   Plug 'ledger/vim-ledger'
   Plug 'dhruvasagar/vim-table-mode'
@@ -52,6 +53,8 @@ nnoremap <leader>ob :e $HOME/Documents/finaces/2021-2022.ledger<CR>
 nnoremap <leader><space> :Files<CR>
 nnoremap <leader>fn :Files $NOTES<CR>
 nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>fg :Gfiles<CR>
+nnoremap <leader>f. :Files $DOTFILES<CR>
 nnoremap <leader>fw :Rg<CR>
 nnoremap <C-h> :Helptags<CR>
 nnoremap <C-b> :call fzf#run({'source': 'cdscuts_glob_echo', 'sink': 'cd'})<CR>
@@ -71,12 +74,9 @@ nnoremap <C-p> :cprevious<CR>
 " nnoremap <leader>q :lua vim.diagnostic.setloclist()<CR> 
 " nnoremap <C-c>f :lua vim.lsp.buf.formatting()<CR>
 
-" nnoremap <leader>gs :vert G<CR>
-" nnoremap <leader>gd :vert G diff<CR>
-" nnoremap <leader>gp :vert G push<CR>
-" nnoremap <leader>gl :vert G log<CR>
-
 nnoremap <leader>gs :Neogit kind=vsplit<CR>
+nnoremap <leader>gl :Neogit log<CR>
+" nnoremap <leader>gc :GBranches<CR>
 
 nnoremap q <C-w>c
 nnoremap Q q

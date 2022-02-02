@@ -1,8 +1,10 @@
 local neogit = require('neogit')
 
 neogit.setup {
-  disable_commit_confirmation = true
+  disable_commit_confirmation = true,
+  auto_refresh = true,
 }
+
 
 vim.cmd [[
   hi! NeogitDiffAddHighlight guibg=#404040 guifg=#859900

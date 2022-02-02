@@ -39,6 +39,7 @@ export LESSHISTFILE=-
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
+export FZF_DEFAULT_OPTS='-m'
 export LANG="en_US.UTF-8"
 export PATH="$SCRIPTS:/usr/local/bin:/usr/local/opt:/usr/local/opt/llvm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/opt/emacs-plus@28/bin:$XDG_DATA_HOME/npm/bin:$PATH" 
 
@@ -85,6 +86,7 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias vi='nvim'
 alias rm='trash'
+alias vimv='vimv $(fzf)'
 
 # ------------------------- Setup cdg function -----------------------
 
