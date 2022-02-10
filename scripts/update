@@ -1,24 +1,26 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-#mac os
-printf '%b\n' "\033[1m""uptating dev tools...""\033[0m"
-softwareupdate --all --install --force
+# mac os
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  printf '%b\n' "\033[1m""uptating dev tools...""\033[0m"
+  softwareupdate --all --install --force
+fi
 
 # homebrew
 printf '%b\n' "\033[1m""updating homebrew...""\033[0m"
 brew update
 brew upgrade --greedy
-
 printf '%b\n' "\033[1m""cleaning up homebrew...""\033[0m"
 brew autoremove
 brew cleanup
 
-printf '%b\n' "\033[1m""updating TeX...""\033[0m"
-open -a "TeX Live Utility"
-
+# nvim
 printf '%b\n' "\033[1m""updating nvim...""\033[0m"
 nvim -c "PlugUpdate | PlugUpgrade | q! | q!"
 
+# Tex
+printf '%b\n' "\033[1m""updating TeX...""\033[0m"
+sudo tlmgr update --self --all --reinstall-forcibly-removed
 
 # cleanup the trash
 printf '%b\n' "\033[1m""cleaning up trash...""\035[0m"

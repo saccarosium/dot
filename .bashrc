@@ -40,12 +40,13 @@ export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
 export FZF_DEFAULT_OPTS='-m'
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l ""'
 export LANG="en_US.UTF-8"
 export PATH="$SCRIPTS:/usr/local/bin:/usr/local/opt:/usr/local/opt/llvm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/opt/emacs-plus@28/bin:$XDG_DATA_HOME/npm/bin:$PATH" 
 
 # ------------------------------ cdpath ------------------------------
 
-export CDPATH=".:$HOME:$DOTFILES:$REPOS"
+export CDPATH=".:$HOME:$REPOS:$DOCUMENTS:$PROJECTS"
 
 # ------------------------------ history -----------------------------
 
@@ -74,7 +75,7 @@ __ps1() {
     [[ $G = master || $G = main ]] 
     [[ -n "$G" ]] && G="($G)"
 
-    PS1="$gr\u$x:$bl\W$x$r$G$x$x$P$x "
+    PS1="$gr\u@\h$x:$bl\W$x$r$G$x$x$P$x "
 }
 
 PROMPT_COMMAND="__ps1"
@@ -86,31 +87,24 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias vi='nvim'
 alias rm='trash'
-alias vimv='vimv $(fzf)'
+# alias vimv='vimv $(fzf)'
 
 # ------------------------- Setup cdg function -----------------------
 
-unalias cdg 2> /dev/null
+# unalias cdg 2> /dev/null
 
-cdg() {
-  local dest_dir=$(cdscuts_glob_echo | fzf )
-  cd "$dest_dir"
-}
+# cdg() {
+#   local dest_dir=$(cdscuts_glob_echo | fzf )
+#   cd "$dest_dir"
+# }
 
-cdg-edit() {
+project-edit() {
   $EDITOR "$DOTFILES/data/bookmarks"
 }
 
-cdg-add() {
+project-add() {
   echo $(pwd | sed "s|$HOME|~|") >> "$DOTFILES/data/bookmarks"
 }
-
-export NNN_PLUG='p:preview-tui;o:fzopen'
-export NNN_FIFO='/tmp/nnn.fifo'
-export NNN_OPTS="oQHed"
-export NNN_BMS="D:$HOME/Downloads;d:$DOCUMENTS;S:$SYNC;p:$PROJECTS;.:$DOTFILES;l:~/.local/share/"
-BLK="04" CHR="04" DIR="04" EXE="05" REG="00" HARDLINK="02" SYMLINK="02" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
-export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 
 # -------------------------------- completion ------------------------
 

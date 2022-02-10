@@ -3,29 +3,26 @@
 [ -x "$(which rg)" ] && GREP=rg || GREP=grep
 [ -x "$(which fd)" ] && FIND=fd || FIND=find
 
+
 todo_list(){
   $GREP "\- \[ \]" ./*
 }
 
 todo_edit(){
   [ "$FIND" = "fd" ] && FIND="fd --max-depth 1"
-  $FIND TODO.md | xargs $EDITOR
+  $FIND TODO.md | xargs "$EDITOR"
 }
 
 scheduled(){
-  todo_list | $GREP "<.*>"
+  $GREP "SCHEDULED:<.*>" ./*
 }
 
 scheduled_today(){
-  scheduled | $GREP "<$(date +%d-%m-%Y)>"
+  $GREP "SCHEDULED:<$(date +%d-%m-%Y)>" ./*
 }
 
 scheduled_tommorow(){
-  scheduled | $GREP "<$(date -v +1d +%d-%m-%Y)>"
-}
-
-to_agenda(){
-  scheduled_tommorow | sed "s|\.\/.*:||" >> ~/Projects/prova.md
+  $GREP "SCHEDULED:<$(date -v +1d +%d-%m-%Y)>" ./*
 }
 
 tag_search(){
@@ -43,5 +40,3 @@ tag_list(){
 [ "$1" = s ] && scheduled
 [ "$1" = today ] && scheduled_today
 [ "$1" = tommorow ] && scheduled_tommorow
-[ "$1" = automation ] && to_agenda
-
