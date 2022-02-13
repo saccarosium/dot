@@ -1,4 +1,0 @@
-#!/bin/sh
-
-printf " ﮅ: " && read -r task || exit
-echo "- [ ] $task" >> "$SYNC/scratchpad.md"

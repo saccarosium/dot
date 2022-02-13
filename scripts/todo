@@ -14,15 +14,15 @@ todo_edit(){
 }
 
 scheduled(){
-  $GREP "SCHEDULED:<.*>" ./*
+  $GREP "due:<.*>" ./*
 }
 
 scheduled_today(){
-  $GREP "SCHEDULED:<$(date +%d-%m-%Y)>" ./*
+  $GREP "due:<$(date +%d-%m-%Y)>" ./*
 }
 
 scheduled_tommorow(){
-  $GREP "SCHEDULED:<$(date -v +1d +%d-%m-%Y)>" ./*
+  $GREP "due:<$(date -v +1d +%d-%m-%Y)>" ./*
 }
 
 tag_search(){

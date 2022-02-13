@@ -1,8 +1,9 @@
 #!/bin/sh
 
 user_filelist=''
+bmk_file="~/Repos/dot/data/bookmarks"
  
-if [ -r ~/Repos/dot/data/bookmarks ]; then
+if [ -r "bmk_file" ]; then
    user_filelist=$(cdscuts_list_echo ~/Repos/dot/data/bookmarks)
 fi
  
