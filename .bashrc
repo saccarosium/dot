@@ -82,13 +82,14 @@ PROMPT_COMMAND="__ps1"
 
 # ------------------------------ aliases -----------------------------
 
+alias scratch="$EDITOR $SYNC/scratchpad.md"
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias vi='nvim'
 alias rm='trash'
-alias scratch="$EDITOR $SYNC/scratchpad.md"
 
 # -------------------------------- completion ------------------------
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+[[ -r "/etc/profile.d/bash_completion.sh" ]] && . "/etc/profile.d/bash_completion.sh"
