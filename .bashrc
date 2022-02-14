@@ -46,7 +46,7 @@ export PATH="$SCRIPTS:/usr/local/bin:/usr/local/opt:/usr/local/opt/llvm/bin:/opt
 
 # ------------------------------ cdpath ------------------------------
 
-export CDPATH=".:$HOME:$REPOS:$DOCUMENTS:$PROJECTS"
+export CDPATH=".:$HOME:$REPOS:$DOCUMENTS:$PROJECTS:$DOTFILES:$SYNC"
 
 # ------------------------------ history -----------------------------
 
@@ -75,7 +75,7 @@ __ps1() {
     [[ $G = master || $G = main ]] 
     [[ -n "$G" ]] && G="($G)"
 
-    PS1="$gr\u@\h$x:$bl\W$x$r$G$x$x$P$x "
+    PS1="$gr\u$x:$bl\W$x$r$G$x$x$P$x "
 }
 
 PROMPT_COMMAND="__ps1"
@@ -87,26 +87,8 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias vi='nvim'
 alias rm='trash'
-# alias vimv='vimv $(fzf)'
-
-# ------------------------- Setup cdg function -----------------------
-
-# unalias cdg 2> /dev/null
-
-# cdg() {
-#   local dest_dir=$(cdscuts_glob_echo | fzf )
-#   cd "$dest_dir"
-# }
-
-project-edit() {
-  $EDITOR "$DOTFILES/data/bookmarks"
-}
-
-project-add() {
-  echo $(pwd | sed "s|$HOME|~|") >> "$DOTFILES/data/bookmarks"
-}
+alias scratch="$EDITOR $SYNC/scratchpad.md"
 
 # -------------------------------- completion ------------------------
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-
