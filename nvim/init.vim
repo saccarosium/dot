@@ -5,7 +5,7 @@ set mouse=a guicursor=
 set ignorecase smartcase
 set tabstop=2 softtabstop=2 expandtab shiftwidth=2
 set noshowmode
-set noswapfile nobackup
+set nobackup
 set textwidth=70
 set termguicolors
 set conceallevel=3
@@ -24,12 +24,11 @@ call plug#begin('$XDG_DATA_HOME/nvim/plugged')
   Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/gv.vim'
-  Plug 'stsewd/fzf-checkout.vim'
-  Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-fugitive'
   Plug 'norcalli/nvim-colorizer.lua'
   Plug 'ledger/vim-ledger'
   Plug 'kblin/vim-fountain'
+  Plug 'numToStr/Comment.nvim'
 
 call plug#end()
 
@@ -56,17 +55,15 @@ nnoremap <leader>fw :Rg<CR>
 nnoremap <C-h> :Helptags<CR>
 
 nnoremap <C-j> :Explore<CR>
-nnoremap <C-w>t :tabnew<CR>
-nnoremap <C-n> :cnext<CR>
-nnoremap <C-p> :cprevious<CR>
+" nnoremap <C-n> :cnext<CR>
+" nnoremap <C-p> :cprevious<CR>
+" nnoremap <leader>n :lnext<CR>
+" nnoremap <leader>p :lprevious<CR>
 
 nnoremap <leader>gs :vert G<CR>
 nnoremap <leader>gl :GV<CR>
 nnoremap <leader>gc :GBranches<CR>
 nnoremap <leader>gb :!git branch<CR>
-
-nnoremap <left> <C-w>>
-nnoremap <right> <C-w><
 
 nnoremap q <C-w>c
 nnoremap Q q
@@ -96,4 +93,3 @@ augroup netrw
   autocmd!
   autocmd FileType netrw call NetrwMapping()
 augroup END
-
