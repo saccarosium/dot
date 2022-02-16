@@ -3,7 +3,7 @@ set laststatus=0
 set number relativenumber
 set mouse=a guicursor=
 set ignorecase smartcase
-set tabstop=2 softtabstop=2 expandtab shiftwidth=2
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 set noshowmode
 set nobackup
 set textwidth=70
@@ -29,6 +29,7 @@ call plug#begin('$XDG_DATA_HOME/nvim/plugged')
   Plug 'ledger/vim-ledger'
   Plug 'kblin/vim-fountain'
   Plug 'numToStr/Comment.nvim'
+  Plug 'lervag/vimtex'
 
 call plug#end()
 
@@ -54,42 +55,17 @@ nnoremap <leader>f. :Files $DOTFILES<CR>
 nnoremap <leader>fw :Rg<CR>
 nnoremap <C-h> :Helptags<CR>
 
-nnoremap <C-j> :Explore<CR>
-" nnoremap <C-n> :cnext<CR>
-" nnoremap <C-p> :cprevious<CR>
-" nnoremap <leader>n :lnext<CR>
-" nnoremap <leader>p :lprevious<CR>
+nnoremap <leader>j :Explore<CR>
+nnoremap <C-n> :cnext<CR>
+nnoremap <C-p> :cprevious<CR>
 
 nnoremap <leader>gs :vert G<CR>
 nnoremap <leader>gl :GV<CR>
-nnoremap <leader>gc :GBranches<CR>
 nnoremap <leader>gb :!git branch<CR>
 
 nnoremap q <C-w>c
 nnoremap Q q
 
-let g:fzf_layout = {'down': '30%'} 
-let g:netrw_banner = 0
-let g:netrw_hide = 0
-let g:netrw_localcopydircmd = 'cp -r'
-hi! link netrwMarkFile Search
 let g:ledger_maxwidth = 70
 let g:markdown_folding = 1
 let g:markdown_fenced_languages = ['c', 'python', 'ruby', 'vim']
-
-function! NetrwMapping()
-  nmap <buffer> h -^
-  nmap <buffer> l <CR>
-  nmap <buffer> nd d
-  nmap <buffer> nf %:w<CR>:buffer #<CR>
-  nmap <buffer> M mfj
-  nmap <buffer> U mu
-  nmap <buffer> p mtmc
-  nmap <buffer> v mtmm
-  nmap <buffer> <C-j> :Rexplore<CR>
-endfunction
- 
-augroup netrw
-  autocmd!
-  autocmd FileType netrw call NetrwMapping()
-augroup END

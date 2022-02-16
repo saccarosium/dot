@@ -63,5 +63,7 @@ for _, lsp in pairs(servers) do
   }
 end
 
+require'lspconfig'.ccls.setup{}
+
 -- lsp.clangd.setup({})
 -- lsp.vimls.setup({})
