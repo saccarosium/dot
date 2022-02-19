@@ -32,6 +32,7 @@ call plug#begin('$XDG_DATA_HOME/nvim/plugged')
   Plug 'kblin/vim-fountain'
   Plug 'numToStr/Comment.nvim'
   Plug 'lervag/vimtex'
+  Plug 'puremourning/vimspector'
 
 call plug#end()
 
@@ -76,3 +77,6 @@ nnoremap Q q
 let g:ledger_maxwidth = 70
 let g:markdown_folding = 1
 let g:markdown_fenced_languages = ['c', 'python', 'ruby', 'vim']
+
+let g:vimspector_enable_mappings = 'HUMAN'
+

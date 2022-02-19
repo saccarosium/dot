@@ -8,6 +8,48 @@ os_check() {
 OS=$(os_check)
 
 if [[ "$OS" == "MacOS" ]]; then
+
+  brew=(
+    vim
+    neofetch
+    nvim
+    llvm
+    mpv
+    fzf
+    ledger
+    gdb
+    cmake
+    bash
+    bash-completion@2
+    pandoc
+    tmux
+    youtube-dl
+    alacritty
+    alfred
+    amethyst
+    anki
+    ferdi
+    firefox
+    keepassxc
+    keepingyouawke
+    knockknock
+    little-snitch
+    macfuse
+    mullvadvpn
+    nextcloud
+    onlyoffice
+    oversight
+    powershell
+    signal
+    tor-browser
+    veracrypt
+    visual-studio-code
+  )
+
+  brew update
+  brew upgrade
+  brew install ${brew[@]} #Homebrew App Installer
+
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && printf "installing hombrew"
   defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES #Show a path bar in the finder that shows the exact location
   defaults write com.apple.finder ShowPathbar -bool true #Adds the path bar to the bottom of the finder
@@ -45,5 +87,6 @@ if [[ "$OS" == "MacOS" ]]; then
   killall TextEdit
   killall QuickTimePlayerX
   killall Photos
+
 fi
 
