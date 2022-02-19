@@ -42,7 +42,7 @@ export GOPATH="$XDG_DATA_HOME/go"
 export FZF_DEFAULT_OPTS='-m'
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l ""'
 export LANG="en_US.UTF-8"
-export PATH="$SCRIPTS:/usr/local/bin:/usr/local/opt:/usr/local/opt/llvm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/opt/emacs-plus@28/bin:$XDG_DATA_HOME/npm/bin:$PATH" 
+export PATH="$SCRIPTS:/usr/local/opt/llvm/bin:/usr/local/bin:/usr/local/opt:/opt/local/bin:/opt/local/sbin:/usr/local/opt/emacs-plus@28/bin:$XDG_DATA_HOME/npm/bin:$PATH" 
 
 # ------------------------------ cdpath ------------------------------
 

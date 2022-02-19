@@ -10,6 +10,7 @@ set textwidth=70
 set termguicolors
 set conceallevel=3
 set nowrap
+set signcolumn=yes
 set foldlevelstart=99 foldmethod=manual
 filetype plugin indent on
 
@@ -17,6 +18,7 @@ call plug#begin('$XDG_DATA_HOME/nvim/plugged')
 
   Plug 'dracula/vim', { 'as': 'dracula' }
   Plug 'neovim/nvim-lspconfig'
+  Plug 'mfussenegger/nvim-dap'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-buffer'
@@ -33,8 +35,13 @@ call plug#begin('$XDG_DATA_HOME/nvim/plugged')
 
 call plug#end()
 
-colorscheme dracula 
-hi! Normal ctermbg=NONE guibg=NONE 
+colorscheme dracula
+" let g:gruvbox_transparent_bg = 1
+let g:gruvbox_contrast_dark = "hard"
+let g:gruvbox_sign_column = "bg2"
+hi! Normal ctermbg=NONE guibg=NONE
+hi! signcolumn ctermbg=NONE guibg=NONE
+hi! LineNr ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
 
 let mapleader=' '
