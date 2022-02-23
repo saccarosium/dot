@@ -6,10 +6,11 @@ set ignorecase smartcase
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 set noshowmode
 set nobackup
-set textwidth=70
+set textwidth=80
 set termguicolors
 set conceallevel=3
 set nowrap
+set cursorline
 set signcolumn=yes
 set foldlevelstart=99 foldmethod=manual
 filetype plugin indent on
@@ -17,8 +18,8 @@ filetype plugin indent on
 call plug#begin('$XDG_DATA_HOME/nvim/plugged')
 
   Plug 'dracula/vim', { 'as': 'dracula' }
+  Plug 'arcticicestudio/nord-vim'
   Plug 'neovim/nvim-lspconfig'
-  Plug 'mfussenegger/nvim-dap'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-buffer'
@@ -31,28 +32,22 @@ call plug#begin('$XDG_DATA_HOME/nvim/plugged')
   Plug 'ledger/vim-ledger'
   Plug 'kblin/vim-fountain'
   Plug 'numToStr/Comment.nvim'
-  Plug 'lervag/vimtex'
-  Plug 'puremourning/vimspector'
 
 call plug#end()
 
-colorscheme dracula
-" let g:gruvbox_transparent_bg = 1
-let g:gruvbox_contrast_dark = "hard"
-let g:gruvbox_sign_column = "bg2"
-hi! Normal ctermbg=NONE guibg=NONE
-hi! signcolumn ctermbg=NONE guibg=NONE
-hi! LineNr ctermbg=NONE guibg=NONE
-hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
-
+let g:nord_bold_vertical_split_line = 1
+let g:nord_bold = 1
+colorscheme nord
+" hi! Normal ctermbg=NONE guibg=NONE
+" hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
+ 
 let mapleader=' '
 
 cnoreabbrev W! w!
 cnoreabbrev W w
 
 nnoremap <leader>oc :e $DOTFILES/nvim/init.vim<CR>
-nnoremap <leader>ot :e $SYNC/Projects/TODO.md<CR>
-nnoremap <leader>ob :e $HOME/Documents/finaces/2021-2022.ledger<CR>
+nnoremap <leader>os :e $SYNC/scratchpad.md<CR>
 
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fb :Buffers<CR>
@@ -74,9 +69,6 @@ nnoremap <leader>gb :!git branch<CR>
 nnoremap q <C-w>c
 nnoremap Q q
 
-let g:ledger_maxwidth = 70
+let g:ledger_maxwidth = 80
 let g:markdown_folding = 1
 let g:markdown_fenced_languages = ['c', 'python', 'ruby', 'vim']
-
-let g:vimspector_enable_mappings = 'HUMAN'
-
