@@ -26,7 +26,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 export REPOS="$HOME/Repos"
 export DOCUMENTS="$HOME/Documents"
-export PROJECTS="$HOME/Projects"
+export PROJECTS="$SYNC/Projects"
 export DOTFILES="$REPOS/dot"
 export SCRIPTS="$DOTFILES/scripts"
 export SYNC="$DOCUMENTS/nextcloud"
@@ -34,7 +34,7 @@ export NOTES="$SYNC/notes"
 export EDITOR="nvim"
 export MANPAGER="less"
 export CLICOLOR=1
-export LSCOLORS=excxfxdxfxexDxDxDxDx
+export LSCOLORS="excxcxdxfxexexaxaxExEx"
 export LESSHISTFILE=-
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -42,7 +42,7 @@ export GOPATH="$XDG_DATA_HOME/go"
 export FZF_DEFAULT_OPTS='-m'
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l ""'
 export LANG="en_US.UTF-8"
-export PATH="$SCRIPTS:/usr/local/opt/llvm/bin:/usr/local/bin:/usr/local/opt:/opt/local/bin:/opt/local/sbin:/usr/local/opt/emacs-plus@28/bin:$XDG_DATA_HOME/npm/bin:$PATH" 
+export PATH="$SCRIPTS:/usr/local/opt/llvm/bin:$REPOS:/usr/local/bin:/usr/local/opt:/opt/local/bin:/opt/local/sbin:$XDG_DATA_HOME/npm/bin:$PATH" 
 
 # ------------------------------ cdpath ------------------------------
 

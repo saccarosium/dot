@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ -x "$(which rg)" ] && GREP=rg || GREP=grep
+[ -x "$(which rg)" ] && GREP="rg --color never" || GREP=grep
 [ -x "$(which fd)" ] && FIND=fd || FIND=find
 
 todo_list(){
@@ -25,11 +25,11 @@ todo_edit(){
 # }
 
 tag_search(){
-  todo_list | $GREP "#$1"
+  $GREP "\- \[ \].*#$1"
 }
 
 tag_list(){
-  todo_list | $GREP -o "#\S*[a-z]" | sort -u
+  $GREP "\- \[.*\]" | $GREP -o "#\S*[a-z]" | sort -u
 }
 
 [ "$#" = 0 ] && todo_list
