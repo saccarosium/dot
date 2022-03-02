@@ -1,20 +1,21 @@
 #!/bin/sh
 
-[ -x "$(which rg)" ] && GREP="rg --color never" || GREP=grep
-[ -x "$(which fd)" ] && FIND=fd || FIND=find
+# [ -x "$(which rg)" ] && GREP="rg --color never" || GREP=grep
+# [ -x "$(which fd)" ] && FIND=fd || FIND=find
+alias="rg --pre-glob *.md"
 
 todo_list(){
-  $GREP "\- \[ \]" ./*
+  rg "\- \[ \]" ./*
 }
 
 todo_edit(){
-  [ "$FIND" = "fd" ] && FIND="fd --max-depth 1"
-  $FIND TODO.md | xargs "$EDITOR"
+  find TODO.md | xargs "$EDITOR"
 }
 
-# scheduled(){
-#   $GREP "due:<.*>" ./*
-# }
+scheduled(){
+  local date=$(date +%Y)
+  todo_list | rg --pre-glob "$date" "$PROJECTS" "$REPOS"
+}
 #
 # scheduled_today(){
 #   $GREP "due:<$(date +%d-%m-%Y)>" ./*
@@ -36,7 +37,7 @@ tag_list(){
 [ "$1" = t ] && tag_search "$2"
 [ "$1" = tl ] && tag_list
 [ "$1" = e ] && todo_edit
-# [ "$1" = s ] && scheduled
+[ "$1" = s ] && scheduled
 # [ "$1" = today ] && scheduled_today
 # [ "$1" = tommorow ] && scheduled_tommorow
 

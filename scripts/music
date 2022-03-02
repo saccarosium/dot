@@ -2,6 +2,6 @@
 
 while : 
 do
-  find "$HOME/Music/Music Library/" -maxdepth 3 | fzf | xargs -I {} mpv {}
+  find "$HOME/Music/Music Library/" -maxdepth 2 | fzf | xargs -I {} mpv {}
   test $? -gt 128 && break
 done

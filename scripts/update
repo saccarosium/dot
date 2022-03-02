@@ -20,7 +20,7 @@ fi
 
 # nvim
 printf '%b\n' "\033[1m""updating nvim...""\033[0m"
-nvim -c "PlugUpdate | PlugUpgrade | q! | q!"
+nvim -c "PaqSync | q!"
 
 # Tex
 printf '%b\n' "\033[1m""updating TeX...""\033[0m"

@@ -84,6 +84,6 @@ set keymap vi-insert
 Control-l: clear-screen
 "\C-p": history-search-backward
 "\C-n": history-search-forward
-"\C-b": "tmux-sessionaizer\n"
+"\C-f": "tmux-sessionaizer\n"
 $endif
 
