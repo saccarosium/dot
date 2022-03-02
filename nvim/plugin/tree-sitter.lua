@@ -19,4 +19,20 @@ require'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = {false},
   },
+  refactor = {
+    highlight_definitions = {
+      enable = true,
+      -- Set to false if you have an `updatetime` of ~100.
+      clear_on_cursor_move = true,
+    },
+    -- highlight_current_scope = { 
+    --   enable = true 
+    -- },
+    smart_rename = {
+      enable = true,
+      keymaps = {
+        smart_rename = "<C-x>r",
+      },
+    },
+  },
 }
