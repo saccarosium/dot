@@ -133,8 +133,6 @@ schemes:
       cyan: '#88c0d0'
       white: '#e5e9f0'
     bright:
-      black: '#4c566a'
-      red: '#bf616a'
       green: '#a3be8c'
       yellow: '#ebcb8b'
       blue: '#81a1c1'
