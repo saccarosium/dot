@@ -15,7 +15,7 @@ debian:
 build_env:
 	$(LN) $(PWD)/nvim $(XDG_CONFIG)
 	$(LN) $(PWD)/alacritty $(XDG_CONFIG)
-	$(LN) $(PWD)/emacs $(XDG_CONFIG)
+	$(LN) $(PWD)/lf $(XDG_CONFIG)
 	$(LN) $(PWD)/tmux $(XDG_CONFIG)
 	$(LN) $(PWD)/htop $(XDG_CONFIG)
 	$(LN) $(PWD)/git $(XDG_CONFIG)
