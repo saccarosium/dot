@@ -1,21 +1,22 @@
 require "paq" {
   -- Plug 'arcticicestudio/nord-vim';
-  { "saccarosium/nord-vim",  branch="contrib" };
-  "neovim/nvim-lspconfig";
+  "savq/paq-nvim";
+  { "saccarosium/nord-vim",  branch = "contrib" };
+  "neovim/nvim-lspconfig"; 
   { "nvim-treesitter/nvim-treesitter", vim.fn["TSUpdate"] };
   "nvim-treesitter/nvim-treesitter-refactor";
   "hrsh7th/nvim-cmp";
   "hrsh7th/cmp-buffer";
   "hrsh7th/cmp-nvim-lsp";
-  "nvim-lua/plenary.nvim";
-  "nvim-telescope/telescope.nvim";
-  { "nvim-telescope/telescope-fzf-native.nvim",  run="make" };
   "tpope/vim-fugitive";
   "norcalli/nvim-colorizer.lua";
   "kblin/vim-fountain";
   "numToStr/Comment.nvim";
+  "junegunn/fzf";
+  "junegunn/fzf.vim";
 }
  
+-- For dark theme
 vim.g.nord_bold_vertical_split_line = 1
 vim.g.nord_bold = 1
 vim.cmd('colorscheme nord')
@@ -45,13 +46,13 @@ map('n', ',l', ':lnext<CR>')
 map('n', ',,b', ':bprevious<CR>')
 map('n', ',b', ':bnext<CR>')
 -- Telescope
-map('n', '<leader>ff', ':Telescope find_files<CR>')
-map('n', '<leader>fb', ':Telescope buffers<CR>')
-map('n', '<leader>fl', ':Telescope current_buffer_fuzzy_find<CR>')
-map('n', '<leader>f.', ':lua require("telescope.builtin").find_files({ prompt_title = "< DotFiles >", cwd = vim.env.DOTFILES, })<CR>')
-map('n', '<leader>fn', ':lua require("telescope.builtin").find_files({ prompt_title = "< Notes >", cwd = vim.env.NOTES, })<CR>')
-map('n', '<leader>fw', ':Telescope live_grep<CR>')
-map('n', '<C-h>', ':Telescope help_tags<CR>')
+map('n', '<leader>ff', ':Files<CR>')
+map('n', '<leader>fb', ':Buffers<CR>')
+map('n', '<leader>fl', ':BLines<CR>')
+map('n', '<leader>f.', ':Files $DOTFILES<CR>')
+map('n', '<leader>fn', ':Files $NOTES<CR>')
+map('n', '<leader>fw', ':Rg<CR>')
+map('n', '<C-h>', ':Helptags<CR>')
 -- Git
 map('n', '<leader>gs', ':vert G<CR>')
 map('n', '<leader>gl', ':Commits<CR>')
@@ -62,6 +63,7 @@ map('n', '<leader>gj', ':diffget //3<CR>')
 map('n', '<leader>gf', ':diffget //2<CR>')
 map('n', '<leader>gb', ':!git branch<CR>')
 
+map('n', '<C-f>', ':silent !tmux neww tmux-sessionaizer<CR>')
 -- Setting
 vim.g.markdown_folding = 1
 vim.g.markdown_fenced_languages = {'c', 'python', 'ruby', 'vim'}
