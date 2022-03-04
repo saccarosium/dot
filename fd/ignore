@@ -1,0 +1,5 @@
+**/.git/**
+**/.cache/**
+*.json
+*.rar
+*.tar.gz

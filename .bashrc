@@ -34,15 +34,19 @@ export NOTES="$SYNC/notes"
 export EDITOR="nvim"
 export MANPAGER="less"
 export CLICOLOR=1
-export LSCOLORS="excxcxdxfxexexaxaxExEx"
 export LESSHISTFILE=-
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
-export FZF_DEFAULT_OPTS='-m'
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l ""'
+export BAT_THEME="Nord"
+export FZF_DEFAULT_OPTS='-m --bind=ctrl-a:toggle-all'
+export FZF_DEFAULT_COMMAND='fd . --hidden'
 export LANG="en_US.UTF-8"
-export PATH="$SCRIPTS:/usr/local/opt/llvm/bin:$REPOS:/usr/local/bin:/usr/local/opt:/opt/local/bin:/opt/local/sbin:$XDG_DATA_HOME/npm/bin:$PATH" 
+export NNN_OPTS="QHed"
+BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
+export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
+export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
+export PATH="$SCRIPTS:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/llvm/bin:$REPOS:/usr/local/bin:/usr/local/opt:/opt/local/bin:/opt/local/sbin:$XDG_DATA_HOME/npm/bin:$PATH" 
 
 # ------------------------------ cdpath ------------------------------
 
@@ -87,6 +91,7 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias vi='nvim'
+alias ls='ls --color'
 alias rm='trash'
 
 # -------------------------------- completion ------------------------
