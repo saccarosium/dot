@@ -1,5 +1,0 @@
-"\C-x":"cdg\n"
-"\C-t":"tmux-attach\n"
-
-set show-all-if-ambiguous on
-set completion-ignore-case on
