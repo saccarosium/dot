@@ -18,6 +18,7 @@ build_env:
 	$(LN) $(PWD)/lf $(XDG_CONFIG)
 	$(LN) $(PWD)/tmux $(XDG_CONFIG)
 	$(LN) $(PWD)/htop $(XDG_CONFIG)
+	$(LN) $(PWD)/fd $(XDG_CONFIG)
 	$(LN) $(PWD)/git $(XDG_CONFIG)
 	$(LN) $(PWD)/.bashrc $(HOME)/.bashrc
 	$(LN) $(PWD)/.profile $(HOME)/.profile

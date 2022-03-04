@@ -2,7 +2,6 @@
 
 # [ -x "$(which rg)" ] && GREP="rg --color never" || GREP=grep
 # [ -x "$(which fd)" ] && FIND=fd || FIND=find
-alias="rg --pre-glob *.md"
 
 todo_list(){
   rg "\- \[ \]" ./*
@@ -14,7 +13,7 @@ todo_edit(){
 
 scheduled(){
   local date=$(date +%Y)
-  todo_list | rg --pre-glob "$date" "$PROJECTS" "$REPOS"
+  todo_list | rg "$date" "$PROJECTS" "$REPOS"
 }
 #
 # scheduled_today(){
@@ -26,11 +25,11 @@ scheduled(){
 # }
 
 tag_search(){
-  $GREP "\- \[ \].*#$1"
+  rg "\- \[ \].*#$1"
 }
 
 tag_list(){
-  $GREP "\- \[.*\]" | $GREP -o "#\S*[a-z]" | sort -u
+  rg "\- \[.*\]" | rg -o "#\S*[a-z]" | sort -u
 }
 
 [ "$#" = 0 ] && todo_list
