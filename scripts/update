@@ -13,14 +13,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew autoremove
   brew cleanup
 
-  # cleanup the trash
-  printf '%b\n' "\033[1m""cleaning up trash...""\035[0m"
-  trash -e
+  # cleanup the mac
+  printf '%b\n' "\033[1m""cleaning up mac...""\035[0m"
+  mac-cleanup
 fi
 
 # nvim
 printf '%b\n' "\033[1m""updating nvim...""\033[0m"
-nvim -c "PaqSync | q!"
+nvim -c "PaqSync"
 
 # Tex
 printf '%b\n' "\033[1m""updating TeX...""\033[0m"

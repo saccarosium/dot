@@ -10,6 +10,7 @@ require "paq" {
   "hrsh7th/cmp-nvim-lsp";
   "tpope/vim-fugitive";
   "norcalli/nvim-colorizer.lua";
+  "justinmk/vim-dirvish";
   "kblin/vim-fountain";
   "numToStr/Comment.nvim";
   "junegunn/fzf";
@@ -51,6 +52,7 @@ map('n', '<leader>fb', ':Buffers<CR>')
 map('n', '<leader>fl', ':BLines<CR>')
 map('n', '<leader>f.', ':Files $DOTFILES<CR>')
 map('n', '<leader>fn', ':Files $NOTES<CR>')
+map('n', '<leader>st', ':sp<bar>resize15<bar>term<CR>')
 map('n', '<leader>fw', ':Rg<CR>')
 map('n', '<C-h>', ':Helptags<CR>')
 -- Git
@@ -64,6 +66,9 @@ map('n', '<leader>gf', ':diffget //2<CR>')
 map('n', '<leader>gb', ':!git branch<CR>')
 
 map('n', '<C-f>', ':silent !tmux neww tmux-sessionaizer<CR>')
+
 -- Setting
 vim.g.markdown_folding = 1
 vim.g.markdown_fenced_languages = {'c', 'python', 'ruby', 'vim'}
+vim.g.loaded_netrw       = 1
+vim.g.loaded_netrwPlugin = 1

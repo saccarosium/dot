@@ -11,6 +11,7 @@ set termguicolors
 set conceallevel=3
 set nowrap
 set cursorline
+set splitright
 set signcolumn=yes
 set foldlevelstart=99 foldmethod=manual
 filetype plugin indent on
