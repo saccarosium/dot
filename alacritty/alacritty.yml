@@ -605,6 +605,3 @@ key_bindings:
   - { key: L,           mods: Command,     chars: "\x1bl"}
   - { key: H,           mods: Command,     chars: "\x1bh"}
   - { key: I,           mods: Command,     chars: "\x1bi"}
-
-
-

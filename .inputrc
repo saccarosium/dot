@@ -86,4 +86,3 @@ Control-l: clear-screen
 "\C-n": history-search-forward
 "\C-f": "tmux-sessionaizer\n"
 $endif
-
