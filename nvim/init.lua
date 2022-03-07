@@ -1,3 +1,28 @@
+local g = vim.g
+
+g.nvim_tree_indent_markers = 1
+g.nvim_tree_git_hl = 1
+g.nvim_tree_special_files = {}
+vim.cmd [[
+  let g:nvim_tree_show_icons = {
+    \ 'git': 1,
+    \ 'folders': 0,
+    \ 'files': 0,
+    \ 'folder_arrows': 0,
+    \ }
+  let g:nvim_tree_icons = {
+    \ 'git': {
+    \   'unstaged': "M",
+    \   'staged': "",
+    \   'unmerged': "",
+    \   'renamed': "R",
+    \   'untracked': "U",
+    \   'deleted': "D",
+    \   'ignored': ""
+    \   },
+    \ }
+]]
+
 require "paq" {
   -- Plug 'arcticicestudio/nord-vim';
   "savq/paq-nvim";
@@ -10,7 +35,7 @@ require "paq" {
   "hrsh7th/cmp-nvim-lsp";
   "tpope/vim-fugitive";
   "norcalli/nvim-colorizer.lua";
-  "justinmk/vim-dirvish";
+  "kyazdani42/nvim-tree.lua";
   "kblin/vim-fountain";
   "numToStr/Comment.nvim";
   "junegunn/fzf";
@@ -18,12 +43,12 @@ require "paq" {
 }
  
 -- For dark theme
-vim.g.nord_bold_vertical_split_line = 1
-vim.g.nord_bold = 1
+g.nord_bold_vertical_split_line = 1
+g.nord_bold = 1
 vim.cmd('colorscheme nord')
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = "<leader>l" 
+g.mapleader = ' '
+g.maplocalleader = "<leader>l" 
 local function map(mode, lhs, rhs, opts)
   local options = {noremap = true}
   if opts then options = vim.tbl_extend('force', options, opts) end
@@ -63,12 +88,13 @@ map('n', '<leader>gp', ':G push')
 map('n', '<leader>gc', ':G checkout')
 map('n', '<leader>gj', ':diffget //3<CR>')
 map('n', '<leader>gf', ':diffget //2<CR>')
-map('n', '<leader>gb', ':!git branch<CR>')
+map('n', '<leader>gb', ':echomsg FugitiveStatusline()<CR>')
 
 map('n', '<C-f>', ':silent !tmux neww tmux-sessionaizer<CR>')
+map('n', '<leader>j', ':NvimTreeToggle<CR>')
 
 -- Setting
-vim.g.markdown_folding = 1
-vim.g.markdown_fenced_languages = {'c', 'python', 'ruby', 'vim'}
-vim.g.loaded_netrw       = 1
-vim.g.loaded_netrwPlugin = 1
+g.markdown_folding = 1
+g.markdown_fenced_languages = {'c', 'python', 'ruby', 'vim'}
+g.loaded_netrw       = 1
+g.loaded_netrwPlugin = 1
