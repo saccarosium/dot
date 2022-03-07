@@ -15,5 +15,6 @@ set cursorline
 set splitright
 set signcolumn=yes
 set foldlevelstart=99 foldmethod=manual
+set spelllang=en_us,en_uk
 set termguicolors
 filetype plugin indent on

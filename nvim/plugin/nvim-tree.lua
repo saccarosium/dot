@@ -20,9 +20,9 @@ require'nvim-tree'.setup {
     enable = false,
     icons = {
       hint = "",
-      info = "",
+      info = "I",
       warning = "",
-      error = "",
+      error = "E",
     }
   },
   update_focused_file = {

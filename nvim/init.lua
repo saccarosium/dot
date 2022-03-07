@@ -48,7 +48,6 @@ g.nord_bold = 1
 vim.cmd('colorscheme nord')
 
 g.mapleader = ' '
-g.maplocalleader = "<leader>l" 
 local function map(mode, lhs, rhs, opts)
   local options = {noremap = true}
   if opts then options = vim.tbl_extend('force', options, opts) end
@@ -72,18 +71,16 @@ map('n', ',l', ':lnext<CR>')
 map('n', ',,b', ':bprevious<CR>')
 map('n', ',b', ':bnext<CR>')
 -- Telescope
-map('n', '<leader>ff', ':Files<CR>')
+map('n', '<C-p>', ':Files<CR>')
 map('n', '<leader>fb', ':Buffers<CR>')
 map('n', '<leader>fl', ':BLines<CR>')
 map('n', '<leader>f.', ':Files $DOTFILES<CR>')
 map('n', '<leader>fn', ':Files $NOTES<CR>')
-map('n', '<leader>st', ':sp<bar>resize15<bar>term<CR>')
 map('n', '<leader>fw', ':Rg<CR>')
 map('n', '<C-h>', ':Helptags<CR>')
 -- Git
 map('n', '<leader>gs', ':vert G<CR>')
 map('n', '<leader>gl', ':Commits<CR>')
-map('n', '<leader>gd', ':vert G diff<CR>')
 map('n', '<leader>gp', ':G push')
 map('n', '<leader>gc', ':G checkout')
 map('n', '<leader>gj', ':diffget //3<CR>')
@@ -92,6 +89,8 @@ map('n', '<leader>gb', ':echomsg FugitiveStatusline()<CR>')
 
 map('n', '<C-f>', ':silent !tmux neww tmux-sessionaizer<CR>')
 map('n', '<leader>j', ':NvimTreeToggle<CR>')
+map('n', '<C-j>', ':NvimTreeFocus<CR>')
+map('n', '<F5>', ':set spell!<CR>')
 
 -- Setting
 g.markdown_folding = 1
