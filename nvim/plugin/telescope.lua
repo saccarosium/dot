@@ -1,5 +1,5 @@
 -- require('telescope').setup {
---   defaults = require('telescope.themes').get_dropdown{
+--   defaults = {
 --     mappings = {
 --       i = {
 --         -- map actions.which_key to <C-h> (default: <C-/>)
@@ -12,28 +12,9 @@
 --     }
 --   },
 --   picker = {
---     find_files = {
---       hidden = true,
---       file_ignore_patterns = {
---         "*/.git/*",
---         "*/ios/*",
---         "*/android/*",
---       }
---     }
---   },
---   extensions = {
---     fzf = {
---       fuzzy = true,                    -- false will only do exact matching
---       override_generic_sorter = true,  -- override the generic sorter
---       override_file_sorter = true,     -- override the file sorter
---       case_mode = "respect_case",        -- or "ignore_case" or "respect_case"
---                                        -- the default case_mode is "smart_case"
---     }
 --   },
 -- }
---
--- require('telescope').load_extension('fzf')
---
+
 -- map('n', '<leader>ff', ':Telescope find_files<CR>')
 -- map('n', '<leader>fb', ':Telescope buffers<CR>')
 -- map('n', '<leader>fl', ':Telescope current_buffer_fuzzy_find<CR>')

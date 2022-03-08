@@ -1,9 +1,10 @@
 local g = vim.g
+local cmd = vim.cmd
 
 g.nvim_tree_indent_markers = 1
 g.nvim_tree_git_hl = 1
 g.nvim_tree_special_files = {}
-vim.cmd [[
+cmd [[
   let g:nvim_tree_show_icons = {
     \ 'git': 1,
     \ 'folders': 0,
@@ -45,7 +46,7 @@ require "paq" {
 -- For dark theme
 g.nord_bold_vertical_split_line = 1
 g.nord_bold = 1
-vim.cmd('colorscheme nord')
+cmd('colorscheme nord')
 
 g.mapleader = ' '
 local function map(mode, lhs, rhs, opts)
@@ -70,10 +71,17 @@ map('n', ',,l', ':lprevious<CR>')
 map('n', ',l', ':lnext<CR>')
 map('n', ',,b', ':bprevious<CR>')
 map('n', ',b', ':bnext<CR>')
--- Telescope
+-- Search
+-- map('n', '<C-p>', ':Telescope fd<CR>')
+-- map('n', '<C-n>', ':Telescope buffers<CR>')
+-- map('n', '<C-s>', ':Telescope current_buffer_fuzzy_find<CR>')
+-- map('n', '<leader>f.', ':lua require("telescope.builtin").fd({ prompt_title = "< DotFiles >", cwd = vim.env.DOTFILES, })<CR>')
+-- map('n', '<leader>fn', ':lua require("telescope.builtin").fd({ prompt_title = "< Notes >", cwd = vim.env.NOTES, })<CR>')
+-- map('n', '<leader>fw', ':Telescope live_grep<CR>')
+-- map('n', '<C-h>', ':Telescope help_tags<CR>')
 map('n', '<C-p>', ':Files<CR>')
-map('n', '<leader>fb', ':Buffers<CR>')
-map('n', '<leader>fl', ':BLines<CR>')
+map('n', '<C-n>', ':Buffers<CR>')
+map('n', '<C-s>', ':BLines<CR>')
 map('n', '<leader>f.', ':Files $DOTFILES<CR>')
 map('n', '<leader>fn', ':Files $NOTES<CR>')
 map('n', '<leader>fw', ':Rg<CR>')
@@ -82,6 +90,7 @@ map('n', '<C-h>', ':Helptags<CR>')
 map('n', '<leader>gs', ':vert G<CR>')
 map('n', '<leader>gl', ':Commits<CR>')
 map('n', '<leader>gp', ':G push')
+map('n', '<leader>gd', ':G diff<CR>')
 map('n', '<leader>gc', ':G checkout')
 map('n', '<leader>gj', ':diffget //3<CR>')
 map('n', '<leader>gf', ':diffget //2<CR>')
@@ -97,3 +106,4 @@ g.markdown_folding = 1
 g.markdown_fenced_languages = {'c', 'python', 'ruby', 'vim'}
 g.loaded_netrw       = 1
 g.loaded_netrwPlugin = 1
+g.ctrlp_user_command = 'fd . --hidden'

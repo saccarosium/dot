@@ -39,7 +39,7 @@ export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
 export BAT_THEME="Nord"
-export FZF_DEFAULT_OPTS='-m --bind=ctrl-a:toggle-all'
+export FZF_DEFAULT_OPTS='-m --bind=ctrl-a:toggle-all --print-query'
 export FZF_DEFAULT_COMMAND='fd . --hidden'
 export LANG="en_US.UTF-8"
 export NNN_OPTS="QHed"
