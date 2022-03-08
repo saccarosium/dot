@@ -39,6 +39,9 @@ require "paq" {
   "kyazdani42/nvim-tree.lua";
   "kblin/vim-fountain";
   "numToStr/Comment.nvim";
+  "akinsho/toggleterm.nvim";
+  "nvim-lua/plenary.nvim";
+  "lewis6991/gitsigns.nvim";
   "junegunn/fzf";
   "junegunn/fzf.vim";
 }
@@ -72,33 +75,24 @@ map('n', ',l', ':lnext<CR>')
 map('n', ',,b', ':bprevious<CR>')
 map('n', ',b', ':bnext<CR>')
 -- Search
--- map('n', '<C-p>', ':Telescope fd<CR>')
--- map('n', '<C-n>', ':Telescope buffers<CR>')
--- map('n', '<C-s>', ':Telescope current_buffer_fuzzy_find<CR>')
--- map('n', '<leader>f.', ':lua require("telescope.builtin").fd({ prompt_title = "< DotFiles >", cwd = vim.env.DOTFILES, })<CR>')
--- map('n', '<leader>fn', ':lua require("telescope.builtin").fd({ prompt_title = "< Notes >", cwd = vim.env.NOTES, })<CR>')
--- map('n', '<leader>fw', ':Telescope live_grep<CR>')
--- map('n', '<C-h>', ':Telescope help_tags<CR>')
 map('n', '<C-p>', ':Files<CR>')
-map('n', '<C-n>', ':Buffers<CR>')
-map('n', '<C-s>', ':BLines<CR>')
+map('n', '<C-x>b', ':Buffers<CR>')
+map('n', '<leader>fl', ':BLines<CR>')
 map('n', '<leader>f.', ':Files $DOTFILES<CR>')
 map('n', '<leader>fn', ':Files $NOTES<CR>')
 map('n', '<leader>fw', ':Rg<CR>')
 map('n', '<C-h>', ':Helptags<CR>')
+map('n', '<M-x>', ':Commands<CR>')
 -- Git
 map('n', '<leader>gs', ':vert G<CR>')
 map('n', '<leader>gl', ':Commits<CR>')
 map('n', '<leader>gp', ':G push')
 map('n', '<leader>gd', ':G diff<CR>')
 map('n', '<leader>gc', ':G checkout')
-map('n', '<leader>gj', ':diffget //3<CR>')
-map('n', '<leader>gf', ':diffget //2<CR>')
 map('n', '<leader>gb', ':echomsg FugitiveStatusline()<CR>')
 
 map('n', '<C-f>', ':silent !tmux neww tmux-sessionaizer<CR>')
-map('n', '<leader>j', ':NvimTreeToggle<CR>')
-map('n', '<C-j>', ':NvimTreeFocus<CR>')
+map('n', '<C-j>', ':NvimTreeToggle<CR>')
 map('n', '<F5>', ':set spell!<CR>')
 
 -- Setting
@@ -106,4 +100,3 @@ g.markdown_folding = 1
 g.markdown_fenced_languages = {'c', 'python', 'ruby', 'vim'}
 g.loaded_netrw       = 1
 g.loaded_netrwPlugin = 1
-g.ctrlp_user_command = 'fd . --hidden'

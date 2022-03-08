@@ -1,11 +1,9 @@
 set path+=**
-set laststatus=0
-set noruler
+set laststatus=0 noshowmode
 set number relativenumber
 set mouse=a guicursor=
 set ignorecase smartcase
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-set noshowmode
 set nobackup
 set textwidth=80
 set termguicolors
@@ -17,4 +15,3 @@ set signcolumn=yes
 set foldlevelstart=99 foldmethod=manual
 set spelllang=en_us,en_uk
 set termguicolors
-filetype plugin indent on
