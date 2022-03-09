@@ -38,7 +38,7 @@ export LESSHISTFILE=-
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
-export BAT_THEME="Nord"
+export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 export FZF_DEFAULT_OPTS='-m --bind=ctrl-a:toggle-all'
 export FZF_DEFAULT_COMMAND='fd . --hidden'
 export LANG="en_US.UTF-8"
@@ -46,7 +46,7 @@ export NNN_OPTS="QHed"
 BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
-export PATH="$SCRIPTS:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/llvm/bin:$REPOS:/usr/local/bin:/usr/local/opt:/opt/local/bin:/opt/local/sbin:$XDG_DATA_HOME/npm/bin:$PATH" 
+export PATH="$SCRIPTS:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/llvm/bin:$REPOS:/usr/local/bin:/usr/local/opt:/opt/local/bin:/opt/local/sbin:$PATH" 
 
 # ------------------------------ cdpath ------------------------------
 
@@ -59,8 +59,6 @@ HISTSIZE=50
 HISTFILE="$XDG_CACHE_HOME/bash_history"
 
 # ------------------------------- prompt -----------------------------
-
-PROMPT_LONG=20
 
 __ps1() {
     b='\[\e[30m\]' 
@@ -92,7 +90,6 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias vi='nvim'
 alias ls='ls --color'
-alias rm='trash'
 
 # -------------------------------- completion ------------------------
 
