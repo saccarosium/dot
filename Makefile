@@ -1,41 +1,34 @@
 XDG_CONFIG = $(HOME)/.config
 LN = ln -vsf
-PACKAGES = $(shell cat data/packages)
-PACKAGES_OSX = $(shell cat data/packages-osx)
 
 osx:
-	brew install $(PACKAGES)
-	brew install $(PACKAGES_OSX)
-	/bin/sh $(PWD)/scripts/plist-osx.sh
 
 debian:
-	sudo apt update
-	sudo apt install -y $(PACKAGES)
 
-build_env:
+build_env: build_zsh build_editors build_terminal
+
+build_bash: clean
+	$(LN) $(PWD)/bash/.bashrc $(HOME)
+	$(LN) $(PWD)/bash/.profile $(HOME)
+	$(LN) $(PWD)/bash/.inputrc $(HOME)
+
+build_zsh: clean
+	test -d $(XDG_CONFIG)/zsh || mkdir $(XDG_CONFIG)/zsh
+	$(LN) $(PWD)/zsh/.zshrc $(XDG_CONFIG)/zsh
+	$(LN) $(PWD)/zsh/.zshenv $(HOME)
+
+build_editors:
 	$(LN) $(PWD)/nvim $(XDG_CONFIG)
+	$(LN) $(PWD)/emacs $(XDG_CONFIG)
+	$(LN) $(PWD)/.vimrc $(HOME)/.vimrc
+
+build_terminal:
 	$(LN) $(PWD)/alacritty $(XDG_CONFIG)
-	$(LN) $(PWD)/lf $(XDG_CONFIG)
 	$(LN) $(PWD)/tmux $(XDG_CONFIG)
 	$(LN) $(PWD)/htop $(XDG_CONFIG)
 	$(LN) $(PWD)/fd $(XDG_CONFIG)
 	$(LN) $(PWD)/git $(XDG_CONFIG)
-	$(LN) $(PWD)/.bashrc $(HOME)/.bashrc
-	$(LN) $(PWD)/.profile $(HOME)/.profile
-	$(LN) $(PWD)/.vimrc $(HOME)/.vimrc
 	$(LN) $(PWD)/.npmrc $(HOME)/.npmrc
-	$(LN) $(PWD)/.inputrc $(HOME)/.inputrc
 
-remove_env:
-	rm $(XDG_CONFIG)/htop
-	rm $(XDG_CONFIG)/nvim
-	rm $(XDG_CONFIG)/alacritty
-	rm $(XDG_CONFIG)/emacs
-	rm $(XDG_CONFIG)/tmux
-	rm $(XDG_CONFIG)/git
-	rm $(HOME)/.bashrc
-	rm $(HOME)/.profile
-	rm $(HOME)/.vimrc
-	rm $(HOME)/.npmrc
-	rm $(HOME)/.inputrc
-
+clean:
+	/bin/sh $(PWD)/scripts/clean-home.sh

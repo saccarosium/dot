@@ -1,13 +1,7 @@
 #!/bin/bash
 
-os_check() {
-   [[ "$OSTYPE" == "linux-gnu"* ]] && echo "Linux"
-   [[ "$OSTYPE" == "darwin"* ]] && echo "MacOS"
-}
 
-OS=$(os_check)
-
-if [[ "$OS" == "MacOS" ]]; then
+if [[ "$OSTYPE" == "" ]]; then
 
   brew=(
     vim
@@ -89,4 +83,3 @@ if [[ "$OS" == "MacOS" ]]; then
   killall Photos
 
 fi
-

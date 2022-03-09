@@ -2,7 +2,7 @@ local g = vim.g
 local cmd = vim.cmd
 
 g.nvim_tree_indent_markers = 1
-g.nvim_tree_git_hl = 1
+g.nvim_tree_git_hl = 0
 g.nvim_tree_special_files = {}
 cmd [[
   let g:nvim_tree_show_icons = {
@@ -68,14 +68,10 @@ map('n', '<leader>oc', ':e $DOTFILES/nvim/init.*<CR>')
 map('n', '<leader>os', ':vsplit $SYNC/scratchpad.md<CR>')
 map('n', '<leader>ot', ':vsplit ./TODO.md<CR>')
 -- Quickjumping
-map('n', ',,q', ':cprevious<CR>')
-map('n', ',q', ':cnext<CR>')
-map('n', ',,l', ':lprevious<CR>')
-map('n', ',l', ':lnext<CR>')
-map('n', ',,b', ':bprevious<CR>')
-map('n', ',b', ':bnext<CR>')
+map('n', '<C-p>', ':cprevious<CR>')
+map('n', '<C-n>', ':cnext<CR>')
 -- Search
-map('n', '<C-p>', ':Files<CR>')
+map('n', '<leader><space>', ':Files<CR>')
 map('n', '<C-x>b', ':Buffers<CR>')
 map('n', '<leader>fl', ':BLines<CR>')
 map('n', '<leader>f.', ':Files $DOTFILES<CR>')
@@ -86,13 +82,13 @@ map('n', '<M-x>', ':Commands<CR>')
 -- Git
 map('n', '<leader>gs', ':vert G<CR>')
 map('n', '<leader>gl', ':Commits<CR>')
-map('n', '<leader>gp', ':G push')
+map('n', '<leader>gp', ':G push ')
 map('n', '<leader>gd', ':G diff<CR>')
 map('n', '<leader>gc', ':G checkout')
 map('n', '<leader>gb', ':echomsg FugitiveStatusline()<CR>')
 
 map('n', '<C-f>', ':silent !tmux neww tmux-sessionaizer<CR>')
-map('n', '<C-j>', ':NvimTreeToggle<CR>')
+map('n', '<leader>j', ':NvimTreeToggle<CR>')
 map('n', '<F5>', ':set spell!<CR>')
 
 -- Setting
