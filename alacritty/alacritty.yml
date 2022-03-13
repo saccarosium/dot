@@ -50,8 +50,7 @@ font:
 schemes:
   dracula: &Dracula
     primary:
-      background: '#191622'
-      #background: '#282a36'
+      background: '#282a36'
       foreground: '#f8f8f2'
       bright_foreground: '#ffffff'
     cursor:
@@ -84,7 +83,7 @@ schemes:
       text: CellForeground
       background: '#44475a'
     normal:
-      black: '#191622'
+      black: '#282a36'
       red: '#ff5555'
       green: '#50fa7b'
       yellow: '#f1fa8c'
@@ -602,6 +601,4 @@ key_bindings:
   - { key: W,           mods: Command,     chars: "\x1bw"}
   - { key: T,           mods: Command,     chars: "\x1bt"}
   - { key: X,           mods: Command,     chars: "\x1bx"}
-  - { key: L,           mods: Command,     chars: "\x1bl"}
-  - { key: H,           mods: Command,     chars: "\x1bh"}
-  - { key: I,           mods: Command,     chars: "\x1bi"}
+  - { key: K,           mods: Command,     chars: "\x1bk"}

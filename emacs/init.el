@@ -115,7 +115,7 @@
     (evil-define-key 'normal 'global (kbd "<leader>ot") #'ls/open-todolist)
     (evil-define-key 'normal 'global (kbd "<leader>SPC") 'find-file)
     (evil-define-key 'normal 'global (kbd "<leader>fn") #'deft-find-file)
-    (evil-define-key 'normal 'global (kbd "<leader>j") #'treemacs)
+    (evil-define-key 'normal 'global (kbd "<leader>fl") #'consult-line)
     (evil-define-key 'normal 'global (kbd "ZZ") 'delete-frame))
 
 
@@ -186,10 +186,6 @@
   (use-package nord-theme)
   (load-theme 'nord t)
 
-;;;; Hide Modeline
-  (use-package hide-mode-line
-      :defer t)
-
 ;;;; Relative number like in Vim
   (use-package linum-relative
       :hook ((prog-mode . linum-relative-mode)
@@ -209,7 +205,6 @@
               ".*.png"
               "\\*eldoc.*"
               "\\*Flymake\\ diagnostics.*"
-              "\\*Ledger\\ Report\\*"
               xref--xref-buffer-mode))
       (popper-mode +1)
       (popper-echo-mode +1))                ; For echo area hints
@@ -219,14 +214,10 @@
     :straight (:type built-in)
     :bind (("M-t" . tab-bar-new-tab)
            ("M-w" . tab-bar-close-tab))
-    :custom-face
-    (tab-bar ((t (:height 120 :background nil))))
-    (tab-bar-tab ((t (:weight bold :foreground ,fg :background nil :box ,bg ))))
-    (tab-bar-tab-inactive ((t (:foreground ,unfocus :background nil :box nil))))
     :config
     (setq tab-bar-close-button nil)
     (setq tab-bar-new-tab-choice "*scratch*")
-    (setq tab-bar-show 1)
+    (setq bar-show-tab 2)
     (setq tab-bar-select-tab-modifiers "meta")
     (setq tab-bar-border "120")
     (global-set-key (kbd "M-1") 'tab-bar-select-tab)
@@ -250,18 +241,15 @@
 
   (use-package vc
     :straight (:type built-in)
-    :bind ("C-x v d" . vc-dir-root)
+    :bind (("<leader>gs" . vc-dir-root)
+           ("<leader>gl" . vc-dir))
     :config
     (setq auto-revert-check-vc-info t)
     (setq vc-follow-symlinks t))
 
   (use-package dired
     :straight (:type built-in)
-    :bind (("C-x j" . dired-jump))
-    :custom-face
-    (dired-directory ((t (:foreground ,purple))))
-    (dired-header ((t (:underline t :bold t :foreground ,purple))))
-    (dired-symlink ((t (:foreground ,green))))
+    :bind (("<leader>j" . dired-jump))
     :config
     (evil-define-key 'normal dired-mode-map "h" 'dired-up-directory)
     (evil-define-key 'normal dired-mode-map "H" 'dired-omit-mode)
@@ -269,7 +257,7 @@
     (evil-define-key 'normal dired-mode-map "q" 'kill-current-buffer)
     (evil-define-key 'normal dired-mode-map "nf" 'dired-create-empty-file)
     (evil-define-key 'normal dired-mode-map "nd" 'dired-create-directory)
-    (evil-define-key 'normal dired-mode-map " " 'dired-mark)
+    (evil-define-key 'normal dired-mode-map "M" 'dired-mark)
     (setq dired-kill-when-opening-new-dired-buffer t)
     (put 'dired-find-alternate-file 'disabled nil)
     ;; always delete and copy recursively
@@ -328,9 +316,7 @@
     (marginalia-mode))
 
 ;;; Consult nice life's improvements
-  (use-package consult
-    :bind (("C-s" . consult-line)))
-
+  (use-package consult)
 
 ;; Cape for enhance the complete at point function
   (use-package cape
@@ -367,14 +353,13 @@
     :commands deft-find-file
     :config
     (setq deft-directory "~/Documents/nextcloud/notes/")
-    (setq deft-extensions '("md" "org"))
+    (setq deft-extensions '("md"))
     (setq deft-recursive t))
 
 ;;;; Markdown support in emacs
   (use-package markdown-mode
     :mode "\\.md\\'"
-    :hook ((markdown-mode . olivetti-mode)
-           (markdown-mode . hide-mode-line-mode))
+    :hook ((markdown-mode . olivetti-mode))
     :custom-face
     (markdown-bold-face ((t (:foreground ,fg :background nil :box nil :font "JetBrainsMonoExtraBold Nerd Font"))))
     (markdown-italic-face ((t (:slant italic :foreground ,fg :background nil :box nil))))
@@ -382,21 +367,6 @@
     (setq markdown-hide-urls t)
     (setq markdown-fontify-code-blocks-natively t)
     (setq markdown-command "Pandoc"))
-
-;;;; Org Mode
-  ;; (use-package org
-  ;;   :straight (:type built-in)
-  ;;   :hook ((org-mode . org-indent-mode)
-  ;;          (org-mode . hide-mode-line-mode)
-  ;;          (org-mode . olivetti-mode))
-  ;;   :defer t
-  ;;   :bind (("C-c SPC" . org-capture)
-  ;;          ("C-c o" . org-open-at-point)
-  ;;          ("C-c w" . org-refile)
-  ;;          ("C-c p" . org-priority)
-  ;;          ("C-c t" . org-todo))
-  ;;   :config
-  ;;   (require 'org-config))
 
 ;;;; LaTex
   (use-package auctex
@@ -412,17 +382,16 @@
   (use-package tree-sitter-langs
     :after tree-sitter)
   (use-package tree-sitter
-    :hook ((c-mode . tree-sitter-mode))
     :config
-    ;; (global-tree-sitter-mode)
+    (global-tree-sitter-mode)
     (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 
 ;;;; Eglot for lsp support
   (use-package eglot
     :hook ((c-mode . eglot-ensure)
            (c++-mode . eglot-ensure))
-    :bind (("C-c r" . eglot-rename)
-           ("C-c f" . eglot-format))
+    :bind (("C-x r" . eglot-rename)
+           ("C-x f" . eglot-format))
     :init
     (setq eglot-server-programs '((c-mode . ("clangd"))))
     (setq eglot-extend-to-xref t)
@@ -442,39 +411,3 @@
 ;;;; Preview HEX color
   (use-package rainbow-mode
     :defer t)
-
-;;;; Treemacs for file tree
-  (use-package treemacs
-    :config
-    (progn
-      (setq treemacs-display-in-side-window          t
-            treemacs-indentation                     2
-            treemacs-indentation-string              " "
-            treemacs-is-never-other-window           nil
-            treemacs-move-forward-on-expand          nil
-            treemacs-no-delete-other-windows         t
-            treemacs-project-follow-cleanup          nil
-            treemacs-persist-file                    (no-littering-expand-etc-file-name "treemacs/")
-            treemacs-position                        'left
-            treemacs-recenter-after-file-follow      nil
-            treemacs-recenter-after-tag-follow       nil
-            treemacs-recenter-after-project-jump     'always
-            treemacs-recenter-after-project-expand   'on-distance
-            treemacs-show-cursor                     nil
-            treemacs-show-hidden-files               t
-            treemacs-silent-filewatch                nil
-            treemacs-silent-refresh                  t
-            treemacs-sorting                         'alphabetic-asc
-            treemacs-select-when-already-in-treemacs 'move-back
-            treemacs-space-between-root-nodes        t
-            treemacs-wide-toggle-width               70
-            treemacs-width                           35
-            treemacs-width-increment                 1
-            treemacs-width-is-initially-locked       t
-            treemacs-no-png-images t)
-    (treemacs-follow-mode t)
-    (treemacs-filewatch-mode t)
-    (treemacs-fringe-indicator-mode 'always)
-    (treemacs-hide-gitignored-files-mode t)))
-
-    (use-package treemacs-evil)

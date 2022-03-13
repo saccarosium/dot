@@ -3,3 +3,9 @@
 *.json
 *.rar
 *.tar.gz
+*\.a.out
+*a.out
+*.o
+*.plist
+*.ttf
+*.otf
