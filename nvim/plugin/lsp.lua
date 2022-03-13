@@ -31,9 +31,6 @@ vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {
 local opts = { noremap=true, silent=true }
 local map = vim.api.nvim_set_keymap
 local bmap = vim.api.nvim_buf_set_keymap
-map('n', ',,d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-map('n', ',d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-map('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -43,6 +40,9 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
+  bmap(bufnr, 'n', ',,d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  bmap(bufnr, 'n', ',d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  bmap(bufnr, 'n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   bmap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   bmap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   bmap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
@@ -52,26 +52,20 @@ local on_attach = function(client, bufnr)
   bmap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   bmap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
   bmap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  -- map(bufnr, 'n', '<C-x>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  bmap(bufnr, 'n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   bmap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   bmap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   bmap(bufnr, 'n', '<C-x>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
+  
+local util = require 'lspconfig.util'
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { 'clangd' }
-for _, lsp in pairs(servers) do
-  require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      -- This will be the default in neovim 0.7+
-      debounce_text_changes = 150,
-    }
+lsp.ccls.setup {
+  on_attach = on_attach,
+  root_dir = util.root_pattern('.project', 'compile_commands.json', '.ccls', '.git'),
+  init_options = {
+    cache = {
+      directory = "/tmp/ccls";
+    };
   }
-end
-
-require'lspconfig'.ccls.setup{}
-
--- lsp.clangd.setup({})
--- lsp.vimls.setup({})
+}
