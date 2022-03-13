@@ -1,14 +1,15 @@
 #!/bin/sh
 
-USB_DRIVE="/Volumes/backup2"
+HDD="/Volumes/backup2"
 
 check(){
-    [ -e "$USB_DRIVE" ] || exit
-    rsync -av --dry-run "$HOME/.ssh/" "$USB_DRIVE/Ssh Key/" | less
-    rsync -av --dry-run "$HOME/Library/Keychains/" "$USB_DRIVE/Keychain/" | less
-    rsync -av --dry-run "$DOTFILES/" "$USB_DRIVE/Dotfiles/" | less
-    rsync -av --dry-run "$DOCUMENTS/" "$USB_DRIVE/Documents" | less
-    rsync -av --dry-run "$PROJECTS/" "$USB_DRIVE/Projects" | less
+    [ -e "$HDD" ] || exit
+    rsync -av --dry-run "$HOME/.ssh/" "$HDD/Ssh Key/" | less
+    rsync -av --dry-run "$HOME/Library/Keychains/" "$HDD/Keychain/" | less
+    rsync -av --dry-run "$DOTFILES/" "$HDD/Dotfiles/" | less
+    rsync -av --dry-run "$DOCUMENTS/" "$HDD/Documents" | less
+    rsync -av --dry-run "$PROJECTS/" "$HDD/Projects" | less
+    rsync -av --dry-run "$HOME/Pictures/" "$HDD/Pictures" | less
     printf '%b\n' "\033[1m""Do you wanna go over? [y|n]: ""\033[0m"; read -r ANSWER
     case "$ANSWER" in
          [yY])
@@ -22,10 +23,11 @@ check(){
 
 check || exit
 
-rsync -av --progress "$HOME/.ssh/" "$USB_DRIVE/Ssh Key/"
-rsync -av --progress "$HOME/Library/Keychains/" "$USB_DRIVE/Keychain/"
-rsync -av --progress "$DOTFILES/" "$USB_DRIVE/Dotfiles/"
-rsync -av --progress "$DOCUMENTS/" "$USB_DRIVE/Documents/"
-rsync -av --progress "$PROJECTS/" "$USB_DRIVE/Projects"
+rsync -av --progress "$HOME/.ssh/" "$HDD/Ssh Key/"
+rsync -av --progress "$HOME/Library/Keychains/" "$HDD/Keychain/"
+rsync -av --progress "$DOTFILES/" "$HDD/Dotfiles/"
+rsync -av --progress "$DOCUMENTS/" "$HDD/Documents/"
+rsync -av --progress "$PROJECTS/" "$HDD/Projects"
+rsync -av --progress "$HOME/Pictures/" "$HDD/Pictures"
 
 exit

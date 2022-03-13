@@ -37,6 +37,4 @@ tag_list(){
 [ "$1" = tl ] && tag_list
 [ "$1" = e ] && todo_edit
 [ "$1" = s ] && scheduled
-# [ "$1" = today ] && scheduled_today
-# [ "$1" = tommorow ] && scheduled_tommorow
 

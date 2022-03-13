@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then 
   selected="$1" && [[ "$selected" == '.' ]] && selected="$PWD"
 else
-  selected=$(find ~/Documents/nextcloud/Projects ~/Repos -mindepth 1 -maxdepth 1 -type d | peco)
+  selected=$(find ~/Documents/nextcloud/Projects ~/Repos -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 [[ -z "$selected" ]] && exit 0

@@ -4,37 +4,13 @@ alias uplower="tr '[:upper:]' '[:lower:]'"
 cd "$NOTES" || exit
 
 search_note(){
-    find . -name "*.md" | fzf | tee /tmp/lastnoteedit | xargs "$EDITOR"
-}
-
-resome_note(){
-    < /tmp/lastnoteedit xargs "$EDITOR"
-}
-
-new_note(){
-    printf "Title: " &&  read -r TITLE || exit
-    TITLE_FILE=$(printf "%s" "$TITLE" | uplower | sed "s/ /-/g")
-    "$EDITOR" -c ":.!echo '\# $TITLE'" "$TITLE_FILE.md"
+  local target=$(find . -name "*.md" | fzf | uplower)
+  [ -n "$target" ] && "$EDITOR" "$target" || exit 1
 }
 
 grep_note(){
     grep " " -R -I ./* | fzf | sed "s/:.*//g" | xargs -r "$EDITOR"
 }
 
-view_note(){
-    find . "$NOTES/pdfs" -name "*.pdf" | fzf |  xargs open
-}
-
-if [ "$#" = 0 ]; then
-    search_note || exit;
-else
-  while getopts "gnvr" opt; do
-    case "$opt" in
-        r) resome_note || exit;;
-        g) grep_note || exit;;
-        n) new_note || exit;;
-        v) view_note || exit;;
-        *) exit
-    esac
-  done
-fi
+[ "$#" = 0 ] && search_note
+[ "$1" = grep ] && grep_note
