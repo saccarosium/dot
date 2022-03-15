@@ -15,4 +15,11 @@ function M.search_dotfiles()
   })
 end
 
+function M.search_plugins()
+  require("telescope.builtin").find_files({ 
+    prompt_title = "< Plugins >", 
+    cwd = "~/.local/share/nvim/site/pack/paqs",  
+  })
+end
+
 return M

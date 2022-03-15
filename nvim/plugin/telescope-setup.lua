@@ -15,7 +15,14 @@ require('telescope').setup{
   pickers = {
     find_files = {
       hidden = true,
-    }
+    },
+    buffers = {
+      mappings = {
+        i = {
+          ["<C-x>"] = "delete_buffer",
+        },
+      },
+    },
   },
   extensions = {
     fzf = {

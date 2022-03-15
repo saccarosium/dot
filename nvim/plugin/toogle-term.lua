@@ -1,6 +1,6 @@
 require("toggleterm").setup{
   -- size can be a number or function which is passed the current terminal
-  size = 15,
+  size = 90,
   open_mapping = [[<c-t>]],
   -- on_open = fun(t: Terminal), -- function to run when the terminal opens
   -- on_close = fun(t: Terminal), -- function to run when the terminal closes
@@ -14,7 +14,7 @@ require("toggleterm").setup{
   insert_mappings = true, -- whether or not the open mapping applies in insert mode
   terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
   persist_size = true,
-  direction = 'float',
+  direction = 'vertical',
   close_on_exit = true, -- close the terminal window when the process exits
   shell = vim.o.shell, -- change the default shell
   -- This field is only relevant if direction is set to 'float'
@@ -27,9 +27,20 @@ require("toggleterm").setup{
     -- width = <value>,
     -- height = <value>,
     winblend = 3,
-    highlights = {
-      border = "Normal",
-      background = "Normal",
-    }
+    -- highlights = {
+    --   border = "Normal",
+    --   background = "Normal",
+    -- }
   }
 }
+
+function _G.set_terminal_keymaps()
+  local opts = {noremap = true}
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-w>h', [[<C-\><C-n><C-W>h]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-w>j', [[<C-\><C-n><C-W>j]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-w>k', [[<C-\><C-n><C-W>k]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-w>l', [[<C-\><C-n><C-W>l]], opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')

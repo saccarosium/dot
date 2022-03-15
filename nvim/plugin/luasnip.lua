@@ -6,7 +6,7 @@ ls.snippets = {
   },
   cpp = {
     ls.parser.parse_snippet("main", "#include <iostream>\n#include<vector>\n\nint main() {\n  $0\n  return 0;\n}"),
-    ls.parser.parse_snippet("cout", "std::cout << $0 << std::endl"),
+    ls.parser.parse_snippet("cout", "std::cout << $0 << std::endl;"),
   },
 }
   
