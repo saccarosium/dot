@@ -9,7 +9,7 @@ window:
     x: 0
     y: 0 
   dynamic_padding: true
-  decorations: buttonless
+  decorations: none
   startup_mode: Windowed
   title: Alacritty
   dynamic_title: true

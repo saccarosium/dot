@@ -8,6 +8,7 @@ PKGS_POP += python-dev python-pip python3-dev python3-pip flatpack
 PPAS := ppa:neovim-ppa/unstable
 
 BREW_URL := https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+PAQ_URL := https://github.com/savq/paq-nvim.git
 FLATHUB_URL := https://flathub.org/repo/flathub.flatpakrepo
 XDG_CONFIG := $(HOME)/.config
 XDG_DATA := $(HOME)/.local
@@ -26,7 +27,7 @@ ubuntu: setup_apt setup_repo
 	flatpack remote-add --user --if-not-exists flathub $(FLATHUB_URL)
 	make build_env
 
-build_env: build_zsh build_editors build_terminal
+build_env: build_bash build_editors build_terminal
 
 build_bash: clean
 	$(LN) $(PWD)/bash/.bashrc $(HOME)
