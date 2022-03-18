@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then 
   selected="$1" && [[ "$selected" == '.' ]] && selected="$PWD"
 else
-  selected=$(find ~/Documents/nextcloud/Projects ~/Repos -mindepth 1 -maxdepth 1 -type d | fzf)
+  selected=$(find ~/Documents/nextcloud/Projects ~/Repos -mindepth 1 -maxdepth 2 -type d | fzf)
 fi
 
 [[ -z "$selected" ]] && exit 0
@@ -15,9 +15,7 @@ if [[ -n $TMUX ]]; then
   tmux switch-client -t "$selected_name_t" \
   || tmux new-session -ds "$selected_name_t" -c "$selected" \
   && tmux switch-client -t "$selected_name_t"
-fi
-
-if [[ -z $TMUX ]]; then
+elif [[ -z $TMUX ]]; then
   tmux new-session -s "$selected_name_t" -c "$selected" \
   || tmux attach -t "$selected_name_t"
 fi
