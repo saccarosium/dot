@@ -116,6 +116,11 @@ alias ed='ed -p ":"'
 alias ls='ls --color'
 alias vi='nvim'
 alias g='git'
+alias gs='git status '
+alias ga='git add '
+alias gu='git restore --stagged '
+alias gc='git commit '
+alias gp='git push '
 
 # Preserve TAB compeltition for git
 complete -o nospace -F __git_wrap__git_main g

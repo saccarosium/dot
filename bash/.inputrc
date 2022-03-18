@@ -85,4 +85,5 @@ Control-l: clear-screen
 "\C-f": "tm\n"
 "\t": menu-complete
 "\e[Z": menu-complete-backward
+"\C-j": alias-expand-line
 $endif
