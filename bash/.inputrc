@@ -75,8 +75,6 @@ Control-l: clear-screen
 "di:": "lF:lmtf:d`t"
 "ci:": "di:i"
 "ca:": "da:i"
-"gg": beginning-of-history
-"G": end-of-history
 ?: reverse-search-history
 /: forward-search-history
 
@@ -84,5 +82,7 @@ set keymap vi-insert
 Control-l: clear-screen
 "\C-p": history-search-backward
 "\C-n": history-search-forward
-"\C-f": "tmux-sessionaizer\n"
+"\C-f": "tm\n"
+"\t": menu-complete
+"\e[Z": menu-complete-backward
 $endif

@@ -115,7 +115,10 @@ alias fgrep='fgrep --color=auto'
 alias ed='ed -p ":"'
 alias ls='ls --color'
 alias vi='nvim'
+alias g='git'
 
+# Preserve TAB compeltition for git
+complete -o nospace -F __git_wrap__git_main g
 # if neovim is unaveilable use vim or vi
 [[ -n $(which nvim) ]] || unalias vi
 
