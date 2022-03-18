@@ -27,7 +27,6 @@ require "paq" {
   "akinsho/toggleterm.nvim";
   "L3MON4D3/LuaSnip";
   "NFrid/due.nvim";
-  { "jalvesaq/Nvim-R", branch = "stable" };
 }
 
 -- For dark theme
@@ -51,7 +50,9 @@ map('n', '<leader>ot', ':vsplit $SYNC/Projects/TODO.md<CR>', opts)
 map('n', '<leader><space>', ':Telescope find_files<CR>', opts)
 map('n', '<leader>fl', ':Telescope current_buffer_fuzzy_find<CR>', opts)
 map('n', '<leader>f.', ':lua require("sacca.telescope.funcs").search_dotfiles()<CR>', opts)
-map('n', '<leader>fp', ':lua require("sacca.telescope.funcs").search_plugins()<CR>', opts)
+map('n', '<leader>fP', ':lua require("sacca.telescope.funcs").search_plugins()<CR>', opts)
+map('n', '<leader>fp', ':lua require("sacca.telescope.funcs").search_projects()<CR>', opts)
+map('n', '<leader>fn', ':lua require("sacca.telescope.funcs").search_notes()<CR>', opts)
 map('n', '<leader>fw', ':Telescope live_grep<CR>', opts)
 map('n', '<leader>fb', ':Telescope buffers<CR>', opts)
 map('n', '<C-h>', ':Telescope help_tags<CR>', opts)
@@ -59,13 +60,13 @@ map('n', '<M-x>', ':Telescope commands<CR>', opts)
 -- Git
 map('n', '<leader>gs', ':vert G<CR>', opts)
 map('n', '<leader>gl', ':G log<CR>', opts)
-map('n', '<leader>gp', ':G push ', opts)
+map('n', '<leader>gp', ':G push origin<CR>', opts)
+map('n', '<leader>gP', ':G push --force origin<CR>', opts)
 map('n', '<leader>gd', ':G diff<CR>', opts)
 map('n', '<leader>gc', ':G checkout', opts)
 map('n', '<leader>gb', ':echomsg FugitiveStatusline()<CR>', opts)
 
 map('n', '<F5>', ':set spell!<CR>', opts)
-map('i', '<C-k>', ':lua require("luasnip").expand_or_jump()<CR>', opts)
 
 g.markdown_folding = 1
 g.markdown_fenced_languages = {'c', 'cpp', 'python', 'ruby', 'vim'}

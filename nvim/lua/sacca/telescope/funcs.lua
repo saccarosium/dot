@@ -22,4 +22,12 @@ function M.search_plugins()
   })
 end
 
+function M.search_projects()
+  require("telescope.builtin").find_files({ 
+    hidden = false,
+    prompt_title = "< Projects >", 
+    search_dirs = { "~/Documents/nextcloud/Projects", "~/Repos" },
+  })
+end
+
 return M

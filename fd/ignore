@@ -2,6 +2,7 @@
 **/.cache/**
 *.json
 *.rar
+*.pdf
 *.tar.gz
 *\.a.out
 *a.out
@@ -9,3 +10,4 @@
 *.plist
 *.ttf
 *.otf
+*.bin
