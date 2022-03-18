@@ -5,7 +5,7 @@ ls.snippets = {
     ls.parser.parse_snippet("es", "## Esercizio $1\n\n## Consegna\n\n$0\n## Difficoltà\n\n## Possibili soluzioni\n"),
   },
   cpp = {
-    ls.parser.parse_snippet("main", "#include <iostream>\n#include<vector>\n\nint main() {\n  $0\n  return 0;\n}"),
+    ls.parser.parse_snippet("main", "#include <iostream>\n#include<vector>$1\n\nint main() {\n  $0\n  return 0;\n}"),
     ls.parser.parse_snippet("cout", "std::cout << $0 << std::endl;"),
   },
 }
