@@ -1,11 +1,13 @@
+#!/usr/bin/env bash
+
 case $- in
-    *i*) ;;
+  *i*) ;;
       *) return ;;
 esac
 
 # --------------------------- functions ------------------------------
 
-# This functions are ispired by rwxrob and is bashrc 
+# apath, ppath and __ps1 are ispired by rwxrob and is bashrc 
 # https://github.com/rwxrob/dot/blob/main/.bashrc
 
 apath() {
@@ -17,17 +19,17 @@ apath() {
     PATH=${PATH/%":$arg"/}
     export PATH="${PATH:+"$PATH:"}$arg"
   done
-} && export pathappend
+} && export apath
 
 ppath() {
   for arg in "$@"; do
-    test -d "$arg" || continue
+    [[ -d "$arg" ]] || continue
     PATH=${PATH//:"$arg:"/:}
     PATH=${PATH/#"$arg:"/}
     PATH=${PATH/%":$arg"/}
     export PATH="$arg${PATH:+":${PATH}"}"
   done
-} && export pathprepend
+} && export ppath
 
 __ps1() {
     b='\[\e[30m\]' 
@@ -49,7 +51,22 @@ __ps1() {
     PS1="$gr\u$x:$bl\W$x$r$G$x$x$P$x "
 }
 
+export_dir() {
+  [[ -d "$2" ]] && export "$1"="$2"
+}
+
 # ----------------------- environment variables ----------------------
+
+# Make the editor variable portable in every system
+if [[ -n $(which nvim) ]]; then 
+  export EDITOR="nvim"
+elif [[ -n $(which vi) ]]; then
+  export EDITOR="vi" 
+elif [[ -n $(which nvi) ]]; then
+  export EDITOR="nvi" 
+else 
+  export EDITOR="ed -p ':'"
+fi
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export XDG_RUNTIME_DIR="/tmp"
@@ -65,28 +82,42 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
-export REPOS="$HOME/Repos"
-export DOCUMENTS="$HOME/Documents"
-export PROJECTS="$SYNC/Projects"
-export DOTFILES="$REPOS/dot"
-export SCRIPTS="$DOTFILES/scripts"
-export SYNC="$DOCUMENTS/nextcloud"
-export NOTES="$SYNC/notes"
-export EDITOR="nvim"
 export MANPAGER="less"
 export CLICOLOR=1
 export LESSHISTFILE=-
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
-export FZF_DEFAULT_OPTS='-m --bind=ctrl-a:toggle-all,ctrl-y:print-query'
-export FZF_DEFAULT_COMMAND='fd . --hidden'
 export LANG="en_US.UTF-8"
-export BAT_THEME="Nord"
-export NNN_OPTS="QHed"
-BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
-export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
-export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
+
+export_dir REPOS "$HOME/Repos" 
+export_dir PROJECTS "$SYNC/Projects" 
+export_dir DOTFILES "$REPOS/dot" 
+export_dir SCRIPTS "$DOTFILES/scripts"
+export_dir SYNC "$XDG_DOCUMENTS_DIR/nextcloud" 
+export_dir NOTES "$SYNC/notes"
+
+if [[ -n $(which bat) ]]; then
+  export BAT_THEME="nord"
+fi
+
+if [[ -n $(which fzf) ]]; then
+  export FZF_DEFAULT_OPTS='-m --bind=ctrl-a:toggle-all,ctrl-y:print-query'
+  export FZF_DEFAULT_COMMAND='fd . --hidden'
+fi
+
+if [[ -n $(which nnn) ]]; then
+  export NNN_OPTS="QHed"
+  BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
+  export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
+  export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
+fi
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    OPEN="open"
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    OPEN="xdg-open"
+fi
 
 # ------------------------------- path -------------------------------
 
@@ -95,7 +126,7 @@ apath /usr/local/opt /opt/local/bin /opt/local/sbin
 
 # ------------------------------ cdpath ------------------------------
 
-export CDPATH=".:$HOME:$REPOS:$DOCUMENTS:$PROJECTS:$DOTFILES:$SYNC"
+export CDPATH=".:$HOME:$REPOS:$PROJECTS:$DOTFILES:$SYNC"
 
 # ------------------------------ history -----------------------------
 
@@ -126,6 +157,12 @@ alias gp='git push '
 complete -o nospace -F __git_wrap__git_main g
 # if neovim is unaveilable use vim or vi
 [[ -n $(which nvim) ]] || unalias vi
+
+# -------------------------------- keybinding ------------------------
+
+bind -x '"\C-b":"tm"'
+bind -x '"\C-f":"search"'
+bind -x '"\C-o":"$OPEN ."'
 
 # -------------------------------- completion ------------------------
 
