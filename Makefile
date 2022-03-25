@@ -17,8 +17,8 @@ build_editors:
 	$(LN) $(PWD)/.vimrc $(HOME)/.vimrc
 
 build_terminal:
-	$(LN) $(PWD)/scripts $(XDG_DATA)/bin
-	$(LN) $(PWD)/alacritty $(XDG_CONFIG)
+	# $(LN) $(PWD)/alacritty $(XDG_CONFIG)
+	$(LN) $(PWD)/kitty $(XDG_CONFIG)
 	$(LN) $(PWD)/tmux $(XDG_CONFIG)
 	$(LN) $(PWD)/htop $(XDG_CONFIG)
 	$(LN) $(PWD)/fd $(XDG_CONFIG)
@@ -28,7 +28,6 @@ build_terminal:
 setup_repo:
 	test -d $(XDG_CONFIG) || mkdir $(XDG_CONFIG)
 	test -d $(XDG_DATA) || mkdir $(XDG_DATA)
-	test -d $(XDG_DATA)/bin || mkdir $(XDG_DATA)/bin
 	test -d $(XDG_CACHE) || mkdir $(XDG_CACHE)
 
 clean:
