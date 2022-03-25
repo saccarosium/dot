@@ -1,6 +1,6 @@
 require("toggleterm").setup{
   -- size can be a number or function which is passed the current terminal
-  size = 90,
+  size = 20,
   open_mapping = [[<c-t>]],
   -- on_open = fun(t: Terminal), -- function to run when the terminal opens
   -- on_close = fun(t: Terminal), -- function to run when the terminal closes
@@ -14,7 +14,7 @@ require("toggleterm").setup{
   insert_mappings = true, -- whether or not the open mapping applies in insert mode
   terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
   persist_size = true,
-  direction = 'vertical',
+  direction = 'horizontal',
   close_on_exit = true, -- close the terminal window when the process exits
   shell = vim.o.shell, -- change the default shell
   -- This field is only relevant if direction is set to 'float'

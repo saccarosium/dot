@@ -2,9 +2,8 @@ set path+=**
 set laststatus=0 " noshowmode
 set number relativenumber
 set mouse=a guicursor=
-set smartcase
-set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-set nobackup
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smartindent
+set nobackup noswapfile
 set textwidth=80
 set termguicolors
 " set conceallevel=0

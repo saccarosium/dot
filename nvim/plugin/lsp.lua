@@ -60,7 +60,9 @@ end
   
 local util = require 'lspconfig.util'
 
-lsp.clangd.setup{ on_attach = on_attach, }
+lsp.clangd.setup { 
+    on_attach = on_attach, 
+}
 
 -- lsp.ccls.setup {
 --   on_attach = on_attach,

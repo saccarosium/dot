@@ -3,7 +3,7 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
 
   -- Install languages synchronously (only applied to `ensure_installed`)
-  sync_install = false,
+  sync_install = true,
 
   -- List of parsers to ignore installing
   highlight = {
@@ -28,13 +28,13 @@ require'nvim-treesitter.configs'.setup {
       -- Set to false if you have an `updatetime` of ~100.
       clear_on_cursor_move = true,
     },
-    -- highlight_current_scope = { 
-    --   enable = true 
+    -- highlight_current_scope = {
+    --   enable = true
     -- },
     smart_rename = {
       enable = true,
       keymaps = {
-        smart_rename = "<C-x>r",
+        smart_rename = "grr",
       },
       navigation = {
         enable = true,
