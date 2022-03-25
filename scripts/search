@@ -1,0 +1,6 @@
+#!/bin/sh
+
+selected=$(fd --hidden . | fzf --layout=reverse --height 40%)
+[ -n "$selected" ] || exit 1
+
+$EDITOR "$selected"

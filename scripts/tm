@@ -1,21 +1,38 @@
 #!/usr/bin/env bash
 
-if [[ $# -eq 1 ]]; then 
-  selected="$1" && [[ "$selected" == '.' ]] && selected="$PWD"
+TM_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/tm"
+
+if [[ $# -eq 1 ]]; then
+  selected="$1"
 else
-  selected=$(find ~/Documents/nextcloud/Projects ~/Repos -mindepth 1 -maxdepth 2 -type d | fzf)
+  selected="$PWD"
 fi
 
-[[ -z "$selected" ]] && exit 0
+if [[ -z "$selected" ]]; then 
+    exit 0
+else 
+    selected_name=$(basename "$selected")
+    selected_name=${selected_name:0:8}
+fi
 
-selected_name=$(basename "$selected")
-selected_name_t=${selected_name:0:8}
+# if [[ -d "$TM_PATH" ]]; then
+#     conf=$(find "$TM_PATH"/"$selected".sh)
+#     if [[ -z "$conf" ]]; then 
+#         conf="TM_PATH"/default.sh
+#     fi
+# else
+#     echo "Apperas that you don't have a configuration file do you wanna create one?"
+#     read answer
+#     [[ "$answer" == 'yes' ]] && mkdir "$TM_PATH" && $EDITOR "$TM_PATH"/default.sh
+# fi
 
 if [[ -n $TMUX ]]; then
-  tmux switch-client -t "$selected_name_t" \
-  || tmux new-session -ds "$selected_name_t" -c "$selected" \
-  && tmux switch-client -t "$selected_name_t"
+    tmux switch-client -t "$selected_name" \
+    || tmux new-session -ds "$selected_name" -c "$selected" \
+    && tmux switch-client -t "$selected_name"
 elif [[ -z $TMUX ]]; then
-  tmux new-session -s "$selected_name_t" -c "$selected" \
-  || tmux attach -t "$selected_name_t"
+    tmux new-session -s "$selected_name" -c "$selected" \
+    || tmux attach -t "$selected_name"
 fi
+
+# tmux -s $selected -c $conf
