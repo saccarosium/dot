@@ -62,8 +62,6 @@ if [[ -n $(which nvim) ]]; then
   export EDITOR="nvim"
 elif [[ -n $(which vi) ]]; then
   export EDITOR="vi" 
-elif [[ -n $(which nvi) ]]; then
-  export EDITOR="nvi" 
 else 
   export EDITOR="ed -p ':'"
 fi
@@ -152,6 +150,7 @@ alias ga='git add '
 alias gu='git restore --stagged '
 alias gc='git commit '
 alias gp='git push '
+alias data=$XDG_DATA_HOME
 
 # Preserve TAB compeltition for git
 complete -o nospace -F __git_wrap__git_main g
@@ -168,3 +167,4 @@ bind -x '"\C-o":"$OPEN ."'
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 [[ -r "/etc/profile.d/bash_completion.sh" ]] && . "/etc/profile.d/bash_completion.sh"
+eval "$(gh completion -s bash)"

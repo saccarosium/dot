@@ -9,7 +9,7 @@ window:
     x: 0
     y: 0 
   dynamic_padding: true
-  decorations: none
+  decorations: Buttonless
   startup_mode: Windowed
   title: Alacritty
   dynamic_title: true
@@ -48,83 +48,6 @@ font:
   use_thin_strokes: true
  
 schemes:
-  colors: &my
-    primary: 
-      background: '#1F2430'
-      foreground: '#F8F9FA'
-    cursor:
-      text: '#2e3440'
-      cursor: '#d8dee9'
-    vi_mode_cursor:
-      text: '#2e3440'
-      cursor: '#F2F2F2'
-    selection:
-      text: CellForeground
-      background: '#93AAD2'
-    search:
-      matches:
-        foreground: CellBackground
-        background: '#E3C84F'
-      bar:
-        background: '#1F2430'
-        foreground: '#F8F9FA'
-    normal:
-      black: '#12151C'
-      red: '#F27983'
-      green: '#D5FF80'
-      yellow: '#FFD173'
-      blue: '#73D0FF'
-      magenta: '#DFBFFF'
-      cyan: '#A9EAE9'
-      white: '#F8F9FA'
-    bright:
-      black: '#9196A1'
-      red: '#F27983'
-      green: '#D5FF80'
-      yellow: '#FFD173'
-      blue: '#73D0FF'
-      magenta: '#DFBFFF'
-      cyan: '#A9EAE9'
-      white: '#F8F9FA'
-
-  colors: &my-light
-    primary: 
-      background: '#F8F9FA'
-      foreground: '#1F2430'
-    cursor:
-      text: '#2e3440'
-      cursor: '#d8dee9'
-    vi_mode_cursor:
-      text: '#2e3440'
-      cursor: '#F2F2F2'
-    selection:
-      text: CellForeground
-      background: '#93AAD2'
-    search:
-      matches:
-        foreground: CellBackground
-        background: '#E3C84F'
-      bar:
-        background: '#1F2430'
-        foreground: '#F8F9FA'
-    normal:
-      black: '#171B24'
-      red: '#EE6363'
-      green: '#7BCB34'
-      yellow: '#FFD173'
-      blue: '#08A7F7'
-      magenta: '#A37ACC'
-      cyan: '#73ebed'
-      white: '#F3F4F5'
-    bright:
-      black: '#171B24'
-      red: '#EE6363'
-      green: '#7BCB34'
-      yellow: '#FFD173'
-      blue: '#08A7F7'
-      magenta: '#A37ACC'
-      cyan: '#73ebed'
-      white: '#F3F4F5'
 
   colors: &Nord
     primary:
@@ -175,7 +98,49 @@ schemes:
       cyan: '#6d96a5'
       white: '#aeb3bb'
 
-colors: *my
+  mirage: &ayu-mirage
+    primary: 
+      background: '#1F2430'
+      foreground: '#F8F9FA'
+    cursor:
+      text: 'CellBackground'
+      cursor: CellForeground
+    vi_mode_cursor:
+      text: 'CellBackground'
+      cursor: 'CellForeground'
+    selection:
+      text: CellForeground
+      background: '#444A5A'
+    search:
+      matches:
+        foreground: CellForeground
+        background: '#444A5A'
+      focused_match:
+        foreground: 'CellBackground'
+        background: '#DFBFFF'
+      bar:
+        background: '#12151C'
+        foreground: '#F8F9FA'
+    normal:
+      black: '#12151C'
+      red: '#EE6363'
+      green: '#D5FF80'
+      yellow: '#FFD173'
+      blue: '#73D0FF'
+      magenta: '#DFBFFF'
+      cyan: '#A9EAE9'
+      white: '#F8F9FA'
+    bright:
+      black: '#9196A1'
+      red: '#EE6363'
+      green: '#D5FF80'
+      yellow: '#FFD173'
+      blue: '#73D0FF'
+      magenta: '#DFBFFF'
+      cyan: '#A9EAE9'
+      white: '#F8F9FA'
+
+colors: *ayu-mirage
 
 bell:
 # Visual Bell Animation
