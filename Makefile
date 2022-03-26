@@ -17,12 +17,13 @@ build_editors:
 	$(LN) $(PWD)/.vimrc $(HOME)/.vimrc
 
 build_terminal:
-	# $(LN) $(PWD)/alacritty $(XDG_CONFIG)
+	$(LN) $(PWD)/alacritty $(XDG_CONFIG)
 	$(LN) $(PWD)/kitty $(XDG_CONFIG)
 	$(LN) $(PWD)/tmux $(XDG_CONFIG)
 	$(LN) $(PWD)/htop $(XDG_CONFIG)
 	$(LN) $(PWD)/fd $(XDG_CONFIG)
 	$(LN) $(PWD)/git $(XDG_CONFIG)
+	$(LN) $(PWD)/btop $(XDG_CONFIG)
 	$(LN) $(PWD)/.npmrc $(HOME)/.npmrc
 
 setup_repo:
