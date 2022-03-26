@@ -1,39 +1,49 @@
-require('telescope').setup{
-  defaults = require('telescope.themes').get_dropdown {
-    file_previewer = require("telescope.previewers").cat.new,
-    path_display = { "smart" },
-    selection_caret = ">> ",
-    mappings = {
-      i = {
-        ["<C-h>"] = "which_key",
-        ["<C-s>"] = "select_horizontal",
-        ["<esc>"] = require('telescope.actions').close,
-        ["<C-y>"] = require('sacca.telescope.actions').new_note,
-      }
-    }
-  },
-  pickers = {
-    find_files = {
-      hidden = true,
-    },
-    buffers = {
-      mappings = {
-        i = {
-          ["<C-x>"] = "delete_buffer",
-        },
-      },
-    },
-  },
-  extensions = {
-    fzf = {
-      fuzzy = true,                    -- false will only do exact matching
-      override_generic_sorter = true,  -- override the generic sorter
-      override_file_sorter = true,     -- override the file sorter
-      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                       -- the default case_mode is "smart_case"
-    },
-  }
-}
+-- require('telescope').setup{
+--   defaults = require('telescope.themes').get_dropdown {
+--     file_previewer = require("telescope.previewers").cat.new,
+--     path_display = { "smart" },
+--     selection_caret = ">> ",
+--     mappings = {
+--       i = {
+--         ["<C-h>"] = "which_key",
+--         ["<C-s>"] = "select_horizontal",
+--         ["<esc>"] = require('telescope.actions').close,
+--         ["<C-y>"] = require('sacca.telescope.actions').new_note,
+--       }
+--     }
+--   },
+--   pickers = {
+--     find_files = {
+--       hidden = true,
+--     },
+--     buffers = {
+--       mappings = {
+--         i = {
+--           ["<C-x>"] = "delete_buffer",
+--         },
+--       },
+--     },
+--   },
+--   extensions = {
+--     fzf = {
+--       fuzzy = true,                    -- false will only do exact matching
+--       override_generic_sorter = true,  -- override the generic sorter
+--       override_file_sorter = true,     -- override the file sorter
+--       case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+--                                        -- the default case_mode is "smart_case"
+--     },
+--   }
+-- }
+--
+-- require('telescope').load_extension('fzf')
 
-require('telescope').load_extension('fzf')
-
+-- map('n', '<leader>fl', ':Telescope current_buffer_fuzzy_find<CR>', opts)
+-- map('n', '<leader>f.', ':lua require("sacca.telescope.funcs").search_dotfiles()<CR>', opts)
+-- map('n', '<leader>fP', ':lua require("sacca.telescope.funcs").search_plugins()<CR>', opts)
+-- map('n', '<leader>fp', ':lua require("sacca.telescope.funcs").search_projects()<CR>', opts)
+-- map('n', '<leader>fn', ':lua require("sacca.telescope.funcs").search_notes()<CR>', opts)
+-- map('n', '<leader>fw', ':Telescope live_grep<CR>', opts)
+-- map('n', '<leader>fb', ':Telescope buffers<CR>', opts)
+-- map('n', '<C-f>', ':Telescope find_files<CR>', opts)
+-- map('n', '<C-h>', ':Telescope help_tags<CR>', opts)
+-- map('n', '<M-x>', ':Telescope commands<CR>', opts)

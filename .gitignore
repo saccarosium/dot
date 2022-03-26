@@ -17,3 +17,4 @@
 *.rar
 /emacs/project-window-list
 /emacs/eln-cache/
+/nvim/colors

@@ -1,7 +1,7 @@
 local g = vim.g
 local cmd = vim.cmd
 
-require("sacca")
+-- require("sacca")
 
 require "paq" {
     "arcticicestudio/nord-vim";
@@ -12,8 +12,6 @@ require "paq" {
     "tpope/vim-fugitive";
     "tpope/vim-eunuch";
     "nvim-lua/plenary.nvim";
-    "nvim-telescope/telescope.nvim";
-    { "nvim-telescope/telescope-fzf-native.nvim", run = "make" };
     "hrsh7th/nvim-cmp";
     "hrsh7th/cmp-buffer";
     "hrsh7th/cmp-nvim-lsp";
@@ -22,20 +20,22 @@ require "paq" {
     "numToStr/Comment.nvim";
     "akinsho/toggleterm.nvim";
     "L3MON4D3/LuaSnip";
-    "Luxed/ayu-vim";
+    "saccarosium/ayu-vim";
+    { 'ibhagwan/fzf-lua', branch = 'main'}
 }
 
 g.nord_bold_vertical_split_line = 1
 g.nord_bold = 1
 g.nord_italic = 1
 g.ayucolor = "mirage"
-cmd('colorscheme nord')
+cmd('colorscheme ayu')
 
 -- Mapping leader
 g.mapleader = ' '
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap=true, silent=true }
+cmd('let &runtimepath.="," . expand("$HOME") . "/Repos/ayu/ayu-vim"')
   
 -- Window manager
 map('n', 'q', '<C-w>c', opts)
@@ -46,16 +46,15 @@ map('n', '<leader>os', ':vsplit $SYNC/scratchpad.md<CR>', opts)
 map('n', '<leader>or', ':vsplit ./README.md<CR>', opts)
 map('n', '<leader>oc', ':e $DOTFILES/nvim/init.lua<CR>', opts)
 -- Search
-map('n', '<leader>fl', ':Telescope current_buffer_fuzzy_find<CR>', opts)
-map('n', '<leader>f.', ':lua require("sacca.telescope.funcs").search_dotfiles()<CR>', opts)
-map('n', '<leader>fP', ':lua require("sacca.telescope.funcs").search_plugins()<CR>', opts)
-map('n', '<leader>fp', ':lua require("sacca.telescope.funcs").search_projects()<CR>', opts)
-map('n', '<leader>fn', ':lua require("sacca.telescope.funcs").search_notes()<CR>', opts)
-map('n', '<leader>fw', ':Telescope live_grep<CR>', opts)
-map('n', '<leader>fb', ':Telescope buffers<CR>', opts)
-map('n', '<C-f>', ':Telescope find_files<CR>', opts)
-map('n', '<C-h>', ':Telescope help_tags<CR>', opts)
-map('n', '<M-x>', ':Telescope commands<CR>', opts)
+map('n', '<leader>fP', ':lua require("fzf-lua").files({ cwd = "~/.local/share/nvim/site/pack" })<CR>', opts)
+map('n', '<leader>fn', ':lua require("fzf-lua").files({ cwd = vim.env.NOTES })<CR>', opts)
+map('n', '<leader>f.', ':lua require("fzf-lua").files({ cwd = vim.env.DOTFILES })<CR>', opts)
+map('n', '<leader>fl', ':FzfLua blines<CR>', opts)
+map('n', '<leader>fw', ':FzfLua live_grep<CR>', opts)
+map('n', '<leader>fb', ':FzfLua buffers<CR>', opts)
+map('n', '<C-f>', ':FzfLua files<CR>', opts)
+map('n', '<C-h>', ':FzfLua help_tags<CR>', opts)
+map('n', '<M-x>', ':FzfLua commands<CR>', opts)
 -- Git
 map('n', '<leader>gs', ':vert G<CR>', opts)
 map('n', '<leader>gl', ':G log<CR>', opts)
