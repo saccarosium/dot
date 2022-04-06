@@ -1,6 +1,0 @@
-[user]
-	name = saccarosium
-	mail = github.e41mv@aleeas.com
-	email = github.e41mv@aleeas.com
-[core]
-	excludesFile = $XDG_CONFIG_HOME/git/.gitignore
