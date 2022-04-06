@@ -76,33 +76,25 @@ export XDG_DOWNLOAD_DIR="$HOME/Downloads"
 export XDG_MUSIC_DIR="$HOME/Music"
 export XDG_PICTURES_DIR="$HOME/Pictures"
 export XDG_VIDEOS_DIR="$HOME/Videos"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
-export XDG_CACHE_HOME="$HOME/.cache"
-export MANPAGER="less"
-export CLICOLOR=1
-export LESSHISTFILE=-
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export GOPATH="$XDG_DATA_HOME/go"
+export XDG_CONFIG_HOME="$HOME/.config" 
+export XDG_DATA_HOME="$HOME/.local/share" 
+export XDG_STATE_HOME="$HOME/.local/state" 
+export XDG_CACHE_HOME="$HOME/.cache" 
+export MANPAGER="less" 
+export CLICOLOR=1 
+export LESSHISTFILE=- 
+export GNUPGHOME="$XDG_DATA_HOME/gnupg" 
+export CARGO_HOME="$XDG_DATA_HOME/cargo" 
+export GOPATH="$XDG_DATA_HOME/go" 
+export LSCOLORS="exgxcxdxCxegedabagacad"
 export LANG="en_US.UTF-8"
 
-export_dir REPOS "$HOME/Repos" 
+export_dir SYNC "$XDG_DOCUMENTS_DIR/nextcloud" 
 export_dir PROJECTS "$SYNC/Projects" 
+export_dir NOTES "$SYNC/notes"
+export_dir REPOS "$HOME/Repos" 
 export_dir DOTFILES "$REPOS/dot" 
 export_dir SCRIPTS "$DOTFILES/scripts"
-export_dir SYNC "$XDG_DOCUMENTS_DIR/nextcloud" 
-export_dir NOTES "$SYNC/notes"
-
-if [[ -n $(which bat) ]]; then
-  export BAT_THEME="nord"
-fi
-
-if [[ -n $(which fzf) ]]; then
-  export FZF_DEFAULT_OPTS='-m --bind=ctrl-a:toggle-all,ctrl-y:print-query'
-  export FZF_DEFAULT_COMMAND='fd . --hidden'
-fi
 
 if [[ -n $(which nnn) ]]; then
   export NNN_OPTS="QHed"
@@ -119,7 +111,7 @@ fi
 
 # ------------------------------- path -------------------------------
 
-ppath /usr/local/opt/llvm/bin /usr/local/opt/coreutils/libexec/gnubin "$SCRIPTS"
+ppath "$SCRIPTS"
 apath /usr/local/opt /opt/local/bin /opt/local/sbin
 
 # ------------------------------ cdpath ------------------------------
@@ -135,6 +127,7 @@ HISTFILE="$XDG_CACHE_HOME/bash_history"
 # ------------------------------- prompt -----------------------------
 
 PROMPT_COMMAND="__ps1"
+PS1="\W"
 
 # ------------------------------ aliases -----------------------------
 
@@ -150,7 +143,8 @@ alias ga='git add '
 alias gu='git restore --stagged '
 alias gc='git commit '
 alias gp='git push '
-alias data=$XDG_DATA_HOME
+alias update='caffeinate update'
+alias tree='tree --gitignore'
 
 # Preserve TAB compeltition for git
 complete -o nospace -F __git_wrap__git_main g
@@ -167,4 +161,5 @@ bind -x '"\C-o":"$OPEN ."'
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 [[ -r "/etc/profile.d/bash_completion.sh" ]] && . "/etc/profile.d/bash_completion.sh"
+[[ -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]  && . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
 eval "$(gh completion -s bash)"

@@ -79,7 +79,7 @@ Control-l: clear-screen
 /: forward-search-history
 
 set keymap vi-insert
-Control-l: clear-screen
+"\C-l":clear-screen
 "\C-p": history-search-backward
 "\C-n": history-search-forward
 # "\t": menu-complete
