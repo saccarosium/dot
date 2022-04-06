@@ -10,7 +10,7 @@ window:
     y: 0 
   dynamic_padding: true
   decorations: Buttonless
-  startup_mode: Windowed
+  startup_mode: Maximized
   title: Alacritty
   dynamic_title: true
 
@@ -49,55 +49,6 @@ font:
  
 schemes:
 
-  colors: &Nord
-    primary:
-      background: '#2e3440'
-      foreground: '#d8dee9'
-      dim_foreground: '#a5abb6'
-    cursor:
-      text: '#2e3440'
-      cursor: '#d8dee9'
-    vi_mode_cursor:
-      text: '#2e3440'
-      cursor: '#d8dee9'
-    selection:
-      text: CellForeground
-      background: '#4c566a'
-    search:
-      matches:
-        foreground: CellBackground
-        background: '#88c0d0'
-      bar:
-        background: '#434c5e'
-        foreground: '#d8dee9'
-    normal:
-      black: '#3b4252'
-      red: '#bf616a'
-      green: '#a3be8c'
-      yellow: '#ebcb8b'
-      blue: '#81a1c1'
-      magenta: '#b48ead'
-      cyan: '#88c0d0'
-      white: '#e5e9f0'
-    bright:
-      black: '#4c566a'
-      red: '#bf616a'
-      green: '#a3be8c'
-      yellow: '#ebcb8b'
-      blue: '#81a1c1'
-      magenta: '#b48ead'
-      cyan: '#8fbcbb'
-      white: '#eceff4'
-    dim:
-      black: '#373e4d'
-      red: '#94545d'
-      green: '#809575'
-      yellow: '#b29e75'
-      blue: '#68809a'
-      magenta: '#8c738c'
-      cyan: '#6d96a5'
-      white: '#aeb3bb'
-
   mirage: &ayu-mirage
     primary: 
       background: '#1F2430'
@@ -131,7 +82,7 @@ schemes:
       cyan: '#A9EAE9'
       white: '#F8F9FA'
     bright:
-      black: '#9196A1'
+      black: '#6F7786'
       red: '#EE6363'
       green: '#D5FF80'
       yellow: '#FFD173'
@@ -139,6 +90,48 @@ schemes:
       magenta: '#DFBFFF'
       cyan: '#A9EAE9'
       white: '#F8F9FA'
+
+  light: &ayu-light
+    primary: 
+      background: '#F8F9FA'
+      foreground: '#323743'
+    cursor:
+      text: 'CellBackground'
+      cursor: CellForeground
+    vi_mode_cursor:
+      text: 'CellBackground'
+      cursor: 'CellForeground'
+    selection:
+      text: CellForeground
+      background: '#D1D1D1'
+    search:
+      matches:
+        foreground: CellBackground
+        background: '#D1D1D1'
+      focused_match:
+        foreground: 'CellBackground'
+        background: '#A37ACC'
+      bar:
+        background: '#EDEDED'
+        foreground: '#1F2430'
+    normal:
+      black: '#1F2430'
+      red: '#EE6363'
+      green: '#7BCB34'
+      yellow: '#FFC44C'
+      blue: '#08A7F7'
+      magenta: '#CC7DE3'
+      cyan: '#73ebed'
+      white: '#F3F4F5'
+    bright:
+      black: '#6F7786'
+      red: '#EE6363'
+      green: '#7BCB34'
+      yellow: '#FFC44C'
+      blue: '#08A7F7'
+      magenta: '#CC7DE3'
+      cyan: '#73ebed'
+      white: '#F3F4F5'
 
 colors: *ayu-mirage
 
@@ -576,21 +569,11 @@ key_bindings:
   - { key: C, mods: Command, mode: Vi|~Search, action: ClearSelection }
   - { key: M, mods: Command, action: Minimize }
   - { key: Q, mods: Command, action: Quit }
+  - { key: W, mods: Command, action: Quit }
   - { key: N, mods: Command, action: SpawnNewInstance }
   - { key: F, mods: Command|Control, action: ToggleFullscreen }
   - { key: F, mods: Command, mode: ~Search, action: SearchForward }
   - { key: B, mods: Command, mode: ~Search, action: SearchBackward }
 
-  - { key: Key1,        mods: Command,     chars: "\x1b1"}
-  - { key: Key2,        mods: Command,     chars: "\x1b2"}
-  - { key: Key3,        mods: Command,     chars: "\x1b3"}
-  - { key: Key4,        mods: Command,     chars: "\x1b4"}
-  - { key: Key5,        mods: Command,     chars: "\x1b5"}
-  - { key: Key6,        mods: Command,     chars: "\x1b6"}
-  - { key: Key7,        mods: Command,     chars: "\x1b7"}
-  - { key: Key8,        mods: Command,     chars: "\x1b8"}
-  - { key: Key9,        mods: Command,     chars: "\x1b9"}
-  - { key: W,           mods: Command,     chars: "\x1bw"}
-  - { key: T,           mods: Command,     chars: "\x1bt"}
   - { key: X,           mods: Command,     chars: "\x1bx"}
   - { key: K,           mods: Command,     chars: "\x1bk"}
