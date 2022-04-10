@@ -1,25 +1,82 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-cd "$NOTES" || exit 1
+shopt -s extglob
 
-alias fzf='fzf --layout=reverse --height=50%'
-query=$(fzf -q "$1")
-viewer='glow'
-searchq='https://duckduckgo.com/?q='
+fzf="fzf --layout=reverse --height=50% --query=$2"
+viewer="bat"
+progname=$(basename $0)
 
-process_query() {
-    que=$(echo "$1" | sed "s/\ /+/g" | tr '[:upper:]' '[:lower:]')
+_if_tmux() { [[ -n "$TMUX" ]] && [[ -z "$1" ]]; }
+_parser() { echo "$@" | sed "s/\ /-/g" | tr '[:upper:]' '[:lower:]'; }
+
+if [[ -z "$NOTES" ]]; then
+    echo "Notes enviroment variable not set. Aborting." >&2
+    exit 1
+fi
+
+x.help() {
+    echo ""
+    echo "Notes helper script"
+    echo "==================="
+    echo "usage: [ new | view | help ] [ initial-search ]"
+    echo ""
 }
 
-if [ -f "$query" ]; then
-    [ "$(wc -l < "$query" | wc -l)" -gt "30" ] \
-        && viewer="glow -p"
-    "$viewer" "$query"
-elif [ -n "$query" ]; then
-    printf "Do you wanna search the query on the browser? [y|n] "
-    read -r answ
-    if [ "$answ" = 'y' ]; then
-        process_query "$query"
-        open "$searchq""$que"
+x.new() {
+    local new_note
+    local directories
+    new_note=$(_parser "$@")
+    if _if_tmux "$1"; then
+        printf "note title: " 
+        read -r answ 
+        new_note=$(_parser "$answ")
     fi
-fi
+    if [[ -z "$new_note" ]]; then
+        echo "Not found any input for new file name" >&2
+        exit 1
+    fi
+    directories=$(dirname "$NOTES"/"$new_note")
+    if [[ -d "$directories" ]]; then
+        "$EDITOR" "$NOTES"/"$new_note".md
+    else
+        printf "Appearce that some directories don't exists. Do you wanna create them? [y|n] "
+        read -r answ
+        [[ "$answ" == "y" ]] \
+            && mkdir "$directories" \
+            && "$EDITOR" "$NOTES"/"$new_note".md
+    fi
+}
+
+x.view() {
+    _if_tmux "$1" && viewer="bat --paging=always"
+    _if_tmux "$1" && fzf="fzf --layout=reverse"
+    local selected
+    selected=$(find "$NOTES" -type f | eval "$fzf")
+    if [[ -f "$selected" ]]; then
+        eval "$viewer" "$selected"
+    elif [[ -n "$selected" ]]; then
+        printf "Do you wanna create a new note? [y|n] "
+        read -r answ
+        if [[ "$answ" == "y" ]]; then
+            x.new "$selected"
+        else
+            exit 1
+        fi
+    fi
+}
+
+subcommand=$1
+case $subcommand in
+    "" | "-h" | "--help")
+        x.help
+        ;;
+    *)
+        shift
+        x."${subcommand}" "$@"
+        if [ $? = 127 ]; then
+            echo "Error: '$subcommand' is not a known subcommand." >&2
+            echo "       Run '$progname --help' for a list of known subcommands." >&2
+            exit 1
+        fi
+        ;;
+esac
