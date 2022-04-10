@@ -539,18 +539,18 @@ key_bindings:
   - { key: Return, mods: Shift,   mode: Search|~Vi, action: SearchFocusPrevious   }
 
   # (Windows, Linux, and BSD only)
-  #- { key: V,              mods: Control|Shift, mode: ~Vi,        action: Paste            }
-  #- { key: C,              mods: Control|Shift,                   action: Copy             }
-  #- { key: F,              mods: Control|Shift, mode: ~Search,    action: SearchForward    }
-  #- { key: B,              mods: Control|Shift, mode: ~Search,    action: SearchBackward   }
-  #- { key: C,              mods: Control|Shift, mode: Vi|~Search, action: ClearSelection   }
-  #- { key: Insert,         mods: Shift,                           action: PasteSelection   }
-  #- { key: Key0,           mods: Control,                         action: ResetFontSize    }
-  #- { key: Equals,         mods: Control,                         action: IncreaseFontSize }
-  #- { key: Plus,           mods: Control,                         action: IncreaseFontSize }
-  #- { key: NumpadAdd,      mods: Control,                         action: IncreaseFontSize }
-  #- { key: Minus,          mods: Control,                         action: DecreaseFontSize }
-  #- { key: NumpadSubtract, mods: Control,                         action: DecreaseFontSize }
+  - { key: V,              mods: Control|Shift, mode: ~Vi,        action: Paste            }
+  - { key: C,              mods: Control|Shift,                   action: Copy             }
+  - { key: F,              mods: Control|Shift, mode: ~Search,    action: SearchForward    }
+  - { key: B,              mods: Control|Shift, mode: ~Search,    action: SearchBackward   }
+  - { key: C,              mods: Control|Shift, mode: Vi|~Search, action: ClearSelection   }
+  - { key: Insert,         mods: Shift,                           action: PasteSelection   }
+  - { key: Key0,           mods: Control,                         action: ResetFontSize    }
+  - { key: Equals,         mods: Control,                         action: IncreaseFontSize }
+  - { key: Plus,           mods: Control,                         action: IncreaseFontSize }
+  - { key: NumpadAdd,      mods: Control,                         action: IncreaseFontSize }
+  - { key: Minus,          mods: Control,                         action: DecreaseFontSize }
+  - { key: NumpadSubtract, mods: Control,                         action: DecreaseFontSize }
 
   # (Windows only)
   #- { key: Return,   mods: Alt,           action: ToggleFullscreen }
@@ -574,6 +574,13 @@ key_bindings:
   - { key: F, mods: Command|Control, action: ToggleFullscreen }
   - { key: F, mods: Command, mode: ~Search, action: SearchForward }
   - { key: B, mods: Command, mode: ~Search, action: SearchBackward }
-
+  - { key: Key1,        mods: Command,     chars: "\x1b1"}
+  - { key: Key2,        mods: Command,     chars: "\x1b2"}
+  - { key: Key3,        mods: Command,     chars: "\x1b3"}
+  - { key: Key4,        mods: Command,     chars: "\x1b4"}
+  - { key: Key5,        mods: Command,     chars: "\x1b5"}
+  - { key: Key6,        mods: Command,     chars: "\x1b6"}
+  - { key: Key7,        mods: Command,     chars: "\x1b7"}
+  - { key: Key8,        mods: Command,     chars: "\x1b8"}
+  - { key: Key9,        mods: Command,     chars: "\x1b9"}
   - { key: X,           mods: Command,     chars: "\x1bx"}
-  - { key: K,           mods: Command,     chars: "\x1bk"}
