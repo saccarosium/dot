@@ -40,8 +40,8 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  bmap(bufnr, 'n', ',,d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  bmap(bufnr, 'n', ',d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  bmap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  bmap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   bmap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   bmap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   bmap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)

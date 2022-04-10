@@ -1,26 +1,48 @@
-local ls = require "luasnip"
-
-ls.snippets = {
-  all = {
-    ls.parser.parse_snippet("es", "## Esercizio $1\n\n## Consegna\n\n$0\n## Difficoltà\n\n## Possibili soluzioni\n"),
-  },
-  cpp = {
-    ls.parser.parse_snippet("main", "#include <iostream>\n#include<vector>$1\n\nint main() {\n  $0\n  return 0;\n}"),
-    ls.parser.parse_snippet("cout", "std::cout << $0 << std::endl;"),
-  },
-}
-  
-vim.cmd [[
-" press <Tab> to expand or jump in a snippet. These can also be mapped separately
-" via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
-imap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>' 
-" -1 for jumping backwards.
-inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>
-
-snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>
-snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>
-
-" For changing choices in choiceNodes (not strictly necessary for a basic setup).
-imap <silent><expr> <C-l> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-l>'
-smap <silent><expr> <C-l> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-l>'
-]]
+-- local ls = require"luasnip"
+-- local s = ls.snippet
+-- local sn = ls.snippet_node
+-- local isn = ls.indent_snippet_node
+-- local t = ls.text_node
+-- local i = ls.insert_node
+-- local f = ls.function_node
+-- local c = ls.choice_node
+-- local d = ls.dynamic_node
+-- local r = ls.restore_node
+-- local events = require("luasnip.util.events")
+-- local ai = require("luasnip.nodes.absolute_indexer")
+--
+-- ls.add_snippets("cpp", {
+--     s("scout",{
+--         t { "std::cout << " }, i(1), t { " << std::endl;", "" }, i(0)
+--     }),
+--     s("cout",{
+--         t { "cout << " }, i(1), t { " << endl;", "" }, i(0)
+--     }),
+--     s("main",{
+--         t { "int main() {", "    "}, i(0), t { "", "    return 0;", "}" }
+--     })
+-- })
+--
+-- ls.add_snippets("sh", {
+--     s("if",{
+--         t { "if [[ " }, i(1), t { " ]]; then", "    " }, i(2), t { "", "fi", "" }, i(0)
+--     }),
+--     s("osx",{
+--         t { 'if [[ "$OSTYPE" == "darwin"* ]]; then', "    " }, i(1), t { "", "fi", "" }, i(0)
+--     })
+-- })
+--   
+-- vim.cmd [[
+-- " press <Tab> to expand or jump in a snippet. These can also be mapped separately
+-- " via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
+-- imap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>' 
+-- " -1 for jumping backwards.
+-- inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>
+--
+-- snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>
+-- snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>
+--
+-- " For changing choices in choiceNodes (not strictly necessary for a basic setup).
+-- imap <silent><expr> <C-l> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-l>'
+-- smap <silent><expr> <C-l> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-l>'
+-- ]]

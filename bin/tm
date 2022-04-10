@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
-TM_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/tm"
-
 if [[ $# -eq 1 ]]; then
-  selected="$1"
+    selected="$1"
 else
-  selected="$PWD"
+    selected="$PWD"
 fi
 
 if [[ -z "$selected" ]]; then 
@@ -15,17 +13,6 @@ else
     selected_name=${selected_name:0:8}
 fi
 
-# if [[ -d "$TM_PATH" ]]; then
-#     conf=$(find "$TM_PATH"/"$selected".sh)
-#     if [[ -z "$conf" ]]; then 
-#         conf="TM_PATH"/default.sh
-#     fi
-# else
-#     echo "Apperas that you don't have a configuration file do you wanna create one?"
-#     read answer
-#     [[ "$answer" == 'yes' ]] && mkdir "$TM_PATH" && $EDITOR "$TM_PATH"/default.sh
-# fi
-
 if [[ -n $TMUX ]]; then
     tmux switch-client -t "$selected_name" \
     || tmux new-session -ds "$selected_name" -c "$selected" \
@@ -34,5 +21,3 @@ elif [[ -z $TMUX ]]; then
     tmux new-session -s "$selected_name" -c "$selected" \
     || tmux attach -t "$selected_name"
 fi
-
-# tmux -s $selected -c $conf

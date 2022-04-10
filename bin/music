@@ -1,0 +1,8 @@
+#!/bin/sh
+
+while : 
+do
+    selected=$(find "$XDG_MUSIC_DIR/Music Library/" -maxdepth 2 | fzf)
+    test $? -gt 128 && break
+    mpv "$selected"
+done

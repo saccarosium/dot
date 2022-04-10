@@ -1,8 +1,9 @@
 set editing-mode vi
 set show-all-if-ambiguous on
-set completion-ignore-case on
+set completion-ignore-case on 
 
-#vi mode
+
+# vi mode
 $if mode=vi
 set keymap vi-command
 Control-l: clear-screen
@@ -80,9 +81,10 @@ Control-l: clear-screen
 
 set keymap vi-insert
 "\C-l":clear-screen
-"\C-p": history-search-backward
-"\C-n": history-search-forward
+"\C-p":history-search-backward
+"\C-n":history-search-forward
 # "\t": menu-complete
 # "\e[Z": menu-complete-backward
-"\C-j": alias-expand-line
+"\C-j":alias-expand-line
 $endif
+

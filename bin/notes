@@ -1,0 +1,25 @@
+#!/bin/sh
+
+cd "$NOTES" || exit 1
+
+alias fzf='fzf --layout=reverse --height=50%'
+query=$(fzf -q "$1")
+viewer='glow'
+searchq='https://duckduckgo.com/?q='
+
+process_query() {
+    que=$(echo "$1" | sed "s/\ /+/g" | tr '[:upper:]' '[:lower:]')
+}
+
+if [ -f "$query" ]; then
+    [ "$(wc -l < "$query" | wc -l)" -gt "30" ] \
+        && viewer="glow -p"
+    "$viewer" "$query"
+elif [ -n "$query" ]; then
+    printf "Do you wanna search the query on the browser? [y|n] "
+    read -r answ
+    if [ "$answ" = 'y' ]; then
+        process_query "$query"
+        open "$searchq""$que"
+    fi
+fi

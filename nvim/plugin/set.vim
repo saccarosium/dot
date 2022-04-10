@@ -11,8 +11,5 @@ set nowrap
 set cursorline
 set splitright
 set signcolumn=yes
-set foldlevelstart=99 " foldmethod=manual
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-set spelllang=en_us,en_uk
-set termguicolors
+set foldlevelstart=99 foldmethod=marker
+set spelllang=en_us

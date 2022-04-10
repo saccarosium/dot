@@ -162,7 +162,7 @@ require'fzf-lua'.setup {
     bat = {
       cmd             = "bat",
       args            = "--style=numbers,changes --color always",
-      theme           = 'Base-16', -- bat preview theme (bat --list-themes)
+      theme           = 'base16', -- bat preview theme (bat --list-themes)
       config          = nil,            -- nil uses $BAT_CONFIG_PATH
     },
     head = {

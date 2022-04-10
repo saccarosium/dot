@@ -6,10 +6,9 @@
   programs.home-manager.enable = true;
   
   home.packages = with pkgs; [
-    bat
+    # CLI 
     fd
     ripgrep
-    neovim
     btop 
     gh
     llvm
@@ -18,47 +17,105 @@
     gdb
     glow
     tmux
-    nnn
-    git
     shellcheck
     pandoc
-    wget
+    tree
     neofetch
-    fzf
     mpv
+    bash-completion
+    neovim-remote
+    # GUI
+    alacritty
+    rpi-imager
   ];
 
-  programs.bat = {
-    enable = true;
-    config = {
-      italic-text = "always";
+  programs = {
+    bat = {
+      enable = true;
+      config = {
+        italic-text = "always";
+      };
     };
-  };
 
-  programs.fzf = {
-    enable = true;
-    defaultCommand = "fd . --hidden";
-    defaultOptions = [ "-m" "--bind=ctrl-a:toggle-all,ctrl-y:print-query" ];
-  };
+    fzf = {
+      enable = true;
+      defaultCommand = "fd . -H -t f ";
+      defaultOptions = [ "-m" "--bind=ctrl-a:toggle-all,ctrl-y:print-query" ];
+    };
 
-  programs.git = {
-  enable = true;
-  userName = "saccarosium";
-  userEmail = "github.e41mv@aleeas.com";
-  extraConfig = {
-    core = {
-      editor = "nvim";
+    git = {
+    enable = true;
+    userName = "saccarosium";
+    userEmail = "github.e41mv@aleeas.com";
+    extraConfig = {
+      core = {
+        editor = "nvim";
+      };
+      color = {
+        ui = true;
+      };
+      init = {
+        defaultBranch = "main";
+      };
     };
-    color = {
-      ui = true;
+    ignores = [
+      ".DS_Store"
+      "*.pyc"
+    ];};
+
+    vscode = {
+      enable = true;
+      package = pkgs.vscodium;
+      userSettings = { 
+        "editor.tabSize" = 4;
+        "editor.minimap.enabled" = false;
+        "breadcrumbs.enabled" = false;
+        "workbench.statusBar.visible" = false;
+        "files.autoSave" = "afterDelay";
+        "editor.cursorStyle" = "block";
+        "terminal.external.osxExec" = "Alacritty.app";
+        "extensions.ignoreRecommendations" = true;
+        "window.nativeFullScreen" = false;
+        "window.restoreWindows" = "none";
+      };
+      extensions = with pkgs.vscode-extensions; [
+        vscodevim.vim
+        llvm-vs-code-extensions.vscode-clangd
+        streetsidesoftware.code-spell-checker
+      ];
     };
-    init = {
-      defaultBranch = "main";
+
+    lf = {
+        enable = true;
+        settings = {
+            hidden = true;
+            preview = true;
+        };
+        keybindings = {
+            D = "delete";
+            p = "paste";
+            y = "yank";
+            x = "cut";
+            gh = "cd ~";
+            "." = "set hidden!";
+            n = null;
+            f = null;
+            nf = "mkfile";
+            nd = "mkdir";
+        };
+        extraConfig = ''
+            cmd mkdir %{{
+              printf "Directory Name: "
+              read ans
+              mkdir $ans
+            }}
+
+            cmd mkfile %{{
+              printf "File Name: "
+              read ans
+              $EDITOR $ans
+            }}
+        '';
     };
-  };
-  ignores = [
-    ".DS_Store"
-    "*.pyc"
-  ];
   };
 }

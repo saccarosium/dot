@@ -1,35 +1,30 @@
-PAQ_URL := https://github.com/savq/paq-nvim.git
 XDG_CONFIG := $(HOME)/.config
 XDG_DATA := $(HOME)/.local
 XDG_CACHE := $(HOME)/.cache
 LN := ln -vsf
 
-build_env: setup_repo build_bash build_editors build_terminal
+build_env: setup_repo build_bash build_editors build_terminal_env 
 
-build_bash: clean
+build_bash: # Symlink bash configuration and clean all the junk in the home
 	$(LN) $(PWD)/bash/.bashrc $(HOME)
 	$(LN) $(PWD)/bash/.profile $(HOME)
 	$(LN) $(PWD)/bash/.inputrc $(HOME)
 
-build_editors:
+build_editors: # Symlink all the config of the text editor that I use
 	$(LN) $(PWD)/nvim $(XDG_CONFIG)
 	$(LN) $(PWD)/emacs $(XDG_CONFIG)
 	$(LN) $(PWD)/.vimrc $(HOME)/.vimrc
 
-build_terminal:
+build_terminal_env: # Build my terminal enviroment
 	$(LN) $(PWD)/alacritty $(XDG_CONFIG)
 	$(LN) $(PWD)/kitty $(XDG_CONFIG)
 	$(LN) $(PWD)/tmux $(XDG_CONFIG)
-	$(LN) $(PWD)/htop $(XDG_CONFIG)
 	$(LN) $(PWD)/fd $(XDG_CONFIG)
-	$(LN) $(PWD)/git $(XDG_CONFIG)
 	$(LN) $(PWD)/btop $(XDG_CONFIG)
-	$(LN) $(PWD)/.npmrc $(HOME)/.npmrc
+	$(LN) $(PWD)/nixpkgs $(XDG_CONFIG)
+	$(LN) $(PWD)/bin $(XDG_DATA)
 
-setup_repo:
+setup_repo: # Makes shure that xdg dir exists
 	test -d $(XDG_CONFIG) || mkdir $(XDG_CONFIG)
 	test -d $(XDG_DATA) || mkdir $(XDG_DATA)
 	test -d $(XDG_CACHE) || mkdir $(XDG_CACHE)
-
-clean:
-	/bin/sh $(PWD)/scripts/clean-home.sh

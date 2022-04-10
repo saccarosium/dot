@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# mac os
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    printf '%b\n' "\033[1m""uptating dev tools...""\033[0m"
+    softwareupdate --all --install --force
+
+    # homebrew
+    printf '%b\n' "\033[1m""updating homebrew...""\033[0m"
+    brew update
+    brew upgrade --greedy
+    printf '%b\n' "\033[1m""cleaning up homebrew...""\033[0m"
+    brew autoremove
+    brew cleanup
+
+    # cleanup the mac
+    printf '%b\n' "\033[1m""cleaning up mac...""\035[0m"
+    mac-cleanup
+fi
+
+if [[ -n "$(which nix-channel)" ]]; then
+    printf '%b\n' "\033[1m""Updating nix...""\035[0m"
+    nix-channel --update
+fi
+
+if [[ -n "$(which home-manager)" ]]; then
+    printf '%b\n' "\033[1m""Rebuilding nix home...""\035[0m"
+    home-manager switch
+fi
+
+if [[ -n "$(which nvim)" ]]; then
+    # nvim
+    printf '%b\n' "\033[1m""updating nvim...""\033[0m"
+    nvim -c "PaqSync" & sleep 20 && killall nvim
+fi
+
+if [[ -n "$(which tlmgr)" ]]; then
+    # Tex
+    printf '%b\n' "\033[1m""updating TeX...""\033[0m"
+    sudo tlmgr update --self --all --reinstall-forcibly-removed
+fi
