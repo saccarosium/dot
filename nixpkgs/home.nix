@@ -26,7 +26,6 @@
     neovim-remote
     # GUI
     alacritty
-    rpi-imager
   ];
 
   programs = {
@@ -42,26 +41,6 @@
       defaultCommand = "fd . -H -t f ";
       defaultOptions = [ "-m" "--bind=ctrl-a:toggle-all,ctrl-y:print-query" ];
     };
-
-    git = {
-    enable = true;
-    userName = "saccarosium";
-    userEmail = "github.e41mv@aleeas.com";
-    extraConfig = {
-      core = {
-        editor = "nvim";
-      };
-      color = {
-        ui = true;
-      };
-      init = {
-        defaultBranch = "main";
-      };
-    };
-    ignores = [
-      ".DS_Store"
-      "*.pyc"
-    ];};
 
     vscode = {
       enable = true;
@@ -83,39 +62,6 @@
         llvm-vs-code-extensions.vscode-clangd
         streetsidesoftware.code-spell-checker
       ];
-    };
-
-    lf = {
-        enable = true;
-        settings = {
-            hidden = true;
-            preview = true;
-        };
-        keybindings = {
-            D = "delete";
-            p = "paste";
-            y = "yank";
-            x = "cut";
-            gh = "cd ~";
-            "." = "set hidden!";
-            n = null;
-            f = null;
-            nf = "mkfile";
-            nd = "mkdir";
-        };
-        extraConfig = ''
-            cmd mkdir %{{
-              printf "Directory Name: "
-              read ans
-              mkdir $ans
-            }}
-
-            cmd mkfile %{{
-              printf "File Name: "
-              read ans
-              $EDITOR $ans
-            }}
-        '';
     };
   };
 }

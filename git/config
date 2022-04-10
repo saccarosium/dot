@@ -1,0 +1,12 @@
+[color]
+    ui = true
+
+[core]
+    editor = "nvim"
+
+[init]
+    defaultBranch = "main"
+
+[user]
+    email = "github.e41mv@aleeas.com"
+    name = "saccarosium"

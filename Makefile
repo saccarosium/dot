@@ -20,6 +20,7 @@ build_vim:
 build_terminal_env: # Build my terminal enviroment
 	$(LN) $(PWD)/tmux $(XDG_CONFIG)
 	$(LN) $(PWD)/fd $(XDG_CONFIG)
+	$(LN) $(PWD)/git $(XDG_CONFIG)
 	$(LN) $(PWD)/bin $(XDG_DATA)
 
 build_terminal_emulators:
