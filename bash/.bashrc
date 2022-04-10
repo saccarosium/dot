@@ -146,6 +146,7 @@ _have git && alias gp='git push '
 _have caffeinate && alias update='caffeinate update'
 _have codium && alias code='codium'
 _have nvim && alias vi='nvim'
+_have nvim && alias view='nvim -R'
 
 # -------------------------------- keybindings -------------------------------
 

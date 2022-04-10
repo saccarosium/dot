@@ -582,5 +582,8 @@ key_bindings:
   - { key: Key6,        mods: Command,     chars: "\x1b6"}
   - { key: Key7,        mods: Command,     chars: "\x1b7"}
   - { key: Key8,        mods: Command,     chars: "\x1b8"}
-  - { key: Key9,        mods: Command,     chars: "\x1b9"}
+  - { key: H,           mods: Command,     chars: "\x1bh"}
+  - { key: J,           mods: Command,     chars: "\x1bj"}
+  - { key: K,           mods: Command,     chars: "\x1bk"}
+  - { key: L,           mods: Command,     chars: "\x1bl"}
   - { key: X,           mods: Command,     chars: "\x1bx"}

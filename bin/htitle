@@ -2,7 +2,7 @@
 
 # Produces a centered title in the middle of a horizontal rule of text.
 
-pre='#'
+pre="#"
 
 echon () {
   declare i

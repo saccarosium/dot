@@ -6,9 +6,7 @@ else
     selected="$PWD"
 fi
 
-if [[ -z "$selected" ]]; then 
-    exit 0
-else 
+if [[ -n "$selected" ]]; then 
     selected_name=$(basename "$selected")
     selected_name=${selected_name:0:8}
 fi
