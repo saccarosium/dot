@@ -8,7 +8,7 @@ set mouse=a
 set smartcase
 set tabstop=4 softtabstop=4
 set shiftwidth=4
-set expandtab
+set expandtab smartindent smarttab
 set hidden
 set nowrap
 
