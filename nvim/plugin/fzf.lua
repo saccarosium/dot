@@ -203,7 +203,7 @@ require'fzf-lua'.setup {
   -- provider setup
   files = {
     prompt            = 'Files❯ ',
-    multiprocess      = false,           -- run command in a separate process
+    multiprocess      = true,           -- run command in a separate process
     git_icons         = false,           -- show git icons?
     file_icons        = false,           -- show file icons?
     color_icons       = false,           -- colorize file|git icons
@@ -211,10 +211,10 @@ require'fzf-lua'.setup {
     -- otherwise auto-detect prioritizes `fd`:`rg`:`find`
     -- default options are controlled by 'fd|rg|find|_opts'
     -- NOTE: 'find -printf' requires GNU find
-    -- cmd            = "find . -type f -printf '%P\n'",
+    cmd            = "fd .",
     -- find_opts         = [[-type f -not -path '*/\.git/*' -printf '%P\n']],
     -- rg_opts           = "--color=never --files --hidden --follow -g '!.git'",
-    -- fd_opts           = "--color=never --type f --hidden --follow --exclude .git",
+    fd_opts           = "--type f --hidden -S -1m",
     actions = {
       -- inherits from 'actions.files', here we can override
       -- or set bind to 'false' to disable a default action
