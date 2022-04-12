@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 
 {
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+    }))
+  ];
   home.username = "sacca";
   home.homeDirectory = "/Users/sacca";
   programs.home-manager.enable = true;
@@ -9,23 +14,22 @@
     # CLI 
     fd
     ripgrep
-    btop 
+    htop
     gh
     llvm
     gnused
     gnupg
     gdb
-    glow
     tmux
     shellcheck
     pandoc
     tree
     neofetch
     mpv
+    nixFlakes
+    texlive.combined.scheme-medium
     bash-completion
-    neovim-remote
-    # GUI
-    alacritty
+    neovim-nightly
   ];
 
   programs = {
@@ -38,29 +42,16 @@
 
     fzf = {
       enable = true;
-      defaultCommand = "fd . -H -t f ";
+      defaultCommand = "fd --hidden --type f --size -1m .";
       defaultOptions = [ "-m" "--bind=ctrl-a:toggle-all,ctrl-y:print-query" ];
     };
 
     vscode = {
       enable = true;
       package = pkgs.vscodium;
-      userSettings = { 
-        "editor.tabSize" = 4;
-        "editor.minimap.enabled" = false;
-        "breadcrumbs.enabled" = false;
-        "workbench.statusBar.visible" = false;
-        "files.autoSave" = "afterDelay";
-        "editor.cursorStyle" = "block";
-        "terminal.external.osxExec" = "Alacritty.app";
-        "extensions.ignoreRecommendations" = true;
-        "window.nativeFullScreen" = false;
-        "window.restoreWindows" = "none";
-      };
       extensions = with pkgs.vscode-extensions; [
         vscodevim.vim
         llvm-vs-code-extensions.vscode-clangd
-        streetsidesoftware.code-spell-checker
       ];
     };
   };

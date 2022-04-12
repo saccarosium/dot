@@ -52,7 +52,7 @@ schemes:
   mirage: &ayu-mirage
     primary: 
       background: '#1F2430'
-      foreground: '#F8F9FA'
+      foreground: '#EDEDED'
     cursor:
       text: 'CellBackground'
       cursor: CellForeground
@@ -71,7 +71,7 @@ schemes:
         background: '#DFBFFF'
       bar:
         background: '#12151C'
-        foreground: '#F8F9FA'
+        foreground: '#EDEDED'
     normal:
       black: '#12151C'
       red: '#EE6363'

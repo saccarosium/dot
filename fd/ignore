@@ -1,7 +1,7 @@
 **/.git/**
 **/.cache/**
+**/.npm/**
 **/.obsidian/**
-*.json
 *.rar
 *.pdf
 *.tar.gz
@@ -12,3 +12,14 @@
 *.ttf
 *.otf
 *.bin
+*.JPG
+*.jpg
+*.psd
+*.indd
+*.ai
+*.jpeg
+*.mp3
+*.waw
+*.localized
+*.DS_Store
+*.DS_STORE
