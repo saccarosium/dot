@@ -90,7 +90,7 @@ ppath() {
 
 
 ppath "$HOME/.local/bin" 
-apath /usr/local/bin /usr/local/opt /opt/local/bin /opt/local/sbin /tmp
+apath /usr/local/bin /usr/local/opt /opt/local/bin /opt/local/sbin
 
 # ------------------------ bash shell options ------------------------
 
@@ -124,7 +124,7 @@ __ps1() {
     [[ $G = master || $G = main ]] 
     [[ -n "$G" ]] && G="($G)"
 
-    PS1="$gr\u$x:$bl\W$x$r$G$x$x$P$x "
+    PS1="$gr\u_\h$x:$bl\W$x$r$G$x$x$P$x "
 }
 
 PROMPT_COMMAND="__ps1"
@@ -161,6 +161,7 @@ _source_if "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
 # -------------------------------- completion --------------------------------
 
+_source_if "$HOME/.local/bin/brew-completion.sh"
 _source_if "/usr/local/etc/profile.d/bash_completion.sh"
 _source_if "/etc/profile.d/bash_completion.sh"
 # Nix package manager

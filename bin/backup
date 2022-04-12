@@ -1,15 +1,22 @@
 #!/usr/bin/env bash
 
-HDD=$(ls /Volumes | fzf)
+HDD=$(find /Volumes -maxdepth 1 | fzf)
 checking=1
 dirs=("$HOME/.ssh" "$DOTFILES" "$XDG_DOCUMENTS_DIR" "$PROJECTS")
-alias rsync='rsync -hvbz'
+rsync='rsync -hurvbz'
 
 help() {
     echo "Usage: hdd-backup [ -C ]"
 }
 
-prompt() {
+check() {
+    [[ "$checking" -eq '0' ]] && return 0
+    for i in "${dirs[@]}"; do 
+        local target
+        target="$HDD/$(basename "$i")" 
+        [[ -e "$HDD" ]] || exit 2
+        $rsync -n "$i" "$target" | less
+    done
     printf "Do you wanna go over? [y|n] "
     read -r answer
     case "$answer" in
@@ -22,25 +29,12 @@ prompt() {
     esac
 }
 
-check() {
-    [[ "$checking" -eq '0' ]] && return 0
-    for i in "${dirs[@]}"; do 
-        local target
-        target="$HDD/$(basename "$i")" 
-        [[ -e "$HDD" ]] || exit 2
-        [[ -d "$target" ]] || mkdir "$target"
-        rsync -n "$i" "$target" | less
-    done
-    prompt || exit 1
-}
-
 backup() {
     for i in "${dirs[@]}"; do 
         local target
         target="$HDD/$(basename "$i")" 
         [[ -e "$HDD" ]] || exit 1
-        [[ -d "$target" ]] || mkdir "$target"
-        rsync -n "$i" "$target" | less
+        $rsync -P "$i" "$target"
     done
 }
  
