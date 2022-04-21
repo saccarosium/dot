@@ -1,3 +1,0 @@
-#!/bin/sh
-
-pandoc "$1" -o $(printf "$1" | sed "s/.md//g").pdf --metadata-file="$DOTFILES/pandoc/notes.yaml" --pdf-engine=lualatex

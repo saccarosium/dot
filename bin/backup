@@ -1,54 +1,54 @@
 #!/usr/bin/env bash
 
-HDD=$(find /Volumes -maxdepth 1 | fzf)
+HDD=$(echo "$@" | sed "s/\-C//; s/ //")
 checking=1
 dirs=("$HOME/.ssh" "$DOTFILES" "$XDG_DOCUMENTS_DIR" "$PROJECTS")
-rsync='rsync -hurvbz'
+rsync='rsync -hurvaz --delete'
 
-help() {
-    echo "Usage: hdd-backup [ -C ]"
-}
+while getopts "C" options; do
+    case "$options" in
+    C)
+        checking=0
+        ;;
+    *)
+        ;;
+    esac
+done
+
 
 check() {
-    [[ "$checking" -eq '0' ]] && return 0
-    for i in "${dirs[@]}"; do 
+    for i in "${dirs[@]}"; do
         local target
-        target="$HDD/$(basename "$i")" 
+        target="$HDD/$(basename "$i")"
         [[ -e "$HDD" ]] || exit 2
         $rsync -n "$i" "$target" | less
     done
     printf "Do you wanna go over? [y|n] "
     read -r answer
     case "$answer" in
-         [yY])
-             return 0
-             ;;
-         [nN])
-             return 1
-             ;;
+    [yY])
+        return 0
+        ;;
+    [nN])
+        return 1
+        ;;
     esac
 }
 
 backup() {
-    for i in "${dirs[@]}"; do 
+    for i in "${dirs[@]}"; do
         local target
-        target="$HDD/$(basename "$i")" 
+        target="$HDD/$(basename "$i")"
         [[ -e "$HDD" ]] || exit 1
+        echo "[$(date +\"%Y-%m-%d\")] backing up: $target"
         $rsync -P "$i" "$target"
     done
 }
- 
-if [[ "$#" -gt 0 ]]; then
-    while getopts 'Ch' option
-    do
-        case "$option" in
-            C) checking=0;;
-            h) help && exit 0;;
-            *) help && exit 1;;
-        esac
-    done
-fi
 
-check && backup
+if [[ "$checking" -eq 0 ]]; then
+    backup
+else
+    check && backup
+fi
 
 exit 0

@@ -317,27 +317,6 @@ rm -rfv ~/Library/Caches/com.apple.Safari/Webpage\ Previews
 
 
 # ----------------------------------------------------------
-# ---------------------Clear NPM cache----------------------
-# ----------------------------------------------------------
-echo '--- Clear NPM cache'
-if type "npm" &> /dev/null; then
-    npm cache clean --force
-fi
-# ----------------------------------------------------------
-
-
-# ----------------------------------------------------------
-# ---------------------Clear Yarn cache---------------------
-# ----------------------------------------------------------
-echo '--- Clear Yarn cache'
-if type "yarn" &> /dev/null; then
-    echo 'Cleanup Yarn Cache...'
-    yarn cache clean --force
-fi
-# ----------------------------------------------------------
-
-
-# ----------------------------------------------------------
 # ------------------Clear iOS photo caches------------------
 # ----------------------------------------------------------
 echo '--- Clear iOS photo caches'
@@ -405,8 +384,3 @@ sudo killall -HUP mDNSResponder
 echo '--- Purge inactive memory'
 sudo purge
 # ----------------------------------------------------------
-
-
-echo 'Your privacy and security is now hardened 🎉💪'
-echo 'Press any key to exit.'
-read -n 1 -s

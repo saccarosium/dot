@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+shopt -s extglob
+
+fzf="fzf -m --layout=reverse --query=$2"
+viewer="bat --paging=always"
+notes="$DOTFILES/tldr"
+progname=$(basename "$0")
+
+cd "$notes" || exit 1
+
+_parser() { echo "$@" | sed "s/\ /-/g" | tr '[:upper:]' '[:lower:]'; }
+
+if [[ -z "$notes" ]]; then
+    echo "Notes enviroment variable not set. Aborting." >&2
+    exit 1
+fi
+
+x.help() {
+    echo ""
+    echo "Notes helper script"
+    echo "==================="
+    echo "usage:"
+    echo "  notes [ new | ls | rm | help ] [ initial-search ]"
+    echo ""
+}
+
+x.new() {
+    local new_note
+    local directories
+    new_note=$(_parser "$@")
+    printf "note title: "
+    read -r answ
+    new_note=$(_parser "$answ")
+
+    if [[ -z "$new_note" ]]; then
+        echo "Not found any input for new file name" >&2
+        exit 1
+    fi
+    directories=$(dirname "$notes"/"$new_note")
+    if [[ -d "$directories" ]]; then
+        "$EDITOR" "$new_note".md
+    else
+        printf "Appearce that some directories don't exists. Do you wanna create them? [y|n] "
+        read -r answ
+        [[ "$answ" == "y" ]] &&
+            mkdir "$directories" &&
+            "$EDITOR" "$new_note".md
+    fi
+}
+
+x.rm() {
+    local selected
+    selected=$(find . -type f | eval "$fzf")
+    [[ -f "$selected" ]] && rm "$selected"
+}
+
+x.ls() {
+    local selected
+    selected=$(find . -type f | eval "$fzf")
+    if [[ -f "$selected" ]]; then
+        eval "$viewer" "$selected"
+    elif [[ -n "$selected" ]]; then
+        printf "Do you wanna create a new note? [y|n] "
+        read -r answ
+        if [[ "$answ" == "y" ]]; then
+            x.new "$selected"
+        else
+            exit 1
+        fi
+    fi
+}
+
+subcommand=$1
+case $subcommand in
+"" | "-h" | "--help")
+    x.help
+    ;;
+*)
+    shift
+    x."${subcommand}" "$@"
+    if [ $? = 127 ]; then
+        echo "Error: '$subcommand' is not a known subcommand." >&2
+        echo "       Run '$progname --help' for a list of known subcommands." >&2
+        exit 1
+    fi
+    ;;
+esac
