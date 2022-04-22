@@ -3,7 +3,7 @@ XDG_DATA := $(HOME)/.local
 XDG_CACHE := $(HOME)/.cache
 LN := ln -vsf
 
-build_env: setup_repo build_bash build_nix build_nvim build_vim build_terminal_env 
+build_env: setup_repo build_bash build_nix build_nvim build_vim build_terminal_env
 build_minimal_env: setup_repo build_bash build_vim build_terminal_env
 
 build_bash: # Symlink bash configuration and clean all the junk in the home
@@ -25,7 +25,6 @@ build_terminal_env: # Build my terminal enviroment
 
 build_terminal_emulators:
 	$(LN) $(PWD)/alacritty $(XDG_CONFIG)
-	$(LN) $(PWD)/kitty $(XDG_CONFIG)
 
 build_nix:
 	$(LN) $(PWD)/nixpkgs $(XDG_CONFIG)

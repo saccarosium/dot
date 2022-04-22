@@ -1,7 +1,6 @@
 set editing-mode vi
 set show-all-if-ambiguous on
-set completion-ignore-case on 
-
+set completion-ignore-case on
 
 # vi mode
 $if mode=vi
@@ -87,4 +86,3 @@ set keymap vi-insert
 # "\e[Z": menu-complete-backward
 "\C-j":alias-expand-line
 $endif
-

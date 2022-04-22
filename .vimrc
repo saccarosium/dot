@@ -12,6 +12,8 @@ set expandtab smartindent smarttab
 set hidden
 set nowrap
 
+colorscheme default
+
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 
@@ -30,7 +32,7 @@ function! NetrwMapping()
   nmap <buffer> l <CR>
   nmap <buffer> <leader>j :Rexplore<CR>
 endfunction
- 
+
 augroup netrw
   autocmd!
   autocmd FileType netrw call NetrwMapping()

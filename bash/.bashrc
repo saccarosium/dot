@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 case $- in
-  *i*) ;;
-      *) return ;;
+*i*) ;;
+*) return ;;
 esac
 
 # ---------------------- local utility functions ---------------------
@@ -12,8 +12,8 @@ _editor() {
     for arg in "$@"; do
         [[ -n $(which "$arg") ]] || continue
         export EDITOR="$arg"
-        [[ "$EDITOR" == 'ed' ]] \
-            && export EDITOR="ed -p ':'"
+        [[ "$EDITOR" == 'ed' ]] &&
+            export EDITOR="ed -p ':'"
     done
 }
 
@@ -34,18 +34,21 @@ export XDG_DOWNLOAD_DIR="$HOME/Downloads"
 export XDG_MUSIC_DIR="$HOME/Music"
 export XDG_PICTURES_DIR="$HOME/Pictures"
 export XDG_VIDEOS_DIR="$HOME/Videos"
-export XDG_CONFIG_HOME="$HOME/.config" 
-export XDG_DATA_HOME="$HOME/.local/share" 
-export XDG_STATE_HOME="$HOME/.local/state" 
-export XDG_CACHE_HOME="$HOME/.cache" 
-export MANPAGER="less" 
-export CLICOLOR=1 
-export LESSHISTFILE=- 
-export GNUPGHOME="$XDG_DATA_HOME/gnupg" 
-export CARGO_HOME="$XDG_DATA_HOME/cargo" 
-export GOPATH="$XDG_DATA_HOME/go" 
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+export MANPAGER="less"
+export CLICOLOR=1
+export LESSHISTFILE=-
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export GOPATH="$XDG_DATA_HOME/go"
 export LSCOLORS="exgxcxdxCxegedabagacad"
 export LANG="en_US.UTF-8"
+export COLORTERM=truecolor
+
+_have atom && export ATOM_HOME="$XDG_DATA_HOME"/atom
 
 _editor ed nvi vi nvim
 
@@ -54,77 +57,76 @@ _export_osx OPEN="open"
 
 _export_linux OPEN="xdg-open"
 
-_export_dir SYNC "$XDG_DOCUMENTS_DIR/nextcloud" 
-_export_dir PROJECTS "$SYNC/Projects" 
-_export_dir NOTES "$SYNC/notes"
-_export_dir REPOS "$HOME/Repos" 
-_export_dir DOTFILES "$REPOS/dot" 
+_export_dir SYNC "$XDG_DOCUMENTS_DIR/nextcloud"
+_export_dir PROJECTS "$SYNC/Projects"
+_export_dir NOTES "$SYNC/notebooks"
+_export_dir REPOS "$HOME/Repos"
+_export_dir DOTFILES "$REPOS/dot"
 
 export CDPATH=".:$HOME:$REPOS:$PROJECTS:$DOTFILES:$SYNC"
 
 # ------------------------------- path -------------------------------
 
-# apath, ppath and __ps1 are ispired by rwxrob's bashrc 
+# apath, ppath and __ps1 are ispired by rwxrob's bashrc
 # https://github.com/rwxrob/dot/blob/main/.bashrc
 
 apath() {
-  declare arg
-  for arg in "$@"; do
-    [[ -d "$arg" ]] || continue
-    PATH=${PATH//":$arg:"/:}
-    PATH=${PATH/#"$arg:"/}
-    PATH=${PATH/%":$arg"/}
-    export PATH="${PATH:+"$PATH:"}$arg"
-  done
+    declare arg
+    for arg in "$@"; do
+        [[ -d "$arg" ]] || continue
+        PATH=${PATH//":$arg:"/:}
+        PATH=${PATH/#"$arg:"/}
+        PATH=${PATH/%":$arg"/}
+        export PATH="${PATH:+"$PATH:"}$arg"
+    done
 } && export apath
 
 ppath() {
-  for arg in "$@"; do
-    [[ -d "$arg" ]] || continue
-    PATH=${PATH//:"$arg:"/:}
-    PATH=${PATH/#"$arg:"/}
-    PATH=${PATH/%":$arg"/}
-    export PATH="$arg${PATH:+":${PATH}"}"
-  done
+    for arg in "$@"; do
+        [[ -d "$arg" ]] || continue
+        PATH=${PATH//:"$arg:"/:}
+        PATH=${PATH/#"$arg:"/}
+        PATH=${PATH/%":$arg"/}
+        export PATH="$arg${PATH:+":${PATH}"}"
+    done
 } && export ppath
 
-
-ppath "$HOME/.local/bin" 
-apath /usr/local/bin /usr/local/opt /opt/local/bin /opt/local/sbin
+ppath "$HOME/.local/bin"
+apath /usr/local/bin /usr/local/opt /opt/local/bin /opt/local/sbin "$HOME/Library/Python/3.8/bin"
 
 # ------------------------ bash shell options ------------------------
 
-shopt -s expand_aliases
+# shopt -s expand_aliases
 shopt -s dotglob
 shopt -s extglob
 shopt -s histappend
 
 # ------------------------------ history -----------------------------
 
-HISTCONTROL=ignorebot
+HISTCONTROL="ignoredups:erasedups"
 HISTSIZE=1000
 HISTFILE="$XDG_CACHE_HOME/bash_history"
 
 # ------------------------------- prompt -----------------------------
 
 __ps1() {
-    local b='\[\e[30m\]' 
-    local r='\[\e[31m\]' 
-    local gr='\[\e[0;32m\]' 
-    local y='\[\e[33m\]' 
-    local bl='\[\e[34m\]' 
+    local b='\[\e[30m\]'
+    local r='\[\e[31m\]'
+    local gr='\[\e[0;32m\]'
+    local y='\[\e[33m\]'
+    local bl='\[\e[34m\]'
     local p='\[\e[35m\]'
-    local c='\[\e[36m\]' 
-    local g='\[\e[0;90m\]' 
+    local c='\[\e[36m\]'
+    local g='\[\e[0;90m\]'
     local x='\[\e[0m\]'
 
     local G=$(git branch --show-current 2>/dev/null)
     local P='$'
     [[ $EUID == 0 ]] && P='#'
-    [[ $G = master || $G = main ]] 
+    [[ $G = master || $G = main ]]
     [[ -n "$G" ]] && G="($G)"
 
-    PS1="$gr\u_\h$x:$bl\W$x$r$G$x$x$P$x "
+    PS1="$gr\u@\h$x:$bl\W$x$r$G$x$x$P$x "
 }
 
 PROMPT_COMMAND="__ps1"
@@ -153,7 +155,8 @@ _have nvim && alias view='nvim -R'
 
 _have tm && bind -x '"\C-b":"tm"'
 _have search && bind -x '"\C-f":"search"'
-bind -x '"\C-o":"$OPEN ."'
+_have fzf && bind -x '"\C-r":"eval $(fzf --height=50% --layout=reverse < $HISTFILE)"'
+_have "$OPEN" && bind -x '"\C-o":"$OPEN ."'
 
 # ------------------------------------ nix -----------------------------------
 
