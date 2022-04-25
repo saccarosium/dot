@@ -17,6 +17,7 @@ set wildignorecase
 set signcolumn=yes
 set foldlevelstart=99 foldmethod=marker
 set spelllang=en_us
+set nocompatible
 
 " ----------------------------------- vars -----------------------------------
 
@@ -41,32 +42,38 @@ if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autolo
 endif
 
 call plug#begin('$XDG_DATA_HOME/nvim/plugs')
-    Plug 'savq/paq-nvim'
     " LSP
     Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-nvim-lsp'
     " Syntax
-    Plug 'gruvbox-community/gruvbox'
+    Plug 'saccarosium/gruvbox'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'sheerun/vim-polyglot'
+    " Plug 'sheerun/vim-polyglot'
     Plug 'norcalli/nvim-colorizer.lua'
     " Utility
     Plug 'nvim-treesitter/nvim-treesitter-refactor'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-eunuch'
-    Plug 'ibhagwan/fzf-lua'
     Plug 'tpope/vim-commentary'
+    Plug 'ibhagwan/fzf-lua'
     Plug 'sbdchd/neoformat'
     " Writing
-    Plug 'dhruvasagar/vim-table-mode'
+    " Plug 'dhruvasagar/vim-table-mode'
     Plug 'junegunn/goyo.vim'
+    Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 call plug#end()
 
 " ---------------------------------- colors ----------------------------------
 
+filetype plugin on
+syntax on
 colorscheme gruvbox
+
+" ---------------------------------- command ---------------------------------
+
+:command PlugSync :PlugUpgrade | :PlugClean | :PlugInstall | :PlugUpdate
 
 " ----------------------------------- remap ----------------------------------
 
@@ -79,7 +86,7 @@ nnoremap <C-h> :FzfLua help_tags<CR>
 nnoremap <M-x> :FzfLua commands<CR>
 nnoremap <leader>fl :FzfLua blines<CR>
 nnoremap <leader>fh :FzfLua command_history<CR>
-nnoremap <leader>fw :lua require("fzf-lua").live_grep({ exec_empty_query = true }) <CR>
+nnoremap <leader>fw :lua require("fzf-lua").live_grep({ exec_empty_query = true })<CR>
 nnoremap <leader>fr :FzfLua resume<CR>
 nnoremap <leader>fb :FzfLua buffers<CR>
 nnoremap <leader>gs :G<CR>
@@ -91,3 +98,4 @@ nnoremap <leader>gc :G checkout
 nnoremap <leader>gb :echomsg FugitiveStatusline()<CR>
 nnoremap <leader>lf :Neoformat<CR>
 vnoremap <C-y> "+y
+nnoremap <leader>th :TSToggle highlight<CR>

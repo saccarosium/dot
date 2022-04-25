@@ -61,7 +61,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
-  decorations: none
+  decorations: buttonless
 
   # Background opacity
   #
@@ -794,7 +794,6 @@ key_bindings:
   - { key: J,           mods: Command,     chars: "\x1bj"}
   - { key: K,           mods: Command,     chars: "\x1bk"}
   - { key: L,           mods: Command,     chars: "\x1bl"}
-  - { key: V,           mods: Command,     chars: "\x1bv"}
   - { key: X,           mods: Command,     chars: "\x1bx"}
 
 debug:

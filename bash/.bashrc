@@ -59,11 +59,25 @@ _export_linux OPEN="xdg-open"
 
 _export_dir SYNC "$XDG_DOCUMENTS_DIR/nextcloud"
 _export_dir PROJECTS "$SYNC/Projects"
-_export_dir NOTES "$SYNC/notebooks"
+_export_dir NOTES "$SYNC/notes"
 _export_dir REPOS "$HOME/Repos"
 _export_dir DOTFILES "$REPOS/dot"
+_export_dir PLUGS "$XDG_DATA_HOME/nvim/plugs"
 
-export CDPATH=".:$HOME:$REPOS:$PROJECTS:$DOTFILES:$SYNC"
+# ---------------------------------- cdpath ----------------------------------
+
+acdpath() {
+    declare arg
+    for arg in "$@"; do
+        [[ -d "$arg" ]] || continue
+        CDPATH=${CDPATH//":$arg:"/:}
+        CDPATH=${CDPATH/#"$arg:"/}
+        CDPATH=${CDPATH/%":$arg"/}
+        export CDPATH="${CDPATH:+"$CDPATH:"}$arg"
+    done
+} && export apath
+
+acdpath $PWD $HOME $REPOS $PROJECTS $DOTFILES $SYNC $PLUGS
 
 # ------------------------------- path -------------------------------
 
@@ -91,8 +105,8 @@ ppath() {
     done
 } && export ppath
 
-ppath "$HOME/.local/bin"
-apath /usr/local/bin /usr/local/opt /opt/local/bin /opt/local/sbin "$HOME/Library/Python/3.8/bin"
+ppath /usr/local/bin "$HOME/.local/bin"
+apath /usr/local/opt /opt/local/bin /opt/local/sbin "$HOME/Library/Python/3.8/bin"
 
 # ------------------------ bash shell options ------------------------
 
@@ -146,10 +160,10 @@ _have git && alias gu='git restore --stagged '
 _have git && alias gd='git diff '
 _have git && alias gc='git commit '
 _have git && alias gp='git push '
-_have caffeinate && alias update='caffeinate update'
 _have codium && alias code='codium'
 _have nvim && alias vi='nvim'
 _have nvim && alias view='nvim -R'
+_have nvim && alias wiki='nvim $NOTES/index.md'
 
 # -------------------------------- keybindings -------------------------------
 

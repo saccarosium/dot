@@ -1,6 +1,6 @@
 require'nvim-treesitter.configs'.setup {
   -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = "",
+  ensure_installed = "vim", "lua", "cpp", "c", "bash", "nix", "commonlisp", "llvm", "python", "go",
 
   -- Install languages synchronously (only applied to `ensure_installed`)
   sync_install = true,
@@ -8,7 +8,7 @@ require'nvim-treesitter.configs'.setup {
   -- List of parsers to ignore installing
   highlight = {
     -- `false` will disable the whole extension
-    enable = false,
+    enable = true,
 
     -- list of language that will be disabled
     disable = {},
