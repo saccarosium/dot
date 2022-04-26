@@ -1,7 +1,7 @@
 #!/bin/sh
 
 _have() {
-    type "$1" &>/dev/null ||
+    type "$1" > /dev/null 2>&1 ||
         echo "$1 not found in PATH" >&2
 }
 
@@ -13,4 +13,9 @@ fi
 
 if _have nix-shell; then
     nix-shell '<home-manager>' -A install
+fi
+
+if _have nix-channel; then
+    nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
+    nix-channel --update
 fi

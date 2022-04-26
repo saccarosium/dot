@@ -10,7 +10,7 @@ esac
 # Make the editor variable portable in every system
 _editor() {
     for arg in "$@"; do
-        [[ -n $(which "$arg") ]] || continue
+        [[ -n "$(which "$arg" &>/dev/null)" ]] || continue
         export EDITOR="$arg"
         [[ "$EDITOR" == 'ed' ]] &&
             export EDITOR="ed -p ':'"
