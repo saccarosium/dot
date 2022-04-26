@@ -12,26 +12,25 @@ in
   programs.home-manager.enable = true;
 
   home.packages = [
+    pkgs.exiftool
+    pkgs.fd
+    pkgs.htop
+    pkgs.mpv
     pkgs.neofetch
+    pkgs.nixfmt
     pkgs.pandoc
-    pkgs.python38Packages.pynvim
+    pkgs.ripgrep
+    pkgs.shellcheck
+    pkgs.shfmt
     pkgs.tree
     pkgsunstable.bash-completion
+    pkgsunstable.clangStdenv
     pkgsunstable.docker
-    pkgsunstable.exiftool
-    pkgsunstable.fd
     pkgsunstable.gdb
     pkgsunstable.gh
     pkgsunstable.gnupg
-    pkgsunstable.htop
-    pkgsunstable.llvm
-    pkgsunstable.mpv
     pkgsunstable.neovim
     pkgsunstable.nixFlakes
-    pkgsunstable.nixfmt
-    pkgsunstable.ripgrep
-    pkgsunstable.shellcheck
-    pkgsunstable.shfmt
     pkgsunstable.texinfo
     pkgsunstable.texlive.combined.scheme-minimal
     pkgsunstable.tmux

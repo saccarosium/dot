@@ -50,7 +50,6 @@ call plug#begin('$XDG_DATA_HOME/nvim/plugs')
     " Syntax
     Plug 'saccarosium/gruvbox'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    " Plug 'sheerun/vim-polyglot'
     Plug 'norcalli/nvim-colorizer.lua'
     " Utility
     Plug 'nvim-treesitter/nvim-treesitter-refactor'
@@ -60,8 +59,6 @@ call plug#begin('$XDG_DATA_HOME/nvim/plugs')
     Plug 'ibhagwan/fzf-lua'
     Plug 'sbdchd/neoformat'
     " Writing
-    " Plug 'dhruvasagar/vim-table-mode'
-    Plug 'junegunn/goyo.vim'
     Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 call plug#end()
 
@@ -71,7 +68,7 @@ filetype plugin on
 syntax on
 colorscheme gruvbox
 
-" ---------------------------------- command ---------------------------------
+" --------------------------------- commands ---------------------------------
 
 :command PlugSync :PlugUpgrade | :PlugClean | :PlugInstall | :PlugUpdate
 
