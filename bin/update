@@ -34,7 +34,7 @@ if [[ -n "$(which nvim)" ]]; then
     # nvim
     printf '%b\n' "\033[1m""updating nvim...""\033"
     # _sudo nvim -c "PaqSync" & sleep 20 && killall nvim
-    _sudo nvim -c "PlugSync" & sleep 20 && killall nvim
+    _sudo nvim -c "PlugUpdate | PlugUpgrade" & sleep 20 && killall nvim
 fi
 
 if [[ -n "$(which littlesnitch)" ]];then

@@ -10,6 +10,14 @@ progname=$(basename "$0")
 cd "$notes" || exit 1
 
 _parser() { echo "$@" | sed "s/\ /-/g" | tr '[:upper:]' '[:lower:]'; }
+_commit() {
+    printf "Do you wanna commit your notes? [y|n] "
+    read -r answ
+    if [[ "$answ" == "y" ]]; then
+        git add ./*
+        git commit * -m "tldr: automatic commit"
+    fi
+}
 
 if [[ -z "$notes" ]]; then
     echo "Notes enviroment variable not set. Aborting." >&2
@@ -32,7 +40,6 @@ x.new() {
     printf "note title: "
     read -r answ
     new_note=$(_parser "$answ")
-
     if [[ -z "$new_note" ]]; then
         echo "Not found any input for new file name" >&2
         exit 1
@@ -47,12 +54,13 @@ x.new() {
             mkdir "$directories" &&
             "$EDITOR" "$new_note".md
     fi
+    _commit
 }
 
 x.rm() {
     local selected
     selected=$(find . -type f | eval "$fzf")
-    [[ -f "$selected" ]] && rm "$selected"
+    [[ -f "$selected" ]] && rm "$selected" && _commit
 }
 
 x.ls() {
