@@ -10,11 +10,7 @@ nnoremap <leader>j :Explore<CR>
 function! NetrwMapping()
   nmap <buffer> h -^
   nmap <buffer> l <CR>
-  nmap <buffer> nd d
-  nmap <buffer> <C-n> jp
-  nmap <buffer> <C-p> kp
-  nmap <buffer> nd d
-  nmap <buffer> nf %:w<CR>:buffer #<CR>
+  nmap <buffer> M mfj
   nmap <buffer> <leader>j :Rexplore<CR>
 endfunction
 

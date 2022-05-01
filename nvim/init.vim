@@ -9,10 +9,9 @@ set expandtab smartindent
 set nobackup noswapfile
 set textwidth=80
 set termguicolors
-" set conceallevel=0
 set nowrap
-" set cursorline
-set splitbelow splitright
+set cursorline
+set splitright
 set wildignorecase
 set signcolumn=yes
 set foldlevelstart=99 foldmethod=marker
@@ -25,7 +24,7 @@ let mapleader=' '
 let g:gruvbox_sign_column='none'
 let g:gruvbox_contrast_dark='hard'
 let g:markdown_folding=1
-" let g:markdown_fenced_languages = { 'bash', 'c', 'cpp', 'python', 'ruby', 'vim', 'sh' }
+" let g:markdown_fenced_languages = { 'bash' 'c' 'cpp' 'python' 'ruby' 'vim' }
 
 " ---------------------------------- autocmd ---------------------------------
 
@@ -44,19 +43,21 @@ endif
 call plug#begin('$XDG_DATA_HOME/nvim/plugs')
     " LSP
     Plug 'neovim/nvim-lspconfig'
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'lifepillar/vim-mucomplete'
     " Syntax
-    Plug 'saccarosium/gruvbox'
+    Plug 'gruvbox-community/gruvbox'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'norcalli/nvim-colorizer.lua'
     " Utility
+    Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-treesitter/nvim-treesitter-refactor'
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-eunuch'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-vinegar'
+    Plug 'jose-elias-alvarez/null-ls.nvim'
     Plug 'ibhagwan/fzf-lua'
+    " Formatting
     Plug 'sbdchd/neoformat'
     " Writing
     Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
@@ -67,10 +68,11 @@ call plug#end()
 filetype plugin on
 syntax on
 colorscheme gruvbox
+hi! link Delimiter GruvboxFg1
 
 " --------------------------------- commands ---------------------------------
 
-:command PlugSync :PlugUpgrade | :PlugClean | :PlugInstall | :PlugUpdate
+:command PlugSync PlugUpgrade | PlugClean | PlugInstall | sleep 3 | PlugUpdate | sleep 3 | q!
 
 " ----------------------------------- remap ----------------------------------
 
@@ -85,11 +87,9 @@ nnoremap <leader>fl :FzfLua blines<CR>
 nnoremap <leader>fh :FzfLua command_history<CR>
 nnoremap <leader>fw :lua require("fzf-lua").live_grep({ exec_empty_query = true })<CR>
 nnoremap <leader>fr :FzfLua resume<CR>
-nnoremap <leader>fb :FzfLua buffers<CR>
 nnoremap <leader>gs :G<CR>
 nnoremap <leader>gl :G log<CR>
 nnoremap <leader>gp :G push origin<CR>
-nnoremap <leader>gP :G push --force origin<CR>
 nnoremap <leader>gd :G diff<CR>
 nnoremap <leader>gc :G checkout
 nnoremap <leader>gb :echomsg FugitiveStatusline()<CR>

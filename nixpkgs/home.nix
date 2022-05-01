@@ -1,12 +1,8 @@
 { config, pkgs, ... }:
 
-let
-  pkgsunstable = import <nixpkgs-unstable> {};
-in
+let pkgsunstable = import <nixpkgs-unstable> { };
 
-
-
-{
+in {
   home.username = "sacca";
   home.homeDirectory = "/Users/sacca";
   programs.home-manager.enable = true;
@@ -29,7 +25,10 @@ in
     pkgsunstable.gdb
     pkgsunstable.gh
     pkgsunstable.gnupg
+    pkgsunstable.kakoune
+    pkgsunstable.mysql80
     pkgsunstable.neovim
+    pkgsunstable.nnn
     pkgsunstable.nixFlakes
     pkgsunstable.texinfo
     pkgsunstable.texlive.combined.scheme-minimal
@@ -41,8 +40,8 @@ in
     bat = {
       enable = true;
       config = {
-          italic-text = "always";
-          theme = "gruvbox-dark";
+        italic-text = "always";
+        theme = "gruvbox-dark";
       };
     };
 

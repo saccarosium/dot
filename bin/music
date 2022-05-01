@@ -3,7 +3,7 @@
 music_library="$XDG_MUSIC_DIR/Music Library"
 cd "$music_library" || exit 1
 
-while : 
+while :
 do
     selected=$(find ./* -type d -maxdepth 2 | fzf )
     [ -d "$selected" ] || exit 1

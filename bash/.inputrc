@@ -82,6 +82,8 @@ set keymap vi-insert
 "\C-l":clear-screen
 "\C-p":history-search-backward
 "\C-n":history-search-forward
+"\C-a":beginning-of-line
+"\C-e":end-of-line
 # "\t": menu-complete
 # "\e[Z": menu-complete-backward
 "\C-j":alias-expand-line

@@ -15,7 +15,6 @@ while getopts "C" options; do
     esac
 done
 
-
 check() {
     for i in "${dirs[@]}"; do
         local target

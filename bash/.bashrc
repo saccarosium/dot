@@ -7,16 +7,6 @@ esac
 
 # ---------------------- local utility functions ---------------------
 
-# Make the editor variable portable in every system
-_editor() {
-    for arg in "$@"; do
-        [[ -n "$(which "$arg" &>/dev/null)" ]] || continue
-        export EDITOR="$arg"
-        [[ "$EDITOR" == 'ed' ]] &&
-            export EDITOR="ed -p ':'"
-    done
-}
-
 _export_dir() { [[ -d "$2" ]] && export "$1"="$2"; }
 _source_if() { [[ -r "$1" ]] && . "$1"; }
 _have() { type "$1" &>/dev/null; }
@@ -41,16 +31,22 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export MANPAGER="less"
 export CLICOLOR=1
 export LESSHISTFILE=-
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export GOPATH="$XDG_DATA_HOME/go"
+export EDITOR="vi"
 export LSCOLORS="exgxcxdxCxegedabagacad"
 export LANG="en_US.UTF-8"
 export COLORTERM=truecolor
+export GOPATH="$XDG_DATA_HOME/go"
 
+_have nvim && export EDITOR="nvim"
 _have atom && export ATOM_HOME="$XDG_DATA_HOME"/atom
-
-_editor ed nvi vi nvim
+_have gpg && export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+_have cargo && export CARGO_HOME="$XDG_DATA_HOME/cargo"
+if _have nnn; then
+    export NNN_OPTS="QHed"
+    BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
+    export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
+    export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
+fi
 
 _export_osx BASH_SILENCE_DEPRECATION_WARNING=1
 _export_osx OPEN="open"
