@@ -29,14 +29,15 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 export MANPAGER="less"
+export EDITOR="ed -p :"
 export CLICOLOR=1
 export LESSHISTFILE=-
-export EDITOR="vi"
 export LSCOLORS="exgxcxdxCxegedabagacad"
 export LANG="en_US.UTF-8"
 export COLORTERM=truecolor
 export GOPATH="$XDG_DATA_HOME/go"
 
+_have vi && export EDITOR="vi"
 _have nvim && export EDITOR="nvim"
 _have atom && export ATOM_HOME="$XDG_DATA_HOME"/atom
 _have gpg && export GNUPGHOME="$XDG_DATA_HOME/gnupg"
