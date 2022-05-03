@@ -8,6 +8,7 @@ in {
   programs.home-manager.enable = true;
 
   home.packages = [
+    /* pkgsunstable.texlive.combined.scheme-medium */
     pkgs.exiftool
     pkgs.fd
     pkgs.htop
@@ -24,14 +25,13 @@ in {
     pkgsunstable.docker
     pkgsunstable.gdb
     pkgsunstable.gh
+    pkgsunstable.git
     pkgsunstable.gnupg
-    pkgsunstable.kakoune
     pkgsunstable.mysql80
     pkgsunstable.neovim
-    pkgsunstable.nnn
     pkgsunstable.nixFlakes
+    pkgsunstable.nnn
     pkgsunstable.texinfo
-    pkgsunstable.texlive.combined.scheme-minimal
     pkgsunstable.tmux
     pkgsunstable.tree-sitter
   ];

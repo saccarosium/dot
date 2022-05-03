@@ -63,18 +63,7 @@ _export_dir PLUGS "$XDG_DATA_HOME/nvim/plugs"
 
 # ---------------------------------- cdpath ----------------------------------
 
-acdpath() {
-    declare arg
-    for arg in "$@"; do
-        [[ -d "$arg" ]] || continue
-        CDPATH=${CDPATH//":$arg:"/:}
-        CDPATH=${CDPATH/#"$arg:"/}
-        CDPATH=${CDPATH/%":$arg"/}
-        export CDPATH="${CDPATH:+"$CDPATH:"}$arg"
-    done
-} && export apath
-
-acdpath $PWD $HOME $REPOS $PROJECTS $DOTFILES $SYNC $PLUGS
+export CDPATH=".:$HOME:$REPOS:$PROJECTS:$DOTFILES:$SYNC:$PLUGS"
 
 # ------------------------------- path -------------------------------
 
@@ -107,7 +96,7 @@ apath /usr/local/opt /opt/local/bin /opt/local/sbin "$HOME/Library/Python/3.8/bi
 
 # ------------------------ bash shell options ------------------------
 
-# shopt -s expand_aliases
+shopt -s expand_aliases
 shopt -s dotglob
 shopt -s extglob
 shopt -s histappend
@@ -160,7 +149,6 @@ _have git && alias gp='git push '
 _have codium && alias code='codium'
 _have nvim && alias vi='nvim'
 _have nvim && alias view='nvim -R'
-_have nvim && alias wiki='nvim $NOTES/index.md'
 
 # -------------------------------- keybindings -------------------------------
 
