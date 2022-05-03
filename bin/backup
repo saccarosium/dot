@@ -18,7 +18,7 @@ done
 check() {
     for i in "${dirs[@]}"; do
         local target
-        target="$HDD/$(basename "$i")"
+        target="$HDD"
         [[ -e "$HDD" ]] || exit 2
         $rsync -n "$i" "$target" | less
     done
@@ -37,7 +37,7 @@ check() {
 backup() {
     for i in "${dirs[@]}"; do
         local target
-        target="$HDD/$(basename "$i")"
+        target="$HDD"
         [[ -e "$HDD" ]] || exit 1
         echo "[$(date +\"%Y-%m-%d\")] backing up: $target"
         $rsync -P "$i" "$target"
