@@ -1,0 +1,1 @@
+* `sudo -s`: root prompt
