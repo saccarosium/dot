@@ -30,7 +30,7 @@ build_nix:
 	$(LN) $(PWD)/nixpkgs $(XDG_CONFIG)
 
 setup_repo: # Makes shure that xdg dir exists
-	test -d $(XDG_CONFIG) || mkdir $(XDG_CONFIG)
-	test -d $(XDG_DATA) || mkdir $(XDG_DATA)
-	test -d $(XDG_CACHE) || mkdir $(XDG_CACHE)
-	test -x $(PWD)/bin/clean_home.sh && /bin/sh $(PWD)/bin/clean_home.sh
+	mkdir -p $(XDG_CONFIG)
+	mkdir -p $(XDG_DATA)
+	mkdir -p $(XDG_CACHE)
+	/bin/sh $(PWD)/bin/clean_home.sh

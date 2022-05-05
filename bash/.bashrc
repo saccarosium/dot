@@ -92,7 +92,7 @@ ppath() {
 } && export ppath
 
 ppath /usr/local/bin "$HOME/.local/bin"
-apath /usr/local/opt /opt/local/bin /opt/local/sbin "$HOME/Library/Python/3.8/bin"
+apath /usr/local/opt /opt/local/bin /opt/local/sbin
 
 # ------------------------ bash shell options ------------------------
 
@@ -130,23 +130,22 @@ __ps1() {
 }
 
 PROMPT_COMMAND="__ps1"
-PS1="\W"
+# PS1="\W"
 
 # ----------------------------------- alias ----------------------------------
 
-_have grep && alias grep='grep --color=auto'
+_have codium && alias code='codium'
+_have ed && alias ed='ed -p ":"'
 _have egrep && alias grepegrep='egrep --color=auto'
 _have egrep && grepfgrep='fgrep --color=auto'
-_have ed && alias ed='ed -p ":"'
-_have ls && alias ls='ls --color'
-_have git && alias g='git'
-_have git && alias gs='git status '
 _have git && alias ga='git add '
-_have git && alias gu='git restore --stagged '
-_have git && alias gd='git diff '
 _have git && alias gc='git commit '
+_have git && alias gg='git status'
 _have git && alias gp='git push '
-_have codium && alias code='codium'
+_have git && alias gs='git stage '
+_have git && alias gu='git restore --stagged '
+_have grep && alias grep='grep --color=auto'
+_have ls && alias ls='ls --color'
 _have nvim && alias vi='nvim'
 _have nvim && alias view='nvim -R'
 
@@ -170,6 +169,5 @@ _source_if "/etc/profile.d/bash_completion.sh"
 # Nix package manager
 _source_if "$HOME/.nix-profile/etc/profile.d/nix.sh"
 _source_if "$HOME/.nix-profile/etc/profile.d/bash_completion.sh"
-# Preserve TAB compeltition for git
 _have gh && . <(gh completion -s bash)
 _have pandoc && . <(pandoc --bash-completion)

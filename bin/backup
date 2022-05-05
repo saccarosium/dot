@@ -40,7 +40,7 @@ backup() {
         target="$HDD"
         [[ -e "$HDD" ]] || exit 1
         echo "[$(date +\"%Y-%m-%d\")] backing up: $target"
-        $rsync -P "$i" "$target"
+        [[ -d "$i" ]] && $rsync -P "$i" "$target"
     done
 }
 

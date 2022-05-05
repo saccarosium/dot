@@ -1,7 +1,7 @@
 #!/bin/sh
 
 _have() {
-    type "$1" > /dev/null 2>&1 ||
+    type "$1" >/dev/null 2>&1 ||
         echo "$1 not found in PATH" >&2
 }
 

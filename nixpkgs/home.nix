@@ -8,7 +8,7 @@ in {
   programs.home-manager.enable = true;
 
   home.packages = [
-    /* pkgsunstable.texlive.combined.scheme-medium */
+    # pkgsunstable.texlive.combined.scheme-medium
     pkgs.exiftool
     pkgs.fd
     pkgs.htop
@@ -17,7 +17,6 @@ in {
     pkgs.nixfmt
     pkgs.pandoc
     pkgs.ripgrep
-    pkgs.shellcheck
     pkgs.shfmt
     pkgs.tree
     pkgsunstable.bash-completion
@@ -31,6 +30,8 @@ in {
     pkgsunstable.neovim
     pkgsunstable.nixFlakes
     pkgsunstable.nnn
+    pkgsunstable.nodePackages.bash-language-server
+    pkgsunstable.shellcheck
     pkgsunstable.texinfo
     pkgsunstable.tmux
     pkgsunstable.tree-sitter

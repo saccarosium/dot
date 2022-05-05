@@ -8,7 +8,7 @@ seconfig="/etc/selinux/config"
 
 
 _have() {
-    type "$1" > /dev/null 2>&1 ||
+    [ -n "$(which "$1" > /dev/null 2>&1)" ] ||
         echo "$1 not found in PATH" >&2
 }
 

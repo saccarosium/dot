@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 
-_sudo() { sudo -u sacca "$@"; }
 _exist() { type "$1" &>/dev/null; }
-
-if _exist littlesnitch; then
-    littlesnitch write-preference networkFilterEnabled false
-fi
 
 # mac os
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -14,30 +9,32 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
     # homebrew
     printf '%b\n' "\033[1m""updating homebrew...""\033[0m"
-    _sudo brew update
-    _sudo brew upgrade --greedy
+    brew update
+    brew upgrade --greedy
     printf '%b\n' "\033[1m""cleaning up homebrew...""\033[0m"
-    _sudo brew autoremove
-    _sudo brew cleanup
+    brew autoremove
+    brew cleanup
 fi
 
 if _exist nix-channel; then
     printf '%b\n' "\033[1m""Updating nix...""\035"
-    _sudo nix-channel --update
+    nix-channel --update
 fi
 
 if _exist home-manager; then
     printf '%b\n' "\033[1m""Rebuilding nix home...""\035"
-    _sudo home-manager switch
+    home-manager switch
 fi
 
 if _exist nvim; then
     # nvim
     printf '%b\n' "\033[1m""updating nvim...""\033"
-    # _sudo nvim -c "PaqSync" & sleep 20 && killall nvim
-    _sudo nvim -c "PlugUpdate | PlugUpgrade" & sleep 20 && killall nvim
+    #  nvim -c "PaqSync" & sleep 20 && killall nvim
+    nvim -c "PlugSync" & sleep 10 && killall nvim
 fi
 
-if _exist littlesnitch; then
-    littlesnitch write-preference networkFilterEnabled true
+if [[ -n "$DOTFILES" ]]; then
+    cd "$DOTFILES" || exit 1
+    git add ./*
+    git commit -m "general: automatic update"
 fi

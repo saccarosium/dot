@@ -1,6 +1,6 @@
 require'nvim-treesitter.configs'.setup {
   -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = "vim", "lua", "cpp", "c", "bash", "nix", "commonlisp", "llvm", "python", "go",
+  ensure_installed = { "vim", "lua", "cpp", "c", "bash", "nix", "commonlisp", "llvm", "python", "go" },
 
   -- Install languages synchronously (only applied to `ensure_installed`)
   sync_install = true,
@@ -21,31 +21,6 @@ require'nvim-treesitter.configs'.setup {
   },
   indent = {
     enable = true
-  },
-  refactor = {
-    highlight_definitions = {
-      enable = true,
-      -- Set to false if you have an `updatetime` of ~100.
-      clear_on_cursor_move = true,
-    },
-    -- highlight_current_scope = {
-    --   enable = true
-    -- },
-    smart_rename = {
-      enable = true,
-      keymaps = {
-        smart_rename = "gR",
-      },
-      navigation = {
-        enable = true,
-        keymaps = {
-          goto_definition = "gd",
-          list_definitions = "gnD",
-          goto_next_usage = "*",
-          goto_previous_usage = "#",
-        },
-      },
-    },
   },
   playground = {
     enable = true,

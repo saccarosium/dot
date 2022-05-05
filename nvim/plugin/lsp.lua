@@ -7,28 +7,9 @@ vim.diagnostic.config({virtual_text = false})
 vim.o.updatetime = 450
 vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})]]
 
--- local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
--- for type, icon in pairs(signs) do
---   local hl = "DiagnosticSign" .. type
---   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
--- end
-
--- highlight errors instead of showing a symbol
--- vim.cmd [[
---   highlight! DiagnosticLineNrError guibg=#51202A guifg=#FF0000 gui=bold
---   highlight! DiagnosticLineNrWarn guibg=#51412A guifg=#FFA500 gui=bold
---   highlight! DiagnosticLineNrInfo guibg=#1E535D guifg=#00FFFF gui=bold
---   highlight! DiagnosticLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
---
---   sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticLineNrError
---   sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticLineNrWarn
---   sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineNrInfo
---   sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
--- ]]
-
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
+local opts = { noremap=true }
 local map = vim.api.nvim_set_keymap
 local bmap = vim.api.nvim_buf_set_keymap
 
@@ -53,16 +34,14 @@ local on_attach = function(client, bufnr)
   -- bmap(bufnr, 'n', '<space>ll', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
   bmap(bufnr, 'n', '<space>ll', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   bmap(bufnr, 'n', '<space>lD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  -- bmap(bufnr, 'n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  bmap(bufnr, 'n', 'gR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   -- bmap(bufnr, 'n', '<space>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   bmap(bufnr, 'n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   -- vim.cmd[[ Command! :lua vim.lsp.buf.add_workspace_folder() LspAddWorkspace]]
 end
-  
-local util = require 'lspconfig.util'
 
-lsp.clangd.setup { 
-    on_attach = on_attach, 
+lsp.clangd.setup {
+    on_attach = on_attach,
 }
 
 -- lsp.ccls.setup {
@@ -74,3 +53,19 @@ lsp.clangd.setup {
 --     };
 --   }
 -- }
+
+local null_ls = require("null-ls")
+local code_actions = null_ls.builtins.code_actions
+local formatting = null_ls.builtins.formatting
+
+null_ls.setup{
+    debug = false,
+    on_attach = on_attach,
+    sources = {
+        code_actions.shellcheck,
+        formatting.shfmt.with({
+            extra_args = { "-i", "4" }
+        }),
+        formatting.nixfmt,
+    },
+}

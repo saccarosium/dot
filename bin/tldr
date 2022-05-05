@@ -4,7 +4,7 @@ shopt -s extglob
 
 fzf="fzf -m --layout=reverse --query=$2"
 viewer="bat --paging=always"
-notes="$DOTFILES/tldr"
+notes="$DOTFILES/etc/tldr"
 progname=$(basename "$0")
 
 cd "$notes" || exit 1
@@ -29,7 +29,7 @@ x.help() {
     echo "Notes helper script"
     echo "==================="
     echo "usage:"
-    echo "  notes [ new | ls | rm | help ] [ initial-search ]"
+    echo "  notes [ new | ls | edit | rm | help ] [ initial-search ]"
     echo ""
 }
 
@@ -77,6 +77,12 @@ x.ls() {
             exit 1
         fi
     fi
+}
+
+x.edit() {
+    local selected
+    selected=$(find . -type f | eval "$fzf")
+    [[ -f "$selected" ]] && $EDITOR "$selected" && _commit
 }
 
 subcommand=$1
