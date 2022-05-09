@@ -5,7 +5,7 @@ case $- in
 *) return ;;
 esac
 
-# ---------------------- local utility functions ---------------------
+# -------------------------- local utility functions -------------------------
 
 _export_dir() { [[ -d "$2" ]] && export "$1"="$2"; }
 _source_if() { [[ -r "$1" ]] && . "$1"; }
@@ -29,7 +29,6 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 export MANPAGER="less"
-export EDITOR="ed -p :"
 export CLICOLOR=1
 export LESSHISTFILE=-
 export LSCOLORS="exgxcxdxCxegedabagacad"
@@ -37,17 +36,10 @@ export LANG="en_US.UTF-8"
 export COLORTERM=truecolor
 export GOPATH="$XDG_DATA_HOME/go"
 
-_have vi && export EDITOR="vi"
-_have nvim && export EDITOR="nvim"
-_have atom && export ATOM_HOME="$XDG_DATA_HOME"/atom
+_have atom && export ATOM_HOME="$XDG_DATA_HOME/atom"
 _have gpg && export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 _have cargo && export CARGO_HOME="$XDG_DATA_HOME/cargo"
-if _have nnn; then
-    export NNN_OPTS="QHed"
-    BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
-    export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
-    export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
-fi
+_have nnn && export NNN_OPTS="QHed"
 
 _export_osx BASH_SILENCE_DEPRECATION_WARNING=1
 _export_osx OPEN="open"
@@ -61,11 +53,27 @@ _export_dir REPOS "$HOME/Repos"
 _export_dir DOTFILES "$REPOS/dot"
 _export_dir PLUGS "$XDG_DATA_HOME/nvim/plugs"
 
+# ---------------------------------- editor ----------------------------------
+
+# Make editor environment variable portable in every system
+_editor() {
+    declare arg
+    for arg in "$@"; do
+        _have "$arg" &&
+            export EDITOR="$arg" ||
+            continue
+    done
+    [[ -z "$EDITOR" ]] &&
+        echo "There is no editor installed" >&2
+}
+
+_editor ed nvi vi nvim
+
 # ---------------------------------- cdpath ----------------------------------
 
 export CDPATH=".:$HOME:$REPOS:$PROJECTS:$DOTFILES:$SYNC:$PLUGS"
 
-# ------------------------------- path -------------------------------
+# ----------------------------------- path -----------------------------------
 
 # apath, ppath and __ps1 are ispired by rwxrob's bashrc
 # https://github.com/rwxrob/dot/blob/main/.bashrc
@@ -130,7 +138,6 @@ __ps1() {
 }
 
 PROMPT_COMMAND="__ps1"
-# PS1="\W"
 
 # ----------------------------------- alias ----------------------------------
 

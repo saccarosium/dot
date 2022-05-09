@@ -4,7 +4,6 @@ XDG_CACHE := $(HOME)/.cache
 LN := ln -vsf
 
 build_env: setup_repo build_bash build_nix build_nvim build_vim build_terminal_env
-build_minimal_env: setup_repo build_bash build_vim build_terminal_env
 
 build_bash: # Symlink bash configuration and clean all the junk in the home
 	$(LN) $(PWD)/bash/.bashrc $(HOME)
@@ -27,6 +26,8 @@ build_terminal_emulators:
 	$(LN) $(PWD)/alacritty $(XDG_CONFIG)
 
 build_nix:
+	/bin/sh $(PWD)/bin/bootstraps/nix.sh
+	/bin/sh $(PWD)/bin/bootstraps/home-manager.sh
 	$(LN) $(PWD)/nixpkgs $(XDG_CONFIG)
 
 setup_repo: # Makes shure that xdg dir exists

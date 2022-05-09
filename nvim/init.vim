@@ -15,7 +15,6 @@ set splitright
 set wildignorecase
 set signcolumn=yes
 set foldlevelstart=99 foldmethod=marker
-set spelllang=en_us
 set nocompatible
 
 " ----------------------------------- vars -----------------------------------
@@ -44,12 +43,12 @@ endif
 
 call plug#begin('$XDG_DATA_HOME/nvim/plugs')
     Plug 'akinsho/toggleterm.nvim'
-    Plug 'gruvbox-community/gruvbox'
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-nvim-lsp'
-    Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'jose-elias-alvarez/null-ls.nvim'
+    Plug 'joshdick/onedark.vim'
     Plug 'junegunn/fzf'
     Plug 'junegunn/fzf.vim'
     Plug 'neovim/nvim-lspconfig'
@@ -66,7 +65,7 @@ call plug#end()
 
 filetype plugin on
 syntax on
-colorscheme gruvbox
+colorscheme onedark
 
 " --------------------------------- commands ---------------------------------
 
@@ -94,3 +93,13 @@ nnoremap <leader>th :TSToggle highlight<CR>
 nnoremap <leader>vsf :so %<CR>
 nnoremap <leader>vsc :so $XDG_CONFIG_HOME/nvim/init.*<CR>
 vnoremap <C-y> "+y
+
+" --------------------------------- firenvim ---------------------------------
+
+if exists('g:started_by_firenvim')
+    set guifont=JetBrainsMono:h18
+    " hi! Normal ctermbg=NONE guibg=NONE
+    " hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
+    set signcolumn=no
+    set nocursorline
+endif

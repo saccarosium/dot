@@ -190,7 +190,7 @@ draw_bold_text_with_bright_colors: false
 
 # --------------------------------- # Colors ---------------------------------
 
-gruvbox: &gruvbox_dark
+schemes: &gruvbox_dark
   primary:
     background: &gruvbox_dark_bg '#1d2021'
     # background: &gruvbox_dark_bg '#282828'
@@ -239,7 +239,35 @@ gruvbox: &gruvbox_dark
     cyan:    '#8ec07c'
     white:   '#a89984'
 
-colors: *gruvbox_dark
+colors: &one-dark
+  primary:
+    background: &one-back '#282c34'
+    foreground: '#abb2bf'
+  cursor:
+    text:       CellBackground
+    cursor:     CellForeground
+  selection:
+    text:       CellForeground
+    background: '#3e4451' # syntax-selection-color
+  normal:
+    black:      *one-back
+    red:        '#e06c75' # red 1
+    green:      '#98c379'
+    yellow:     '#e5c07b' # orange 2
+    blue:       '#61afef'
+    magenta:    '#c678dd'
+    cyan:       '#56b6c2'
+    white:      '#828997' # mono-2
+  bright:
+    black:      '#5c6370' # mono-3
+    red:        '#e06c75' # red 1
+    green:      '#98c379'
+    yellow:     '#e5c07b' # orange 2
+    blue:       '#61afef'
+    magenta:    '#c678dd'
+    cyan:       '#56b6c2'
+    white:      '#828997' # mono-2
+colors: *one-dark
 
   # Indexed Colors
   #

@@ -4,7 +4,9 @@ let pkgsunstable = import <nixpkgs-unstable> { };
 
 in {
   home.username = "sacca";
-  home.homeDirectory = "/Users/sacca";
+  /* home.homeDirectory = "/Users/sacca"; */
+  home.homeDirectory = "/home/sacca";
+
   programs.home-manager.enable = true;
 
   home.packages = [
@@ -22,6 +24,7 @@ in {
     pkgsunstable.bash-completion
     pkgsunstable.clangStdenv
     pkgsunstable.docker
+    pkgsunstable.ffmpeg
     pkgsunstable.gdb
     pkgsunstable.gh
     pkgsunstable.git
@@ -29,7 +32,6 @@ in {
     pkgsunstable.mysql80
     pkgsunstable.neovim
     pkgsunstable.nixFlakes
-    pkgsunstable.nnn
     pkgsunstable.nodePackages.bash-language-server
     pkgsunstable.shellcheck
     pkgsunstable.texinfo

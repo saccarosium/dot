@@ -3,7 +3,9 @@
 cleaner() {
     for args in "$@"
     do
-        [ -e "$args" ] && rm -rf "$args"
+        if [ -e "$args" ]; then
+            rm "$args"
+        fi
     done
 }
 
