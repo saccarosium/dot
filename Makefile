@@ -24,6 +24,7 @@ build_terminal_env: # Build my terminal enviroment
 
 build_terminal_emulators:
 	$(LN) $(PWD)/alacritty $(XDG_CONFIG)
+	$(LN) $(PWD)/wezterm $(XDG_CONFIG)
 
 build_nix:
 	/bin/sh $(PWD)/bin/bootstraps/nix.sh

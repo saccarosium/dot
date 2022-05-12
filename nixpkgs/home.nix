@@ -4,8 +4,8 @@ let pkgsunstable = import <nixpkgs-unstable> { };
 
 in {
   home.username = "sacca";
-  /* home.homeDirectory = "/Users/sacca"; */
-  home.homeDirectory = "/home/sacca";
+  home.homeDirectory = "/Users/sacca";
+  /* home.homeDirectory = "/home/sacca"; */
 
   programs.home-manager.enable = true;
 
@@ -33,6 +33,7 @@ in {
     pkgsunstable.neovim
     pkgsunstable.nixFlakes
     pkgsunstable.nodePackages.bash-language-server
+    pkgsunstable.silver-searcher
     pkgsunstable.shellcheck
     pkgsunstable.texinfo
     pkgsunstable.tmux
@@ -44,7 +45,7 @@ in {
       enable = true;
       config = {
         italic-text = "always";
-        theme = "gruvbox-dark";
+        theme = "Dracula";
       };
     };
 

@@ -32,7 +32,8 @@ export MANPAGER="less"
 export CLICOLOR=1
 export LESSHISTFILE=-
 export LSCOLORS="exgxcxdxCxegedabagacad"
-export LANG="en_US.UTF-8"
+export LANG="us_US.UTF-8"
+export LC_COLLATE=C
 export COLORTERM=truecolor
 export GOPATH="$XDG_DATA_HOME/go"
 
@@ -158,9 +159,6 @@ _have nvim && alias view='nvim -R'
 
 # -------------------------------- keybindings -------------------------------
 
-_have tm && bind -x '"\C-b":"tm"'
-_have search && bind -x '"\C-f":"search"'
-_have fzf && bind -x '"\C-r":"eval $(fzf --height=50% --layout=reverse < $HISTFILE)"'
 _have "$OPEN" && bind -x '"\C-o":"$OPEN ."'
 
 # ------------------------------------ nix -----------------------------------

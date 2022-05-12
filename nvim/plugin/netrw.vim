@@ -1,6 +1,8 @@
 let g:netrw_banner = 0
 let g:netrw_hide = 0
+let g:netrw_winsize = 30
 let g:netrw_localcopydircmd = 'cp -r'
+let g:netrw_dirhistmax = 0
 hi! link netrwMarkFile Search
 hi! link netrwDir Boolean
 hi! link netrwExe Number
