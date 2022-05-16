@@ -33,8 +33,10 @@ in {
     pkgsunstable.neovim
     pkgsunstable.nixFlakes
     pkgsunstable.nodePackages.bash-language-server
-    pkgsunstable.silver-searcher
+    pkgsunstable.nodejs
+    pkgsunstable.peco
     pkgsunstable.shellcheck
+    pkgsunstable.silver-searcher
     pkgsunstable.texinfo
     pkgsunstable.tmux
     pkgsunstable.tree-sitter
@@ -50,7 +52,7 @@ in {
     };
 
     fzf = {
-      enable = true;
+      enable = false;
       defaultCommand = "fd --hidden --type f --size -1m .";
       defaultOptions = [ "-m" "--bind=ctrl-a:toggle-all,ctrl-y:print-query" ];
     };

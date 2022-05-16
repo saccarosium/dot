@@ -29,7 +29,6 @@ set wildignore+=*.o
 set wildignore+=*.class
 set wildignore+=**/.git/*
 
-
 " ----------------------------------- vars -----------------------------------
 
 let mapleader=' '
@@ -51,12 +50,15 @@ if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autolo
 endif
 
 call plug#begin('$XDG_DATA_HOME/nvim/plugs')
+    Plug 'axvr/org.vim'
+    Plug 'dhruvasagar/vim-table-mode'
+    Plug 'dracula/vim', { 'as': 'dracula' }
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'jose-elias-alvarez/null-ls.nvim'
-    Plug 'dracula/vim', { 'as': 'dracula' }
+    Plug 'lervag/wiki.vim'
     Plug 'neovim/nvim-lspconfig'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'nvim-lua/plenary.nvim'
@@ -64,8 +66,6 @@ call plug#begin('$XDG_DATA_HOME/nvim/plugs')
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-fugitive'
-    Plug 'lervag/wiki.vim'
-    Plug 'dhruvasagar/vim-table-mode'
 call plug#end()
 
 " ---------------------------------- colors ----------------------------------
@@ -75,13 +75,11 @@ filetype plugin on
 syntax on
 colorscheme dracula
 
-if colors_name == 'dracula'
-    hi! Cursorline ctermbg=black guibg=#2f3241
-endif
-
 " ------------------------------ commands/abbrev -----------------------------
 
 :command PlugSync PlugUpgrade | PlugClean | PlugInstall | sleep 3 | PlugUpdate | sleep 3 | q!
+cnoreabbrev vb vs<space><bar><space>b
+cnoreabbrev sb sp<space><bar><space>b
 
 " ----------------------------------- remap ----------------------------------
 
@@ -99,11 +97,4 @@ nnoremap <leader>th :TSToggle highlight<CR>
 nnoremap <leader>vsf :so %<CR>
 nnoremap <leader>vsc :so $XDG_CONFIG_HOME/nvim/init.*<CR>
 vnoremap <C-y> "+y
-
-" --------------------------------- firenvim ---------------------------------
-
-if exists('g:started_by_firenvim')
-    set guifont=JetBrainsMono:h18
-    set signcolumn=no
-    set nocursorline
-endif
+nnoremap <C-y> "+y$

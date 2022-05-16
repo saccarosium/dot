@@ -2,7 +2,7 @@
 
 shopt -s extglob
 
-fzf="fzf -m --layout=reverse --query=$2"
+ui="peco"
 viewer="bat --paging=always"
 notes="$DOTFILES/etc/tldr"
 progname=$(basename "$0")
@@ -59,13 +59,13 @@ x.new() {
 
 x.rm() {
     local selected
-    selected=$(find . -type f | eval "$fzf")
+    selected=$(find . -type f | eval "$ui")
     [[ -f "$selected" ]] && rm "$selected" && _commit
 }
 
 x.ls() {
     local selected
-    selected=$(find . -type f | eval "$fzf")
+    selected=$(find . -type f | eval "$ui")
     if [[ -f "$selected" ]]; then
         eval "$viewer" "$selected"
     elif [[ -n "$selected" ]]; then
@@ -81,7 +81,7 @@ x.ls() {
 
 x.edit() {
     local selected
-    selected=$(find . -type f | eval "$fzf")
+    selected=$(find . -type f | eval "$ui")
     [[ -f "$selected" ]] && $EDITOR "$selected" && _commit
 }
 
