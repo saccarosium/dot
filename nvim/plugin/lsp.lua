@@ -2,6 +2,12 @@ local lsp = require('lspconfig')
 
 vim.diagnostic.config({virtual_text = false})
 
+local signs = { Error = ">>", Warn = ">>", Hint = ">>", Info = ">>" }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
 -- You will likely want to reduce updatetime which affects CursorHold
 -- note: this setting is global and should be set only once
 vim.o.updatetime = 450
@@ -36,7 +42,7 @@ local on_attach = function(client, bufnr)
   bmap(bufnr, 'n', '<space>lD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   bmap(bufnr, 'n', 'gR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   bmap(bufnr, 'n', '<space>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  bmap(bufnr, 'n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  -- bmap(bufnr, 'n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   -- vim.cmd[[ Command! :lua vim.lsp.buf.add_workspace_folder() LspAddWorkspace]]
 end
 
@@ -54,18 +60,6 @@ lsp.clangd.setup {
 --   }
 -- }
 
-local null_ls = require("null-ls")
-local code_actions = null_ls.builtins.code_actions
-local formatting = null_ls.builtins.formatting
-
-null_ls.setup{
-    debug = false,
-    on_attach = on_attach,
-    sources = {
-        code_actions.shellcheck,
-        formatting.shfmt.with({
-            extra_args = { "-i", "4" }
-        }),
-        formatting.nixfmt,
-    },
+lsp.efm.setup {
+    init_options = {documentFormatting = true},
 }

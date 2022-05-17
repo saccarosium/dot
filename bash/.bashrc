@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2034,SC2163
 
 case $- in
 *i*) ;;
@@ -7,11 +8,11 @@ esac
 
 # -------------------------- local utility functions -------------------------
 
-_export_dir() { [[ -d "$2" ]] && export "$1"="$2"; }
-_source_if() { [[ -r "$1" ]] && . "$1"; }
-_have() { type "$1" &>/dev/null; }
-_export_osx() { [[ "$OSTYPE" == "darwin"* ]] && export "$1"; }
-_export_linux() { [[ "$OSTYPE" == "linux-gnu"* ]] && export "$1"; }
+__export_dir() { [[ -d "$2" ]] && export "$1"="$2"; }
+__source_if() { [[ -r "$1" ]] && source "$1"; }
+__have() { type "$1" &>/dev/null; }
+__export_osx() { [[ "$OSTYPE" == "darwin"* ]] && export "$1"; }
+__export_linux() { [[ "$OSTYPE" == "linux-gnu"* ]] && export "$1"; }
 
 # --------------------------- environment variables --------------------------
 
@@ -32,43 +33,45 @@ export MANPAGER="less"
 export CLICOLOR=1
 export LESSHISTFILE=-
 export LSCOLORS="exgxcxdxCxegedabagacad"
-export LANG="us_US.UTF-8"
-export LC_COLLATE=C
 export COLORTERM=truecolor
 export GOPATH="$XDG_DATA_HOME/go"
 
-_have atom && export ATOM_HOME="$XDG_DATA_HOME/atom"
-_have gpg && export GNUPGHOME="$XDG_DATA_HOME/gnupg"
-_have cargo && export CARGO_HOME="$XDG_DATA_HOME/cargo"
-_have nnn && export NNN_OPTS="QHed"
+__have atom && export ATOM_HOME="$XDG_DATA_HOME/atom"
+__have gpg && export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+__have cargo && export CARGO_HOME="$XDG_DATA_HOME/cargo"
+__have nnn && export NNN_OPTS="QHed"
 
-_export_osx BASH_SILENCE_DEPRECATION_WARNING=1
-_export_osx OPEN="open"
+__export_osx BASH_SILENCE_DEPRECATION_WARNING=1
+__export_osx OPEN="open"
 
-_export_linux OPEN="xdg-open"
+__export_linux OPEN="xdg-open"
 
-_export_dir SYNC "$XDG_DOCUMENTS_DIR/nextcloud"
-_export_dir PROJECTS "$SYNC/Projects"
-_export_dir NOTES "$SYNC/notes"
-_export_dir REPOS "$HOME/Repos"
-_export_dir DOTFILES "$REPOS/dot"
-_export_dir PLUGS "$XDG_DATA_HOME/nvim/plugs"
+__export_dir SYNC "$XDG_DOCUMENTS_DIR/nextcloud"
+__export_dir PROJECTS "$SYNC/Projects"
+__export_dir NOTES "$SYNC/notes"
+__export_dir REPOS "$HOME/Repos"
+__export_dir DOTFILES "$REPOS/dot"
+__export_dir PLUGS "$XDG_DATA_HOME/nvim/plugs"
 
 # ---------------------------------- editor ----------------------------------
 
 # Make editor environment variable portable in every system
-_editor() {
+__editor() {
     declare arg
     for arg in "$@"; do
-        _have "$arg" &&
-            export EDITOR="$arg" ||
+        if __have "$arg"; then
+            export EDITOR="$arg"
+            [[ "$EDITOR" == "ed" ]] &&
+                export EDITOR='ed -p ":"'
+        else
             continue
+        fi
     done
     [[ -z "$EDITOR" ]] &&
         echo "There is no editor installed" >&2
 }
 
-_editor ed nvi vi nvim
+__editor ed nvi vi vim nvim
 
 # ---------------------------------- cdpath ----------------------------------
 
@@ -129,7 +132,8 @@ __ps1() {
     local g='\[\e[0;90m\]'
     local x='\[\e[0m\]'
 
-    local G=$(git branch --show-current 2>/dev/null)
+    local G
+    G=$(git branch --show-current 2>/dev/null)
     local P='$'
     [[ $EUID == 0 ]] && P='#'
     [[ $G = master || $G = main ]]
@@ -142,37 +146,38 @@ PROMPT_COMMAND="__ps1"
 
 # ----------------------------------- alias ----------------------------------
 
-_have codium && alias code='codium'
-_have ed && alias ed='ed -p ":"'
-_have egrep && alias grepegrep='egrep --color=auto'
-_have egrep && grepfgrep='fgrep --color=auto'
-_have git && alias ga='git add '
-_have git && alias gc='git commit '
-_have git && alias gg='git status'
-_have git && alias gp='git push '
-_have git && alias gs='git stage '
-_have git && alias gu='git restore --stagged '
-_have grep && alias grep='grep --color=auto'
-_have ls && alias ls='ls --color'
-_have nvim && alias vi='nvim'
-_have nvim && alias view='nvim -R'
+__have codium && alias code='codium'
+__have ed && alias ed='ed -p ":"'
+__have grep && alias grep='grep --color=auto'
+__have egrep && alias egrep='egrep --color=auto'
+__have fgrep && alias fgrep='fgrep --color=auto'
+__have git && alias ga='git add '
+__have git && alias gc='git commit '
+__have git && alias gg='git status'
+__have git && alias gp='git push '
+__have git && alias gs='git stage '
+__have git && alias gu='git restore --stagged '
+__have grep && alias grep='grep --color=auto'
+__have ls && alias ls='ls --color'
+__have nvim && alias vi='nvim'
+__have nvim && alias view='nvim -R'
 
 # -------------------------------- keybindings -------------------------------
 
-_have "$OPEN" && bind -x '"\C-o":"$OPEN ."'
+bind -x '"\C-o":"$OPEN ."'
 
 # ------------------------------------ nix -----------------------------------
 
 # Preserve variable that nix do for you
-_source_if "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+__source_if "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+# Nix Completion
+__source_if "$HOME/.nix-profile/etc/profile.d/nix.sh"
+__source_if "$HOME/.nix-profile/etc/profile.d/bash_completion.sh"
 
 # -------------------------------- completion --------------------------------
 
-_source_if "$HOME/.local/bin/brew-completion.sh"
-_source_if "/usr/local/etc/profile.d/bash_completion.sh"
-_source_if "/etc/profile.d/bash_completion.sh"
-# Nix package manager
-_source_if "$HOME/.nix-profile/etc/profile.d/nix.sh"
-_source_if "$HOME/.nix-profile/etc/profile.d/bash_completion.sh"
-_have gh && . <(gh completion -s bash)
-_have pandoc && . <(pandoc --bash-completion)
+__source_if "$HOME/.local/bin/brew-completion.sh"
+__source_if "/usr/local/etc/profile.d/bash_completion.sh"
+__source_if "/etc/profile.d/bash_completion.sh"
+__have gh && . <(gh completion -s bash)
+__have pandoc && . <(pandoc --bash-completion)

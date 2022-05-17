@@ -41,3 +41,5 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+
+vim.cmd[[nnoremap <leader>th :TSToggle highlight<CR>]]

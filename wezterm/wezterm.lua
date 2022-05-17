@@ -2,8 +2,11 @@ local wezterm = require 'wezterm';
 local dracula = require 'dracula';
 
 return {
-  font = wezterm.font("JetBrains Mono"),
-  font_size = 12.5,
+  font = wezterm.font("JetBrains Mono Medium"),
+  font_size = 13,
+  freetype_render_target = "HorizontalLcd",
+  font_antialias = "Subpixel",
+  custom_block_glyphs = false,
   hide_tab_bar_if_only_one_tab = true,
   window_decorations = "RESIZE",
   window_close_confirmation = "NeverPrompt",

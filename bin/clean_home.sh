@@ -1,14 +1,27 @@
 #!/bin/sh
 
 cleaner() {
-    for args in "$@"
-    do
-        if [ -e "$args" ]; then
+    for args in "$@"; do
+        if [ -f "$args" ]; then
             rm "$args"
+        elif [ -d "$args" ]; then
+            rm -rf "$args"
         fi
     done
 }
 
 cd "$HOME" || exit 1
 
-cleaner .bash_history .bash_logout .bash_profile .lesshst .DS_Store
+cleaner \
+    .sh_history \
+    .bash_sessions \
+    .bash_history \
+    .bash_logout \
+    .bash_profile \
+    .lesshst \
+    .DS_Store \
+    .zshrc \
+    .zsh_history \
+    .zcompdump \
+    .terminfo \
+    .viminfo
