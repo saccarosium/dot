@@ -1,35 +1,37 @@
 #!/usr/bin/env bash
 
-_exist() { type "$1" &>/dev/null; }
+_exist() {
+    if "$(type "$1" &>/dev/null)"; then
+        echo "==> updating $1..."
+    else
+        echo "==> $1 doesn't appear in the PATH" >&2
+    fi
+}
 
 # mac os
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    printf '%b\n' "\033[1m""uptating dev tools...""\033[0m"
-    softwareupdate --all --install --force
-
-    # homebrew
-    printf '%b\n' "\033[1m""updating homebrew...""\033[0m"
-    brew update
-    brew upgrade --greedy
-    printf '%b\n' "\033[1m""cleaning up homebrew...""\033[0m"
-    brew autoremove
-    brew cleanup
+    if _exist softwareupdate; then
+        softwareupdate --all --install --force
+    fi
+    if _exist brew; then
+        brew update
+        brew upgrade --greedy
+        brew autoremove
+        brew cleanup
+    fi
 fi
 
 if _exist nix-channel; then
-    printf '%b\n' "\033[1m""Updating nix...""\035"
     nix-channel --update
 fi
 
 if _exist home-manager; then
-    printf '%b\n' "\033[1m""Rebuilding nix home...""\035"
     home-manager switch
 fi
 
 if _exist nvim; then
-    # nvim
-    printf '%b\n' "\033[1m""updating nvim...""\033"
-    #  nvim -c "PaqSync" & sleep 20 && killall nvim
+    nvim
+    # nvim -c "PaqSync" & sleep 20 && killall nvim
     nvim -c "PlugSync" & sleep 10 && killall nvim
 fi
 
