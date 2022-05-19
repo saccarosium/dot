@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 _exist() {
-    if "$(type "$1" &>/dev/null)"; then
+    if type "$1" &>/dev/null; then
         echo "==> updating $1..."
     else
         echo "==> $1 doesn't appear in the PATH" >&2
@@ -30,7 +30,6 @@ if _exist home-manager; then
 fi
 
 if _exist nvim; then
-    nvim
     # nvim -c "PaqSync" & sleep 20 && killall nvim
     nvim -c "PlugSync" & sleep 10 && killall nvim
 fi
