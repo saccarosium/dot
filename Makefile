@@ -3,7 +3,7 @@ XDG_DATA := $(HOME)/.local
 XDG_CACHE := $(HOME)/.cache
 LN := ln -vsf
 
-build_env: setup_repo build_bash build_nix build_nvim build_vim build_terminal_env
+build_env: setup_repo build_bash build_nvim build_vim build_terminal_env
 
 build_bash: # Symlink bash configuration and clean all the junk in the home
 	$(LN) $(PWD)/bash/.bashrc $(HOME)
@@ -32,8 +32,12 @@ build_nix:
 	/bin/sh $(PWD)/bin/bootstraps/home-manager.sh
 	$(LN) $(PWD)/nixpkgs $(XDG_CONFIG)
 
+build_fonts: setup_repo
+	$(LN) $(PWD)/etc/fonts/* $(XDG_DATA)/share/fonts
+
 setup_repo: # Makes shure that xdg dir exists
 	mkdir -p $(XDG_CONFIG)
 	mkdir -p $(XDG_DATA)
 	mkdir -p $(XDG_CACHE)
+	mkdir -p $(XDG_DATA)/share/fonts
 	/bin/sh $(PWD)/bin/clean_home.sh

@@ -1,3 +1,5 @@
 #!/bin/sh
 
-[ -f "$SYNC/scratchpad.md" ] && "$EDITOR" "$SYNC/scratchpad.md"
+scratch="$SYNC/scratchpad.md"
+
+[ -f "$scratch" ] && "$EDITOR" "$scratch"

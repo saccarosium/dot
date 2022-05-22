@@ -30,6 +30,7 @@ in {
     pkgsunstable.gh
     pkgsunstable.git
     pkgsunstable.gnupg
+    pkgsunstable.gnused
     pkgsunstable.luaformatter
     pkgsunstable.mysql80
     pkgsunstable.neovim
@@ -51,12 +52,6 @@ in {
         italic-text = "always";
         theme = "Dracula";
       };
-    };
-
-    fzf = {
-      enable = false;
-      defaultCommand = "fd --hidden --type f --size -1m .";
-      defaultOptions = [ "-m" "--bind=ctrl-a:toggle-all,ctrl-y:print-query" ];
     };
   };
 }

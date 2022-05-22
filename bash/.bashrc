@@ -17,7 +17,7 @@ __export_linux() { [[ "$OSTYPE" == "linux-gnu"* ]] && export "$1"; }
 # --------------------------- environment variables --------------------------
 
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:/usr/local/share:/usr/share"
-export XDG_RUNTIME_DIR="/tmp"
+export XDG_RUNTIME_DIR="$HOME/.local/runtime"
 export XDG_CONFIG_DIRS="/etc/xdg"
 export XDG_DESKTOP_DIR="$HOME/Desktop"
 export XDG_DOCUMENTS_DIR="$HOME/Documents"

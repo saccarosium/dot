@@ -30,8 +30,7 @@ if _exist home-manager; then
 fi
 
 if _exist nvim; then
-    # nvim -c "PaqSync" & sleep 20 && killall nvim
-    nvim -c "PlugSync" & sleep 10 && killall nvim
+    nvim +PlugUpdate +PlugUpgrade +qall
 fi
 
 if [[ -n "$DOTFILES" ]]; then

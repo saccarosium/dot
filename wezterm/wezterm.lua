@@ -1,8 +1,10 @@
 local wezterm = require 'wezterm';
 local dracula = require 'dracula';
+local scheme = wezterm.get_builtin_color_schemes()["Dark+"];
+scheme.background = "#1e1e1e";
 
 return {
-  font = wezterm.font("JetBrains Mono Medium"),
+  font = wezterm.font("JetBrains Mono Semibold"),
   font_size = 13,
   freetype_render_target = "HorizontalLcd",
   font_antialias = "Subpixel",
@@ -10,9 +12,15 @@ return {
   hide_tab_bar_if_only_one_tab = true,
   window_decorations = "RESIZE",
   window_close_confirmation = "NeverPrompt",
-  colors = dracula,
+  -- colors = dracula,
+  color_scheme = "scheme",
+  color_schemes = {
+    -- Override the builtin Gruvbox Light scheme with our modification.
+    ["Dark+"] = scheme,
+  },
+  color_scheme = "Dark+",
   tab_bar_at_bottom = false,
-  use_fancy_tab_bar = false,
+  use_fancy_tab_bar = yes,
   inactive_pane_hsb = {
     saturation = 1.0,
     brightness = 1.0,
