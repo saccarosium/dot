@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC2034,SC2163
+# shellcheck disable=SC2034,SC2163,SC1090,SC2016
 
 case $- in
 *i*) ;;
@@ -8,11 +8,11 @@ esac
 
 # -------------------------- local utility functions -------------------------
 
-__export_dir() { [[ -d "$2" ]] && export "$1"="$2"; }
-__source_if() { [[ -r "$1" ]] && source "$1"; }
+__export_dir() { [[ -d $2 ]] && export "$1"="$2"; }
+__source_if() { [[ -r $1 ]] && source "$1"; }
 __have() { type "$1" &>/dev/null; }
-__export_osx() { [[ "$OSTYPE" == "darwin"* ]] && export "$1"; }
-__export_linux() { [[ "$OSTYPE" == "linux-gnu"* ]] && export "$1"; }
+__export_osx() { [[ $OSTYPE == "darwin"* ]] && export "$1"; }
+__export_linux() { [[ $OSTYPE == "linux-gnu"* ]] && export "$1"; }
 
 # --------------------------- environment variables --------------------------
 
@@ -61,13 +61,13 @@ __editor() {
     for arg in "$@"; do
         if __have "$arg"; then
             export EDITOR="$arg"
-            [[ "$EDITOR" == "ed" ]] &&
+            [[ $EDITOR == "ed" ]] &&
                 export EDITOR='ed -p ":"'
         else
             continue
         fi
     done
-    [[ -z "$EDITOR" ]] &&
+    [[ -z $EDITOR ]] &&
         echo "There is no editor installed" >&2
 }
 
@@ -85,7 +85,7 @@ export CDPATH=".:$HOME:$REPOS:$PROJECTS:$DOTFILES:$SYNC:$PLUGS"
 apath() {
     declare arg
     for arg in "$@"; do
-        [[ -d "$arg" ]] || continue
+        [[ -d $arg ]] || continue
         PATH=${PATH//":$arg:"/:}
         PATH=${PATH/#"$arg:"/}
         PATH=${PATH/%":$arg"/}
@@ -95,7 +95,7 @@ apath() {
 
 ppath() {
     for arg in "$@"; do
-        [[ -d "$arg" ]] || continue
+        [[ -d $arg ]] || continue
         PATH=${PATH//:"$arg:"/:}
         PATH=${PATH/#"$arg:"/}
         PATH=${PATH/%":$arg"/}
@@ -136,8 +136,8 @@ __ps1() {
     G=$(git branch --show-current 2>/dev/null)
     local P='$'
     [[ $EUID == 0 ]] && P='#'
-    [[ $G = master || $G = main ]]
-    [[ -n "$G" ]] && G="($G)"
+    [[ $G == master || $G == main ]]
+    [[ -n $G ]] && G="($G)"
 
     PS1="$gr\u@\h$x:$bl\W$x$r$G$x$x$P$x "
 }
