@@ -13,7 +13,6 @@ in {
     # pkgsunstable.texlive.combined.scheme-medium
     pkgs.exiftool
     pkgs.fd
-    pkgs.htop
     pkgs.mpv
     pkgs.neofetch
     pkgs.nixfmt
@@ -22,11 +21,11 @@ in {
     pkgs.shfmt
     pkgs.tree
     pkgsunstable.bash-completion
-    pkgsunstable.clangStdenv
+    pkgsunstable.btop
+    pkgsunstable.clang-tools
     pkgsunstable.docker
     pkgsunstable.efm-langserver
     pkgsunstable.ffmpeg
-    pkgsunstable.gdb
     pkgsunstable.gh
     pkgsunstable.git
     pkgsunstable.gnupg
@@ -39,7 +38,6 @@ in {
     pkgsunstable.nodejs
     pkgsunstable.peco
     pkgsunstable.shellcheck
-    pkgsunstable.silver-searcher
     pkgsunstable.texinfo
     pkgsunstable.tmux
     pkgsunstable.tree-sitter
@@ -47,7 +45,7 @@ in {
 
   programs = {
     bat = {
-      enable = true;
+      enable = false;
       config = {
         italic-text = "always";
         theme = "Dracula";

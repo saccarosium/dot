@@ -11,4 +11,5 @@ endif
 
 if colors_name == 'codedark'
     hi! TSType guifg=#569CD6
+    hi! NonText guibg=NONE
 endif

@@ -21,5 +21,6 @@ cmp.setup {
         { name = 'nvim_lsp', max_item_count = 10},
         { name = 'buffer', keyword_length = 1},
         { name = 'path'},
+        { name = 'orgmode' },
     }
 }

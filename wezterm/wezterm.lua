@@ -1,5 +1,5 @@
 local wezterm = require 'wezterm';
-local dracula = require 'dracula';
+-- local dracula = require 'dracula';
 local scheme = wezterm.get_builtin_color_schemes()["Dark+"];
 scheme.background = "#1e1e1e";
 

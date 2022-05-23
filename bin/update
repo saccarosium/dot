@@ -2,9 +2,9 @@
 
 _exist() {
     if type "$1" &>/dev/null; then
-        echo "==> updating $1..."
+        printf "\e[35m==>\e[0m updating %s...\n" "$1"
     else
-        echo "==> $1 doesn't appear in the PATH" >&2
+        printf "\e[31m==> %s doesn't appear in the PATH\e[0m \n" "$1" >&2
     fi
 }
 

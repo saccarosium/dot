@@ -20,7 +20,7 @@ require('Comment').setup({
         ---Line-comment toggle keymap
         line = 'gcc',
         ---Block-comment toggle keymap
-        block = 'gbc',
+        block = 'gbc'
     },
 
     ---LHS of operator-pending mappings in NORMAL + VISUAL mode
@@ -29,7 +29,7 @@ require('Comment').setup({
         ---Line-comment keymap
         line = 'gc',
         ---Block-comment keymap
-        block = 'gb',
+        block = 'gb'
     },
 
     ---LHS of extra mappings
@@ -40,7 +40,7 @@ require('Comment').setup({
         ---Add comment on the line below
         below = 'gco',
         ---Add comment at the end of line
-        eol = 'gcA',
+        eol = 'gcA'
     },
 
     ---Create basic (operator-pending) and extended mappings for NORMAL + VISUAL mode
@@ -56,7 +56,7 @@ require('Comment').setup({
         extra = true,
         ---Extended mapping
         ---Includes `g>`, `g<`, `g>[count]{motion}` and `g<[count]{motion}`
-        extended = false,
+        extended = false
     },
 
     ---Pre-hook, called before commenting the line
@@ -65,5 +65,5 @@ require('Comment').setup({
 
     ---Post-hook, called after commenting is done
     ---@type fun(ctx: Ctx)
-    post_hook = nil,
+    post_hook = nil
 })

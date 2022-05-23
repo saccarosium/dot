@@ -127,8 +127,8 @@ __ps1() {
     local gr='\[\e[0;32m\]'
     local y='\[\e[33m\]'
     local bl='\[\e[34m\]'
-    local p='\[\e[35m\]'
-    local c='\[\e[36m\]'
+    local ma='\[\e[35m\]'
+    local cy='\[\e[36m\]'
     local g='\[\e[0;90m\]'
     local x='\[\e[0m\]'
 
@@ -179,5 +179,6 @@ __source_if "$HOME/.nix-profile/etc/profile.d/bash_completion.sh"
 __source_if "$HOME/.local/bin/brew-completion.sh"
 __source_if "/usr/local/etc/profile.d/bash_completion.sh"
 __source_if "/etc/profile.d/bash_completion.sh"
+__source_if "$HOME/.config/broot/launcher/bash/br"
 __have gh && . <(gh completion -s bash)
 __have pandoc && . <(pandoc --bash-completion)

@@ -1,4 +1,5 @@
 #!/bin/sh
 
 target="$NOTES/index.md"
+
 [ -f "$target" ] && "$EDITOR" "$target"
