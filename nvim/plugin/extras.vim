@@ -15,14 +15,6 @@ fun! SetFormat()
     set fo+=n " Recognise numbered lists
 endfun
 
-fun! FormatCode()
-    if !empty(&formatprg)
-        normal gggqG
-    else
-        echo "You don't have a formatprg set"
-    endif
-endfun
-
 augroup VimRC
     autocmd!
     " Remove all trilling whitespaces when saving file
@@ -32,4 +24,3 @@ augroup VimRC
 augroup END
 
 nnoremap <C-q> :call ToggleQuickFix()<CR>
-nnoremap <leader>lf :call FormatCode()<CR>

@@ -1,6 +1,5 @@
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
-
 " let g:netrw_winsize = 30
 " let g:netrw_banner = 0
 " let g:netrw_hide = 0
@@ -12,7 +11,7 @@ let g:loaded_netrwPlugin = 1
 " hi! link netrwExe Number
 " hi! link netrwSymLink String
 " nnoremap - :Explore<CR>
-"
+
 " function! NetrwMapping()
 "   nmap <buffer> h -^
 "   nmap <buffer> l <CR>
@@ -23,4 +22,4 @@ let g:loaded_netrwPlugin = 1
 "   autocmd!
 "   autocmd FileType netrw call NetrwMapping()
 " augroup END
-
+"

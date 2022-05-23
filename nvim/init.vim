@@ -16,6 +16,7 @@ set signcolumn=yes
 set nofoldenable foldmethod=marker
 set wildignorecase
 set termguicolors
+set grepprg=rg\ --vimgrep\ --no-heading
 
 " ----------------------------------- vars -----------------------------------
 

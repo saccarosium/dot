@@ -42,11 +42,13 @@ local on_attach = function(client, bufnr)
     bmap(bufnr, 'n', '<space>lD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     bmap(bufnr, 'n', 'gR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     bmap(bufnr, 'n', '<space>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    bmap(bufnr, 'n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    -- bmap(bufnr, 'n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     -- vim.cmd[[ Command! :lua vim.lsp.buf.add_workspace_folder() LspAddWorkspace]]
 end
 
-lsp.clangd.setup {on_attach = on_attach}
+lsp.clangd.setup {
+    on_attach = on_attach
+}
 
 -- lsp.ccls.setup {
 --   on_attach = on_attach,
@@ -58,4 +60,6 @@ lsp.clangd.setup {on_attach = on_attach}
 --   }
 -- }
 
-lsp.efm.setup {init_options = {documentFormatting = true}}
+lsp.efm.setup {
+    init_options = {documentFormatting = true}
+}
