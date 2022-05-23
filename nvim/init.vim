@@ -47,7 +47,8 @@ call plug#begin('$XDG_DATA_HOME/plugs')
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-fugitive'
     Plug 'sbdchd/neoformat'
-    Plug 'preservim/nerdtree'
+    Plug 'justinmk/vim-dirvish'
+    Plug 'tckmn/vim-minisnip'
 call plug#end()
 
 lua require("sacca.cmp")
