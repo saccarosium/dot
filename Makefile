@@ -2,37 +2,45 @@ XDG_CONFIG := $(HOME)/.config
 XDG_DATA := $(HOME)/.local
 XDG_CACHE := $(HOME)/.cache
 LN := ln -vsf
+BREW := brew install --cask
+BREWPKG := $(shell cat $(PWD)/etc/packages/brew)
 
-build_env: setup_repo build_bash build_nvim build_vim build_terminal_env
+osx: brew nix build_env
+	$(BREW) $(BREWPKG)
 
-build_bash: # Symlink bash configuration and clean all the junk in the home
-	$(LN) $(PWD)/bash/.bashrc $(HOME)
-	$(LN) $(PWD)/bash/.profile $(HOME)
-	$(LN) $(PWD)/bash/.inputrc $(HOME)
+build_env: setup_repo bash nvim vim terminal_env
 
-build_nvim: # Symlink all the config of the text editor that I use
-	$(LN) $(PWD)/nvim $(XDG_CONFIG)
-
-build_vim:
-	$(LN) $(PWD)/.vimrc $(HOME)/.vimrc
-
-build_terminal_env: # Build my terminal enviroment
+terminal_env: # Build my terminal enviroment
 	$(LN) $(PWD)/tmux $(XDG_CONFIG)
 	$(LN) $(PWD)/fd $(XDG_CONFIG)
 	$(LN) $(PWD)/git $(XDG_CONFIG)
 	$(LN) $(PWD)/bin $(XDG_DATA)
 
-build_terminal_emulators:
+bash: # Symlink bash configuration and clean all the junk in the home
+	$(LN) $(PWD)/bash/.bashrc $(HOME)
+	$(LN) $(PWD)/bash/.profile $(HOME)
+	$(LN) $(PWD)/bash/.inputrc $(HOME)
+
+neovim:
+	$(LN) $(PWD)/nvim $(XDG_CONFIG)
+
+vim:
+	$(LN) $(PWD)/.vimrc $(HOME)/.vimrc
+
+terminal_emulators:
 	$(LN) $(PWD)/alacritty $(XDG_CONFIG)
 	$(LN) $(PWD)/wezterm $(XDG_CONFIG)
 	$(LN) $(PWD)/kitty $(XDG_CONFIG)
 
-build_nix:
+nix:
 	/bin/sh $(PWD)/bin/bootstraps/nix.sh
 	/bin/sh $(PWD)/bin/bootstraps/home-manager.sh
 	$(LN) $(PWD)/nixpkgs $(XDG_CONFIG)
 
-build_fonts: setup_repo
+brew:
+	/bin/sh $(PWD)/bin/bootstraps/homebrew.sh
+
+fonts: setup_repo
 	$(LN) $(PWD)/etc/fonts/* $(XDG_DATA)/share/fonts
 
 setup_repo: # Makes shure that xdg dir exists
