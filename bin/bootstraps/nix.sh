@@ -3,12 +3,11 @@
 : "${EDITOR:=vi}"
 
 nix_script_url="https://nixos.org/nix/install"
-script="/tmp/install_nix"
+script="/tmp/install_nix.sh"
 seconfig="/etc/selinux/config"
 
-
 _have() {
-    type "$1" > /dev/null 2>&1 ||
+    type "$1" >/dev/null 2>&1 ||
         echo "$1 not found in PATH" >&2
 }
 
@@ -29,7 +28,7 @@ echo "==> Installing Nix"
 if [ -e "$script" ]; then
     sh "$script" --daemon
 else
-    curl -L "$nix_script_url" > "$script"
+    curl -L "$nix_script_url" -o "$script"
     sh "$script" --daemon
 fi
 
