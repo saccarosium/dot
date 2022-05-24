@@ -33,10 +33,9 @@ in {
     pkgsunstable.luaformatter
     pkgsunstable.mysql80
     pkgsunstable.neovim
-    pkgsunstable.nixFlakes
-    pkgsunstable.nodePackages.bash-language-server
     pkgsunstable.nodejs
     pkgsunstable.peco
+    pkgsunstable.recutils
     pkgsunstable.shellcheck
     pkgsunstable.texinfo
     pkgsunstable.tmux
@@ -45,10 +44,10 @@ in {
 
   programs = {
     bat = {
-      enable = false;
+      enable = true;
       config = {
         italic-text = "always";
-        theme = "Dracula";
+        theme = "Visual Studio Dark+";
       };
     };
   };

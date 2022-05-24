@@ -148,6 +148,7 @@ PROMPT_COMMAND="__ps1"
 
 __have codium && alias code='codium'
 __have ed && alias ed='ed -p ":"'
+__have bat && alias cat='bat --decorations never'
 __have grep && alias grep='grep --color=auto'
 __have egrep && alias egrep='egrep --color=auto'
 __have fgrep && alias fgrep='fgrep --color=auto'
