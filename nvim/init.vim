@@ -2,7 +2,7 @@
 
 set path+=**
 set exrc
-set laststatus=0
+set laststatus=2
 set number relativenumber
 set mouse=a guicursor=
 set list listchars=trail:-,tab:>>,space:·,eol:¬
@@ -39,17 +39,18 @@ call plug#begin('$XDG_DATA_HOME/plugs')
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/nvim-cmp'
+    Plug 'justinmk/vim-dirvish'
+    Plug 'kshenoy/vim-signature'
     Plug 'lervag/wiki.vim'
     Plug 'neovim/nvim-lspconfig'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'numToStr/Comment.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'sbdchd/neoformat'
+    Plug 'tckmn/vim-minisnip'
     Plug 'tomasiser/vim-code-dark'
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-fugitive'
-    Plug 'sbdchd/neoformat'
-    Plug 'justinmk/vim-dirvish'
-    Plug 'tckmn/vim-minisnip'
 call plug#end()
 
 lua require("sacca.cmp")
@@ -86,3 +87,6 @@ nnoremap [l :lprevious<CR>
 vnoremap <C-y> "+y
 nnoremap <C-n> :bn!<CR>
 nnoremap <C-p> :bp!<CR>
+nnoremap <leader>? :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
