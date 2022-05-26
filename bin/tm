@@ -1,12 +1,25 @@
 #!/usr/bin/env bash
 
+_list_projects() {
+    find "$REPOS" "$PROJECTS" -maxdepth 1
+}
+
 if [[ $# -gt 0 ]]; then
     selected="$1"
 else
     selected="$PWD"
 fi
 
-if [[ -n "$selected" ]]; then
+while getopts "l" options; do
+    case "$options" in
+    l)
+        selected=$(_list_projects | peco)
+        ;;
+    *) ;;
+    esac
+done
+
+if [[ -n $selected ]]; then
     selected_name=$(basename "$selected")
     selected_name=${selected_name:0:8}
 else
