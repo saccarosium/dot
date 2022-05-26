@@ -35,13 +35,9 @@ endif
 
 call plug#begin('$XDG_DATA_HOME/plugs')
     Plug 'dhruvasagar/vim-table-mode'
-    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-nvim-lsp'
-    Plug 'hrsh7th/nvim-cmp'
     Plug 'justinmk/vim-dirvish'
-    Plug 'kshenoy/vim-signature'
     Plug 'lervag/wiki.vim'
+    Plug 'lifepillar/vim-mucomplete'
     Plug 'neovim/nvim-lspconfig'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'numToStr/Comment.nvim'
@@ -51,9 +47,9 @@ call plug#begin('$XDG_DATA_HOME/plugs')
     Plug 'tomasiser/vim-code-dark'
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-fugitive'
+    Plug 'zaid/vim-rec'
 call plug#end()
 
-lua require("sacca.cmp")
 lua require("sacca.colorizer")
 lua require("sacca.comment")
 lua require("sacca.lsp")
@@ -80,10 +76,10 @@ nnoremap <leader>ob :e $DOTFILES/bash/.bashrc<CR>
 nnoremap <leader>os :e $SYNC/scratchpad.md<CR>
 nnoremap <leader>o. :e $DOTFILES<CR>
 nnoremap <leader>vsf :so %<CR>
-nnoremap ]q :cnext<CR>
-nnoremap [q :cprevious<CR>
-nnoremap ]l :lnext<CR>
-nnoremap [l :lprevious<CR>
+nnoremap <C-j> :cnext<CR>
+nnoremap <C-k> :cprevious<CR>
+nnoremap <localleader>j :lnext<CR>
+nnoremap <localleader>k :lprevious<CR>
 vnoremap <C-y> "+y
 nnoremap <C-n> :bn!<CR>
 nnoremap <C-p> :bp!<CR>

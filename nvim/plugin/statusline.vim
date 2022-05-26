@@ -1,8 +1,8 @@
-fun! PrintSpace()
+fun! statusline#printSpace()
     return ' '
 endfun
 
-fun! GitInfo()
+fun! statusline#gitInfo()
   let git = FugitiveHead()
   if ! empty(git)
     return ' '. FugitiveHead()
@@ -12,11 +12,11 @@ fun! GitInfo()
 endfun
 
 set statusline=
-set statusline+=%{PrintSpace()}
-set statusline+=%{GitInfo()}
+set statusline+=%{statusline#printSpace()}
+set statusline+=%{statusline#gitInfo()}
 set statusline+=\ %f
 set statusline+=\ %m
 set statusline+=%=
 set statusline+=\ %l:%c
 set statusline+=\ %y
-set statusline+=%{PrintSpace()}
+set statusline+=%{statusline#printSpace()}

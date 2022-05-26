@@ -36,6 +36,7 @@ export LSCOLORS="exgxcxdxCxegedabagacad"
 export COLORTERM=truecolor
 export GOPATH="$XDG_DATA_HOME/go"
 
+__have wget && export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 __have atom && export ATOM_HOME="$XDG_DATA_HOME/atom"
 __have gpg && export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 __have cargo && export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -162,6 +163,7 @@ __have grep && alias grep='grep --color=auto'
 __have ls && alias ls='ls --color'
 __have nvim && alias vi='nvim'
 __have nvim && alias view='nvim -R'
+__have wget && alias wget="wget --hsts-file=$XDG_CACHE_HOME/wget-hsts"
 
 # -------------------------------- keybindings -------------------------------
 

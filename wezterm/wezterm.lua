@@ -6,9 +6,9 @@ scheme.background = "#1e1e1e";
 return {
   font = wezterm.font("JetBrains Mono Semibold"),
   font_size = 13,
-  freetype_render_target = "HorizontalLcd",
+  freetype_render_target = "Normal",
   font_antialias = "Subpixel",
-  custom_block_glyphs = false,
+  custom_block_glyphs = true,
   hide_tab_bar_if_only_one_tab = true,
   window_decorations = "RESIZE",
   window_close_confirmation = "NeverPrompt",
@@ -20,7 +20,7 @@ return {
   },
   color_scheme = "Dark+",
   tab_bar_at_bottom = false,
-  use_fancy_tab_bar = yes,
+  use_fancy_tab_bar = true,
   inactive_pane_hsb = {
     saturation = 1.0,
     brightness = 1.0,

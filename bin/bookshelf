@@ -1,7 +1,8 @@
 #!/bin/sh
 
+ui="peco"
 database="$NOTES/book-log.rec"
-filter="$(printf "Name\nAuthor\n" | peco)"
-filtered="$(recsel -P "$filter" "$database" | sort -u | peco)"
+filter="$(printf "Name\nAuthor\nFinisched\n" | "$ui")"
+filtered="$(recsel -P "$filter" "$database" | sort -u | "$ui")"
 
 recsel -e "($filter = '$filtered')" "$database"
