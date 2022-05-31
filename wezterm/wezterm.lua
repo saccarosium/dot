@@ -1,24 +1,16 @@
 local wezterm = require 'wezterm';
--- local dracula = require 'dracula';
 local dark_plus = require 'dark_plus';
--- local scheme = wezterm.get_builtin_color_schemes()["Dark+"];
--- scheme.background = "#1e1e1e";
 
 return {
-  font = wezterm.font("JetBrains Mono Semibold"),
-  font_size = 13,
-  freetype_render_target = "Normal",
-  font_antialias = "Subpixel",
-  custom_block_glyphs = true,
+  font = wezterm.font('JetBrains Mono', {stretch="ExtraExpanded", weight="DemiBold"}),
+  harfbuzz_features={"calt=0", "clig=0", "liga=1"},
+  font_size = 13.5,
+  custom_block_glyphs = false,
   hide_tab_bar_if_only_one_tab = true,
+  bold_brightens_ansi_colors = true,
   window_decorations = "RESIZE",
   window_close_confirmation = "NeverPrompt",
   colors = dark_plus,
-  -- color_schemes = {
-  --   -- Override the builtin Gruvbox Light scheme with our modification.
-  --   ["Dark+"] = scheme,
-  -- },
-  -- color_scheme = "Dark+",
   tab_bar_at_bottom = false,
   use_fancy_tab_bar = false,
   inactive_pane_hsb = {
@@ -38,6 +30,7 @@ return {
     {key="5", mods="CMD|CTRL", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
     {key="t", mods="CMD", action=wezterm.action{SpawnTab="DefaultDomain"}},
     {key="'", mods="CMD|CTRL", action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
+    {key="'", mods="CMD", action=wezterm.action{SplitPane={ direction="Down", size={Percent=30}, }}},
     {key="]", mods="CMD", action="ActivateCopyMode"},
   },
 }
