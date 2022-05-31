@@ -9,19 +9,26 @@ if colors_name == 'gruvbox'
     au! FileType sh hi! link TSVariable GruvboxFg1
 endif
 
-if colors_name == 'codedark'
-    hi! TSType guifg=#569CD6
+if colors_name == 'codedark' || colors_name =='vscode'
+    " hi! TSType guifg=#569CD6
+    hi! Ignore guifg=#1e1e1e
+    " hi! NonText guibg=NONE
     hi! markdownH1 guifg=#569CD6 gui=bold
     hi! link markdownH2 markdownH1
     hi! link markdownH3 markdownH1
     hi! link markdownH4 markdownH1
     hi! link markdownH5 markdownH1
     hi! link markdownH6 markdownH1
-    hi! link markdownH1Delimiter markdownH1
-    hi! link markdownH2Delimiter markdownH1
-    hi! link markdownH3Delimiter markdownH1
-    hi! link markdownH4Delimiter markdownH1
-    hi! link markdownH5Delimiter markdownH1
-    hi! link markdownH6Delimiter markdownH1
-    hi! NonText guibg=NONE
+    hi! link dotoo_heading1 markdownH1
+    hi! link dotoo_heading2 dotoo_heading1
+    hi! link dotoo_heading3 dotoo_heading1
+    hi! link dotoo_heading4 dotoo_heading1
+    hi! link dotoo_heading5 dotoo_heading1
+    hi! link dotoo_heading6 dotoo_heading1
+    hi! link orgHeading1 markdownH1
+    hi! link orgHeading2 markdownH1
+    hi! link orgHeading3 markdownH1
+    hi! link orgHeading4 markdownH1
+    hi! link orgHeading5 markdownH1
+    hi! link orgHeading6 markdownH1
 endif

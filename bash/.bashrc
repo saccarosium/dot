@@ -49,10 +49,10 @@ __export_linux OPEN="xdg-open"
 
 __export_dir SYNC "$XDG_DOCUMENTS_DIR/nextcloud"
 __export_dir PROJECTS "$SYNC/Projects"
-__export_dir NOTES "$SYNC/notes"
+__export_dir NOTES "$SYNC/wiki"
 __export_dir REPOS "$HOME/Repos"
 __export_dir DOTFILES "$REPOS/dot"
-__export_dir PLUGS "$XDG_DATA_HOME/nvim/plugs"
+__export_dir PLUGS "$XDG_DATA_HOME/plugs"
 
 # ---------------------------------- editor ----------------------------------
 
@@ -104,8 +104,8 @@ ppath() {
     done
 } && export ppath
 
-ppath /usr/local/bin "$HOME/.local/bin"
-apath /usr/local/opt /opt/local/bin /opt/local/sbin
+ppath /usr/local/bin "$HOME"/.local/bin
+apath /usr/local/opt /opt/local/bin /opt/local/sbin "$HOME"/Library/Python/3.8/bin
 
 # ------------------------ bash shell options ------------------------
 

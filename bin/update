@@ -38,3 +38,4 @@ if [[ -n "$DOTFILES" ]]; then
     git add ./*
     git commit -m "general: automatic update"
 fi
+

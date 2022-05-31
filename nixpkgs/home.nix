@@ -19,10 +19,10 @@ in {
     pkgs.pandoc
     pkgs.ripgrep
     pkgs.shfmt
-    pkgs.trash-cli
     pkgs.tree
     pkgs.wget
-    pkgsunstable.bash-completion
+    pkgs.bash-completion
+    pkgsunstable.asciidoctor-with-extensions
     pkgsunstable.btop
     pkgsunstable.cargo
     pkgsunstable.clang-tools
@@ -31,19 +31,18 @@ in {
     pkgsunstable.ffmpeg
     pkgsunstable.gh
     pkgsunstable.git
-    pkgsunstable.gnupg
     pkgsunstable.gnused
-    pkgsunstable.luaformatter
     pkgsunstable.lf
     pkgsunstable.mysql80
     pkgsunstable.neovim
     pkgsunstable.nodejs
     pkgsunstable.peco
+    pkgsunstable.pythonFull
     pkgsunstable.recutils
-    pkgsunstable.rustc
     pkgsunstable.shellcheck
     pkgsunstable.texinfo
     pkgsunstable.tmux
+    pkgsunstable.ccls
     pkgsunstable.tree-sitter
   ];
 
