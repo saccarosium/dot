@@ -1,2 +1,6 @@
-let g:minisnip_dir = $XDG_CONFIG_HOME . '/nvim/snips'
-let g:minisnip_trigger = '<C-j>'
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/snips']
