@@ -1,0 +1,30 @@
+cmd mkdir %{{
+  printf "Directory Name: "
+  read ans
+  mkdir $ans
+}}
+
+cmd mkfile %{{
+  printf "File Name: "
+  read ans
+  touch $ans
+}}
+
+cmd chmod %{{
+  printf "Mode Bits: "
+  read ans
+
+  for file in "$fx"
+  do
+    chmod $ans $file
+  done
+
+  lf -remote 'send reload'
+}}
+
+set previewer bat
+set hidden
+
+map nf makefile
+map nd makedir
+map D delete
