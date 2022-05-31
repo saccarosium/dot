@@ -11,7 +11,6 @@ in {
 
   home.packages = [
     # pkgsunstable.texlive.combined.scheme-medium
-    pkgs.exiftool
     pkgs.fd
     pkgs.mpv
     pkgs.neofetch
@@ -21,8 +20,8 @@ in {
     pkgs.shfmt
     pkgs.tree
     pkgs.wget
-    pkgs.bash-completion
     pkgsunstable.asciidoctor-with-extensions
+    pkgsunstable.bash-completion
     pkgsunstable.btop
     pkgsunstable.cargo
     pkgsunstable.clang-tools
@@ -33,9 +32,7 @@ in {
     pkgsunstable.git
     pkgsunstable.gnused
     pkgsunstable.lf
-    pkgsunstable.mysql80
     pkgsunstable.neovim
-    pkgsunstable.nodejs
     pkgsunstable.peco
     pkgsunstable.pythonFull
     pkgsunstable.recutils

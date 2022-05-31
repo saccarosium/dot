@@ -1,4 +1,4 @@
-fun! extras#toggleQuickFix()
+fun! sacca#toggleQuickFix()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
         copen
     else
@@ -6,7 +6,7 @@ fun! extras#toggleQuickFix()
     endif
 endfun
 
-fun! extras#setFormat()
+fun! sacca#setFormat()
     " Only dafault plugins and filetypes change this
     set fo=
     set fo+=p " Don't break line with space
@@ -15,4 +15,8 @@ fun! extras#setFormat()
     set fo+=n " Recognise numbered lists
 endfun
 
-nnoremap <C-q> :call extras#toggleQuickFix()<CR>
+fun! sacca#editSnips() abort
+    let s:type = &filetype
+    let s:mode = 'vs'
+    exe ':'.s:mode.' '.expand('$XDG_CONFIG_HOME/nvim/ftplugin/').s:type.'.vim'
+endfun
