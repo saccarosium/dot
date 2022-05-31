@@ -17,6 +17,11 @@ set nofoldenable foldmethod=marker
 set wildignorecase
 set termguicolors
 set grepprg=rg\ --vimgrep\ --no-heading
+set shortmess+=c " Shut off completion messages
+set complete=.
+set completeopt+=menuone
+set completeopt+=noselect
+set completeopt-=preview
 
 " ----------------------------------- vars -----------------------------------
 
@@ -34,26 +39,32 @@ if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autolo
 endif
 
 call plug#begin('$XDG_DATA_HOME/plugs')
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+    Plug 'SirVer/ultisnips'
     Plug 'dhruvasagar/vim-table-mode'
     Plug 'justinmk/vim-dirvish'
     Plug 'lervag/wiki.vim'
-    Plug 'lifepillar/vim-mucomplete'
     Plug 'neovim/nvim-lspconfig'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'numToStr/Comment.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'saccarosium/vim-code-dark'
     Plug 'sbdchd/neoformat'
-    Plug 'tckmn/vim-minisnip'
-    Plug 'tomasiser/vim-code-dark'
-    Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-fugitive'
-    Plug 'zaid/vim-rec'
+    Plug 'tpope/vim-eunuch'
+    Plug 'nvim-orgmode/orgmode'
+    " Plug '~/Repos/vim-dotoo'
 call plug#end()
 
 lua require("sacca.colorizer")
 lua require("sacca.comment")
+lua require("sacca.cmp")
 lua require("sacca.lsp")
 lua require("sacca.tree-sitter")
+lua require("sacca.org")
 
 " ---------------------------------- colors ----------------------------------
 
@@ -66,6 +77,8 @@ colorscheme codedark
 :command PlugSync PlugClean | PlugInstall
 cnoreabbrev vb vs<space><bar><space>b
 cnoreabbrev sb sp<space><bar><space>b
+cnoreabbrev db bdelete!
+cnoreabbrev ** **/*
 cnoreabbrev dot $DOTFILES
 
 " ----------------------------------- remap ----------------------------------
@@ -73,16 +86,16 @@ cnoreabbrev dot $DOTFILES
 nnoremap <leader>or :vsplit ./README.md<CR>
 nnoremap <leader>oc :e $MYVIMRC<CR>
 nnoremap <leader>ob :e $DOTFILES/bash/.bashrc<CR>
+nnoremap <leader>ot :e $SYNC/Projects/org/todo.org<CR>
 nnoremap <leader>os :e $SYNC/scratchpad.md<CR>
-nnoremap <leader>o. :e $DOTFILES<CR>
+nnoremap <leader>oS :UltiSnipsEdit<CR>
+nnoremap <leader>o. :e $DOTFILES/nvim<CR>
 nnoremap <leader>vsf :so %<CR>
-nnoremap <C-j> :cnext<CR>
-nnoremap <C-k> :cprevious<CR>
-nnoremap <localleader>j :lnext<CR>
-nnoremap <localleader>k :lprevious<CR>
+nnoremap <C-n> :cnext<CR>
+nnoremap <C-p> :cprevious<CR>
 vnoremap <C-y> "+y
-nnoremap <C-n> :bn!<CR>
-nnoremap <C-p> :bp!<CR>
-nnoremap <leader>? :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+vmap < <gv
+vmap > >gv
+cnoremap <C-a> <Home>
+cnoremap <A-b> <S-Left>
+cnoremap <A-f> <S-Right>
