@@ -11,6 +11,8 @@ fun! statusline#gitInfo()
   endif
 endfun
 
+
+
 set statusline=
 set statusline+=%{statusline#printSpace()}
 set statusline+=%{statusline#gitInfo()}

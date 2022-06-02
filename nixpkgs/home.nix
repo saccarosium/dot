@@ -23,23 +23,20 @@ in {
     pkgsunstable.asciidoctor-with-extensions
     pkgsunstable.bash-completion
     pkgsunstable.btop
-    pkgsunstable.cargo
+    pkgsunstable.ccls
     pkgsunstable.clang-tools
-    pkgsunstable.docker
     pkgsunstable.efm-langserver
     pkgsunstable.ffmpeg
     pkgsunstable.gh
     pkgsunstable.git
     pkgsunstable.gnused
+    pkgsunstable.jq
     pkgsunstable.lf
     pkgsunstable.neovim
     pkgsunstable.peco
     pkgsunstable.pythonFull
-    pkgsunstable.recutils
     pkgsunstable.shellcheck
     pkgsunstable.texinfo
-    pkgsunstable.tmux
-    pkgsunstable.ccls
     pkgsunstable.tree-sitter
   ];
 

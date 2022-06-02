@@ -34,6 +34,7 @@ export CLICOLOR=1
 export LESSHISTFILE=-
 export LSCOLORS="exgxcxdxCxegedabagacad"
 export COLORTERM=truecolor
+export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 export GOPATH="$XDG_DATA_HOME/go"
 
 __have wget && export WGETRC="$XDG_CONFIG_HOME/wgetrc"

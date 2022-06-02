@@ -12,10 +12,10 @@ terminal_env: # Build my terminal enviroment
 	$(LN) $(PWD)/lf $(XDG_CONFIG)
 	$(LN) $(PWD)/bin $(XDG_DATA)
 
-bash: # Symlink bash configuration and clean all the junk in the home
+build_bash: # Symlink bash configuration and clean all the junk in the home
 	$(LN) $(PWD)/bash/.bashrc $(HOME)
 	$(LN) $(PWD)/bash/.profile $(HOME)
-	$(LN) $(PWD)/bash/.inputrc $(HOME)
+	$(LN) $(PWD)/bash/.inputrc $(XDG_CONFIG)/readline/inputrc
 
 neovim:
 	$(LN) $(PWD)/nvim $(XDG_CONFIG)
@@ -43,4 +43,5 @@ setup_repo: # Makes shure that xdg dir exists
 	mkdir -p $(XDG_DATA)
 	mkdir -p $(XDG_CACHE)
 	mkdir -p $(XDG_DATA)/share/fonts
+	mkdir -p $(XDG_CONFIG)/readline
 	/bin/sh $(PWD)/bin/clean_home.sh

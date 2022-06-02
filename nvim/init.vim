@@ -17,10 +17,6 @@ set nofoldenable foldmethod=marker
 set wildignorecase
 set termguicolors
 set grepprg=rg\ --vimgrep\ --no-heading
-set shortmess+=c " Shut off completion messages
-set complete=.
-set completeopt+=menuone,noselect
-set completeopt-=preview
 
 " ----------------------------------- vars -----------------------------------
 
@@ -39,26 +35,25 @@ endif
 
 call plug#begin('$XDG_DATA_HOME/plugs')
     Plug 'dhruvasagar/vim-table-mode'
+    Plug 'echasnovski/mini.nvim'
     Plug 'justinmk/vim-dirvish'
-    Plug 'lervag/wiki.vim'
-    Plug 'lifepillar/vim-mucomplete'
     Plug 'neovim/nvim-lspconfig'
     Plug 'norcalli/nvim-colorizer.lua'
-    Plug 'numToStr/Comment.nvim'
     Plug 'nvim-orgmode/orgmode'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'saccarosium/vim-code-dark'
+    Plug 'saccarosium/vim-minisnip'
     Plug 'sbdchd/neoformat'
     Plug 'tpope/vim-eunuch'
-    Plug 'tpope/vim-dispatch'
     Plug 'tpope/vim-fugitive'
     " Plug '~/Repos/vim-dotoo'
 call plug#end()
 
 lua require("sacca.colorizer")
-lua require("sacca.comment")
+" lua require("sacca.comment")
 lua require("sacca.lsp")
 lua require("sacca.tree-sitter")
+lua require("sacca.mini")
 lua require("sacca.org")
 
 " ---------------------------------- colors ----------------------------------
@@ -69,11 +64,10 @@ colorscheme codedark
 
 " ------------------------------ commands/abbrev -----------------------------
 
-:command PlugSync PlugClean | PlugInstall
-cnoreabbrev vb vs<space><bar><space>b <C-d>
-cnoreabbrev sb sp<space><bar><space>b <C-d>
-cnoreabbrev db bdelete! <C-d>
-cnoreabbrev b b <C-d>
+:command PlugSync PlugClean | PlugInstall | PlugUpdate | PlugUpgrade
+cnoreabbrev vb vs<space><bar><space>b
+cnoreabbrev sb sp<space><bar><space>b
+cnoreabbrev db bdelete!
 cnoreabbrev dot $DOTFILES
 
 " ----------------------------------- remap ----------------------------------
@@ -82,8 +76,8 @@ nnoremap <leader>or :vsplit ./README.md<CR>
 nnoremap <leader>oc :e $MYVIMRC<CR>
 nnoremap <leader>ob :e $DOTFILES/bash/.bashrc<CR>
 nnoremap <leader>ot :e $SYNC/Projects/org/todo.org<CR>
+nnoremap <leader>op :e $SYNC/Projects/org<CR>
 nnoremap <leader>os :e $SYNC/scratchpad.md<CR>
-nnoremap <leader>oS :call Snips()<CR>
 nnoremap <leader>o. :e $DOTFILES/nvim<CR>
 nnoremap <leader>vsf :so %<CR>
 nnoremap <C-n> :cnext<CR>
@@ -91,6 +85,7 @@ nnoremap <C-p> :cprevious<CR>
 vnoremap <C-y> "+y
 vmap < <gv
 vmap > >gv
+cnoremap <C-h> <BS>
 cnoremap <C-a> <Home>
-cnoremap <A-b> <S-Left>
-cnoremap <A-f> <S-Right>
+cnoremap <A-b> <Left>
+cnoremap <A-f> <Right>
