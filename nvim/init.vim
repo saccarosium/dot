@@ -22,7 +22,6 @@ set grepprg=rg\ --vimgrep\ --no-heading
 
 let mapleader=' '
 let maplocalleader = ' '
-let g:markdown_folding=1
 
 " --------------------------------- plugings ---------------------------------
 
@@ -35,25 +34,24 @@ endif
 
 call plug#begin('$XDG_DATA_HOME/plugs')
     Plug 'dhruvasagar/vim-table-mode'
-    Plug 'echasnovski/mini.nvim'
     Plug 'justinmk/vim-dirvish'
+    Plug 'lifepillar/vim-mucomplete'
     Plug 'neovim/nvim-lspconfig'
     Plug 'norcalli/nvim-colorizer.lua'
+    Plug 'numToStr/Comment.nvim'
     Plug 'nvim-orgmode/orgmode'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'saccarosium/vim-code-dark'
-    Plug 'saccarosium/vim-minisnip'
     Plug 'sbdchd/neoformat'
+    Plug 'tomasiser/vim-code-dark'
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-fugitive'
     " Plug '~/Repos/vim-dotoo'
 call plug#end()
 
 lua require("sacca.colorizer")
-" lua require("sacca.comment")
 lua require("sacca.lsp")
 lua require("sacca.tree-sitter")
-lua require("sacca.mini")
+lua require("sacca.comment")
 lua require("sacca.org")
 
 " ---------------------------------- colors ----------------------------------
@@ -89,3 +87,5 @@ cnoremap <C-h> <BS>
 cnoremap <C-a> <Home>
 cnoremap <A-b> <Left>
 cnoremap <A-f> <Right>
+inoremap <C-j> <Esc>/<++><Enter>"_c4l
+nnoremap <C-j> <Esc>/<++><Enter>"_c4l

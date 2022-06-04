@@ -16,8 +16,7 @@ fun! sacca#setFormat()
 endfun
 
 fun! sacca#editSnips() abort
-    let s:name = input('Snippet Name: ')
     let s:type = &filetype
     let s:mode = 'vs'
-    exe ':'.s:mode.' '.g:minisnip_dir.'/_'.s:type.'_'.s:name
+    exe ':'.s:mode.' '.expand('$XDG_CONFIG_HOME/nvim/ftplugin/').s:type.'.vim'
 endfun
