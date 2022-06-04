@@ -1,3 +1,20 @@
-== DOTFILES!
+= SACCAROSIUM'S DOTFILES
 
-This is my personal configuration for my stuff.
+This is my personal configuration for my OSX and Linux dotfiles. It is managaged and deployed
+with GNU Make and some shells scripts in `./bin/bootstraps/`.
+
+For deploing the dotfiles just run `make build_env`.
+
+== Installation
+
+[,shell]
+----
+$ make build_env
+----
+
+== Change computer
+
+[,shell]
+----
+$ pack.sh <package-manager> <command to list all packages>
+----
