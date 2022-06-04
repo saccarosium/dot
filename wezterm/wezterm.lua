@@ -30,7 +30,7 @@ return {
     {key="5", mods="CMD|CTRL", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
     {key="t", mods="CMD", action=wezterm.action{SpawnTab="DefaultDomain"}},
     {key="'", mods="CMD|CTRL", action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
-    {key="'", mods="CMD", action=wezterm.action{SplitPane={ direction="Down", size={Percent=30}, }}},
+    -- {key="'", mods="CMD", action=wezterm.action{SplitPane={ direction="Down", size={Percent=30}, }}},
     {key="]", mods="CMD", action="ActivateCopyMode"},
   },
 }

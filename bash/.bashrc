@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC2034,SC2163,SC1090,SC2016
+# shellcheck disable=SC2034,SC2163,SC1090,SC2016,SC2139
 
 case $- in
 *i*) ;;
@@ -160,7 +160,6 @@ __have git && alias gg='git status'
 __have git && alias gp='git push '
 __have git && alias gs='git stage '
 __have git && alias gu='git restore --stagged '
-__have grep && alias grep='grep --color=auto'
 __have ls && alias ls='ls --color'
 __have nvim && alias vi='nvim'
 __have nvim && alias view='nvim -R'
@@ -186,3 +185,4 @@ __source_if "/etc/profile.d/bash_completion.sh"
 __source_if "$HOME/.config/broot/launcher/bash/br"
 __have gh && . <(gh completion -s bash)
 __have pandoc && . <(pandoc --bash-completion)
+__have make && complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make

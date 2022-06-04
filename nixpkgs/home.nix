@@ -1,11 +1,13 @@
 { config, pkgs, ... }:
 
-let pkgsunstable = import <nixpkgs-unstable> { };
-
+let
+  pkgsunstable = import <nixpkgs-unstable> { };
+  machine = import ~/.config/nixpkgs/machine.nix;
+  isDarwin = machine.operatingSystem == "Darwin";
+  isFedora = machine.operatingSystem == "Fedora";
 in {
   home.username = "sacca";
-  home.homeDirectory = "/Users/sacca";
-  # home.homeDirectory = "/home/sacca";
+  home.homeDirectory = if isDarwin then "/Users/sacca" else "/home/sacca";
 
   programs.home-manager.enable = true;
 
@@ -18,7 +20,9 @@ in {
     pkgs.pandoc
     pkgs.ripgrep
     pkgs.shfmt
+    pkgs.speedtest-cli
     pkgs.tree
+    pkgs.htop
     pkgs.wget
     pkgsunstable.asciidoctor-with-extensions
     pkgsunstable.bash-completion
@@ -27,12 +31,13 @@ in {
     pkgsunstable.clang-tools
     pkgsunstable.efm-langserver
     pkgsunstable.ffmpeg
+    pkgsunstable.gnused
     pkgsunstable.gh
     pkgsunstable.git
-    pkgsunstable.gnused
     pkgsunstable.jq
     pkgsunstable.lf
     pkgsunstable.neovim
+    pkgsunstable.nnn
     pkgsunstable.peco
     pkgsunstable.pythonFull
     pkgsunstable.shellcheck

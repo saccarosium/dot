@@ -22,6 +22,7 @@ cleaner \
     .DS_Store \
     .zshrc \
     .zsh_history \
+    .zsh_sessions \
     .zcompdump \
     .terminfo \
     .viminfo

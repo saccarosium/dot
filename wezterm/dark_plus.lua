@@ -25,8 +25,7 @@ return {
     tab_bar = {
         -- The color of the strip that goes along the top of the window
         -- (does not apply when fancy tab bar is in use)
-        background = "#1e1e1e",
-        background = "#252526",
+        background = "#373737",
         -- The active tab is the one that has focus in the window
         active_tab = {
             -- The color of the background area for the tab
@@ -56,6 +55,6 @@ return {
             -- can also be used for `inactive_tab`.
         },
         -- The new tab button that let you create new tabs
-        new_tab = {bg_color = "#252526", fg_color = "#cccccc"}
+        new_tab = {bg_color = "#373737", fg_color = "#cccccc"}
     }
 }

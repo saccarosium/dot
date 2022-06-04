@@ -1,5 +1,7 @@
 #!/bin/sh
 
+nixpgks="$XDG_CONFIG_HOME/nixpkgs"
+
 _have() {
     type "$1" >/dev/null 2>&1 ||
         echo "$1 not found in PATH" >&2
@@ -22,4 +24,6 @@ if _have nix-channel; then
     nix-channel --update
 fi
 
-[ -d "$XDG_CONFIG_HOME"/nixpgks ] && rm -rf "$XDG_CONFIG_HOME"/nixpgks
+[ -f "$nixpgks/home.nix" ] && rm "$nixpgks/home.nix"
+
+echo "{ hostname = \"$(hostname)\"; operatingSystem = \"$(uname -v | awk '{ print $1 }' | sed 's/#.*-//')\"; }" > "$nixpgks/machine.nix"
