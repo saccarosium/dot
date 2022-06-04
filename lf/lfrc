@@ -24,7 +24,12 @@ cmd chmod %{{
 
 set previewer bat
 set hidden
+# set drawbox false
+
+map n
 
 map nf makefile
 map nd makedir
+map <c-l> unselect
 map D delete
+map R $vimv $fx

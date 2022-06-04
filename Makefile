@@ -1,47 +1,56 @@
 XDG_CONFIG := $(HOME)/.config
 XDG_DATA := $(HOME)/.local
 XDG_CACHE := $(HOME)/.cache
+MKDIR := mkdir -pv
 LN := ln -vsf
+SH := /usr/bin/env sh
 
-env: setup_repo bash nvim vim terminal_env
 
-terminal_env: # Build my terminal enviroment
+build_env: setup_repo bash nvim vim terminal_env
+
+build_terminal_env: # Build my terminal enviroment
 	$(LN) $(PWD)/tmux $(XDG_CONFIG)
 	$(LN) $(PWD)/fd $(XDG_CONFIG)
 	$(LN) $(PWD)/git $(XDG_CONFIG)
 	$(LN) $(PWD)/lf $(XDG_CONFIG)
+	$(LN) $(PWD)/htop $(XDG_CONFIG)
 	$(LN) $(PWD)/bin $(XDG_DATA)
 
-build_bash: # Symlink bash configuration and clean all the junk in the home
+build_bash:
+	$(MKDIR) $(XDG_CONFIG)/readline
 	$(LN) $(PWD)/bash/.bashrc $(HOME)
 	$(LN) $(PWD)/bash/.profile $(HOME)
 	$(LN) $(PWD)/bash/.inputrc $(XDG_CONFIG)/readline/inputrc
 
-neovim:
+build_vims:
 	$(LN) $(PWD)/nvim $(XDG_CONFIG)
+	$(LN) $(PWD)/.vimrc $(HOME)
 
-vim:
-	$(LN) $(PWD)/.vimrc $(HOME)/.vimrc
-
-terminal_emulators:
+build_terminal_emulators:
 	$(LN) $(PWD)/alacritty $(XDG_CONFIG)
 	$(LN) $(PWD)/wezterm $(XDG_CONFIG)
 
-nix:
-	/bin/sh $(PWD)/bin/bootstraps/nix.sh
-	/bin/sh $(PWD)/bin/bootstraps/home-manager.sh
-	$(LN) $(PWD)/nixpkgs $(XDG_CONFIG)
+build_nix:
+	$(MKDIR) $(XDG_CONFIG)/nixpkgs
+	$(SH) $(PWD)/bin/bootstraps/nix.sh
+	$(SH) $(PWD)/bin/bootstraps/home-manager.sh
+	$(LN) $(PWD)/nixpkgs/* $(XDG_CONFIG)/nixpkgs
 
-brew:
-	/bin/sh $(PWD)/bin/bootstraps/homebrew.sh
+build_brew:
+	$(SH) $(PWD)/bin/bootstraps/homebrew.sh
 
-setup_fonts: setup_repo
+build_yabai:
+	$(MKDIR) $(XDG_CONFIG)/yabai
+	$(MKDIR) $(XDG_CONFIG)/skhd
+	$(LN) $(PWD)/desktops/yabai/yabairc $(XDG_CONFIG)/yabai
+	$(LN) $(PWD)/desktops/yabai/skhdrc $(XDG_CONFIG)/skhd
+
+setup_fonts:
+	$(MKDIR) $(XDG_DATA)/share/fonts
 	$(LN) $(PWD)/etc/fonts/* $(XDG_DATA)/share/fonts
 
 setup_repo: # Makes shure that xdg dir exists
-	mkdir -p $(XDG_CONFIG)
-	mkdir -p $(XDG_DATA)
-	mkdir -p $(XDG_CACHE)
-	mkdir -p $(XDG_DATA)/share/fonts
-	mkdir -p $(XDG_CONFIG)/readline
-	/bin/sh $(PWD)/bin/clean_home.sh
+	$(MKDIR) $(XDG_CONFIG)
+	$(MKDIR) $(XDG_DATA)
+	$(MKDIR) $(XDG_CACHE)
+	$(SH) $(PWD)/bin/clean_home.sh
