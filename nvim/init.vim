@@ -13,7 +13,8 @@ set textwidth=80 nowrap
 set cursorline
 set splitbelow splitright
 set signcolumn=yes
-set nofoldenable foldmethod=marker
+set nofoldenable
+set foldmethod=marker
 set wildignorecase
 set termguicolors
 set grepprg=rg\ --vimgrep\ --no-heading
@@ -34,25 +35,27 @@ endif
 
 call plug#begin('$XDG_DATA_HOME/plugs')
     Plug 'dhruvasagar/vim-table-mode'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/nvim-cmp'
     Plug 'justinmk/vim-dirvish'
-    Plug 'lifepillar/vim-mucomplete'
     Plug 'neovim/nvim-lspconfig'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'numToStr/Comment.nvim'
     Plug 'nvim-orgmode/orgmode'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'sbdchd/neoformat'
     Plug 'tomasiser/vim-code-dark'
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-fugitive'
     " Plug '~/Repos/vim-dotoo'
 call plug#end()
 
+lua require("sacca.cmp")
 lua require("sacca.colorizer")
-lua require("sacca.lsp")
-lua require("sacca.tree-sitter")
 lua require("sacca.comment")
+lua require("sacca.lsp")
 lua require("sacca.org")
+lua require("sacca.tree-sitter")
 
 " ---------------------------------- colors ----------------------------------
 
@@ -78,6 +81,7 @@ nnoremap <leader>op :e $SYNC/Projects/org<CR>
 nnoremap <leader>os :e $SYNC/scratchpad.md<CR>
 nnoremap <leader>o. :e $DOTFILES/nvim<CR>
 nnoremap <leader>vsf :so %<CR>
+nnoremap <leader>lf :norm m0gggqG'0<CR>
 nnoremap <C-n> :cnext<CR>
 nnoremap <C-p> :cprevious<CR>
 vnoremap <C-y> "+y

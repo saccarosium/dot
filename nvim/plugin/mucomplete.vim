@@ -3,12 +3,15 @@ set complete=.
 set completeopt+=menuone,noselect
 set completeopt-=preview
 
-let g:mucomplete#enable_auto_at_startup = 1
+" let g:mucomplete#enable_auto_at_startup = 1
+"
+" let g:mucomplete#chains = {}
+" let g:mucomplete#chains = {
+"     \ 'default' : [ 'omni', 'user', 'incl', 'path'],
+"     \ }
+"
+" inoremap <tab> <plug>(MUcompleteFwd)
+" inoremap <s-tab> <plug>(MUcompleteBwd)
 
-let g:mucomplete#chains = {}
-let g:mucomplete#chains = {
-    \ 'default' : [ 'omni', 'user', 'incl', 'path'],
-    \ }
+let g:deoplete#enable_at_startup = 1
 
-inoremap <tab> <plug>(MUcompleteFwd)
-inoremap <s-tab> <plug>(MUcompleteBwd)

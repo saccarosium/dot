@@ -40,6 +40,7 @@ in {
     pkgsunstable.nnn
     pkgsunstable.peco
     pkgsunstable.pythonFull
+    pkgsunstable.python39Packages.pynvim
     pkgsunstable.shellcheck
     pkgsunstable.texinfo
     pkgsunstable.tree-sitter
