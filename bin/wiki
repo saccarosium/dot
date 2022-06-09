@@ -1,5 +1,0 @@
-#!/bin/sh
-
-target="$NOTES/index.adoc"
-
-[ -f "$target" ] && "$EDITOR" "$target"

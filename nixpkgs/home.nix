@@ -1,48 +1,42 @@
 { config, pkgs, ... }:
 
 let
-  pkgsunstable = import <nixpkgs-unstable> { };
+  pkgsunstable = import <nixpkgs-unstable> {};
   machine = import ~/.config/nixpkgs/machine.nix;
   isDarwin = machine.operatingSystem == "Darwin";
-  isFedora = machine.operatingSystem == "Fedora";
+  isLinux = machine.operatingSystem == "Linux";
 in {
+  programs.home-manager.enable = true;
   home.username = "sacca";
   home.homeDirectory = if isDarwin then "/Users/sacca" else "/home/sacca";
-
-  programs.home-manager.enable = true;
-
+  imports = if isDarwin then [./osx.nix] else [./linux.nix];
   home.packages = [
-    # pkgsunstable.texlive.combined.scheme-medium
     pkgs.fd
     pkgs.mpv
     pkgs.neofetch
     pkgs.nixfmt
-    pkgs.pandoc
     pkgs.ripgrep
     pkgs.shfmt
     pkgs.speedtest-cli
     pkgs.tree
     pkgs.htop
     pkgs.wget
-    pkgsunstable.asciidoctor-with-extensions
+    pkgs.alejandra
     pkgsunstable.bash-completion
-    pkgsunstable.btop
     pkgsunstable.ccls
     pkgsunstable.clang-tools
     pkgsunstable.efm-langserver
     pkgsunstable.ffmpeg
-    pkgsunstable.gnused
     pkgsunstable.gh
     pkgsunstable.git
     pkgsunstable.jq
     pkgsunstable.lf
     pkgsunstable.neovim
-    pkgsunstable.nnn
+    pkgsunstable.asciidoctor
     pkgsunstable.peco
     pkgsunstable.pythonFull
     pkgsunstable.python39Packages.pynvim
     pkgsunstable.shellcheck
-    pkgsunstable.texinfo
     pkgsunstable.tree-sitter
   ];
 

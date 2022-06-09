@@ -18,9 +18,9 @@ cmp.setup {
         ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = {
-        { name = 'ultisnips' },
         { name = 'nvim_lsp', max_item_count = 10},
         { name = 'buffer', keyword_length = 1 },
+        { name = 'path' },
         { name = 'orgmode' },
     }
 }

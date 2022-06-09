@@ -7,7 +7,7 @@ _have() {
         echo "$1 not found in PATH" >&2
 }
 
-_have home-manager && exit 0
+#_have home-manager && exit 0
 
 if _have nix-channel; then
     nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager

@@ -29,6 +29,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
+export VIM_CONFIG_PATH="$XDG_DATA_HOME/nvim/site"
 export MANPAGER="less"
 export CLICOLOR=1
 export LESSHISTFILE=-
@@ -148,9 +149,7 @@ PROMPT_COMMAND="__ps1"
 
 # ----------------------------------- alias ----------------------------------
 
-__have codium && alias code='codium'
 __have ed && alias ed='ed -p ":"'
-__have bat && alias cat='bat --decorations never'
 __have grep && alias grep='grep --color=auto'
 __have egrep && alias egrep='egrep --color=auto'
 __have fgrep && alias fgrep='fgrep --color=auto'
@@ -162,7 +161,6 @@ __have git && alias gs='git stage '
 __have git && alias gu='git restore --stagged '
 __have ls && alias ls='ls --color'
 __have nvim && alias vi='nvim'
-__have nvim && alias view='nvim -R'
 __have wget && alias wget="wget --hsts-file=$XDG_CACHE_HOME/wget-hsts"
 
 # -------------------------------- keybindings -------------------------------
@@ -179,10 +177,9 @@ __source_if "$HOME/.nix-profile/etc/profile.d/bash_completion.sh"
 
 # -------------------------------- completion --------------------------------
 
-__source_if "$HOME/.local/bin/brew-completion.sh"
+__source_if "$HOME/.local/bin/completions/brew-completion.sh"
 __source_if "/usr/local/etc/profile.d/bash_completion.sh"
 __source_if "/etc/profile.d/bash_completion.sh"
-__source_if "$HOME/.config/broot/launcher/bash/br"
 __have gh && . <(gh completion -s bash)
 __have pandoc && . <(pandoc --bash-completion)
 __have make && complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make

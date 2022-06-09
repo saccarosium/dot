@@ -1,7 +1,0 @@
-#!/bin/sh
-
-selected="$( fd --hidden --type f --size -1m . | fzf --layout=reverse --height 60% )"
-
-[ -n "$selected" ] || exit 1
-
-$EDITOR "$selected"
