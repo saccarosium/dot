@@ -3,8 +3,8 @@ local dark_plus = require 'dark_plus';
 
 return {
   font = wezterm.font('JetBrains Mono', {stretch="ExtraExpanded", weight="DemiBold"}),
-  harfbuzz_features={"calt=0", "clig=0", "liga=1"},
-  font_size = 13.5,
+  harfbuzz_features={"calt=0", "clig=0", "liga=0"},
+  font_size = 13,
   custom_block_glyphs = false,
   hide_tab_bar_if_only_one_tab = true,
   bold_brightens_ansi_colors = true,
@@ -20,8 +20,10 @@ return {
   keys = {
     {key="m", mods="CMD", action="DisableDefaultAssignment"},
     {key="h", mods="CMD", action="DisableDefaultAssignment"},
-    {key="w", mods="CMD", action="DisableDefaultAssignment"},
+    -- {key="w", mods="CMD", action="DisableDefaultAssignment"},
     {key="t", mods="CMD", action="DisableDefaultAssignment"},
+    {key="{", mods="SHIFT|CMD", action=wezterm.action{MoveTabRelative=-1}},
+    {key="}", mods="SHIFT|CMD", action=wezterm.action{MoveTabRelative=1}},
     {key="h", mods="CMD", action=wezterm.action{ActivatePaneDirection="Left"}},
     {key="j", mods="CMD", action=wezterm.action{ActivatePaneDirection="Down"}},
     {key="k", mods="CMD", action=wezterm.action{ActivatePaneDirection="Up"}},
