@@ -20,3 +20,30 @@ fun! sacca#editSnips() abort
     let s:mode = 'vs'
     exe ':'.s:mode.' '.expand('$XDG_CONFIG_HOME/nvim/ftplugin/').s:type.'.vim'
 endfun
+
+fun! sacca#printSpace()
+    return ' '
+endfun
+
+fun! sacca#gitInfo()
+  let s:git = FugitiveHead()
+  if ! empty(s:git)
+    return ' '. FugitiveHead()
+  else
+    return ''
+  endif
+endfun
+
+fun! sacca#modified()
+    if &modified
+        return '[*]'
+    else
+        return ''
+    endif
+endfun
+
+fun! sacca#ctrlG()
+    let s:file = expand('%:~')
+    let s:modified = sacca#modified()
+    echo s:file . sacca#printSpace() . s:modified . sacca#gitInfo()
+endfun

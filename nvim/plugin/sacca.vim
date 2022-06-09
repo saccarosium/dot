@@ -10,5 +10,5 @@ augroup END
 
 nnoremap <C-q> :call sacca#toggleQuickFix()<CR>
 nnoremap <leader>oS :call sacca#editSnips()<CR>
-
-
+inoremap <C-j> <Esc>/<++><Enter>"_c4l
+nnoremap <C-j> <Esc>/<++><Enter>"_c4l
