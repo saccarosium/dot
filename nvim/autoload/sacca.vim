@@ -26,24 +26,14 @@ fun! sacca#printSpace()
 endfun
 
 fun! sacca#gitInfo()
-  let s:git = FugitiveHead()
-  if ! empty(s:git)
-    return ' '. FugitiveHead()
-  else
-    return ''
-  endif
-endfun
-
-fun! sacca#modified()
-    if &modified
-        return '[*]'
-    else
+  if exists('*FugitiveHead()')
+      let s:git = FugitiveHead()
+      if ! empty(s:git)
+        return ' '. s:git
+      else
         return ''
-    endif
-endfun
-
-fun! sacca#ctrlG()
-    let s:file = expand('%:~')
-    let s:modified = sacca#modified()
-    echo s:file . sacca#printSpace() . s:modified . sacca#gitInfo()
+      endif
+  else
+      return ''
+  endif
 endfun

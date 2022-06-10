@@ -16,5 +16,5 @@ $ make build_env
 
 [,shell]
 ----
-$ pack.sh <package-manager> <command to list all packages>
+$ pack.sh <package-manager> $(<command to list all packages>)
 ----

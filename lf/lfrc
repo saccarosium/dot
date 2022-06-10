@@ -28,8 +28,8 @@ set hidden
 
 map n
 
-map nf makefile
-map nd makedir
+map nf mkfile
+map nd mkdir
 map <c-l> unselect
 map D delete
 map R $vimv $fx

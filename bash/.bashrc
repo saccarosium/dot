@@ -29,7 +29,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
-export VIM_CONFIG_PATH="$XDG_DATA_HOME/nvim/site"
 export MANPAGER="less"
 export CLICOLOR=1
 export LESSHISTFILE=-
@@ -54,7 +53,7 @@ __export_dir PROJECTS "$SYNC/Projects"
 __export_dir NOTES "$SYNC/wiki"
 __export_dir REPOS "$HOME/Repos"
 __export_dir DOTFILES "$REPOS/dot"
-__export_dir PLUGS "$XDG_DATA_HOME/plugs"
+__export_dir PLUGS "$XDG_DATA_HOME/nvim/site/pack/plugins/"
 
 # ---------------------------------- editor ----------------------------------
 
@@ -161,6 +160,7 @@ __have git && alias gs='git stage '
 __have git && alias gu='git restore --stagged '
 __have ls && alias ls='ls --color'
 __have nvim && alias vi='nvim'
+__have lf && alias plugs='lf $HOME/.local/share/nvim/site/pack'
 __have wget && alias wget="wget --hsts-file=$XDG_CACHE_HOME/wget-hsts"
 
 # -------------------------------- keybindings -------------------------------

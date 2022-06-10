@@ -26,7 +26,27 @@ let maplocalleader = ' '
 
 " --------------------------------- plugings ---------------------------------
 
-lua require("plugins")
+packadd! vim-dirvish
+packadd! vim-code-dark
+packadd! nvim-treesitter
+packadd! vim-eunuch
+packadd! vim-fugitive
+packadd! nvim-lspconfig
+packadd! nvim-colorizer.lua
+packadd! Comment.nvim
+packadd! orgmode
+packadd! vim-table-mode
+packadd! nvim-cmp
+packadd! cmp-buffer
+packadd! cmp-path
+packadd! cmp-nvim-lsp
+
+lua require("sacca.cmp")
+lua require("sacca.lsp")
+lua require("sacca.colorizer")
+lua require("sacca.comment")
+lua require("sacca.org")
+lua require("sacca.tree-sitter")
 
 " ---------------------------------- colors ----------------------------------
 
@@ -47,7 +67,6 @@ cnoreabbrev dot $DOTFILES
 
 nnoremap <leader>or :vsplit ./README.md<CR>
 nnoremap <leader>oc :e $MYVIMRC<CR>
-nnoremap <leader>oC :e $DOTFILES/nvim/lua/plugins.lua<CR>
 nnoremap <leader>ob :e $DOTFILES/bash/.bashrc<CR>
 nnoremap <leader>ot :e $SYNC/Projects/org/todo.org<CR>
 nnoremap <leader>op :e $SYNC/Projects/org<CR>
