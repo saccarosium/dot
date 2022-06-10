@@ -9,7 +9,7 @@ if colors_name == 'gruvbox'
     au! FileType sh hi! link TSVariable GruvboxFg1
 endif
 
-if colors_name == 'codedark' || colors_name =='vscode'
+if colors_name == 'codedark'
     hi! Ignore guifg=#1e1e1e
     " hi! StatusLine guibg=#0072be
     " hi! markdownH1 guifg=#569CD6 gui=bold

@@ -26,27 +26,18 @@ let maplocalleader = ' '
 
 " --------------------------------- plugings ---------------------------------
 
-packadd! vim-dirvish
-packadd! vim-code-dark
-packadd! nvim-treesitter
-packadd! vim-eunuch
-packadd! vim-fugitive
-packadd! nvim-lspconfig
-packadd! nvim-colorizer.lua
-packadd! Comment.nvim
-packadd! orgmode
-packadd! vim-table-mode
-packadd! nvim-cmp
-packadd! cmp-buffer
-packadd! cmp-path
-packadd! cmp-nvim-lsp
+call plug#begin('$XDG_DATA_HOME/nvim/bundle')
 
-lua require("sacca.cmp")
-lua require("sacca.lsp")
-lua require("sacca.colorizer")
-lua require("sacca.comment")
-lua require("sacca.org")
-lua require("sacca.tree-sitter")
+
+
+call plug#end()
+
+" lua require("sacca.cmp")
+" lua require("sacca.lsp")
+" lua require("sacca.colorizer")
+" lua require("sacca.comment")
+" lua require("sacca.org")
+" lua require("sacca.tree-sitter")
 
 " ---------------------------------- colors ----------------------------------
 
