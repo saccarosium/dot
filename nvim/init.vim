@@ -27,23 +27,44 @@ let maplocalleader = ' '
 " --------------------------------- plugings ---------------------------------
 
 call plug#begin('$XDG_DATA_HOME/nvim/bundle')
-
-
-
+    Plug 'dhruvasagar/vim-table-mode'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'justinmk/vim-dirvish'
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'norcalli/nvim-colorizer.lua'
+    Plug 'nvim-orgmode/orgmode'
+    Plug 'Mofiqul/vscode.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'tomasiser/vim-code-dark'
+    Plug 'tpope/vim-eunuch'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-fugitive'
 call plug#end()
 
-" lua require("sacca.cmp")
-" lua require("sacca.lsp")
-" lua require("sacca.colorizer")
-" lua require("sacca.comment")
-" lua require("sacca.org")
-" lua require("sacca.tree-sitter")
+if sacca#isLoaded('cmp')
+    lua require("sacca.cmp")
+endif
+if sacca#isLoaded('lspconfig')
+    lua require("sacca.lsp")
+endif
+if sacca#isLoaded('colorizer')
+    lua require("sacca.colorizer")
+endif
+if sacca#isLoaded('orgmode')
+    lua require("sacca.org")
+endif
+if sacca#isLoaded('nvim-treesitter')
+    lua require("sacca.tree-sitter")
+endif
 
 " ---------------------------------- colors ----------------------------------
 
 filetype plugin on
 syntax on
-colorscheme codedark
+colorscheme vscode
 
 " ------------------------------ commands/abbrev -----------------------------
 

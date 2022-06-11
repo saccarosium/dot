@@ -33,6 +33,7 @@ in {
     pkgsunstable.lf
     pkgsunstable.neovim
     pkgsunstable.asciidoctor
+    pkgsunstable.tmux
     pkgsunstable.peco
     pkgsunstable.pythonFull
     pkgsunstable.python39Packages.pynvim

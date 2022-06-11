@@ -37,3 +37,12 @@ fun! sacca#gitInfo()
       return ''
   endif
 endfun
+
+fun! sacca#isLoaded(name)
+    if &rtp =~ a:name
+        return 1
+    else
+        return 0
+    endif
+endfun
+
