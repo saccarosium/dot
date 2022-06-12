@@ -14,19 +14,19 @@ in {
     pkgs.fd
     pkgs.mpv
     pkgs.neofetch
-    pkgs.nixfmt
     pkgs.ripgrep
     pkgs.shfmt
     pkgs.speedtest-cli
     pkgs.tree
     pkgs.htop
     pkgs.wget
+    pkgs.R
     pkgs.alejandra
+    pkgsunstable.age
     pkgsunstable.bash-completion
     pkgsunstable.ccls
     pkgsunstable.clang-tools
     pkgsunstable.efm-langserver
-    pkgsunstable.ffmpeg
     pkgsunstable.gh
     pkgsunstable.git
     pkgsunstable.jq
@@ -36,7 +36,6 @@ in {
     pkgsunstable.tmux
     pkgsunstable.peco
     pkgsunstable.pythonFull
-    pkgsunstable.python39Packages.pynvim
     pkgsunstable.shellcheck
     pkgsunstable.tree-sitter
   ];

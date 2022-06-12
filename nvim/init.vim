@@ -64,7 +64,7 @@ endif
 
 filetype plugin on
 syntax on
-colorscheme vscode
+colorscheme codedark
 
 " ------------------------------ commands/abbrev -----------------------------
 

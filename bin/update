@@ -21,6 +21,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
+if _exist tlmgr; then
+    sudo tlmgr update --self
+    sudo tlmgr update --all
+fi
+
 if _exist nix-channel; then
     nix-channel --update
 fi
@@ -37,4 +42,5 @@ if [[ -n "$DOTFILES" ]]; then
     cd "$DOTFILES" || exit 1
     git add ./*
     git commit -m "general: automatic update"
+    git push origin
 fi
