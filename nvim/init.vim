@@ -1,94 +1,100 @@
-" ------------------------------------ set -----------------------------------
+" set: {{{
 
-set path+=**
 set exrc
-set laststatus=2
 set number relativenumber
-set mouse=a guicursor=
-set list listchars=trail:-,tab:>>,space:·,eol:¬
+set guicursor=
+set list
+set listchars=trail:-,tab:>\ ,space:·,eol:¬
 set tabstop=4 softtabstop=4 shiftwidth=4
-set expandtab smarttab smartindent
+set expandtab smartindent
 set nobackup noswapfile nowritebackup
 set textwidth=80 nowrap
 set cursorline
-set splitbelow splitright
 set signcolumn=yes
-set nofoldenable
 set foldmethod=marker
-set wildignorecase
 set termguicolors
 set grepprg=rg\ --vimgrep\ --no-heading
 
-" ----------------------------------- vars -----------------------------------
+" }}}
+" wildmenu: {{{
 
-let mapleader=' '
-let maplocalleader = ' '
+set path+=**
+set wildignorecase
+set wildignore+=*.o
+set wildignore+=*.a
+set wildignore+=.git/
 
-" --------------------------------- plugings ---------------------------------
+" }}}
+" vars: {{{
 
-call plug#begin('$XDG_DATA_HOME/nvim/bundle')
-    Plug 'dhruvasagar/vim-table-mode'
+let g:loaded_gzip = 1
+let g:loaded_tarPlugin = 1
+let g:loaded_zipPlugin = 1
+let g:loaded_2html_plugin = 1
+let g:loaded_rrhelper = 1
+let g:loaded_remote_plugins = 1
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+
+" }}}
+" plugins: {{{
+
+call plug#begin('$XDG_DATA_HOME/bundle')
     Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/nvim-cmp'
-    Plug 'justinmk/vim-dirvish'
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'norcalli/nvim-colorizer.lua'
     Plug 'nvim-orgmode/orgmode'
-    Plug 'Mofiqul/vscode.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'tomasiser/vim-code-dark'
-    Plug 'tpope/vim-eunuch'
+    Plug 'neovim/nvim-lspconfig'
     Plug 'tpope/vim-commentary'
+    Plug 'dhruvasagar/vim-table-mode'
     Plug 'tpope/vim-fugitive'
+    Plug 'justinmk/vim-dirvish'
+    Plug 'tomasiser/vim-code-dark'
+    Plug '~/Repos/nvim-friendly-unix'
 call plug#end()
 
-if sacca#isLoaded('cmp')
-    lua require("sacca.cmp")
-endif
-if sacca#isLoaded('lspconfig')
-    lua require("sacca.lsp")
-endif
-if sacca#isLoaded('colorizer')
-    lua require("sacca.colorizer")
-endif
-if sacca#isLoaded('orgmode')
-    lua require("sacca.org")
-endif
-if sacca#isLoaded('nvim-treesitter')
-    lua require("sacca.tree-sitter")
-endif
+lua require("sacca.treesitter")
+lua require("sacca.orgmode")
+lua require("sacca.lsp")
+lua require("sacca.cmp")
 
-" ---------------------------------- colors ----------------------------------
+" }}}
+" colors: {{{
 
 filetype plugin on
 syntax on
 colorscheme codedark
 
-" ------------------------------ commands/abbrev -----------------------------
+" }}}
+" abbrevs: {{{
 
-:command PlugSync PlugClean | PlugInstall | PlugUpdate | PlugUpgrade
 cnoreabbrev vb vs<space><bar><space>b
 cnoreabbrev sb sp<space><bar><space>b
 cnoreabbrev db bdelete!
-cnoreabbrev _s %s/
 cnoreabbrev dot $DOTFILES
 
-" ----------------------------------- remap ----------------------------------
+" }}}
+" maps: {{{
+
+let mapleader=' '
+let maplocalleader = '\'
 
 nnoremap <leader>or :vsplit ./README.md<CR>
 nnoremap <leader>oc :e $MYVIMRC<CR>
+nnoremap <leader>oC :e $DOTFILES/vim/plugins.vim<CR>
 nnoremap <leader>ob :e $DOTFILES/bash/.bashrc<CR>
 nnoremap <leader>ot :e $SYNC/Projects/org/todo.org<CR>
 nnoremap <leader>op :e $SYNC/Projects/org<CR>
-nnoremap <leader>os :e $SYNC/scratchpad.md<CR>
-nnoremap <leader>o. :e $DOTFILES/nvim<CR>
-nnoremap <leader>on :e $SYNC/notes<CR>
+nnoremap <leader>o. :e $DOTFILES/vim<CR>
 nnoremap <leader>vsf :so %<CR>
+nnoremap <C-s> :%s/
 nnoremap <leader>lf :norm m0gggqG'0<CR>
+nnoremap <F6> :setlocal spell!<CR>
 nnoremap <C-n> :cnext<CR>
 nnoremap <C-p> :cprevious<CR>
 vnoremap <C-y> "+y
 vmap < <gv
 vmap > >gv
+
+" }}}

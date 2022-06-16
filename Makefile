@@ -24,7 +24,6 @@ build_bash:
 
 build_vims:
 	$(LN) $(PWD)/nvim $(XDG_CONFIG)
-	$(LN) $(PWD)/.vimrc $(HOME)
 
 build_terminal_emulators:
 	$(LN) $(PWD)/alacritty $(XDG_CONFIG)
@@ -38,12 +37,6 @@ build_nix:
 
 build_brew:
 	$(SH) $(PWD)/bin/bootstraps/homebrew.sh
-
-build_yabai:
-	$(MKDIR) $(XDG_CONFIG)/yabai
-	$(MKDIR) $(XDG_CONFIG)/skhd
-	$(LN) $(PWD)/desktops/yabai/yabairc $(XDG_CONFIG)/yabai
-	$(LN) $(PWD)/desktops/yabai/skhdrc $(XDG_CONFIG)/skhd
 
 setup_fonts:
 	$(MKDIR) $(XDG_DATA)/share/fonts

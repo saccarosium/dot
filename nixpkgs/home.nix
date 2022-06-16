@@ -11,29 +11,28 @@ in {
   home.homeDirectory = if isDarwin then "/Users/sacca" else "/home/sacca";
   imports = if isDarwin then [./osx.nix] else [./linux.nix];
   home.packages = [
+    pkgs.R
+    pkgs.alejandra
     pkgs.fd
+    pkgs.htop
     pkgs.mpv
-    pkgs.neofetch
     pkgs.ripgrep
     pkgs.shfmt
     pkgs.speedtest-cli
     pkgs.tree
-    pkgs.htop
     pkgs.wget
-    pkgs.R
-    pkgs.alejandra
     pkgsunstable.age
+    pkgsunstable.asciidoctor
     pkgsunstable.bash-completion
     pkgsunstable.ccls
     pkgsunstable.clang-tools
     pkgsunstable.efm-langserver
     pkgsunstable.gh
     pkgsunstable.git
+    pkgsunstable.glab
     pkgsunstable.jq
     pkgsunstable.lf
     pkgsunstable.neovim
-    pkgsunstable.asciidoctor
-    pkgsunstable.tmux
     pkgsunstable.peco
     pkgsunstable.pythonFull
     pkgsunstable.shellcheck

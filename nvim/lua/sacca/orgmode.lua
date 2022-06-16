@@ -18,9 +18,8 @@ require('orgmode').setup({
   org_capture_templates = {
       t = {
         description = 'Todo',
-        template = '** TODO %?\n',
+        template = '* TODO %?\n',
         target = '~/Documents/nextcloud/Projects/org/todo.org',
-        heading = 'REMINDERS',
       }
   }
 })
