@@ -160,12 +160,7 @@ __have git && alias gs='git stage '
 __have git && alias gu='git restore --stagged '
 __have ls && alias ls='ls --color'
 __have nvim && alias vi='nvim'
-__have lf && alias plugs='lf $HOME/.local/share/nvim/site/pack'
 __have wget && alias wget="wget --hsts-file=$XDG_CACHE_HOME/wget-hsts"
-
-# -------------------------------- keybindings -------------------------------
-
-bind -x '"\C-o":"$OPEN ."'
 
 # ------------------------------------ nix -----------------------------------
 
@@ -183,3 +178,9 @@ __source_if "/etc/profile.d/bash_completion.sh"
 __have gh && . <(gh completion -s bash)
 __have pandoc && . <(pandoc --bash-completion)
 __have make && complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
+
+# --------------------------------- autostart --------------------------------
+
+if [[ -n "$ALACRITTY" ]]; then
+    tm 0
+fi

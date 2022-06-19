@@ -22,6 +22,7 @@ env:
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
   TERM: xterm-256color
+  ALACRITTY: yes
 
 window:
   # Window dimensions (changes require restart)
@@ -47,7 +48,7 @@ window:
   # by DPI and the specified value is always added at both opposing sides.
   padding:
    x: 0
-    y: 0
+   y: 0
 
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
@@ -156,7 +157,7 @@ font:
     style: Bold Italic
 
   # Point size
-  size: 12.5
+  size: 13.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -449,6 +450,12 @@ live_config_reload: true
 #  program: /bin/bash
 #  args:
 #    - --login
+# shell:
+#   program: /usr/local/bin/bash
+#   args:
+#     - -l
+#     - -c
+#     - "tmux attach 2> /dev/null || tmux"
 
 # Startup directory
 #
@@ -457,10 +464,10 @@ live_config_reload: true
 #working_directory: None
 
 # Send ESC (\x1b) before characters when alt is pressed.
-alt_send_esc: true
+alt_send_esc: false
 
 # Offer IPC using `alacritty msg` (unix only)
-#ipc_socket: true
+ipc_socket: true
 
 mouse:
   # Click settings
@@ -760,7 +767,7 @@ hints:
 key_bindings:
   - { key: Paste,                                       action: Paste          }
   - { key: Copy,                                        action: Copy           }
-  # - { key: L,         mods: Control,                    action: ClearLogNotice }
+  - { key: L,         mods: Control,                    action: ClearLogNotice }
   - { key: L,         mods: Control, mode: ~Vi|~Search, chars: "\x0c"          }
   - { key: PageUp,    mods: Shift,   mode: ~Alt,        action: ScrollPageUp,  }
   - { key: PageDown,  mods: Shift,   mode: ~Alt,        action: ScrollPageDown }
@@ -830,21 +837,21 @@ key_bindings:
   - { key: Return, mods: Shift,   mode: Search|~Vi, action: SearchFocusPrevious   }
 
   # (Windows, Linux, and BSD only)
-  - { key: V,              mods: Control|Shift, mode: ~Vi,        action: Paste            }
-  - { key: C,              mods: Control|Shift,                   action: Copy             }
-  - { key: F,              mods: Control|Shift, mode: ~Search,    action: SearchForward    }
-  - { key: B,              mods: Control|Shift, mode: ~Search,    action: SearchBackward   }
-  - { key: C,              mods: Control|Shift, mode: Vi|~Search, action: ClearSelection   }
-  - { key: Insert,         mods: Shift,                           action: PasteSelection   }
-  - { key: Key0,           mods: Control,                         action: ResetFontSize    }
-  - { key: Equals,         mods: Control,                         action: IncreaseFontSize }
-  - { key: Plus,           mods: Control,                         action: IncreaseFontSize }
-  - { key: NumpadAdd,      mods: Control,                         action: IncreaseFontSize }
-  - { key: Minus,          mods: Control,                         action: DecreaseFontSize }
-  - { key: NumpadSubtract, mods: Control,                         action: DecreaseFontSize }
+  # - { key: V,              mods: Control|Shift, mode: ~Vi,        action: Paste            }
+  # - { key: C,              mods: Control|Shift,                   action: Copy             }
+  # - { key: F,              mods: Control|Shift, mode: ~Search,    action: SearchForward    }
+  # - { key: B,              mods: Control|Shift, mode: ~Search,    action: SearchBackward   }
+  # - { key: C,              mods: Control|Shift, mode: Vi|~Search, action: ClearSelection   }
+  # - { key: Insert,         mods: Shift,                           action: PasteSelection   }
+  # - { key: Key0,           mods: Control,                         action: ResetFontSize    }
+  # - { key: Equals,         mods: Control,                         action: IncreaseFontSize }
+  # - { key: Plus,           mods: Control,                         action: IncreaseFontSize }
+  # - { key: NumpadAdd,      mods: Control,                         action: IncreaseFontSize }
+  # - { key: Minus,          mods: Control,                         action: DecreaseFontSize }
+  # - { key: NumpadSubtract, mods: Control,                         action: DecreaseFontSize }
 
   # (Windows only)
-  - { key: Return,   mods: Alt,           action: ToggleFullscreen }
+  # - { key: Return,   mods: Alt,           action: ToggleFullscreen }
 
   # (macOS only)
   - { key: K,              mods: Command, mode: ~Vi|~Search, chars: "\x0c"                 }
@@ -868,20 +875,39 @@ key_bindings:
   - { key: F,              mods: Command, mode: ~Search,     action: SearchForward         }
   - { key: B,              mods: Command, mode: ~Search,     action: SearchBackward        }
   # saccarosium
-  - { key: Key1,        mods: Command,     chars: "\x1b1"}
-  - { key: Key2,        mods: Command,     chars: "\x1b2"}
-  - { key: Key3,        mods: Command,     chars: "\x1b3"}
-  - { key: Key4,        mods: Command,     chars: "\x1b4"}
-  - { key: Key5,        mods: Command,     chars: "\x1b5"}
-  - { key: Key6,        mods: Command,     chars: "\x1b6"}
-  - { key: Key7,        mods: Command,     chars: "\x1b7"}
-  - { key: Key8,        mods: Command,     chars: "\x1b8"}
-  - { key: Key9,        mods: Command,     chars: "\x1b9"}
-  # - { key: H,           mods: Command,     chars: "\x1bh"}
-  # - { key: J,           mods: Command,     chars: "\x1bj"}
-  # - { key: K,           mods: Command,     chars: "\x1bk"}
-  # - { key: L,           mods: Command,     chars: "\x1bl"}
-  # - { key: X,           mods: Command,     chars: "\x1bx"}
+    # Rename the current tmux window
+  - { key: Comma, mods: Command, chars: "\x02\x2c" }
+    # Select window 1-9
+  - { key: Key1, mods: Command, chars: "\x02\x31" }
+  - { key: Key2, mods: Command, chars: "\x02\x32" }
+  - { key: Key3, mods: Command, chars: "\x02\x33" }
+  - { key: Key4, mods: Command, chars: "\x02\x34" }
+  - { key: Key5, mods: Command, chars: "\x02\x35" }
+  - { key: Key6, mods: Command, chars: "\x02\x36" }
+  - { key: Key7, mods: Command, chars: "\x02\x37" }
+  - { key: Key8, mods: Command, chars: "\x02\x38" }
+  - { key: Key9, mods: Command, chars: "\x02\x39" }
+    # Switch to last tmux session
+  - { key: L, mods: Command, chars: "\x02\x4c" }
+  - { key: LBracket, mods: Command, chars: "\x02\x5b" }
+    # Change to the previous tmux window
+  - { key: LBracket, mods: Command|Shift, chars: "\x02\x70" }
+    # Split the current pane into two, left and right
+  - { key: N, mods: Command|Shift, chars: "\x02\x25" }
+    # Split the current pane into two, top and bottom.
+  - { key: N, mods: Command, chars: "\x02\x22" }
+    # Detach the current tmux client
+  - { key: Q, mods: Command, chars: "\x02\x64" }
+    # Change to the next tmux window
+  - { key: RBracket, mods: Command|Shift, chars: "\x02\x6e" }
+    # Create a new tmux window
+  - { key: T, mods: Command, chars: "\x02\x63" }
+    # Break the current tmux pane out of the tmux window
+  - { key: T, mods: Command|Shift, chars: "\x02\x21" }
+    # Kill the current tmux pane (and window if last pane)
+  - { key: W, mods: Command, chars: "\x02\x78" }
+    # Toggle the zoom state of the current tmux pane
+  - { key: Z, mods: Command, chars: "\x02\x7a" }
 
 debug:
   # Display the time it takes to redraw each frame.

@@ -4,7 +4,7 @@ music_library="$XDG_MUSIC_DIR/Music Library"
 cd "$music_library" || exit 1
 
 while :; do
-    selected=$(find ./* -type d -maxdepth 2 | sort | peco)
+    selected=$(find ./* -type d -maxdepth 2 | sort | fzf)
     [ -d "$selected" ] || exit 1
     test $? -gt 128 && break
     mpv --no-audio-display "$selected"

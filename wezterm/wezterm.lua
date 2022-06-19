@@ -2,12 +2,13 @@ local wezterm = require 'wezterm';
 local dark_plus = require 'dark_plus';
 
 return {
+  -- font = wezterm.font('iA Writer Mono S', {stretch="ExtraExpanded", weight="DemiBold"} ),
   font = wezterm.font('JetBrains Mono', {stretch="ExtraExpanded", weight="DemiBold"}),
   harfbuzz_features={"calt=0", "clig=0", "liga=0"},
   font_size = 13,
-  custom_block_glyphs = false,
+  custom_block_glyphs = true,
   hide_tab_bar_if_only_one_tab = true,
-  bold_brightens_ansi_colors = true,
+  bold_brightens_ansi_colors = false,
   window_decorations = "RESIZE",
   window_close_confirmation = "NeverPrompt",
   colors = dark_plus,
@@ -32,7 +33,6 @@ return {
     {key="5", mods="CMD|CTRL", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
     {key="t", mods="CMD", action=wezterm.action{SpawnTab="DefaultDomain"}},
     {key="'", mods="CMD|CTRL", action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
-    -- {key="'", mods="CMD", action=wezterm.action{SplitPane={ direction="Down", size={Percent=30}, }}},
     {key="]", mods="CMD", action="ActivateCopyMode"},
   },
 }

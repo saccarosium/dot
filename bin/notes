@@ -1,0 +1,31 @@
+#!/bin/sh
+#shellcheck disable=SC2143
+
+_installed() { [ -n "$(which "$1")" ]; }
+
+dir="$SYNC/notes"
+ext=".txt"
+
+
+cd "$dir" || exit 1
+
+if _installed bat; then
+    viewer='bat'
+else
+    viewer='cat'
+fi
+
+while :
+do
+    # --bind 'ctrl-g:print-query'
+    query="$(find . -type f | fzf -e --preview="$viewer {}" --preview-window=down,70% --print-query | tr ' ' '-')"
+    test $? -gt 128 && break
+    [ -n "$query" ] || exit 1
+    if [ -n "$(echo "$query" | grep  '\.')" ]; then
+        query="$(echo "$query" | grep  '\.')"
+        "$EDITOR" "$query"
+    else
+        query="${query}${ext}"
+        "$EDITOR" "$query"
+    fi
+done

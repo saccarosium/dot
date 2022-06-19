@@ -27,13 +27,13 @@ in {
     pkgsunstable.ccls
     pkgsunstable.clang-tools
     pkgsunstable.efm-langserver
+    pkgsunstable.fzf
     pkgsunstable.gh
     pkgsunstable.git
     pkgsunstable.glab
     pkgsunstable.jq
     pkgsunstable.lf
     pkgsunstable.neovim
-    pkgsunstable.peco
     pkgsunstable.pythonFull
     pkgsunstable.shellcheck
     pkgsunstable.tree-sitter

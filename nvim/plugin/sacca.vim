@@ -8,8 +8,8 @@ augroup sacca
     autocmd BufLeave ~/.config/nvim/ftplugin/* so %
 augroup END
 
-" nnoremap <C-q> :call sacca#toggleQuickFix()<CR>
-nnoremap <C-q> :TroubleToggle<CR>
+nnoremap <C-q> :call sacca#toggleQuickFix()<CR>
+" nnoremap <C-q> :TroubleToggle<CR>
 nnoremap <leader>oS :call sacca#editSnips()<CR>
 inoremap <C-j> <Esc>/<++><Enter>"_c4l
 nnoremap <C-j> <Esc>/<++><Enter>"_c4l
