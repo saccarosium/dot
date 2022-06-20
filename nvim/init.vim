@@ -45,7 +45,6 @@ let g:loaded_rrhelper = 1
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
 let g:loaded_netrwSettings = 1
-let g:pad#dir = expand('$SYNC/notes')
 
 " }}}
 " plugins: {{{
@@ -60,11 +59,11 @@ call plug#begin('$XDG_DATA_HOME/bundle')
     Plug 'nvim-orgmode/orgmode'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'axvr/zepl.vim'
     Plug 'tomasiser/vim-code-dark'
     Plug 'tpope/vim-dispatch'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
+    Plug 'axvr/zepl.vim'
     Plug '~/Repos/nvim-friendly-unix'
 call plug#end()
 

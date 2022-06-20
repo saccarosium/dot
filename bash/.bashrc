@@ -41,7 +41,7 @@ __have wget && export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 __have atom && export ATOM_HOME="$XDG_DATA_HOME/atom"
 __have gpg && export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 __have cargo && export CARGO_HOME="$XDG_DATA_HOME/cargo"
-__have nnn && export NNN_OPTS="QHed"
+__have nnn && export NNN_OPTS="QHedc"
 
 __export_osx BASH_SILENCE_DEPRECATION_WARNING=1
 __export_osx OPEN="open"
@@ -53,7 +53,7 @@ __export_dir PROJECTS "$SYNC/Projects"
 __export_dir NOTES "$SYNC/wiki"
 __export_dir REPOS "$HOME/Repos"
 __export_dir DOTFILES "$REPOS/dot"
-__export_dir PLUGS "$XDG_DATA_HOME/nvim/site/pack/plugins/"
+__export_dir PLUGS "$XDG_DATA_HOME/bundle/"
 
 # ---------------------------------- editor ----------------------------------
 

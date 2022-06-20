@@ -22,7 +22,7 @@ build_bash:
 	$(LN) $(PWD)/bash/.profile $(HOME)
 	$(LN) $(PWD)/bash/.inputrc $(XDG_CONFIG)/readline/inputrc
 
-build_vims:
+build_nvim:
 	$(LN) $(PWD)/nvim $(XDG_CONFIG)
 
 build_terminal_emulators:
@@ -37,6 +37,9 @@ build_nix:
 
 build_brew:
 	$(SH) $(PWD)/bin/bootstraps/homebrew.sh
+
+build_osx:
+	$(LN) $(PWD)/etc/osx/karabiner $(XDG_CONFIG)
 
 setup_fonts:
 	$(MKDIR) $(XDG_DATA)/share/fonts

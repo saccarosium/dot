@@ -8,7 +8,6 @@
 *.war
 *.nar
 *.ear
-*.json
 *.log
 *.tar.gz
 *.rar

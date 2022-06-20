@@ -20,7 +20,6 @@ in {
     pkgs.shfmt
     pkgs.speedtest-cli
     pkgs.tree
-    pkgs.wget
     pkgsunstable.age
     pkgsunstable.asciidoctor
     pkgsunstable.bash-completion
@@ -30,12 +29,12 @@ in {
     pkgsunstable.fzf
     pkgsunstable.gh
     pkgsunstable.git
-    pkgsunstable.glab
     pkgsunstable.jq
     pkgsunstable.lf
     pkgsunstable.neovim
     pkgsunstable.pythonFull
     pkgsunstable.shellcheck
+    pkgsunstable.tmux
     pkgsunstable.tree-sitter
   ];
 
