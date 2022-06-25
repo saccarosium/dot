@@ -19,10 +19,53 @@ fun! sacca#setFormat()
     endif
 endfun
 
-fun! sacca#editSnips() abort
+fun! sacca#editFiletype()
     let s:type = &filetype
     let s:mode = 'vs'
     exe ':'.s:mode.' '.expand('$XDG_CONFIG_HOME/nvim/ftplugin/').s:type.'.vim'
 endfun
 
+command! EditFiletype :call sacca#editFiletype()
 
+fun! sacca#togglestatus()
+    if &laststatus == '2'
+        set laststatus=0
+    elseif &laststatus == '0'
+        set laststatus=2
+    endif
+endfun
+
+command! Statusline :call sacca#togglestatus()
+
+fun! sacca#terminal()
+    setlocal nornu
+    setlocal nonu
+    startinsert
+endfun
+
+fun! sacca#gitinfo()
+    let s:git = FugitiveHead()
+    if ! empty(s:git)
+      return " " . s:git
+    else
+      return ''
+    endif
+endfun
+
+fun! sacca#printspace()
+    return ' '
+endfun
+
+fun! sacca#statusline()
+    if tabpagewinnr(tabpagenr(), '$') == 1
+        set laststatus=0
+    else
+        set laststatus=2
+    endif
+endfun
+
+fun! sacca#printFile()
+    if &laststatus == '0'
+        echo sacca#gitinfo() expand('%:p')
+    endif
+endfun

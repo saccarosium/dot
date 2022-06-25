@@ -1,0 +1,9 @@
+#!/bin/sh
+
+[ -z "$*" ] && exit 1
+
+if [ -n "$(echo "$*" | grep '*')" ]; then
+    fd --glob "$*" --type f -X "$EDITOR"
+else
+    fd "$*" --type f -X "$EDITOR"
+fi

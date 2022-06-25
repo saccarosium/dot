@@ -12,7 +12,6 @@ in {
   imports = if isDarwin then [./osx.nix] else [./linux.nix];
   home.packages = [
     pkgs.R
-    pkgs.alejandra
     pkgs.fd
     pkgs.htop
     pkgs.mpv
@@ -23,7 +22,6 @@ in {
     pkgsunstable.age
     pkgsunstable.asciidoctor
     pkgsunstable.bash-completion
-    pkgsunstable.ccls
     pkgsunstable.clang-tools
     pkgsunstable.efm-langserver
     pkgsunstable.fzf
@@ -31,6 +29,7 @@ in {
     pkgsunstable.git
     pkgsunstable.jq
     pkgsunstable.lf
+    pkgsunstable.python310Packages.pynvim
     pkgsunstable.neovim
     pkgsunstable.pythonFull
     pkgsunstable.shellcheck

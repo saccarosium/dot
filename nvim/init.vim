@@ -1,20 +1,25 @@
 " set: {{{
 
-set exrc
-set number relativenumber
-set guicursor=
-set list
-set listchars=trail:-,tab:>\ ,space:·,eol:¬
-set tabstop=4 softtabstop=4 shiftwidth=4
-set expandtab smartindent
-set nobackup noswapfile nowritebackup
-set textwidth=80 nowrap
 set cursorline
-set signcolumn=yes
-set foldmethod=marker
-set termguicolors
-set splitbelow splitright
+set expandtab
 set grepprg=rg\ --vimgrep\ --no-heading
+set guicursor=
+set laststatus=0
+set list lcs=trail:-,tab:>\ ,space:·,eol:¬
+set nobackup
+set noswapfile
+set nowrap
+set nowritebackup
+set nu relativenumber
+set smartindent
+set foldmethod=marker
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+set splitbelow
+set splitright
+set termguicolors
+set textwidth=80
 
 " }}}
 " wildmenu: {{{
@@ -28,20 +33,8 @@ set wildignore+=.git/
 " }}}
 " vars: {{{
 
-let g:loaded_gzip = 1
-let g:loaded_zip = 1
-let g:loaded_zipPlugin = 1
-let g:loaded_tar = 1
-let g:loaded_tarPlugin = 1
-let g:loaded_getscript = 1
-let g:loaded_getscriptPlugin = 1
-let g:loaded_vimball = 1
-let g:loaded_vimballPlugin = 1
-let g:loaded_2html_plugin = 1
-let g:loaded_matchit = 1
-let g:loaded_matchparen = 1
-let g:loaded_logiPat = 1
-let g:loaded_rrhelper = 1
+let mapleader=' '
+let maplocalleader = '\'
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
 let g:loaded_netrwSettings = 1
@@ -50,34 +43,28 @@ let g:loaded_netrwSettings = 1
 " plugins: {{{
 
 call plug#begin('$XDG_DATA_HOME/bundle')
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'dhruvasagar/vim-table-mode'
-    Plug 'justinmk/vim-dirvish'
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'nvim-orgmode/orgmode'
-    Plug 'norcalli/nvim-colorizer.lua'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'tomasiser/vim-code-dark'
-    Plug 'tpope/vim-dispatch'
-    Plug 'tpope/vim-commentary'
+    Plug 'justinmk/vim-dirvish'
+    Plug 'nvim-orgmode/orgmode'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'numToStr/Comment.nvim'
     Plug 'tpope/vim-fugitive'
-    Plug 'axvr/zepl.vim'
-    Plug '~/Repos/nvim-friendly-unix'
+    nnoremap <leader>gs :vert G<CR>
+    nnoremap <leader>gl :vert G log<CR>
+    nnoremap <leader>gd :vert G diff %<CR>
+    nnoremap <leader>gp :G push origin<CR>
+    nnoremap <leader>gP :G push origin --force<CR>
+    nnoremap <leader>gc :G checkout
+    Plug 'tpope/vim-eunuch'
 call plug#end()
 
-lua require("sacca.treesitter")
 lua require("sacca.orgmode")
-lua require("sacca.colorizer")
-lua require("sacca.lsp")
-lua require("sacca.cmp")
+lua require("sacca.treesitter")
+lua require("sacca.comment")
 
 " }}}
 " colors: {{{
 
-filetype plugin on
-syntax on
 colorscheme codedark
 
 " }}}
@@ -91,23 +78,52 @@ cnoreabbrev dot $DOTFILES
 " }}}
 " maps: {{{
 
-let mapleader=' '
-let maplocalleader = '\'
-
-nnoremap <leader>or :vsplit ./README.md<CR>
-nnoremap <leader>oc :e $MYVIMRC<CR>
-nnoremap <leader>oC :e $DOTFILES/vim/plugins.vim<CR>
-nnoremap <leader>ob :e $DOTFILES/bash/.bashrc<CR>
-nnoremap <leader>ot :e $SYNC/Projects/org/todo.org<CR>
-nnoremap <leader>op :e $SYNC/Projects/org<CR>
-nnoremap <leader>o. :e $DOTFILES/vim<CR>
-nnoremap <leader>vsf :so %<CR>
-nnoremap <leader>lf :norm m0gggqG'0<CR>
 nnoremap <C-n> :cnext<CR>
 nnoremap <C-p> :cprevious<CR>
-nnoremap gR :%s/
+nnoremap ga <C-^>
+nnoremap <tab> za
+nnoremap S :%s/
 vnoremap <C-y> "+y
 vmap < <gv
 vmap > >gv
+nnoremap <C-q> :call sacca#toggleQuickFix()<CR>
+tnoremap <C-w>h <C-\><C-N><C-w>h
+tnoremap <C-w>j <C-\><C-N><C-w>j
+tnoremap <C-w>k <C-\><C-N><C-w>k
+tnoremap <C-w>l <C-\><C-N><C-w>l
+tnoremap <C-w>c <C-\><C-N><C-w>c
+
+" }}}
+" statusline: {{{
+
+set statusline=
+set statusline+=%{sacca#printspace()}
+set statusline+=%{sacca#gitinfo()}
+set statusline+=%{sacca#printspace()}
+set statusline+=%F
+set statusline+=%m
+set statusline+=%=
+set statusline+=%l:%c
+set statusline+=%{sacca#printspace()}
+set statusline+=%{&filetype}
+set statusline+=%{sacca#printspace()}
+
+" }}}
+" autocmds: {{{
+
+augroup sacca
+    autocmd!
+    " Remove all trilling whitespaces when saving file
+    autocmd BufWritePre * %s/\s\+$//e
+    autocmd WinLeave * call sacca#statusline()
+    autocmd WinEnter * call sacca#statusline()
+    autocmd BufEnter * call sacca#printFile()
+    " Take control over the formatoption variable
+    autocmd Filetype * call sacca#setFormat()
+    " Dedect asciidoc
+    autocmd Filetype *.txt set filetype=asciidoc
+    " cosmetic changes for built in terminal
+    autocmd TermOpen * call sacca#terminal()
+augroup END
 
 " }}}

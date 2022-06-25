@@ -1,5 +1,7 @@
-if eval(tablemode#IsActive()) == 0
-    TableModeEnable
+if exist(":TableModeEnable")
+    if eval(tablemode#IsActive()) == 0
+        TableModeEnable
+    endif
 endif
 
 fun! text#HeadererLine(char)

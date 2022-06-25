@@ -22,7 +22,6 @@ env:
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
   TERM: xterm-256color
-  ALACRITTY: yes
 
 window:
   # Window dimensions (changes require restart)
@@ -79,13 +78,13 @@ window:
   #
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
-  startup_mode:  Maximized
+  startup_mode:  Windowed
 
   # Window title
   # title: Alacritty
 
   # Allow terminal applications to change Alacritty's window title.
-  #dynamic_title: true
+  dynamic_title: true
 
   # Window class (Linux/BSD only):
   #class:
@@ -190,108 +189,6 @@ font:
 draw_bold_text_with_bright_colors: false
 
 # --------------------------------- # Colors ---------------------------------
-
-schemes: &gruvbox_dark
-  primary:
-    background: &gruvbox_dark_bg '#1d2021'
-    # background: &gruvbox_dark_bg '#282828'
-    # background: &gruvbox_dark_bg '#32302f'
-    foreground:        '#ebdbb2'
-    bright_foreground: '#fbf1c7'
-    dim_foreground:    '#a89984'
-  cursor:
-    text:   CellBackground
-    cursor: CellForeground
-  vi_mode_cursor:
-    text:   CellBackground
-    cursor: CellForeground
-  # search:
-  #   matches:
-  #     foreground: '#000000'
-  #     background: '#ffffff'
-  #   focused_match:
-  #    foreground: CellBackground
-  #    background: CellForeground
-  #   bar:
-  #     background: ''
-  #     foreground: ''
-  # line_indicator:
-  #   foreground: None
-  #   background: None
-  selection:
-    text:       CellBackground
-    background: CellForeground
-  bright:
-    black:   '#928374'
-    red:     '#fb4934'
-    green:   '#b8bb26'
-    yellow:  '#fabd2f'
-    blue:    '#83a598'
-    magenta: '#d3869b'
-    cyan:    '#8ec07c'
-    white:   '#ebdbb2'
-  normal:
-    black:   *gruvbox_dark_bg
-    red:     '#fb4934'
-    green:   '#b8bb26'
-    yellow:  '#fabd2f'
-    blue:    '#83a598'
-    magenta: '#d3869b'
-    cyan:    '#8ec07c'
-    white:   '#a89984'
-
-colors: &dracula
-  primary:
-    background: '#282a36'
-    foreground: '#f8f8f2'
-    bright_foreground: '#ffffff'
-  cursor:
-    text: CellBackground
-    cursor: CellForeground
-  vi_mode_cursor:
-    text: CellBackground
-    cursor: CellForeground
-  search:
-    matches:
-      foreground: '#44475a'
-      background: '#50fa7b'
-    focused_match:
-      foreground: '#44475a'
-      background: '#ffb86c'
-    bar:
-      background: '#282a36'
-      foreground: '#f8f8f2'
-  hints:
-    start:
-      foreground: '#282a36'
-      background: '#f1fa8c'
-    end:
-      foreground: '#f1fa8c'
-      background: '#282a36'
-  line_indicator:
-    foreground: None
-    background: None
-  selection:
-    text: CellForeground
-    background: '#44475a'
-  normal:
-    black: '#21222c'
-    red: '#ff5555'
-    green: '#50fa7b'
-    yellow: '#f1fa8c'
-    blue: '#bd93f9'
-    magenta: '#ff79c6'
-    cyan: '#8be9fd'
-    white: '#f8f8f2'
-  bright:
-    black: '#6272a4'
-    red: '#ff6e6e'
-    green: '#69ff94'
-    yellow: '#ffffa5'
-    blue: '#d6acff'
-    magenta: '#ff92df'
-    cyan: '#a4ffff'
-    white: '#ffffff'
 
 colors: &vscode
   # Default colors
@@ -450,12 +347,6 @@ live_config_reload: true
 #  program: /bin/bash
 #  args:
 #    - --login
-# shell:
-#   program: /usr/local/bin/bash
-#   args:
-#     - -l
-#     - -c
-#     - "tmux attach 2> /dev/null || tmux"
 
 # Startup directory
 #
@@ -479,7 +370,7 @@ mouse:
   triple_click: { threshold: 300 }
 
   # If this is `true`, the cursor is temporarily hidden when typing.
-  hide_when_typing: false
+  hide_when_typing: true
 
 # Regex hints
 #
@@ -874,7 +765,6 @@ key_bindings:
   - { key: F,              mods: Command|Control,            action: ToggleFullscreen      }
   - { key: F,              mods: Command, mode: ~Search,     action: SearchForward         }
   - { key: B,              mods: Command, mode: ~Search,     action: SearchBackward        }
-  # saccarosium
     # Rename the current tmux window
   - { key: Comma, mods: Command, chars: "\x02\x2c" }
     # Select window 1-9
@@ -908,6 +798,10 @@ key_bindings:
   - { key: W, mods: Command, chars: "\x02\x78" }
     # Toggle the zoom state of the current tmux pane
   - { key: Z, mods: Command, chars: "\x02\x7a" }
+    # Make a vertical split
+  - { key: Key5, mods: Command|Shift, chars: "\x02\x25" }
+    # Make a split
+  - { key: Apostrophe, mods: Command|Shift, chars: "\x02\x22" }
 
 debug:
   # Display the time it takes to redraw each frame.

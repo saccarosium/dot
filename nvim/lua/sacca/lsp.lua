@@ -43,24 +43,19 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<A-p>', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
 end
 
--- lsp.clangd.setup {
---     on_attach = on_attach
+lsp.clangd.setup {
+    on_attach = on_attach
+}
+
+-- lsp.ccls.setup {
+--   on_attach = on_attach,
+--   -- root_dir = util.root_pattern(".project", "compile_commands.json", ".ccls", ".git"),
+--   init_options = {
+--     cache = {
+--       directory = "/tmp/ccls",
+--     },
+--   }
 -- }
-
-lsp.ccls.setup {
-  on_attach = on_attach,
-  -- root_dir = util.root_pattern(".project", "compile_commands.json", ".ccls", ".git"),
-  init_options = {
-    cache = {
-      directory = "/tmp/ccls",
-    },
-  }
-}
-
-lsp.efm.setup {
-    init_options = {documentFormatting = true},
-    filetypes = { 'sh' },
-}
 
 lsp.jedi_language_server.setup {
     on_attach = on_attach

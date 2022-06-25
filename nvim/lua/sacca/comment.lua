@@ -20,7 +20,7 @@ require('Comment').setup({
         ---Line-comment toggle keymap
         line = 'gcc',
         ---Block-comment toggle keymap
-        block = 'gbc'
+        block = 'gbb'
     },
 
     ---LHS of operator-pending mappings in NORMAL + VISUAL mode
@@ -56,7 +56,7 @@ require('Comment').setup({
         extra = true,
         ---Extended mapping
         ---Includes `g>`, `g<`, `g>[count]{motion}` and `g<[count]{motion}`
-        extended = false
+        extended = false,
     },
 
     ---Pre-hook, called before commenting the line

@@ -18,9 +18,18 @@ cmp.setup {
         ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = {
-        -- { name = 'nvim_lsp', max_item_count = 10},
+        { name = 'nvim_lsp', max_item_count = 10},
         { name = 'buffer', keyword_length = 2 },
         { name = 'path' },
         { name = 'orgmode' },
     }
 }
+
+-- cmp.setup.cmdline(':', {
+--   mapping = cmp.mapping.preset.cmdline(),
+--   sources = cmp.config.sources({
+--     { name = 'path' }},
+--    {{ name = 'cmdline', keyword_length = 2 }
+--   })
+-- })
+--
