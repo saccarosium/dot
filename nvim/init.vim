@@ -6,10 +6,8 @@ set grepprg=rg\ --vimgrep\ --no-heading
 set guicursor=
 set laststatus=0
 set list lcs=trail:-,tab:>\ ,space:·,eol:¬
-set nobackup
 set noswapfile
 set nowrap
-set nowritebackup
 set nu relativenumber
 set smartindent
 set foldmethod=marker
@@ -17,7 +15,6 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set splitbelow
-set splitright
 set termguicolors
 set textwidth=80
 
@@ -34,7 +31,6 @@ set wildignore+=.git/
 " vars: {{{
 
 let mapleader=' '
-let maplocalleader = '\'
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
 let g:loaded_netrwSettings = 1

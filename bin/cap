@@ -1,6 +1,6 @@
 #!/bin/sh
 
-file="$SYNC/Projects/org/todo.org"
+file="$SYNC/Projects/todo.org"
 
 if [ -n "$*" ]; then
     echo "* TODO $*" >> "$file"

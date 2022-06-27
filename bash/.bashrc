@@ -105,7 +105,7 @@ ppath() {
     done
 } && export ppath
 
-ppath /usr/local/bin "$HOME"/.local/bin
+ppath /usr/local/bin "$HOME"/.local/bin /usr/local/opt/util-linux/bin /usr/local/opt/util-linux/sbin
 apath /usr/local/opt /opt/local/bin /opt/local/sbin "$HOME"/Library/Python/3.8/bin
 
 # ------------------------ bash shell options ------------------------

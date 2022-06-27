@@ -34,6 +34,7 @@ in {
     pkgsunstable.pythonFull
     pkgsunstable.shellcheck
     pkgsunstable.tmux
+    pkgsunstable.helix
     pkgsunstable.tree-sitter
   ];
 
