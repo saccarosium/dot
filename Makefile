@@ -15,6 +15,7 @@ build_terminal_env: # Build my terminal enviroment
 	$(LN) $(PWD)/lf $(XDG_CONFIG)
 	$(LN) $(PWD)/htop $(XDG_CONFIG)
 	$(LN) $(PWD)/bin $(XDG_DATA)
+	$(LN) $(PWD)/bat $(XDG_CONFIG)
 
 build_bash:
 	$(MKDIR) $(XDG_CONFIG)/readline

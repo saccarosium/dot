@@ -38,10 +38,9 @@ export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 export GOPATH="$XDG_DATA_HOME/go"
 
 __have wget && export WGETRC="$XDG_CONFIG_HOME/wgetrc"
-__have atom && export ATOM_HOME="$XDG_DATA_HOME/atom"
 __have gpg && export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 __have cargo && export CARGO_HOME="$XDG_DATA_HOME/cargo"
-__have nnn && export NNN_OPTS="QHedc"
+__have fzf && export FZF_DEFAULT_COMMAND="fd . -tf"
 
 __export_osx BASH_SILENCE_DEPRECATION_WARNING=1
 __export_osx OPEN="open"
@@ -53,7 +52,7 @@ __export_dir PROJECTS "$SYNC/Projects"
 __export_dir NOTES "$SYNC/wiki"
 __export_dir REPOS "$HOME/Repos"
 __export_dir DOTFILES "$REPOS/dot"
-__export_dir PLUGS "$XDG_DATA_HOME/bundle/"
+__export_dir PLUGS "$XDG_DATA_HOME/nvim/site/pack/bundle/opt"
 
 # ---------------------------------- editor ----------------------------------
 
@@ -105,7 +104,7 @@ ppath() {
     done
 } && export ppath
 
-ppath /usr/local/bin "$HOME"/.local/bin /usr/local/opt/util-linux/bin /usr/local/opt/util-linux/sbin
+ppath /usr/local/bin "$HOME"/.local/bin
 apath /usr/local/opt /opt/local/bin /opt/local/sbin "$HOME"/Library/Python/3.8/bin
 
 # ------------------------ bash shell options ------------------------
@@ -148,7 +147,6 @@ PROMPT_COMMAND="__ps1"
 
 # ----------------------------------- alias ----------------------------------
 
-__have ed && alias ed='ed -p ":"'
 __have grep && alias grep='grep --color=auto'
 __have egrep && alias egrep='egrep --color=auto'
 __have fgrep && alias fgrep='fgrep --color=auto'
@@ -160,15 +158,6 @@ __have git && alias gs='git stage '
 __have git && alias gu='git restore --stagged '
 __have ls && alias ls='ls --color'
 __have nvim && alias vi='nvim'
-__have wget && alias wget="wget --hsts-file=$XDG_CACHE_HOME/wget-hsts"
-
-# ------------------------------------ nix -----------------------------------
-
-# Preserve variable that nix do for you
-__source_if "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-# Nix Completion
-__source_if "$HOME/.nix-profile/etc/profile.d/nix.sh"
-__source_if "$HOME/.nix-profile/etc/profile.d/bash_completion.sh"
 
 # -------------------------------- completion --------------------------------
 
@@ -178,9 +167,3 @@ __source_if "/etc/profile.d/bash_completion.sh"
 __have gh && . <(gh completion -s bash)
 __have pandoc && . <(pandoc --bash-completion)
 __have make && complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
-
-# --------------------------------- autostart --------------------------------
-
-if [[ -n "$ALACRITTY" ]]; then
-    tm 0
-fi

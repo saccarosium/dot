@@ -33,3 +33,7 @@ map nd mkdir
 map <c-l> unselect
 map D delete
 map R $vimv $fx
+
+map gp cd ~/Documents/nextcloud/Projects
+map gr cd ~/Repos
+map g. cd ~/Repos/dot

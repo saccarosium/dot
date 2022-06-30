@@ -19,22 +19,17 @@ in {
     pkgs.shfmt
     pkgs.speedtest-cli
     pkgs.tree
-    pkgsunstable.age
     pkgsunstable.asciidoctor
     pkgsunstable.bash-completion
     pkgsunstable.clang-tools
-    pkgsunstable.efm-langserver
     pkgsunstable.fzf
     pkgsunstable.gh
     pkgsunstable.git
-    pkgsunstable.jq
     pkgsunstable.lf
-    pkgsunstable.python310Packages.pynvim
     pkgsunstable.neovim
     pkgsunstable.pythonFull
     pkgsunstable.shellcheck
     pkgsunstable.tmux
-    pkgsunstable.helix
     pkgsunstable.tree-sitter
   ];
 
