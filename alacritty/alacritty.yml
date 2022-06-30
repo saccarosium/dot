@@ -82,7 +82,7 @@ window:
   startup_mode:  Windowed
 
   # Window title
-  # title: Alacritty
+  title: Alacritty
 
   # Allow terminal applications to change Alacritty's window title.
   dynamic_title: true
@@ -746,8 +746,6 @@ key_bindings:
   # - { key: Return,   mods: Alt,           action: ToggleFullscreen }
 
   # (macOS only)
-  - { key: K,              mods: Command, mode: ~Vi|~Search, chars: "\x0c"                 }
-  - { key: K,              mods: Command, mode: ~Vi|~Search, action: ClearHistory          }
   - { key: Key0,           mods: Command,                    action: ResetFontSize         }
   - { key: Equals,         mods: Command,                    action: IncreaseFontSize      }
   - { key: Plus,           mods: Command,                    action: IncreaseFontSize      }
@@ -757,8 +755,6 @@ key_bindings:
   - { key: V,              mods: Command,                    action: Paste                 }
   - { key: C,              mods: Command,                    action: Copy                  }
   - { key: C,              mods: Command, mode: Vi|~Search,  action: ClearSelection        }
-  - { key: H,              mods: Command,                    action: None                  }
-  - { key: H,              mods: Command|Alt,                action: None                  }
   - { key: M,              mods: Command,                    action: Minimize              }
   - { key: Q,              mods: Command,                    action: Quit                  }
   # - { key: W,              mods: Command,                    action: Quit                  }
@@ -779,7 +775,6 @@ key_bindings:
   - { key: Key8, mods: Command, chars: "\x02\x38" }
   - { key: Key9, mods: Command, chars: "\x02\x39" }
     # Switch to last tmux session
-  - { key: L, mods: Command, chars: "\x02\x4c" }
   - { key: LBracket, mods: Command, chars: "\x02\x5b" }
     # Change to the previous tmux window
   - { key: LBracket, mods: Command|Shift, chars: "\x02\x70" }
@@ -803,6 +798,11 @@ key_bindings:
   - { key: Key5, mods: Command|Shift, chars: "\x02\x25" }
     # Make a split
   - { key: Apostrophe, mods: Command|Shift, chars: "\x02\x22" }
+  - { key: H, mods: Command, chars: "\x02\x68" }
+  - { key: J, mods: Command, chars: "\x02\x6a" }
+  - { key: K, mods: Command, chars: "\x02\x6b" }
+  - { key: L, mods: Command, chars: "\x02\x6c" }
+    
 
 debug:
   # Display the time it takes to redraw each frame.
