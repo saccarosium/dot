@@ -23,7 +23,11 @@ do
     [ -n "$query" ] || exit 1
     if [ -n "$(echo "$query" | grep  '\.')" ]; then
         query="$(echo "$query" | grep  '\.')"
-        "$EDITOR" "$query"
+        if [ -n "$(echo "$query" | grep "\.pdf")" ]; then
+            "$OPEN" "$query"
+        else
+            "$EDITOR" "$query"
+        fi
     else
         query="${query}${ext}"
         "$EDITOR" "$query"

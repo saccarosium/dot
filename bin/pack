@@ -1,0 +1,63 @@
+#!/bin/sh
+
+plugin_list="$DOTFILES"/etc/packages/neovim
+bundle_dir="$XDG_DATA_HOME"/nvim/site/pack/bundle/opt
+vim="nvim"
+
+[ -f "$plugin_list" ] || touch "$plugin_list"
+[ -d "$bundle_dir" ] || mkdir -p "$bundle_dir"
+cd "$bundle_dir" || exit 1
+
+install() {
+    git clone --depth 1 "$1" &&
+    echo "$1" >> "$plugin_list" &&
+    "$vim" -c "helptags ALL | qall"
+}
+
+update() {
+    find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;
+}
+
+clean() {
+    : > "$plugin_list"
+    find . -mindepth 1 -maxdepth 1 -type d -exec git -C {} remote get-url --push origin \; >> "$plugin_list"
+}
+
+list() {
+    github=https://github.com/
+    gitlab=https://gitlab.com/
+    if [ -z "$1" ]; then
+        cat "$plugin_list" | sed "s|\.git||g ; s|$github||g ; s|$gitlab||g"
+    else
+        cat "$plugin_list" | sed "s|\.git||g ; s|$github||g ; s|$gitlab||g" | sed -n "$1"p
+    fi
+}
+
+delete() {
+    [ -d "$1" ] &&
+        rm -rf "$1" &&
+        clean
+}
+
+while getopts "i:d:ucl" arg; do
+    case $arg in
+    i)
+        install "$2"
+        ;;
+    u)
+        update
+        ;;
+    c)
+        clean
+        ;;
+    l)
+        list
+        ;;
+    d)
+        delete "$2"
+        ;;
+    *)
+        exit 0
+        ;;
+    esac
+done

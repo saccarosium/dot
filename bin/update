@@ -34,8 +34,12 @@ if _exist home-manager; then
     home-manager switch
 fi
 
+if _exist pip; then
+    pip install --upgrade pip
+fi
+
 if _exist nvim; then
-    nvim +PlugUpdate +PlugUpgrade +qall
+    nvim +TSUpdate +UpdateRemotePlugins +qall
 fi
 
 if [[ -n "$DOTFILES" ]]; then
@@ -44,3 +48,4 @@ if [[ -n "$DOTFILES" ]]; then
     git commit -m "general: automatic update"
     git push origin
 fi
+
