@@ -2,8 +2,6 @@ local wezterm = require 'wezterm';
 local dark_plus = require 'dark_plus';
 
 return {
-  freetype_load_target = "Normal",
-  freetype_render_target = "Normal",
   font = wezterm.font({
     family="JetBrains Mono",
     stretch="ExtraExpanded",

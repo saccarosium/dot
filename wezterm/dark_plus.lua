@@ -29,7 +29,7 @@ return {
         -- The active tab is the one that has focus in the window
         active_tab = {
             -- The color of the background area for the tab
-            bg_color = "#2472c8",
+            bg_color = "#cccccc",
             -- The color of the text for the tab
             fg_color = "#1e1e1e",
             -- Specify whether you want "Half", "Normal" or "Bold" intensity for the
