@@ -9,11 +9,13 @@ local function load(package, module)
     end
 end
 
-load('vim-commentary')
 load('vim-code-dark')
+load('vim-commentary')
+load('vim-eunuch')
 load('vim-fugitive')
 load('orgmode')
 load('nvim-treesitter', 'lua')
 require('sacca.orgmode')
+load('colorizer', 'lua')
 load('fzf')
 load('fzf.vim')

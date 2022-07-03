@@ -6,7 +6,7 @@ vim.keymap.set('n', 'go', 'o<esc>k')
 vim.keymap.set('n', 'gO', 'O<esc>j')
 vim.keymap.set('n', '<C-q>', function()
     if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix')) == 1 then
-        vim.api.nvim_comman('copen')
+        vim.api.nvim_command('copen')
     else
         vim.api.nvim_command('cclose')
     end

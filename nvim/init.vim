@@ -21,7 +21,6 @@
 "   * after/plugin/*
 "       all the configurations for vimL based plugins
 
-
 lua require("settings")
 lua require("plugins")
 lua require("mappings")
@@ -34,3 +33,4 @@ cnoreabbrev sb sp<space><bar><space>b
 cnoreabbrev db bdelete!
 cnoreabbrev dot $DOTFILES
 cnoreabbrev rc $MYVIMRC
+

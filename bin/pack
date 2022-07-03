@@ -1,16 +1,22 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 plugin_list="$DOTFILES"/etc/packages/neovim
 bundle_dir="$XDG_DATA_HOME"/nvim/site/pack/bundle/opt
+tmp="/tmp/packtmp"
 vim="nvim"
 
-[ -f "$plugin_list" ] || touch "$plugin_list"
-[ -d "$bundle_dir" ] || mkdir -p "$bundle_dir"
+[[ -f $plugin_list ]] || touch "$plugin_list"
+[[ -d $bundle_dir ]] || mkdir -p "$bundle_dir"
 cd "$bundle_dir" || exit 1
 
+git_basename() { basename "$1" | sed "s/\..*//g"; }
+
 install() {
-    git clone --depth 1 "$1" &&
-    echo "$1" >> "$plugin_list" &&
+    local url="$1"
+    local name="$2"
+    [[ -z $name ]] && name="$(git_basename "$url")"
+    git clone --depth 50 "$url" "$name" &&
+    jq <"$plugin_list" ". + [{\"name\": \"$1\", \"url\": \"$2\"}]" >"$tmp" && cat "$tmp" >"$plugin_list"
     "$vim" -c "helptags ALL | qall"
 }
 
@@ -18,43 +24,45 @@ update() {
     find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;
 }
 
-clean() {
-    : > "$plugin_list"
-    find . -mindepth 1 -maxdepth 1 -type d -exec git -C {} remote get-url --push origin \; >> "$plugin_list"
+rebuild() {
+    local plugs
+    plugs="$(find . -maxdepth 1 -type d)"
+    echo "[]" >"$plugin_list"
+    for i in $plugs; do
+        [[ $i == '.' ]] && continue
+        url="$([[ -d $i ]] && git -C "$i" remote get-url origin)"
+        name="$([[ -d $i ]] && echo "$i" | sed "s|\./||g")"
+        jq <"$plugin_list" ". + [{\"name\": \"$name\", \"url\": \"$url\"}]" >"$tmp" && cat "$tmp" >"$plugin_list"
+    done
 }
 
 list() {
-    github=https://github.com/
-    gitlab=https://gitlab.com/
-    if [ -z "$1" ]; then
-        cat "$plugin_list" | sed "s|\.git||g ; s|$github||g ; s|$gitlab||g"
-    else
-        cat "$plugin_list" | sed "s|\.git||g ; s|$github||g ; s|$gitlab||g" | sed -n "$1"p
-    fi
+    jq '.[] | .name' <"$plugin_list"
 }
 
 delete() {
-    [ -d "$1" ] &&
-        rm -rf "$1" &&
-        clean
+    for i in "$@"; do
+        [[ $i == '-d' ]] && continue
+        [[ -d $i ]] && rm -rf "$i" && jq <"$plugin_list" ". - map(select(.name == \"$i\"))" >"$tmp" && cat "$tmp" >"$plugin_list"
+    done
 }
 
-while getopts "i:d:ucl" arg; do
+while getopts "i:d:urle" arg; do
     case $arg in
     i)
-        install "$2"
+        install "$2" "$3"
         ;;
     u)
         update
         ;;
-    c)
-        clean
+    r)
+        rebuild
         ;;
     l)
-        list
+        list "$2"
         ;;
     d)
-        delete "$2"
+        delete "$@"
         ;;
     *)
         exit 0

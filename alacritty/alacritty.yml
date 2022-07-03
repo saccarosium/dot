@@ -22,7 +22,6 @@ env:
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
   TERM: xterm-256color
-  ALACRITTY: yes
 
 window:
   # Window dimensions (changes require restart)
@@ -79,10 +78,10 @@ window:
   #
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
-  startup_mode:  Windowed
+  startup_mode:  SimpleFullscreen
 
   # Window title
-  title: Alacritty
+  # title: Alacritty
 
   # Allow terminal applications to change Alacritty's window title.
   dynamic_title: true

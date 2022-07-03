@@ -1,8 +1,46 @@
-https://github.com/tpope/vim-eunuch.git
-https://github.com/nvim-orgmode/orgmode.git
-https://github.com/tomasiser/vim-code-dark.git
-https://github.com/tpope/vim-fugitive.git
-https://github.com/nvim-treesitter/nvim-treesitter.git
-https://github.com/tpope/vim-commentary.git
-https://github.com/junegunn/fzf.vim.git
-https://github.com/junegunn/fzf.git
+[
+  {
+    "name": "vim-eunuch",
+    "url": "https://github.com/tpope/vim-eunuch.git"
+  },
+  {
+    "name": "vim-dotoo",
+    "url": "https://github.com/dhruvasagar/vim-dotoo.git"
+  },
+  {
+    "name": "fzf.vim",
+    "url": "https://github.com/junegunn/fzf.vim.git"
+  },
+  {
+    "name": "orgmode",
+    "url": "https://github.com/nvim-orgmode/orgmode.git"
+  },
+  {
+    "name": "vim-code-dark",
+    "url": "https://github.com/saccarosium/vim-code-dark.git"
+  },
+  {
+    "name": "vim-fugitive",
+    "url": "https://github.com/tpope/vim-fugitive.git"
+  },
+  {
+    "name": "nvim-treesitter",
+    "url": "https://github.com/nvim-treesitter/nvim-treesitter.git"
+  },
+  {
+    "name": "colorizer",
+    "url": "https://github.com/norcalli/nvim-colorizer.lua.git"
+  },
+  {
+    "name": "vim-commentary",
+    "url": "https://github.com/tpope/vim-commentary.git"
+  },
+  {
+    "name": "fzf",
+    "url": "https://github.com/junegunn/fzf.git"
+  },
+  {
+    "name": "https://github.com/tpope/vim-dispatch.git",
+    "url": ""
+  }
+]

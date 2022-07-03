@@ -36,6 +36,7 @@ vim.opt.relativenumber = true
 vim.opt.foldmethod = 'marker'
 vim.opt.wrap = false
 vim.opt.textwidth = 80
+vim.opt.title = true
 vim.opt.wildignorecase = true
 vim.opt.wildignore = vim.opt.wildignore + '*.o'
 vim.opt.wildignore = vim.opt.wildignore + '*.a'

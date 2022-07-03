@@ -7,5 +7,5 @@ while :; do
     selected=$(find ./* -type d -maxdepth 2 | sort | fzf)
     [ -d "$selected" ] || exit 1
     test $? -gt 128 && break
-    mpv --no-audio-display "$selected"
+    vlc "$selected"
 done
