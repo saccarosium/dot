@@ -3,11 +3,11 @@ local dark_plus = require 'dark_plus';
 
 return {
   font = wezterm.font({
-    family="JetBrains Mono",
+    family="JetBrains Mono NL",
     stretch="ExtraExpanded",
     weight="DemiBold",
   }),
-  font_size = 13,
+  font_size = 13.5,
   custom_block_glyphs = false,
   hide_tab_bar_if_only_one_tab = true,
   window_decorations = "RESIZE",
