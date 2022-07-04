@@ -1,5 +1,3 @@
 #!/bin/sh
 
-target="$SYNC/Projects/todo.org"
-
-[ -f "$target" ] && "$EDITOR" "$target"
+nvim +'norm gAto'
