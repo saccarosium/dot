@@ -4,4 +4,4 @@ fun! commands#editFiletype()
     exe ':'.s:mode.' '.expand('$XDG_CONFIG_HOME/nvim/after/ftplugin/').s:type.'.vim'
 endfun
 
-command! Editfiletype :call sacca#editFiletype()
+command! Editfiletype :call commands#editFiletype()
