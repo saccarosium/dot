@@ -1,0 +1,7 @@
+#!/bin/sh
+
+file="$(fd . --type f --hidden | fzf --layout=reverse --height 50%)"
+
+[ -z $file ] && exit 1
+
+"$EDITOR" "$file"

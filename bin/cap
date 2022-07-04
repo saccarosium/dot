@@ -3,9 +3,6 @@
 file="$SYNC/Projects/todo.org"
 
 if [ -n "$*" ]; then
-    echo "* TODO $*" >> "$file"
-    printf "\e[33mAdded 1 task\e[0m\n"
-else
-    exit 1
+    echo "* TODO $*" >> "$file" &&
+    printf "\e[33mAdded task\e[0m\n"
 fi
-
