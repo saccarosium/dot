@@ -11,14 +11,12 @@ end
 vim.opt.swapfile = false
 
 vim.opt.shortmess = vim.opt.shortmess + 'A' -- ignore annoying swapfile messages
-vim.opt.shortmess = vim.opt.shortmess + 'I' -- no splash screen
 vim.opt.shortmess = vim.opt.shortmess + 'O' -- file-read message overwrites previous
 vim.opt.shortmess = vim.opt.shortmess + 'T' -- truncate non-file messages in middle
-vim.opt.shortmess = vim.opt.shortmess + 'W' -- don't echo "[w]"/"[written]" when writing
 vim.opt.shortmess = vim.opt.shortmess + 'a' -- use abbreviations in messages eg. `[RO]` instead of `[readonly]`
 vim.opt.shortmess = vim.opt.shortmess + 'c' -- completion messages
 vim.opt.shortmess = vim.opt.shortmess + 'o' -- overwrite file-written messages
-vim.opt.shortmess = vim.opt.shortmess + 't' -- truncate file messages at start
+vim.opt.shortmess = vim.opt.shortmess + 't' -- overwrite file-written messages
 
 vim.g.mapleader = ' '
 
@@ -36,7 +34,6 @@ vim.opt.relativenumber = true
 vim.opt.foldmethod = 'marker'
 vim.opt.wrap = false
 vim.opt.textwidth = 80
-vim.opt.title = true
 vim.opt.wildignorecase = true
 vim.opt.wildignore = vim.opt.wildignore + '*.o'
 vim.opt.wildignore = vim.opt.wildignore + '*.a'
