@@ -4,16 +4,8 @@
     "url": "https://github.com/tpope/vim-eunuch.git"
   },
   {
-    "name": "vim-dotoo",
-    "url": "https://github.com/dhruvasagar/vim-dotoo.git"
-  },
-  {
     "name": "fzf.vim",
     "url": "https://github.com/junegunn/fzf.vim.git"
-  },
-  {
-    "name": "orgmode",
-    "url": "https://github.com/nvim-orgmode/orgmode.git"
   },
   {
     "name": "vim-code-dark",
@@ -40,7 +32,11 @@
     "url": "https://github.com/junegunn/fzf.git"
   },
   {
-    "name": "https://github.com/tpope/vim-dispatch.git",
-    "url": ""
+    "name": "vim-dotoo",
+    "url": "https://github.com/dhruvasagar/vim-dotoo.git"
+  },
+  {
+    "name": "vim-table-mode",
+    "url": "https://github.com/dhruvasagar/vim-table-mode.git"
   }
 ]
