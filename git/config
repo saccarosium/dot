@@ -10,3 +10,8 @@
 [user]
     email = "github.e41mv@aleeas.com"
     name = "saccarosium"
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process

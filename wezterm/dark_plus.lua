@@ -49,12 +49,12 @@ return {
         },
         -- Inactive tabs are the tabs that do not have focus
         inactive_tab = {
-            bg_color = "#111111",
-            fg_color = "#666666"
+            bg_color = "#333333",
+            fg_color = "#D4D4D4"
             -- The same options that were listed under the `active_tab` section above
             -- can also be used for `inactive_tab`.
         },
         -- The new tab button that let you create new tabs
-        new_tab = {bg_color = "#111111", fg_color = "#D4D4D4"}
+        new_tab = {bg_color = "#333333", fg_color = "#D4D4D4"}
     }
 }

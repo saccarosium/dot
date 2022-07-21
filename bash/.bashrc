@@ -48,8 +48,7 @@ __export_osx OPEN="open"
 __export_linux OPEN="xdg-open"
 
 __export_dir SYNC "$XDG_DOCUMENTS_DIR/nextcloud"
-__export_dir PROJECTS "$SYNC/Projects"
-__export_dir NOTES "$SYNC/wiki"
+__export_dir NOTES "$SYNC/notes"
 __export_dir REPOS "$HOME/Repos"
 __export_dir DOTFILES "$REPOS/dot"
 __export_dir PLUGS "$XDG_DATA_HOME/nvim/site/pack/bundle/opt"
@@ -150,18 +149,13 @@ PROMPT_COMMAND="__ps1"
 __have grep && alias grep='grep --color=auto'
 __have egrep && alias egrep='egrep --color=auto'
 __have fgrep && alias fgrep='fgrep --color=auto'
-__have git && alias ga='git add '
-__have git && alias gc='git commit '
-__have git && alias gg='git status'
-__have git && alias gp='git push '
-__have git && alias gs='git stage '
-__have git && alias gu='git restore --stagged '
+__have nvim && alias gs="nvim +G +'norm o'"
 __have ls && alias ls='ls --color'
 __have nvim && alias vi='nvim'
 
 # -------------------------------- completion --------------------------------
 
-__source_if "$HOME/.local/bin/completions/brew-completion.sh"
+__source_if "$DOTFILES/etc/osx/brew-completion.sh"
 __source_if "/usr/local/etc/profile.d/bash_completion.sh"
 __source_if "/etc/profile.d/bash_completion.sh"
 __have gh && . <(gh completion -s bash)

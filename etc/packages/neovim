@@ -4,8 +4,20 @@
     "url": "https://github.com/tpope/vim-eunuch.git"
   },
   {
-    "name": "fzf.vim",
-    "url": "https://github.com/junegunn/fzf.vim.git"
+    "name": "vim-dotoo",
+    "url": "https://github.com/dhruvasagar/vim-dotoo.git"
+  },
+  {
+    "name": "vim-table-mode",
+    "url": "https://github.com/dhruvasagar/vim-table-mode.git"
+  },
+  {
+    "name": "cmp-cmdline",
+    "url": "https://github.com/hrsh7th/cmp-cmdline.git"
+  },
+  {
+    "name": "cmp-buffer",
+    "url": "https://github.com/hrsh7th/cmp-buffer.git"
   },
   {
     "name": "vim-code-dark",
@@ -28,15 +40,11 @@
     "url": "https://github.com/tpope/vim-commentary.git"
   },
   {
-    "name": "fzf",
-    "url": "https://github.com/junegunn/fzf.git"
+    "name": "cmp-path",
+    "url": "https://github.com/hrsh7th/cmp-path.git"
   },
   {
-    "name": "vim-dotoo",
-    "url": "https://github.com/dhruvasagar/vim-dotoo.git"
-  },
-  {
-    "name": "vim-table-mode",
-    "url": "https://github.com/dhruvasagar/vim-table-mode.git"
+    "name": "nvim-cmp",
+    "url": "https://github.com/hrsh7th/nvim-cmp.git"
   }
 ]

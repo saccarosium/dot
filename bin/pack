@@ -28,9 +28,11 @@ rebuild() {
     echo "[]" >"$plugin_list"
     for i in $plugs; do
         [[ $i == '.' ]] && continue
-        url="$([[ -d $i ]] && git -C "$i" remote get-url origin)"
-        name="$([[ -d $i ]] && echo "$i" | sed "s|\./||g")"
-        jq <"$plugin_list" ". + [{\"name\": \"$name\", \"url\": \"$url\"}]" >"$tmp" && cat "$tmp" >"$plugin_list"
+        if [[ -d $i ]]; then
+            url="$(git -C "$i" remote get-url origin)"
+            name="${i//\.\//}"
+            jq <"$plugin_list" ". + [{\"name\": \"$name\", \"url\": \"$url\"}]" >"$tmp" && cat "$tmp" >"$plugin_list"
+        fi
     done
 }
 

@@ -20,6 +20,7 @@ cleaner \
     .bash_profile \
     .lesshst \
     .DS_Store \
+    .python_history \
     .zshrc \
     .zsh_history \
     .zsh_sessions \

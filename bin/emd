@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ -S "$XDG_RUNTIME_DIR/emacs/server" ]; then
+    emacsclient "$@"
+else
+    emacs --daemon 2>/dev/null
+    emacsclient "$@"
+fi
